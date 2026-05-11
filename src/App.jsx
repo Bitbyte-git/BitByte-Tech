@@ -27,7 +27,7 @@ export default function App() {
   const planetRef = useRef(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [navStuck, setNavStuck] = useState(false)
-  const pathname = window.location.pathname
+  const pathname = window.location.pathname.replace(/\/$/, '') || '/'
   const isWebDevelopmentPage = pathname === '/services/web-development'
   const isCustomWebAppPage = window.location.pathname === '/services/web-development/custom-web-applications'
   const isEcommercePage = pathname === '/services/web-development/e-commerce-solutions'
