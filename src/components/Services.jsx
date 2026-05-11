@@ -1,5 +1,11 @@
 import { services } from '../constants'
 
+const serviceRoutes = {
+  'Web Development': '/services/web-development',
+  'Digital Marketing': '/services/digital-marketing/ai-powered-digital-marketing-solutions',
+  'Business Analytics': '/services/business-analytics/data-driven-business-analytics-solutions',
+}
+
 export default function Services() {
   return (
     <section id="services" className="section wrap center">
@@ -12,15 +18,19 @@ export default function Services() {
       </p>
       <div className="grid-5">
         {services.map((service, index) => (
-          <div className={`svc-card reveal reveal-delay-${Math.min(index + 1, 5)}`} key={service.title}>
+          <a
+            className="svc-card"
+            href={serviceRoutes[service.title] || '#contact'}
+            key={service.title}
+          >
             <span className="svc-icon">{service.icon}</span>
             <div className="svc-title">{service.title}</div>
             <p className="svc-desc">{service.desc}</p>
-            <a href="#contact" className="svc-link">
+            <span className="svc-link">
               Learn More →
-            </a>
+            </span>
             <div className="svc-bar" />
-          </div>
+          </a>
         ))}
       </div>
     </section>

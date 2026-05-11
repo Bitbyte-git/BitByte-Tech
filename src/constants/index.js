@@ -10,27 +10,17 @@ export const services = [
   {
     icon: '🌐',
     title: 'Web Development',
-    desc: 'Blazing-fast, scalable websites and web apps built with React, Next.js, Node.js and modern cloud infrastructure.',
+    desc: 'We create fast, responsive websites and web applications tailored to your business goals. Every solution is built with clean code, intuitive design, and scalable architecture to ensure long-term performance. Our websites help businesses build credibility, engage customers, and generate results.',
   },
   {
     icon: '📣',
     title: 'Digital Marketing',
-    desc: 'Data-driven campaigns across Google, Meta, and LinkedIn that generate qualified leads and measurable ROI.',
+    desc: 'We develop targeted digital marketing campaigns that increase your online visibility and attract the right audience. From SEO and Google Ads to social media and content marketing, our strategies are designed to drive traffic, leads, and conversions.',
   },
   {
-    icon: '🔍',
-    title: 'SEO Optimization',
-    desc: 'Technical SEO, content strategy, and authority building to rank your brand at the top of every search engine.',
-  },
-  {
-    icon: '🎨',
-    title: 'UI/UX Design',
-    desc: 'Human-centered design experiences that captivate users, reduce friction, and drive conversion at every touchpoint.',
-  },
-  {
-    icon: '✦',
-    title: 'Branding',
-    desc: 'Strategic brand identity: logos, guidelines, and visual language that make your company impossible to forget.',
+    icon: '📊',
+    title: 'Business Analytics',
+    desc: 'We transform your business data into meaningful insights that support smarter decisions. Through custom dashboards, automated reports, and in-depth analysis, we help you track performance, uncover opportunities, and optimize operations.',
   },
 ]
 

@@ -1,6 +1,19 @@
+import { useRef, useState, useEffect } from 'react'
 import { floatCards } from '../constants'
 
 export default function Hero({ planetRef }) {
+  const videoRef = useRef(null)
+  const [gifKey, setGifKey] = useState(0)
+  const [isHovered, setIsHovered] = useState(false)
+
+  useEffect(() => {
+    if (isHovered) return; // Don't restart GIF if hovered
+
+    const interval = setInterval(() => {
+      setGifKey(prev => prev + 1)
+    }, 8000)
+    return () => clearInterval(interval)
+  }, [isHovered])
   return (
     <section id="hero" className="wrap">
       {/* Removed static hero-bg-layer divs to allow the dynamic background canvas to shine through */}
@@ -10,16 +23,40 @@ export default function Hero({ planetRef }) {
       <div className="neb neb-3" />
 
       <div className="planet-sys" ref={planetRef}>
-        <div className="or or1" />
-        <div className="or or2" />
-        <div className="or or3" />
-        <div className="or or4" />
-        <div className="or or5" />
-        <img className="planet-real" src="/assets/planet.png" alt="Digital planet" />
-        {/* <img className="planet-saturn" src="/assets/saturn.png" alt="" aria-hidden="true" /> */}
-        {/* <img className="planet-mini-orange" src="/assets/gas-giant.png" alt="" aria-hidden="true" /> */}
-        <img className="astro-float" src="/assets/astronaut.png" alt="" aria-hidden="true" />
-        {/* <div className="tex-ring-overlay" /> */}
+        <div 
+          className="hero-gif-circle"
+          onMouseEnter={() => {
+            setIsHovered(true);
+            videoRef.current?.pause();
+          }}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            videoRef.current?.play();
+          }}
+        >
+          <img key={gifKey} src={`/assets/Hero-bg.gif?v=${gifKey}`} alt="" aria-hidden="true" />
+        </div>
+        <video 
+          ref={videoRef}
+          className="planet-real saturn-hero" 
+          src="/assets/hero-section-video.mp4" 
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+          onMouseEnter={() => {
+            setIsHovered(true);
+            videoRef.current?.pause();
+          }}
+          onMouseLeave={() => {
+            setIsHovered(false);
+            videoRef.current?.play();
+          }}
+          onEnded={(e) => {
+            e.target.currentTime = 0;
+            e.target.play();
+          }}
+        />
       </div>
 
       <div className="hero-content">
