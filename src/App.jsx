@@ -29,11 +29,11 @@ export default function App() {
   const [navStuck, setNavStuck] = useState(false)
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
   const isWebDevelopmentPage = pathname === '/services/web-development'
-  const isCustomWebAppPage = window.location.pathname === '/services/web-development/custom-web-applications'
+  const isCustomWebAppPage = pathname === '/services/web-development/custom-web-applications'
   const isEcommercePage = pathname === '/services/web-development/e-commerce-solutions'
   const isPortalsPage = pathname === '/services/web-development/web-portals-dashboards'
-  const isDigitalMarketingPage = window.location.pathname === '/services/digital-marketing/ai-powered-digital-marketing-solutions'
-  const isBusinessAnalyticsPage = window.location.pathname === '/services/business-analytics/data-driven-business-analytics-solutions'
+  const isDigitalMarketingPage = pathname === '/services/digital-marketing/ai-powered-digital-marketing-solutions'
+  const isBusinessAnalyticsPage = pathname === '/services/business-analytics/data-driven-business-analytics-solutions'
   const isServiceDetailPage =
     isWebDevelopmentPage || isCustomWebAppPage || isEcommercePage || isPortalsPage || isDigitalMarketingPage || isBusinessAnalyticsPage
 
