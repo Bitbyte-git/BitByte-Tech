@@ -105,8 +105,8 @@ const analyticsFaqs = [
     'Yes. Every analytics solution is customized around your industry, goals, data sources, KPIs, team workflow, reporting needs, and decision-making process.',
   ],
   [
-    'Why choose BitByte Technology for business analytics?',
-    'BitByte Technology combines data strategy, dashboard design, automation, AI-powered insights, and business growth thinking to help companies turn data into clear decisions and measurable outcomes.',
+    'Why choose BitByte Technologies for business analytics?',
+    'BitByte Technologies combines data strategy, dashboard design, automation, AI-powered insights, and business growth thinking to help companies turn data into clear decisions and measurable outcomes.',
   ],
 ]
 
@@ -245,7 +245,7 @@ export default function BusinessAnalyticsSolutions() {
 
       <section className="dm-why reveal">
         <div className="service-section-eyebrow center">Why Choose</div>
-        <h2 className="dm-section-title">Why Choose BitByte Technology?</h2>
+        <h2 className="dm-section-title">Why Choose BitByte Technologies?</h2>
         <div className="dm-why-grid">
           {analyticsFeatures.map(([icon, title]) => (
             <div className="dm-why-card ba-why-card" key={title}>

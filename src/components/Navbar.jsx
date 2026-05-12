@@ -2,12 +2,18 @@ import { navLinks } from '../constants'
 import Logo from './Logo'
 
 export default function Navbar({ stuck, onMenuOpen, rootLinks = false }) {
-  const hrefFor = (href) => (rootLinks ? `/${href}` : href)
+  const hrefFor = (href) => {
+    if (href.startsWith('/')) return href
+    return rootLinks ? `/${href}` : href
+  }
 
   return (
     <nav id="navbar" className={stuck ? 'stuck' : ''}>
       <a href={hrefFor('#hero')} className="logo-wrap" aria-label="Bit Byte Technologies home">
         <Logo idPrefix="nav-logo" />
+        <div className="logo-txt">
+         <em>Bit Byte</em>
+        </div>
       </a>
       <ul className="nav-links">
         {navLinks.map(([href, label]) => (

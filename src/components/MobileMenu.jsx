@@ -1,7 +1,10 @@
 import { navLinks } from '../constants'
 
 export default function MobileMenu({ open, onClose, rootLinks = false }) {
-  const hrefFor = (href) => (rootLinks ? `/${href}` : href)
+  const hrefFor = (href) => {
+    if (href.startsWith('/')) return href
+    return rootLinks ? `/${href}` : href
+  }
 
   return (
     <div className={`mob-menu ${open ? 'open' : ''}`} id="mobMenu">

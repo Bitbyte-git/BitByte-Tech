@@ -1,22 +1,33 @@
 import { socialIcons } from '../constants'
 import Logo from './Logo'
 
-export default function Footer() {
+export default function Footer({ rootLinks = false }) {
   const footerColumns = [
-    ['Services', ['Web Development', 'Digital Marketing', 'SEO Optimization', 'UI/UX Design', 'Branding']],
+    ['Services', ['Web Development', 'Digital Marketing', "Business Analytics"]],
     ['Company', ['About Us', 'Portfolio', 'Careers', 'Testimonials', 'Contact']],
-    ['Contact', ['hello@bitbytetech.com', '+91 98765 43210', 'Tiruchirappalli, TN', 'Privacy Policy', 'Terms of Service']],
+    ['Contact', ['reacus@bitbytetech.org', '+91 99437 43136', 'BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.', 'Privacy Policy', 'Terms of Service']],
   ]
+
+  const hrefs = {
+    'LinkedIn': 'https://www.linkedin.com/in/bit-byte-technologies-4aa820406/',
+    'Twitter': 'https://x.com/BitbyteReachus',
+    'Instagram': 'https://www.instagram.com/bit_byte.technologies/',
+  }
 
   const hrefFor = (item) => {
     const map = {
       'About Us': '#founder',
       Portfolio: '#portfolio',
-      Careers: '#careers',
+      Careers: '/careers',
       Testimonials: '#testimonials',
       Contact: '#contact',
+      'Web Development': '/services/web-development',
+      'Digital Marketing': '/services/digital-marketing/ai-powered-digital-marketing-solutions',
+      'Business Analytics': '/services/business-analytics/data-driven-business-analytics-solutions',
     }
-    return map[item] || '#contact'
+    const href = map[item] || '#contact'
+    if (href.startsWith('/')) return href
+    return rootLinks ? `/${href}` : href
   }
 
   return (
@@ -29,7 +40,7 @@ export default function Footer() {
           <p>Transforming ideas into digital reality: one line of code, one campaign, one galaxy at a time.</p>
           <div className="social-row" style={{ marginTop: 20 }}>
             {socialIcons.slice(0, 4).map(([label, icon]) => (
-              <a href="#" className="soc-btn" aria-label={label} key={label}>
+              <a href={hrefs[label] || '#'} className="soc-btn" aria-label={label} key={label}>
                 <i className={icon} aria-hidden="true" />
               </a>
             ))}
@@ -50,11 +61,11 @@ export default function Footer() {
       </div>
       <div className="footer-bottom">
         <div className="footer-copy">
-          © {new Date().getFullYear()} <span>Bit Byte Technologies</span>. All rights reserved. Built with React, Vite, and Tailwind.
+          © {new Date().getFullYear()} <span>Bit Byte Technologies</span>. All rights reserved. Built by <a style={{ color: '#a4ec70' }} href="https://www.linkedin.com/in/roshini-govindaraj-233941331/">Roshini G.</a>
         </div>
         <div className="footer-socials">
           {socialIcons.slice(0, 3).map(([label, icon]) => (
-            <a href="#" className="soc-btn" aria-label={label} key={label}>
+            <a href={hrefs[label] || '#'} className="soc-btn" aria-label={label} key={label}>
               <i className={icon} aria-hidden="true" />
             </a>
           ))}

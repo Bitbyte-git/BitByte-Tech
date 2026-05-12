@@ -1,62 +1,15 @@
-import { useRef, useState, useEffect } from 'react'
 import { floatCards } from '../constants'
+import BitByteHero from './BitByteHero'
 
 export default function Hero({ planetRef }) {
-  const videoRef = useRef(null)
-  const [gifKey, setGifKey] = useState(0)
-  const [isHovered, setIsHovered] = useState(false)
-
-  useEffect(() => {
-    if (isHovered) return; // Don't restart GIF if hovered
-
-    const interval = setInterval(() => {
-      setGifKey(prev => prev + 1)
-    }, 8000)
-    return () => clearInterval(interval)
-  }, [isHovered])
   return (
     <section id="hero" className="wrap">
-      {/* Removed static hero-bg-layer divs to allow the dynamic background canvas to shine through */}
-
       <div className="neb neb-1" />
       <div className="neb neb-2" />
       <div className="neb neb-3" />
 
       <div className="planet-sys" ref={planetRef}>
-        <div 
-          className="hero-gif-circle"
-          onMouseEnter={() => {
-            setIsHovered(true);
-            videoRef.current?.pause();
-          }}
-          onMouseLeave={() => {
-            setIsHovered(false);
-            videoRef.current?.play();
-          }}
-        >
-          <img key={gifKey} src={`/assets/Hero-bg.gif?v=${gifKey}`} alt="" aria-hidden="true" />
-        </div>
-        <video 
-          ref={videoRef}
-          className="planet-real saturn-hero" 
-          src="/assets/hero-section-video.mp4" 
-          autoPlay 
-          muted 
-          loop 
-          playsInline
-          onMouseEnter={() => {
-            setIsHovered(true);
-            videoRef.current?.pause();
-          }}
-          onMouseLeave={() => {
-            setIsHovered(false);
-            videoRef.current?.play();
-          }}
-          onEnded={(e) => {
-            e.target.currentTime = 0;
-            e.target.play();
-          }}
-        />
+        <BitByteHero />
       </div>
 
       <div className="hero-content">

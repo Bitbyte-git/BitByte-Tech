@@ -105,8 +105,8 @@ const digitalMarketingFaqs = [
     "We track performance using advanced analytics, keyword rankings, audience insights, lead generation, engagement metrics, conversion tracking, and ROI-focused reporting.",
   ],
   [
-    "BitByte Technology for digital marketing services?",
-    "BitByte Technology combines AI-powered strategies, creative marketing, SEO expertise, and performance-driven solutions to help businesses build stronger visibility, improve customer engagement, and achieve scalable digital growth.",
+    "BitByte Technologies for digital marketing services?",
+    "BitByte Technologies combines AI-powered strategies, creative marketing, SEO expertise, and performance-driven solutions to help businesses build stronger visibility, improve customer engagement, and achieve scalable digital growth.",
   ],
 ];
 
@@ -294,7 +294,7 @@ export default function DigitalMarketingSolutions() {
 
       <section className="dm-why reveal">
         <div className="service-section-eyebrow center">Why Choose</div>
-        <h2 className="dm-section-title"> BitByte Technology?</h2>
+        <h2 className="dm-section-title"> BitByte Technologies?</h2>
         <div className="dm-why-grid">
           {whyFeatures.map(([icon, title]) => (
             <div className="dm-why-card" key={title}>

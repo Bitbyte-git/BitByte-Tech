@@ -10,6 +10,12 @@ export default function Contact() {
     window.setTimeout(() => setSent(false), 4000)
   }
 
+  const hrefs = {
+    'LinkedIn': 'https://www.linkedin.com/in/bit-byte-technologies-4aa820406/',
+    'Twitter': 'https://x.com/BitbyteReachus',
+    'Instagram': 'https://www.instagram.com/bit_byte.technologies/',
+  }
+
   return (
     <section id="contact" className="wrap">
       <div className="contact-info">
@@ -21,9 +27,9 @@ export default function Contact() {
         </h2>
         <p className="sec-sub reveal reveal-delay-2">Ready to launch? Drop us a message and our team will respond within 24 hours.</p>
         {[
-          ['📧', 'Email', 'hello@bitbytetech.com'],
-          ['📞', 'Phone', '+91 98765 43210'],
-          ['📍', 'Address', '42 Stellar Avenue, Tech Park, Tiruchirappalli, Tamil Nadu 620001'],
+          ['📧', 'Email', 'reacus@bitbytetech.org'],
+          ['📞', 'Phone', '+91 99437 43136'],
+          ['📍', 'Address', 'BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.'],
         ].map(([icon, label, value]) => (
           <div className="cinfo-item reveal reveal-delay-3" key={label}>
             <div className="cinfo-icon">{icon}</div>
@@ -35,14 +41,13 @@ export default function Contact() {
         ))}
         <div className="social-row reveal reveal-delay-4">
           {socialIcons.map(([label, icon]) => (
-            <a href="#" className="soc-btn" title={label} aria-label={label} key={label}>
+            <a href={hrefs[label] || '#'} className="soc-btn" title={label} aria-label={label} key={label}>
               <i className={icon} aria-hidden="true" />
             </a>
           ))}
         </div>
         <div className="map-box reveal reveal-delay-5">
-          <i className="fas fa-map-marker-alt" aria-hidden="true" />
-          <span>Tiruchirappalli, Tamil Nadu, India</span>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.1146247014385!2d78.11783517586751!3d11.68628818852331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf08788359539%3A0xd17936017c8a724d!2sRajaa%20Bakery!5e0!3m2!1sen!2sin!4v1778570292968!5m2!1sen!2sin" width="600" height="450" style={{ border: 0 }} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
       </div>
 
@@ -66,7 +71,7 @@ export default function Contact() {
         </div>
         <div className="fgroup">
           <label htmlFor="phone">Phone Number</label>
-          <input id="phone" type="tel" placeholder="+91 98765 43210" />
+          <input id="phone" type="tel" placeholder="+91 9943* *****" />
         </div>
         <div className="fgroup">
           <label htmlFor="service">Service Interested In</label>

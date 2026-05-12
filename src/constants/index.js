@@ -2,7 +2,7 @@ export const navLinks = [
   ['#hero', 'Home'],
   ['#services', 'Services'],
   ['#founder', 'About Us'],
-  ['#careers', 'Careers'],
+  ['/careers', 'Careers'],
   ['#contact', 'Contact Us'],
 ]
 

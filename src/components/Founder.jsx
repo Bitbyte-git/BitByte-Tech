@@ -1,16 +1,12 @@
+import BitByteGlobe from './BitByteGlobe'
+
 export default function Founder() {
   return (
     <section id="founder" className="wrap bg-tint-1">
       <div className="founder-visual inner-content reveal">
         <div className="founder-planet">
-          <div className="founder-ring" />
-          <div className="founder-ring2" />
-          <div className="founder-saturn-wrap">
-            <img
-              src="/assets/planet.png"
-              alt="Floating Planet"
-              className="saturn-img"
-            />
+          <div className="founder-globe-frame">
+            <BitByteGlobe />
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">
@@ -38,7 +34,7 @@ export default function Founder() {
         </p>
         <p className="sec-sub reveal reveal-delay-3" style={{ marginTop: 16 }}>
           Just as the cosmos operates on elegant, interconnected systems, so
-          does our approach to technology: methodical, purposeful, and built to
+          does our approach to Technologies: methodical, purposeful, and built to
           last.
         </p>
         <div className="founder-pills reveal reveal-delay-4">

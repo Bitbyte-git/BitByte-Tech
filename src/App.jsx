@@ -9,7 +9,6 @@ import Founder from './components/Founder'
 import WhyUs from './components/WhyUs'
 import Portfolio from './components/Portfolio'
 import Testimonials from './components/Testimonials'
-import Careers from './components/Careers'
 import Contact from './components/Contact'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
@@ -19,6 +18,8 @@ import DigitalMarketingSolutions from './components/DigitalMarketingSolutions'
 import BusinessAnalyticsSolutions from './components/BusinessAnalyticsSolutions'
 import WebDevelopmentOverview from './components/WebDevelopmentOverview'
 import WebDevelopmentSubService from './components/WebDevelopmentSubService'
+
+import CareersPage from './components/CareersPage'
 
 export default function App() {
   const canvasRef = useRef(null)
@@ -34,8 +35,9 @@ export default function App() {
   const isPortalsPage = pathname === '/services/web-development/web-portals-dashboards'
   const isDigitalMarketingPage = pathname === '/services/digital-marketing/ai-powered-digital-marketing-solutions'
   const isBusinessAnalyticsPage = pathname === '/services/business-analytics/data-driven-business-analytics-solutions'
+  const isCareersPage = pathname === '/careers'
   const isServiceDetailPage =
-    isWebDevelopmentPage || isCustomWebAppPage || isEcommercePage || isPortalsPage || isDigitalMarketingPage || isBusinessAnalyticsPage
+    isWebDevelopmentPage || isCustomWebAppPage || isEcommercePage || isPortalsPage || isDigitalMarketingPage || isBusinessAnalyticsPage || isCareersPage
 
   useLandingEffects({ canvasRef, cursorRef, ringRef, planetRef, setNavStuck })
 
@@ -57,6 +59,8 @@ export default function App() {
         <DigitalMarketingSolutions />
       ) : isBusinessAnalyticsPage ? (
         <BusinessAnalyticsSolutions />
+      ) : isCareersPage ? (
+        <CareersPage />
       ) : (
         <>
           <Hero planetRef={planetRef} />
@@ -65,12 +69,11 @@ export default function App() {
           <WhyUs />
           <Portfolio />
           <Testimonials />
-          <Careers />
           <Contact />
           <CTA />
         </>
       )}
-      {!isServiceDetailPage && <Footer />}
+      <Footer rootLinks={isServiceDetailPage} />
     </>
   )
 }
