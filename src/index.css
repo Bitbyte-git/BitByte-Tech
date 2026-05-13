@@ -181,7 +181,7 @@ body::before {
 #navbar .logo-img {
   position: absolute;
   left: -10px;
-  top: 15px;
+  top: 30px;
   transform: scale(4.4);
   transform-origin: left center;
 }
@@ -202,7 +202,7 @@ body::before {
   top: 2px;
   transform: scale(1.2);
   font-family: "Montserrat", sans-serif;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 900;
   color: var(--white);
   line-height: 1.1;
@@ -4906,6 +4906,7 @@ footer {
   transform: scale(5.8);
   transform-origin: center;
   flex: 0 0 auto;
+  margin-top: 5px;
 }
 
 .logo-wrap {
@@ -4920,7 +4921,7 @@ footer {
   left: auto;
   top: auto;
   transform: none;
-  font-size: clamp(20px, 2vw, 24px);
+  font-size: clamp(20px, 2vw, 20px);
   line-height: 1;
   white-space: nowrap;
 }
@@ -5031,6 +5032,7 @@ footer {
 
   #navbar .logo-img {
     height: 42px !important;
+    margin-top: 5px;
   }
 
   .logo-wrap {
