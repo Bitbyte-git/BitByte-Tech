@@ -1179,7 +1179,8 @@ body::before {
   margin: 0 auto;
   overflow: visible;
   background: transparent;
-  left: -80px;
+  left: -60px;
+  top: 40px;
 }
 .founder-globe-frame {
   width: 100%;
