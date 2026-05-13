@@ -25,7 +25,7 @@ export default function Hero({ planetRef }) {
           Digital Reality
         </h1>
         <p className="hero-p">
-          We engineer cutting-edge web development and data-driven digital marketing solutions, crafted for brands that dare to reach
+          We engineer cutting-edge Web App Development and data-driven digital marketing solutions, crafted for brands that dare to reach
           beyond the horizon.
         </p>
         <div className="hero-btns">
@@ -40,8 +40,8 @@ export default function Hero({ planetRef }) {
           {[
             ['200+', 'Projects'],
             ['98%', 'Satisfaction'],
-            ['8+', 'Years'],
-            ['50+', 'Clients'],
+            ['1+', 'Years'],
+            ['6000+', 'Clients'],
           ].map(([num, label], index) => (
             <div className={index > 0 ? 'stat-group' : ''} key={label}>
               {index > 0 && <div className="stat-sep" />}

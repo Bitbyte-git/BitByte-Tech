@@ -5,7 +5,7 @@ export default function WhyUs() {
     <section id="why" className="section wrap center">
       <div className="eyebrow reveal">Why Us</div>
       <h2 className="sec-title reveal reveal-delay-1">
-        Why Choose <span className="c">Bit Byte</span>
+        Why Choose <span className="c">Bit Byte Technologies</span>
       </h2>
       <p className="sec-sub reveal reveal-delay-2" style={{ margin: '12px auto 0' }}>
         We do not just build digital products: we architect galaxies of opportunity for your brand.

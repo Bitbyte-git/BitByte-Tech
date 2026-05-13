@@ -3,7 +3,7 @@ import ServiceFaq from './ServiceFaq'
 const pages = {
   ecommerce: {
     label: 'E-Commerce Solutions',
-    eyebrow: 'Web Development',
+    eyebrow: 'Web App Development',
     title: 'E-Commerce',
     highlight: 'Solutions',
     subtitle: 'Secure Online Stores Built to Sell More',
@@ -27,7 +27,7 @@ const pages = {
   },
   portals: {
     label: 'Web Portals & Dashboards',
-    eyebrow: 'Web Development',
+    eyebrow: 'Web App Development',
     title: 'Web Portals &',
     highlight: 'Dashboards',
     subtitle: 'Centralized Platforms for Teams, Clients, and Data',
@@ -62,7 +62,7 @@ export default function WebDevelopmentSubService({ type }) {
           <span>›</span>
           <a href="/#services">Services</a>
           <span>›</span>
-          <a href="/services/web-development">Web Development</a>
+          <a href="/services/web-development">Web App Development</a>
           <span>›</span>
           <strong>{page.label}</strong>
         </div>
@@ -79,7 +79,7 @@ export default function WebDevelopmentSubService({ type }) {
                 Start a Project <span className="arr">→</span>
               </a>
               <a href="/services/web-development" className="btn-ghost">
-                Back to Web Development
+                Back to Web App Development
               </a>
             </div>
           </div>

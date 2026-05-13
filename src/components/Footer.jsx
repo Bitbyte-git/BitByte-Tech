@@ -3,7 +3,7 @@ import Logo from './Logo'
 
 export default function Footer({ rootLinks = false }) {
   const footerColumns = [
-    ['Services', ['Web Development', 'Digital Marketing', "Business Analytics"]],
+    ['Services', ['Web App Development', 'Digital Marketing', "Business Analytics"]],
     ['Company', ['About Us', 'Portfolio', 'Careers', 'Testimonials', 'Contact']],
     ['Contact', ['reacus@bitbytetech.org', '+91 99437 43136', 'BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.', 'Privacy Policy', 'Terms of Service']],
   ]
@@ -21,7 +21,7 @@ export default function Footer({ rootLinks = false }) {
       Careers: '/careers',
       Testimonials: '#testimonials',
       Contact: '#contact',
-      'Web Development': '/services/web-development',
+      'Web App Development': '/services/web-development',
       'Digital Marketing': '/services/digital-marketing/ai-powered-digital-marketing-solutions',
       'Business Analytics': '/services/business-analytics/data-driven-business-analytics-solutions',
     }
@@ -61,7 +61,8 @@ export default function Footer({ rootLinks = false }) {
       </div>
       <div className="footer-bottom">
         <div className="footer-copy">
-          © {new Date().getFullYear()} <span>Bit Byte Technologies</span>. All rights reserved. Built by <a style={{ color: '#a4ec70' }} href="https://www.linkedin.com/in/roshini-govindaraj-233941331/">Roshini G.</a>
+          © {new Date().getFullYear()} <span>Bit Byte Technologies</span>. All rights reserved. Desinged,Developed and Maintained  by Web development Team at Bit Byte Technologies <a style={{ color: '#a4ec70' }} href="https://www.linkedin.com/in/selvaperumal-g-9656b32a1?utm_source=share_via&utm_content=profile&utm_medium=member_android">Selvaperumal G & </a>
+          <a style={{ color: '#a4ec70' }} href="https://www.linkedin.com/in/roshini-govindaraj-233941331/">Roshini G</a>
         </div>
         <div className="footer-socials">
           {socialIcons.slice(0, 3).map(([label, icon]) => (

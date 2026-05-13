@@ -11,9 +11,7 @@ export default function Founder() {
         </div>
         <div className="founder-quote reveal reveal-delay-2">
           <p>
-            The universe has no limits, and neither does human imagination.
-            Every line of code I write is a star in the galaxy I am building:
-            one digital dream at a time.
+            Change is the only constant. Growth begins when we learn to adapt.
           </p>
           <cite>Founder, Bit Byte Technologies</cite>
         </div>
@@ -39,7 +37,7 @@ export default function Founder() {
         </p>
         <div className="founder-pills reveal reveal-delay-4">
           {[
-            "8+ Years Experience",
+            "14+ Years Experience",
             "Global Clients",
             "Award-Winning",
             "Innovation-First",

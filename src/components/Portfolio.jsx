@@ -13,7 +13,9 @@ export default function Portfolio() {
       <div className="grid-3">
         {projects.map(([thumbClass, icon, tag, name, desc], index) => (
           <div className={`port-card reveal reveal-delay-${index + 1}`} key={name}>
-            <div className={`port-thumb ${thumbClass}`}>{icon}</div>
+            <div className={`port-thumb ${thumbClass}`}>
+              <img src={icon} alt={name} className="port-img" />
+            </div>
             <div className="port-body">
               <div className="port-tag">{tag}</div>
               <div className="port-name">{name}</div>

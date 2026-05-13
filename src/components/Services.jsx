@@ -1,7 +1,7 @@
 import { services } from '../constants'
 
 const serviceRoutes = {
-  'Web Development': '/services/web-development',
+  'Web App Development': '/services/web-development',
   'Digital Marketing': '/services/digital-marketing/ai-powered-digital-marketing-solutions',
   'Business Analytics': '/services/business-analytics/data-driven-business-analytics-solutions',
 }
@@ -26,9 +26,9 @@ export default function Services() {
             <span className="svc-icon">{service.icon}</span>
             <div className="svc-title">{service.title}</div>
             <p className="svc-desc">{service.desc}</p>
-            <span className="svc-link">
-              Learn More →
-            </span>
+            <button className="svc-btn">
+              Click Me
+            </button>
             <div className="svc-bar" />
           </a>
         ))}

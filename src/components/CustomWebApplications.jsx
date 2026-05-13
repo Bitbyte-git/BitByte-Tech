@@ -182,14 +182,14 @@ export default function CustomWebApplications() {
           <span>›</span>
           <a href="/#services">Services</a>
           <span>›</span>
-          <a href="/#services">Web Development</a>
+          <a href="/#services">Web App Development</a>
           <span>›</span>
           <strong>Custom Web Applications</strong>
         </div>
 
         <div className="webapp-hero-grid">
           <div className="webapp-hero-copy">
-            <div className="webapp-pill reveal">Web Development</div>
+            <div className="webapp-pill reveal">Web App Development</div>
             <h1 className="webapp-title reveal reveal-delay-1">
               Custom Web
               <span>Applications</span>
