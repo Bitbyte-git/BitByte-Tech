@@ -1,15 +1,36 @@
+import { useEffect, useState } from 'react'
 import { floatCards } from '../constants'
-import BitByteHero from './BitByteHero'
 
 export default function Hero({ planetRef }) {
+  const [key, setKey] = useState(0)
+
+  useEffect(() => {
+    // Force GIF reload every 15 seconds to ensure it 'loops' if the file is set to play once
+    const interval = setInterval(() => {
+      setKey(prev => prev + 1)
+    }, 15000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
     <section id="hero" className="wrap">
       <div className="neb neb-1" />
       <div className="neb neb-2" />
       <div className="neb neb-3" />
 
-      <div className="planet-sys" ref={planetRef}>
-        <BitByteHero />
+      <div 
+        className="planet-sys" 
+        ref={planetRef}
+        onMouseEnter={(e) => e.currentTarget.setAttribute('data-paused', 'true')}
+        onMouseLeave={(e) => e.currentTarget.removeAttribute('data-paused')}
+      >
+        <img 
+          key={key}
+          src={`/assets/Hero-bg.gif?v=${key}`} 
+          alt="" 
+          className="hero-gif" 
+        />
+        <img src="/assets/planet.png" alt="" className="hero-planet" />
       </div>
 
       <div className="hero-content">

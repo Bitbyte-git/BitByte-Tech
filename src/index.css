@@ -164,7 +164,7 @@ body::before {
 /* ══ NAVBAR ══ */
 #navbar {
   position: fixed;
-  position:relative;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
@@ -180,9 +180,9 @@ body::before {
   transition: all 0.4s ease;
 }
 #navbar .logo-img {
-  position:absolute;
+  position: absolute;
   left: -10px;
-  top:15px;
+  top: 15px;
   transform: scale(5.5);
   transform-origin: left center;
 }
@@ -199,16 +199,15 @@ body::before {
 }
 .logo-txt {
   position: relative;
-  left:110px;
-  top:2px;
+  left: 110px;
+  top: 2px;
   transform: scale(1.5);
-   font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 15px;
   font-weight: 900;
   color: var(--white);
   line-height: 1.1;
   letter-spacing: 0.1px;
-  
 }
 .logo-txt em {
   background: var(--grad-text);
@@ -403,12 +402,74 @@ body::before {
 /* ── LOGO-INSPIRED PLANET ── */
 .planet-sys {
   position: absolute;
-  right: -80px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 700px;
-  height: 700px;
+  left: 50%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  width: 425px;
+  height: 425px;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 0;
+  opacity: 0.8;
+}
+#hero.center {
+  justify-content: center;
+  text-align: center;
+}
+#hero.center .hero-content {
+  left: 100px;
+  margin: 0 auto;
+  max-width: 850px;
+  z-index: 10;
+}
+#hero.center .hero-btns,
+#hero.center .hero-stats {
+  justify-content: center;
+}
+#hero.center .hero-p {
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-gif {
+  position: relative;
+  z-index: 1;
+  width: 550px;
+  height: 550px;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 0 50px rgba(0, 180, 216, 0.3));
+  transition:
+    filter 0.4s ease,
+    transform 0.4s ease;
+  animation: cosmicRun 120s linear infinite;
+}
+.hero-planet {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  width: min(50%, 300px);
+  height: auto;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 34px rgba(0, 164, 236, 0.46));
+  user-select: none;
+}
+@keyframes cosmicRun {
+  from {
+    transform: rotate(0deg) scale(1.1);
+  }
+  to {
+    transform: rotate(360deg) scale(1.1);
+  }
+}
+.planet-sys[data-paused="true"] .hero-gif {
+  filter: drop-shadow(0 0 70px rgba(164, 236, 112, 0.5)) saturate(0.2)
+    brightness(0.8);
+  transform: scale(0.98);
+  animation-play-state: paused;
 }
 .planet-sys video {
   width: 400px;
@@ -585,7 +646,8 @@ body::before {
   position: relative;
   z-index: 10;
   max-width: 580px;
-  left: 50px;
+  left: 0;
+  top: -50px;
   animation: hReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 @keyframes hReveal {
@@ -1059,7 +1121,7 @@ body::before {
 #founder {
   position: relative;
   z-index: 10;
-  padding-left: clamp(80px, 8vw, 10px);
+  padding: 100px 64px;
   display: grid;
   grid-template-columns: minmax(360px, 0.9fr) minmax(0, 1fr);
   gap: clamp(48px, 7vw, 80px);
@@ -1090,9 +1152,9 @@ body::before {
   background: transparent;
 }
 .founder-planet {
-  width: 100%;
-  aspect-ratio: 1.30;
-  height: auto;
+  width: 650px;
+  height: 650px;
+  /* height: auto; removed */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1137,7 +1199,7 @@ body::before {
   justify-content: center;
 }
 .saturn-img {
-  width: 110%;
+  width: 100%;
   height: auto;
   filter: drop-shadow(0 0 40px rgba(0, 164, 236, 0.4));
   user-select: none;
@@ -2201,13 +2263,15 @@ footer {
 /* ══ PLANET REAL IMAGE ══ */
 #hero .planet-sys {
   position: absolute;
-  right: 120px;
+  left: 950px;
+  right: auto;
   top: 50%;
-  transform: translateY(-50%);
-  width: 880px;
-  height: 880px;
+  transform: translate(-50%, -50%);
+  width: min(620px, 42vw);
+  height: min(620px, 42vw);
   pointer-events: auto;
   z-index: 8;
+  isolation: isolate;
 }
 .bitbyte-hero-visual {
   position: absolute;
@@ -2278,9 +2342,10 @@ footer {
 
 @media (max-width: 1100px) {
   #hero .planet-sys {
-    right: -120px;
-    width: 680px;
-    height: 680px;
+    left: 50%;
+    right: auto;
+    width: min(460px, 52vw);
+    height: min(460px, 52vw);
   }
 }
 @media (max-width: 900px) {

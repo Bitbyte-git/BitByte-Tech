@@ -17,7 +17,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="wrap">
+    <section id="contact" className="section wrap">
       <div className="contact-info">
         <div className="eyebrow reveal">Get in Touch</div>
         <h2 className="sec-title reveal reveal-delay-1">

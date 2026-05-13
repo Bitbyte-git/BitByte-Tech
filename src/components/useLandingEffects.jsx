@@ -328,9 +328,10 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
     const loop = () => {
       smoothScrollY += (targetScrollY - smoothScrollY) * 0.08
       if (planetRef.current) {
-        planetRef.current.style.transform = `translateY(calc(-50% + 50px + ${
-          pointerY * -14 + smoothScrollY * -0.06
-        }px)) translateX(calc(-100px + ${pointerX * -22 + smoothScrollY * -0.12}px))`
+        const isPaused = planetRef.current.getAttribute('data-paused') === 'true'
+        if (!isPaused) {
+          planetRef.current.style.transform = 'translate(-50%, -50%)'
+        }
       }
       frame = requestAnimationFrame(loop)
     }
