@@ -1,9 +1,11 @@
-import { socialIcons } from '../constants'
+import { useTranslation } from 'react-i18next'
+import { services, socialIcons } from '../constants'
 import Logo from './Logo'
 
 export default function Footer({ rootLinks = false }) {
+  const { t } = useTranslation()
   const footerColumns = [
-    ['Services', ['Web Development', 'Digital Marketing', "Business Analytics"]],
+    ['Services', services.map((service) => service.id)],
     ['Company', ['About Us', 'Portfolio', 'Careers', 'Testimonials', 'Contact']],
     ['Contact', ['reacus@bitbytetech.org', '+91 99437 43136', 'BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.', 'Privacy Policy', 'Terms of Service']],
   ]
@@ -21,9 +23,12 @@ export default function Footer({ rootLinks = false }) {
       Careers: '/careers',
       Testimonials: '#testimonials',
       Contact: '#contact',
-      'Web Development': '/services/web-development',
-      'Digital Marketing': '/services/digital-marketing/ai-powered-digital-marketing-solutions',
-      'Business Analytics': '/services/business-analytics/data-driven-business-analytics-solutions',
+      'web-app-development': '/services/web-development',
+      'digital-marketing': '/services/digital-marketing/ai-powered-digital-marketing-solutions',
+      'business-analytics': '/services/business-analytics/data-driven-business-analytics-solutions',
+      'personal-branding': '#contact',
+      'imagination-to-reality': '#contact',
+      'real-time-sales-data': '#contact',
     }
     const href = map[item] || '#contact'
     if (href.startsWith('/')) return href
@@ -37,7 +42,7 @@ export default function Footer({ rootLinks = false }) {
           <a href="#hero" className="logo-wrap" style={{ display: 'inline-flex' }} aria-label="Bit Byte Technologies home">
             <Logo height={40} loading="lazy" fetchPriority="low" />
           </a>
-          <p>Transforming ideas into digital reality: one line of code, one campaign, one galaxy at a time.</p>
+          <p data-magnify="true">{t('footer.brand')}</p>
           <div className="social-row" style={{ marginTop: 20 }}>
             {socialIcons.slice(0, 4).map(([label, icon]) => (
               <a href={hrefs[label] || '#'} className="soc-btn" aria-label={label} key={label}>
@@ -52,7 +57,9 @@ export default function Footer({ rootLinks = false }) {
             <ul className="footer-links">
               {links.map((link) => (
                 <li key={link}>
-                  <a href={hrefFor(link)}>{link}</a>
+                  <a href={hrefFor(link)}>
+                    {services.some((service) => service.id === link) ? t(`services.cards.${link}.title`) : link}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -61,7 +68,7 @@ export default function Footer({ rootLinks = false }) {
       </div>
       <div className="footer-bottom">
         <div className="footer-copy">
-          © {new Date().getFullYear()} <span>Bit Byte Technologies</span>. All rights reserved. Built by <a style={{ color: '#a4ec70' }} href="https://www.linkedin.com/in/roshini-govindaraj-233941331/">Roshini G.</a>
+          © {new Date().getFullYear()} <span>Bit Byte Technologies</span>. {t('footer.rights')} {t('footer.builtBy')} <a style={{ color: '#a4ec70' }} href="https://www.linkedin.com/in/roshini-govindaraj-233941331/">Roshini G.</a>
         </div>
         <div className="footer-socials">
           {socialIcons.slice(0, 3).map(([label, icon]) => (

@@ -31,7 +31,7 @@ const careerFaqs = [
 
 export default function CareersPage() {
   return (
-    <main className="webapp-page wrap">
+    <main className="webapp-page careers-page wrap">
       <section className="webapp-hero">
         <div className="webapp-breadcrumb reveal">
           <a href="/#hero">Home</a>
@@ -78,7 +78,7 @@ export default function CareersPage() {
             </div>
           </div>
           
-          <div className="wd-hero-visual reveal reveal-delay-2" style={{ perspective: '1000px' }}>
+          <div className="wd-hero-visual career-visual-card reveal reveal-delay-2" style={{ perspective: '1000px' }}>
             <div className="fcrd" style={{ transform: 'rotateY(-15deg) rotateX(10deg)', maxWidth: '400px' }}>
               <span className="fcrd-icon">🚀</span>
               <div className="fcrd-name">Join BitByte</div>

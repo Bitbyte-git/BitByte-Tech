@@ -1,14 +1,17 @@
+import { useTranslation } from 'react-i18next'
 import { whyItems } from '../constants'
 
 export default function WhyUs() {
+  const { t } = useTranslation()
+
   return (
     <section id="why" className="section wrap center">
-      <div className="eyebrow reveal">Why Us</div>
-      <h2 className="sec-title reveal reveal-delay-1">
-        Why Choose <span className="c">Bit Byte</span>
+      <div className="eyebrow reveal" data-magnify="true">{t('why.eyebrow')}</div>
+      <h2 className="sec-title reveal reveal-delay-1" data-magnify="true">
+        {t('why.titleA')} <span className="c">{t('why.titleB')}</span>
       </h2>
-      <p className="sec-sub reveal reveal-delay-2" style={{ margin: '12px auto 0' }}>
-        We do not just build digital products: we architect galaxies of opportunity for your brand.
+      <p className="sec-sub reveal reveal-delay-2" data-magnify="true" style={{ margin: '12px auto 0' }}>
+        {t('why.body')}
       </p>
       <div className="grid-3">
         {whyItems.map(([num, icon, title, desc], index) => (

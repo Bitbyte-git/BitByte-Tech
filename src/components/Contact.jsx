@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { services, socialIcons } from '../constants'
 
 export default function Contact() {
+  const { t } = useTranslation()
   const [sent, setSent] = useState(false)
 
   function handleSubmit(event) {
@@ -19,13 +21,13 @@ export default function Contact() {
   return (
     <section id="contact" className="section wrap">
       <div className="contact-info">
-        <div className="eyebrow reveal">Get in Touch</div>
-        <h2 className="sec-title reveal reveal-delay-1">
-          Let&apos;s Build Your
+        <div className="eyebrow reveal" data-magnify="true">{t('contact.eyebrow')}</div>
+        <h2 className="sec-title reveal reveal-delay-1" data-magnify="true">
+          {t('contact.titleA')}
           <br />
-          <span className="c">Digital Universe</span>
+          <span className="c">{t('contact.titleB')}</span>
         </h2>
-        <p className="sec-sub reveal reveal-delay-2">Ready to launch? Drop us a message and our team will respond within 24 hours.</p>
+        <p className="sec-sub reveal reveal-delay-2" data-magnify="true">{t('contact.body')}</p>
         {[
           ['📧', 'Email', 'reacus@bitbytetech.org'],
           ['📞', 'Phone', '+91 99437 43136'],
@@ -53,47 +55,47 @@ export default function Contact() {
 
       <form className="contact-form reveal reveal-delay-2" onSubmit={handleSubmit}>
         <div className="eyebrow" style={{ marginBottom: 18 }}>
-          Send a Message
+          {t('contact.formTitle')}
         </div>
         <div className="form-row">
           <div className="fgroup">
-            <label htmlFor="firstName">First Name</label>
+            <label htmlFor="firstName">{t('contact.firstName')}</label>
             <input id="firstName" type="text" placeholder="John" />
           </div>
           <div className="fgroup">
-            <label htmlFor="lastName">Last Name</label>
+            <label htmlFor="lastName">{t('contact.lastName')}</label>
             <input id="lastName" type="text" placeholder="Doe" />
           </div>
         </div>
         <div className="fgroup">
-          <label htmlFor="email">Email Address</label>
+          <label htmlFor="email">{t('contact.email')}</label>
           <input id="email" type="email" placeholder="john@company.com" />
         </div>
         <div className="fgroup">
-          <label htmlFor="phone">Phone Number</label>
+          <label htmlFor="phone">{t('contact.phone')}</label>
           <input id="phone" type="tel" placeholder="+91 9943* *****" />
         </div>
         <div className="fgroup">
-          <label htmlFor="service">Service Interested In</label>
+          <label htmlFor="service">{t('contact.service')}</label>
           <select id="service" defaultValue="">
-            <option value="">Select a service...</option>
+            <option value="">{t('contact.select')}</option>
             {services.map((service) => (
-              <option key={service.title}>{service.title}</option>
+              <option key={service.id}>{t(`services.cards.${service.id}.title`, service.title)}</option>
             ))}
-            <option>Other</option>
+            <option>{t('contact.other')}</option>
           </select>
         </div>
         <div className="fgroup">
-          <label htmlFor="message">Message</label>
-          <textarea id="message" placeholder="Tell us about your project..." />
+          <label htmlFor="message">{t('contact.message')}</label>
+          <textarea id="message" placeholder={t('contact.messagePlaceholder')} />
         </div>
         <button className="btn-submit" type="submit">
           {sent ? (
-            "✓ Message Sent! We'll be in touch."
+            t('contact.sent')
           ) : (
             <>
               <i className="fas fa-paper-plane" style={{ marginRight: 8 }} aria-hidden="true" />
-              Launch My Project
+              {t('contact.submit')}
             </>
           )}
         </button>

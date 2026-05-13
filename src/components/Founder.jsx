@@ -1,6 +1,10 @@
+import { useTranslation } from 'react-i18next'
 import BitByteHero from './BitByteHero'
 
 export default function Founder() {
+  const { t } = useTranslation()
+  const pills = t('founder.pills', { returnObjects: true })
+
   return (
     <section id="founder" className="section wrap bg-tint-1">
       <div className="founder-visual inner-content reveal">
@@ -10,41 +14,25 @@ export default function Founder() {
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">
-          <p>
-            The universe has no limits, and neither does human imagination.
-            Every line of code I write is a star in the galaxy I am building:
-            one digital dream at a time.
-          </p>
-          <cite>Founder, Bit Byte Technologies</cite>
+          <p data-magnify="true">{t('founder.quote')}</p>
+          <cite>{t('founder.cite')}</cite>
         </div>
       </div>
       <div className="founder-content inner-content">
-        <div className="eyebrow reveal">Our Story</div>
-        <h2 className="sec-title reveal reveal-delay-1">
-          One Vision,
+        <div className="eyebrow reveal" data-magnify="true">{t('founder.eyebrow')}</div>
+        <h2 className="sec-title reveal reveal-delay-1" data-magnify="true">
+          {t('founder.titleA')}
           <br />
-          <span className="c">Infinite Possibilities</span>
+          <span className="c">{t('founder.titleB')}</span>
         </h2>
-        <p className="sec-sub reveal reveal-delay-2">
-          Bit Byte Technologies was born from the imagination of a passionate
-          entrepreneur who looked at the stars and saw not distance, but
-          possibility. Starting as a solo developer with a laptop and a
-          limitless dream, our founder built a company that now serves clients
-          across the globe.
+        <p className="sec-sub reveal reveal-delay-2" data-magnify="true">
+          {t('founder.bodyA')}
         </p>
-        <p className="sec-sub reveal reveal-delay-3" style={{ marginTop: 16 }}>
-          Just as the cosmos operates on elegant, interconnected systems, so
-          does our approach to Technologies: methodical, purposeful, and built to
-          last.
+        <p className="sec-sub reveal reveal-delay-3" data-magnify="true" style={{ marginTop: 16 }}>
+          {t('founder.bodyB')}
         </p>
         <div className="founder-pills reveal reveal-delay-4">
-          {[
-            "8+ Years Experience",
-            "Global Clients",
-            "Award-Winning",
-            "Innovation-First",
-            "Cosmos-Inspired",
-          ].map((pill) => (
+          {pills.map((pill) => (
             <span className="pill" key={pill}>
               {pill}
             </span>

@@ -1,25 +1,29 @@
+import { useTranslation } from 'react-i18next'
+
 export default function CTA() {
+  const { t } = useTranslation()
+
   return (
     <section id="cta" className="wrap">
       <div className="cta-glow" />
       <div className="cta-box reveal">
         <div className="eyebrow center" style={{ marginBottom: 16 }}>
-          Ready for Launch?
+          {t('cta.eyebrow')}
         </div>
-        <h2 className="sec-title center" style={{ maxWidth: 540, margin: '0 auto 14px' }}>
-          Your Digital Journey
+        <h2 className="sec-title center" data-magnify="true" style={{ maxWidth: 540, margin: '0 auto 14px' }}>
+          {t('cta.titleA')}
           <br />
-          <span className="c">Starts Now</span>
+          <span className="c">{t('cta.titleB')}</span>
         </h2>
-        <p className="sec-sub center" style={{ margin: '0 auto 40px' }}>
-          Join 200+ forward-thinking businesses that trusted Bit Byte Technologies to build their digital universe.
+        <p className="sec-sub center" data-magnify="true" style={{ margin: '0 auto 40px' }}>
+          {t('cta.body')}
         </p>
         <div className="cta-btns">
           <a href="#services" className="btn-primary">
-            Explore Services <span className="arr">→</span>
+            {t('cta.primary')} <span className="arr">→</span>
           </a>
           <a href="#contact" className="btn-ghost">
-            Contact Us <span className="arr">→</span>
+            {t('cta.secondary')} <span className="arr">→</span>
           </a>
         </div>
       </div>

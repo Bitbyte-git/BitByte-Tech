@@ -1,0 +1,136 @@
+{
+  "language": {
+    "label": "भाषा",
+    "changeTo": "{{language}} में बदलें"
+  },
+  "nav": {
+    "home": "होम",
+    "services": "सेवाएं",
+    "about": "हमारे बारे में",
+    "careers": "करियर",
+    "contact": "संपर्क",
+    "getStarted": "शुरू करें",
+    "openMenu": "मेनू खोलें",
+    "closeMenu": "मेनू बंद करें"
+  },
+  "hero": {
+    "badge": "Bit Byte Technologies में आपका स्वागत है",
+    "title1": "विचारों को",
+    "title2": "डिजिटल",
+    "title3": "हकीकत बनाते हैं",
+    "body": "हम महत्वाकांक्षी कंपनियों के लिए MERN उत्पाद, ब्रांड सिस्टम, और डेटा-ड्रिवन ग्रोथ इंजन बनाते हैं।",
+    "primary": "सेवाएं देखें",
+    "secondary": "संपर्क करें",
+    "stats": [
+      ["200+", "प्रोजेक्ट"],
+      ["98%", "संतुष्टि"],
+      ["8+", "वर्ष"],
+      ["50+", "क्लाइंट"]
+    ],
+    "floatCards": [
+      ["🌐", "वेब ऐप्स", "MERN · React · Node"],
+      ["📈", "डिजिटल मार्केटिंग", "SEO · Ads · Social"],
+      ["🚀", "प्रोडक्ट इनोवेशन", "AI · Cloud · APIs"],
+      ["📊", "रेवेन्यू इंटेलिजेंस", "Analytics · ROI · KPIs"]
+    ]
+  },
+  "services": {
+    "eyebrow": "हम क्या देते हैं",
+    "titleA": "प्रीमियम MERN",
+    "titleB": "सर्विस सिस्टम",
+    "body": "तेज सॉफ्टवेयर, मजबूत पहचान, और लाइव बिजनेस इंटेलिजेंस चाहने वाले ब्रांड्स के लिए छह केंद्रित क्षमताएं।",
+    "learnMore": "और जानें",
+    "active": "सक्रिय फोकस",
+    "cards": {
+      "web-app-development": {
+        "stat": "MERN",
+        "title": "वेब ऐप डेवलपमेंट",
+        "desc": "React, Node, Express, और MongoDB प्लेटफॉर्म जो growth, conversion, और long-term maintainability के लिए बनाए जाते हैं।"
+      },
+      "personal-branding": {
+        "stat": "Identity",
+        "title": "पर्सनल ब्रांडिंग",
+        "desc": "Founders और creators को मजबूत positioning देने के लिए premium identity systems, portfolio experiences, और brand storytelling."
+      },
+      "digital-marketing": {
+        "stat": "Growth",
+        "title": "डिजिटल मार्केटिंग",
+        "desc": "SEO, paid campaigns, content strategy, और social systems जो measurable acquisition पर केंद्रित हैं।"
+      },
+      "business-analytics": {
+        "stat": "Insight",
+        "title": "बिजनेस एनालिटिक्स",
+        "desc": "Dashboards, reporting automation, और decision intelligence जो raw data को clear business action में बदलते हैं।"
+      },
+      "imagination-to-reality": {
+        "stat": "Prototype",
+        "title": "कल्पना से वास्तविकता",
+        "desc": "कच्चे idea से usable MVP तक product strategy, UI systems, engineering architecture, और launch path तैयार करते हैं।"
+      },
+      "real-time-sales-data": {
+        "stat": "Live Ops",
+        "title": "रीयल-टाइम सेल्स डेटा समाधान",
+        "desc": "Live sales dashboards, pipeline intelligence, और integrations जो revenue signals पर तुरंत action लेने में मदद करते हैं।"
+      }
+    }
+  },
+  "founder": {
+    "eyebrow": "हमारी कहानी",
+    "quote": "ब्रह्मांड की कोई सीमा नहीं, और इंसानी कल्पना की भी नहीं। मेरे लिखे हर code की line उस galaxy का एक सितारा है जिसे मैं बना रहा हूं।",
+    "cite": "Founder, Bit Byte Technologies",
+    "titleA": "एक विजन,",
+    "titleB": "अनंत संभावनाएं",
+    "bodyA": "Bit Byte Technologies एक ऐसे उद्यमी की कल्पना से जन्मी जिसने सितारों में दूरी नहीं, अवसर देखे।",
+    "bodyB": "जुड़े हुए elegant systems की तरह, technology के प्रति हमारा approach methodical, purposeful, और long-lasting है।",
+    "pills": ["8+ साल अनुभव", "ग्लोबल क्लाइंट्स", "अवार्ड-विनिंग", "Innovation-First", "Cosmos-Inspired"]
+  },
+  "why": {
+    "eyebrow": "क्यों हम",
+    "titleA": "क्यों चुनें",
+    "titleB": "Bit Byte",
+    "body": "हम premium design, clean engineering, और measurable business intent के साथ practical digital systems बनाते हैं।"
+  },
+  "portfolio": {
+    "eyebrow": "हमारा काम",
+    "titleA": "हाल के",
+    "titleB": "प्रोजेक्ट",
+    "body": "क्लाइंट्स के लिए बनाए गए digital universes की एक झलक।",
+    "view": "प्रोजेक्ट देखें"
+  },
+  "testimonials": {
+    "eyebrow": "क्लाइंट प्रेम",
+    "titleA": "हमारे",
+    "titleB": "क्लाइंट क्या कहते हैं"
+  },
+  "contact": {
+    "eyebrow": "संपर्क करें",
+    "titleA": "आइए बनाएं आपका",
+    "titleB": "डिजिटल यूनिवर्स",
+    "body": "लॉन्च के लिए तैयार हैं? संदेश भेजें; हमारी टीम 24 घंटे में जवाब देगी।",
+    "formTitle": "संदेश भेजें",
+    "firstName": "पहला नाम",
+    "lastName": "अंतिम नाम",
+    "email": "ईमेल पता",
+    "phone": "फोन नंबर",
+    "service": "जिस सेवा में रुचि है",
+    "select": "एक सेवा चुनें...",
+    "other": "अन्य",
+    "message": "संदेश",
+    "messagePlaceholder": "अपने प्रोजेक्ट के बारे में बताएं...",
+    "submit": "मेरा प्रोजेक्ट लॉन्च करें",
+    "sent": "संदेश भेजा गया। हम जल्द संपर्क करेंगे।"
+  },
+  "cta": {
+    "eyebrow": "लॉन्च के लिए तैयार?",
+    "titleA": "आपकी डिजिटल यात्रा",
+    "titleB": "अब शुरू होती है",
+    "body": "उन 200+ forward-thinking businesses से जुड़ें जिन्होंने अपना digital universe बनाने के लिए Bit Byte Technologies पर भरोसा किया।",
+    "primary": "सेवाएं देखें",
+    "secondary": "संपर्क करें"
+  },
+  "footer": {
+    "brand": "विचारों को digital reality में बदलना: एक code line, एक campaign, एक launch के साथ।",
+    "rights": "सर्वाधिकार सुरक्षित।",
+    "builtBy": "बनाया"
+  }
+}

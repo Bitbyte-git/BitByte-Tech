@@ -1,10 +1,21 @@
 import { memo, useEffect, useState } from 'react'
-import { floatCards } from '../constants'
+import { useTranslation } from 'react-i18next'
 
 function Hero({ planetRef }) {
-  const [gifSrc, setGifSrc] = useState('/assets/optimized/hero-bg-480.gif')
+  const { t } = useTranslation()
   const [typedText, setTypedText] = useState('')
-  const fullText = 'Welcome to Bit Byte Technologies'
+  const fullText = t('hero.badge')
+  const stats = t('hero.stats', { returnObjects: true })
+  const floatCards = t('hero.floatCards', { returnObjects: true })
+
+  const [gifKey, setGifKey] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGifKey(k => k + 1)
+    }, 20000) // Restart GIF every 20s
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
     let index = 0
@@ -32,18 +43,7 @@ function Hero({ planetRef }) {
       isMounted = false
       clearTimeout(timeoutId)
     }
-  }, [])
-
-  useEffect(() => {
-    const loadAnimatedGif = () => setGifSrc('/assets/Hero-bg.gif')
-    if ('requestIdleCallback' in window) {
-      const idleId = window.requestIdleCallback(loadAnimatedGif, { timeout: 1800 })
-      return () => window.cancelIdleCallback(idleId)
-    }
-
-    const timeoutId = window.setTimeout(loadAnimatedGif, 900)
-    return () => window.clearTimeout(timeoutId)
-  }, [])
+  }, [fullText])
 
   return (
     <section id="hero" className="wrap">
@@ -54,18 +54,17 @@ function Hero({ planetRef }) {
       <div 
         className="planet-sys" 
         ref={planetRef}
-        onMouseEnter={(e) => e.currentTarget.setAttribute('data-paused', 'true')}
-        onMouseLeave={(e) => e.currentTarget.removeAttribute('data-paused')}
       >
         <img 
-          src={gifSrc}
+          key={gifKey}
+          src={`/assets/Hero-bg.gif?v=${gifKey}`}
           alt="" 
           className="hero-gif" 
           width="600"
           height="600"
           loading="eager"
           decoding="async"
-          fetchpriority="low"
+          fetchPriority="high"
         />
         <img
           src="/assets/optimized/planet-640.png"
@@ -77,41 +76,35 @@ function Hero({ planetRef }) {
           height="640"
           loading="eager"
           decoding="async"
-          fetchpriority="high"
+          fetchPriority="high"
         />
       </div>
 
       <div className="hero-content">
-        <div className="hero-badge">
+        <div className="hero-badge" data-magnify="true">
           <div className="badge-dot" />
           <span className="badge-txt">{typedText}<span className="cursor-blink">|</span></span>
         </div>
-        <h1 className="hero-h1">
-          Transforming
+        <h1 className="hero-h1" data-magnify="true">
+          <span className="grad">{t('hero.title1')}</span> 
           <br />
-          <span className="grad">Ideas into</span>
+          {t('hero.title2')}
           <br />
-          Digital Reality
+          <span className="grad">{t('hero.title3')}</span>
         </h1>
-        <p className="hero-p">
-          We engineer cutting-edge web development and data-driven digital marketing solutions, crafted for brands that dare to reach
-          beyond the horizon.
+        <p className="hero-p" data-magnify="true">
+          {t('hero.body')}
         </p>
         <div className="hero-btns">
           <a href="#services" className="btn-primary">
-            Explore Services <span className="arr">→</span>
+            {t('hero.primary')} <span className="arr">→</span>
           </a>
           <a href="#contact" className="btn-ghost">
-            Contact Us <span className="arr">→</span>
+            {t('hero.secondary')} <span className="arr">→</span>
           </a>
         </div>
         <div className="hero-stats">
-          {[
-            ['200+', 'Projects'],
-            ['98%', 'Satisfaction'],
-            ['8+', 'Years'],
-            ['50+', 'Clients'],
-          ].map(([num, label], index) => (
+          {stats.map(([num, label], index) => (
             <div className={index > 0 ? 'stat-group' : ''} key={label}>
               {index > 0 && <div className="stat-sep" />}
               <span className="snum">{num}</span>

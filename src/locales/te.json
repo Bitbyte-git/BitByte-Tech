@@ -1,0 +1,136 @@
+{
+  "language": {
+    "label": "భాష",
+    "changeTo": "{{language}}కి మార్చండి"
+  },
+  "nav": {
+    "home": "హోమ్",
+    "services": "సేవలు",
+    "about": "మా గురించి",
+    "careers": "కెరీర్స్",
+    "contact": "సంప్రదించండి",
+    "getStarted": "ప్రారంభించండి",
+    "openMenu": "మెనూ తెరవండి",
+    "closeMenu": "మెనూ మూసివేయండి"
+  },
+  "hero": {
+    "badge": "Bit Byte Technologiesకి స్వాగతం",
+    "title1": "ఆలోచనలను",
+    "title2": "డిజిటల్",
+    "title3": "వాస్తవంగా మారుస్తాం",
+    "body": "వృద్ధి కోరే సంస్థల కోసం MERN products, brand systems, మరియు data-driven growth engines నిర్మిస్తాం.",
+    "primary": "సేవలు చూడండి",
+    "secondary": "సంప్రదించండి",
+    "stats": [
+      ["200+", "ప్రాజెక్టులు"],
+      ["98%", "సంతృప్తి"],
+      ["8+", "సంవత్సరాలు"],
+      ["50+", "క్లయింట్లు"]
+    ],
+    "floatCards": [
+      ["🌐", "వెబ్ యాప్స్", "MERN · React · Node"],
+      ["📈", "డిజిటల్ మార్కెటింగ్", "SEO · Ads · Social"],
+      ["🚀", "ప్రొడక్ట్ ఇన్నోవేషన్", "AI · Cloud · APIs"],
+      ["📊", "రెవెన్యూ ఇంటెలిజెన్స్", "Analytics · ROI · KPIs"]
+    ]
+  },
+  "services": {
+    "eyebrow": "మేము అందించేది",
+    "titleA": "ప్రీమియం MERN",
+    "titleB": "సర్వీస్ సిస్టమ్స్",
+    "body": "వేగమైన software, బలమైన identity, మరియు live business intelligence కోరే brands కోసం ఆరు focused capabilities.",
+    "learnMore": "మరింత తెలుసుకోండి",
+    "active": "సక్రియ ఫోకస్",
+    "cards": {
+      "web-app-development": {
+        "stat": "MERN",
+        "title": "వెబ్ యాప్ డెవలప్మెంట్",
+        "desc": "Growth, conversion, మరియు long-term maintainability కోసం React, Node, Express, MongoDB platforms నిర్మిస్తాం."
+      },
+      "personal-branding": {
+        "stat": "Identity",
+        "title": "పర్సనల్ బ్రాండింగ్",
+        "desc": "Founders మరియు creators కు clear positioning కోసం premium identity systems, portfolio experiences, brand storytelling అందిస్తాం."
+      },
+      "digital-marketing": {
+        "stat": "Growth",
+        "title": "డిజిటల్ మార్కెటింగ్",
+        "desc": "SEO, paid campaigns, content strategy, social systems ద్వారా measurable acquisition పై దృష్టి పెడతాం."
+      },
+      "business-analytics": {
+        "stat": "Insight",
+        "title": "బిజినెస్ అనలిటిక్స్",
+        "desc": "Dashboards, reporting automation, decision intelligence ద్వారా raw dataని clear business actionగా మార్చుతాం."
+      },
+      "imagination-to-reality": {
+        "stat": "Prototype",
+        "title": "ఊహ నుంచి వాస్తవం వరకు",
+        "desc": "Raw idea నుంచి usable MVP వరకు product strategy, UI systems, engineering architecture, launch path రూపొందిస్తాం."
+      },
+      "real-time-sales-data": {
+        "stat": "Live Ops",
+        "title": "రియల్-టైమ్ సేల్స్ డేటా సొల్యూషన్స్",
+        "desc": "Live sales dashboards, pipeline intelligence, integrations ద్వారా revenue signalsపై వెంటనే action తీసుకునేలా చేస్తాం."
+      }
+    }
+  },
+  "founder": {
+    "eyebrow": "మా కథ",
+    "quote": "విశ్వానికి హద్దులు లేవు; మానవ ఊహాశక్తికీ లేవు. నేను రాసే ప్రతి code line నేను నిర్మించే galaxyలో ఒక నక్షత్రం.",
+    "cite": "Founder, Bit Byte Technologies",
+    "titleA": "ఒక విజన్,",
+    "titleB": "అనంత అవకాశాలు",
+    "bodyA": "నక్షత్రాల్లో దూరం కాదు, అవకాశం చూసిన passionate entrepreneur యొక్క ఊహలో Bit Byte Technologies పుట్టింది.",
+    "bodyB": "Elegant connected systems లాగా, technology పట్ల మా approach methodical, purposeful, మరియు long-lasting.",
+    "pills": ["8+ సంవత్సరాల అనుభవం", "గ్లోబల్ క్లయింట్లు", "అవార్డు గెలుచుకున్నది", "Innovation-First", "Cosmos-Inspired"]
+  },
+  "why": {
+    "eyebrow": "ఎందుకు మేము",
+    "titleA": "ఎందుకు ఎంచుకోవాలి",
+    "titleB": "Bit Byte",
+    "body": "Premium design, clean engineering, measurable business intent తో practical digital systems నిర్మిస్తాం."
+  },
+  "portfolio": {
+    "eyebrow": "మా పని",
+    "titleA": "ఇటీవలి",
+    "titleB": "ప్రాజెక్టులు",
+    "body": "మా క్లయింట్ల కోసం నిర్మించిన digital universes లో ఒక చూపు.",
+    "view": "ప్రాజెక్ట్ చూడండి"
+  },
+  "testimonials": {
+    "eyebrow": "క్లయింట్ ప్రేమ",
+    "titleA": "మా",
+    "titleB": "క్లయింట్లు ఏమంటారు"
+  },
+  "contact": {
+    "eyebrow": "సంప్రదించండి",
+    "titleA": "మీ",
+    "titleB": "డిజిటల్ యూనివర్స్ నిర్మిద్దాం",
+    "body": "లాంచ్‌కు సిద్ధమా? మాకు సందేశం పంపండి; మా టీమ్ 24 గంటల్లో స్పందిస్తుంది.",
+    "formTitle": "సందేశం పంపండి",
+    "firstName": "మొదటి పేరు",
+    "lastName": "చివరి పేరు",
+    "email": "ఈమెయిల్ చిరునామా",
+    "phone": "ఫోన్ నంబర్",
+    "service": "ఆసక్తి ఉన్న సేవ",
+    "select": "ఒక సేవను ఎంచుకోండి...",
+    "other": "ఇతర",
+    "message": "సందేశం",
+    "messagePlaceholder": "మీ ప్రాజెక్ట్ గురించి చెప్పండి...",
+    "submit": "నా ప్రాజెక్ట్ లాంచ్ చేయండి",
+    "sent": "సందేశం పంపబడింది. త్వరలో సంప్రదిస్తాం."
+  },
+  "cta": {
+    "eyebrow": "లాంచ్‌కు సిద్ధమా?",
+    "titleA": "మీ డిజిటల్ ప్రయాణం",
+    "titleB": "ఇప్పుడే మొదలవుతుంది",
+    "body": "తమ digital universe నిర్మించడానికి Bit Byte Technologies పై నమ్మకం ఉంచిన 200+ forward-thinking businesses తో చేరండి.",
+    "primary": "సేవలు చూడండి",
+    "secondary": "సంప్రదించండి"
+  },
+  "footer": {
+    "brand": "ఆలోచనలను digital realityగా మార్చడం: ఒక్క code line, campaign, launch చొప్పున.",
+    "rights": "అన్ని హక్కులు రిజర్వ్ చేయబడ్డాయి.",
+    "builtBy": "నిర్మించింది"
+  }
+}

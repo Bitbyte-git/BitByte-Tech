@@ -1,0 +1,262 @@
+/* High-priority polish overrides kept after index.css. */
+
+#navbar {
+  grid-template-columns: minmax(170px, auto) minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 74px;
+}
+
+#navbar .logo-img {
+  width: 50px !important;
+  height: 50px !important;
+  margin: 0;
+  transform: none;
+  object-fit: contain;
+}
+
+#navbar .logo-wrap {
+  gap: 12px;
+}
+
+#navbar .logo-txt {
+  font-size: clamp(20px, 1.4vw, 23px);
+  letter-spacing: 0;
+}
+
+.nav-actions {
+  grid-column: 3;
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  min-width: 0;
+}
+
+#navbar .language-switcher,
+#navbar .btn-glow {
+  flex: 0 0 auto;
+}
+
+#navbar .btn-glow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 10px 22px;
+}
+
+#cursor-ring {
+  width: 42px;
+  height: 42px;
+  margin-left: -21px;
+  margin-top: -21px;
+  background: transparent;
+  box-shadow: 0 0 18px rgba(0, 180, 216, 0.22);
+}
+
+#cursor-ring.is-text {
+  opacity: 0.36;
+}
+
+#text-magnifier {
+  position: fixed;
+  width: 168px;
+  height: 92px;
+  margin-left: -84px;
+  margin-top: -46px;
+  z-index: 100000;
+  pointer-events: none;
+  opacity: 0;
+  overflow: hidden;
+  border: 1px solid rgba(164, 236, 112, 0.62);
+  border-radius: 999px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(0, 180, 216, 0.05)),
+    rgba(2, 14, 25, 0.14);
+  box-shadow:
+    0 0 0 1px rgba(0, 180, 216, 0.18),
+    0 14px 36px rgba(0, 0, 0, 0.18),
+    0 0 34px rgba(0, 180, 216, 0.2);
+  transform: translate3d(-999px, -999px, 0);
+  transition: opacity 0.16s ease;
+  will-change: transform;
+  contain: layout paint style;
+}
+
+#text-magnifier::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.24), transparent 18%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 48%);
+}
+
+#text-magnifier.is-active {
+  opacity: 1;
+}
+
+#text-magnifier-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transform-origin: top left;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.magnify-text-active {
+  filter: brightness(1.08);
+}
+
+.careers-page {
+  padding-top: 112px;
+}
+
+.careers-page .webapp-hero {
+  margin-bottom: clamp(44px, 7vw, 78px);
+}
+
+.careers-page .webapp-hero-grid {
+  grid-template-columns: minmax(420px, 0.86fr) minmax(360px, 0.74fr);
+  min-height: min(720px, calc(100vh - 120px));
+  gap: clamp(36px, 7vw, 96px);
+}
+
+.careers-page .webapp-title {
+  max-width: 650px;
+}
+
+.careers-page .webapp-lead {
+  max-width: 680px;
+}
+
+.careers-page .webapp-benefits {
+  max-width: 720px;
+  gap: 18px;
+}
+
+.careers-page .webapp-benefits div {
+  min-width: 0;
+  padding: 10px 0;
+}
+
+.career-visual-card {
+  position: relative;
+  width: min(520px, 100%);
+  margin-inline: auto;
+  padding: 36px;
+  border: 1px solid rgba(0, 180, 216, 0.16);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 82% 18%, rgba(0, 180, 216, 0.16), transparent 34%),
+    rgba(4, 18, 36, 0.58);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.28),
+    0 0 44px rgba(0, 180, 216, 0.12);
+  transform: rotateY(-10deg) rotateX(6deg);
+}
+
+.career-visual-card .fcrd {
+  max-width: none !important;
+  transform: none !important;
+}
+
+.careers-page .careers-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)) !important;
+  gap: 18px;
+}
+
+.careers-page .job-card {
+  min-height: 148px;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.careers-page .feature-grid {
+  gap: 18px;
+}
+
+@media (max-width: 1180px) {
+  #navbar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 18px;
+  }
+
+  .nav-links {
+    gap: clamp(14px, 1.8vw, 24px);
+  }
+
+  .language-trigger {
+    min-width: 112px;
+  }
+
+  #navbar .btn-glow {
+    padding-inline: 18px;
+  }
+
+  .careers-page .webapp-hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: auto;
+  }
+
+  .career-visual-card {
+    transform: none;
+  }
+}
+
+@media (max-width: 980px) {
+  .nav-links,
+  .nav-actions {
+    display: none;
+  }
+
+  #navbar {
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .ham {
+    display: inline-flex !important;
+    grid-column: 3;
+    position: static;
+    transform: none;
+  }
+}
+
+@media (max-width: 720px) {
+  #navbar {
+    min-height: 66px;
+  }
+
+  #navbar .logo-img {
+    width: 44px !important;
+    height: 44px !important;
+  }
+
+  .careers-page {
+    padding-top: 88px;
+  }
+
+  .careers-page .webapp-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .career-visual-card {
+    padding: 14px;
+  }
+
+  .careers-page .job-card {
+    align-items: flex-start;
+  }
+}
+
+@media (hover: none), (pointer: coarse), (max-width: 760px) {
+  #text-magnifier {
+    display: none;
+  }
+}

@@ -113,7 +113,15 @@ class Comet {
   }
 }
 
-export default function useLandingEffects({ canvasRef, cursorRef, ringRef, planetRef, setNavStuck }) {
+export default function useLandingEffects({
+  canvasRef,
+  cursorRef,
+  magnifierContentRef,
+  magnifierRef,
+  ringRef,
+  planetRef,
+  setNavStuck,
+}) {
   // 1. Canvas Animation Layer
   useEffect(() => {
     const canvas = canvasRef.current
@@ -328,6 +336,18 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
     const coarsePointer = window.matchMedia('(pointer: coarse)').matches
     let navIsStuck = window.scrollY > 50
     let scrollFrame = 0
+    let cursorFrame = 0
+    let hasCursorPosition = false
+    let targetX = 0
+    let targetY = 0
+    let currentX = 0
+    let currentY = 0
+    let activeTextTarget = null
+    let activeRect = null
+    let lastRectRead = 0
+    const lensWidth = 168
+    const lensHeight = 92
+    const lensScale = 1.58
     setNavStuck(navIsStuck)
 
     // Intersection Observer for .reveal sections
@@ -338,7 +358,7 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
           revealObserver.unobserve(entry.target)
         }
       })
-    }, { threshold: 0.15 })
+    }, { threshold: 0.05, rootMargin: '0px 0px -50px 0px' })
 
     const observeNewReveals = () => {
       document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
@@ -363,11 +383,131 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
       })
     }
 
-    const onMouseMove = (event) => {
-      if (cursorRef.current && ringRef.current) {
-        cursorRef.current.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`
-        ringRef.current.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`
+    const textSelector = [
+      '[data-magnify="true"]',
+      '.hero-h1',
+      '.hero-p',
+      '.sec-title',
+      '.sec-sub',
+      '.eyebrow',
+      '.svc-title',
+      '.svc-desc',
+      '.why-title',
+      '.why-desc',
+      '.port-name',
+      '.port-desc',
+      '.ttext',
+      '.footer-brand p',
+    ].join(',')
+
+    const setActiveTextTarget = (target) => {
+      if (activeTextTarget === target) return
+
+      activeTextTarget?.classList.remove('magnify-text-active')
+      activeTextTarget = target
+      activeRect = null
+      lastRectRead = 0
+      activeTextTarget?.classList.add('magnify-text-active')
+
+      const isActive = Boolean(activeTextTarget)
+      cursorRef.current?.classList.toggle('is-text', isActive)
+      ringRef.current?.classList.toggle('is-text', isActive)
+      magnifierRef.current?.classList.toggle('is-active', isActive)
+
+      if (!isActive || !magnifierContentRef.current) {
+        if (magnifierContentRef.current) magnifierContentRef.current.innerHTML = ''
+        return
       }
+
+      const computed = window.getComputedStyle(activeTextTarget)
+      const content = magnifierContentRef.current
+
+      content.innerHTML = activeTextTarget.innerHTML
+      content.style.width = `${activeTextTarget.getBoundingClientRect().width}px`
+      content.style.minHeight = `${activeTextTarget.getBoundingClientRect().height}px`
+      content.style.fontFamily = computed.fontFamily
+      content.style.fontSize = computed.fontSize
+      content.style.fontWeight = computed.fontWeight
+      content.style.fontStyle = computed.fontStyle
+      content.style.lineHeight = computed.lineHeight
+      content.style.letterSpacing = computed.letterSpacing
+      content.style.textTransform = computed.textTransform
+      content.style.textAlign = computed.textAlign
+      content.style.color = computed.color
+      content.style.backgroundImage = computed.backgroundImage
+      content.style.backgroundClip = computed.backgroundClip
+      content.style.webkitBackgroundClip = computed.webkitBackgroundClip
+      content.style.webkitTextFillColor = computed.webkitTextFillColor
+      content.style.textShadow = computed.textShadow
+      content.style.whiteSpace = computed.whiteSpace
+      content.style.overflowWrap = computed.overflowWrap
+    }
+
+    const updateActiveRect = (now) => {
+      if (!activeTextTarget || now - lastRectRead < 120) return
+
+      activeRect = activeTextTarget.getBoundingClientRect()
+      lastRectRead = now
+
+      if (magnifierContentRef.current) {
+        magnifierContentRef.current.style.width = `${activeRect.width}px`
+        magnifierContentRef.current.style.minHeight = `${activeRect.height}px`
+      }
+    }
+
+    const animateCursor = (now = 0) => {
+      cursorFrame = 0
+
+      currentX += (targetX - currentX) * 0.2
+      currentY += (targetY - currentY) * 0.2
+
+      const transform = `translate3d(${currentX}px, ${currentY}px, 0)`
+      if (cursorRef.current) cursorRef.current.style.transform = transform
+      if (ringRef.current) ringRef.current.style.transform = transform
+      if (magnifierRef.current) magnifierRef.current.style.transform = transform
+
+      updateActiveRect(now)
+
+      if (activeRect && magnifierContentRef.current) {
+        const localX = currentX - activeRect.left
+        const localY = currentY - activeRect.top
+        const contentX = (lensWidth / 2) - (localX * lensScale)
+        const contentY = (lensHeight / 2) - (localY * lensScale)
+
+        magnifierContentRef.current.style.transform = `translate3d(${contentX}px, ${contentY}px, 0) scale(${lensScale})`
+      }
+
+      if (Math.abs(targetX - currentX) > 0.2 || Math.abs(targetY - currentY) > 0.2) {
+        cursorFrame = requestAnimationFrame(animateCursor)
+      }
+    }
+
+    const scheduleCursor = () => {
+      if (!cursorFrame) cursorFrame = requestAnimationFrame(animateCursor)
+    }
+
+    const onMouseMove = (event) => {
+      targetX = event.clientX
+      targetY = event.clientY
+
+      if (!hasCursorPosition) {
+        currentX = targetX
+        currentY = targetY
+        hasCursorPosition = true
+      }
+
+      const target = event.target instanceof Element ? event.target.closest(textSelector) : null
+      const interactive = event.target instanceof Element ? event.target.closest('button, a, input, textarea, select, iframe') : null
+      setActiveTextTarget(interactive ? null : target)
+
+      if (target && !interactive) {
+        // Additional logic if needed for target
+      }
+      scheduleCursor()
+    }
+
+    const onMouseLeave = () => {
+      setActiveTextTarget(null)
     }
 
     if (planetRef.current) {
@@ -377,14 +517,19 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
     window.addEventListener('scroll', onScroll, { passive: true })
     if (!coarsePointer) {
       window.addEventListener('mousemove', onMouseMove, { passive: true })
+      window.addEventListener('mouseleave', onMouseLeave)
     }
 
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseleave', onMouseLeave)
       cancelAnimationFrame(scrollFrame)
+      cancelAnimationFrame(cursorFrame)
+      activeTextTarget?.classList.remove('magnify-text-active')
+      magnifierRef.current?.classList.remove('is-active')
       revealObserver.disconnect()
       mutationObserver.disconnect()
     }
-  }, [cursorRef, ringRef, planetRef, setNavStuck])
+  }, [cursorRef, magnifierContentRef, magnifierRef, ringRef, planetRef, setNavStuck])
 }

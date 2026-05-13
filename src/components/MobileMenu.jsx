@@ -1,24 +1,65 @@
 import { memo } from 'react'
-import { navLinks } from '../constants'
+import { useTranslation } from 'react-i18next'
+import { navLinks, services } from '../constants'
+import LanguageSwitcher from './LanguageSwitcher'
 
-function MobileMenu({ open, onClose, rootLinks = false }) {
+function MobileMenu({
+  activeSection = 'home',
+  open,
+  onClose,
+  onNavClick,
+  onServiceSelect,
+  rootLinks = false,
+}) {
+  const { t } = useTranslation()
+
   const hrefFor = (href) => {
     if (href.startsWith('/')) return href
     return rootLinks ? `/${href}` : href
   }
 
+  const handleLinkClick = (event, href, key) => {
+    onNavClick?.(event, href, key)
+    onClose()
+  }
+
+  const handleServiceClick = (event, serviceId) => {
+    onServiceSelect?.(event, serviceId)
+    onClose()
+  }
+
   return (
     <div className={`mob-menu ${open ? 'open' : ''}`} id="mobMenu">
-      <button className="mob-close" type="button" aria-label="Close menu" onClick={onClose}>
+      <button className="mob-close" type="button" aria-label={t('nav.closeMenu')} onClick={onClose}>
         <i className="fas fa-times" aria-hidden="true" />
       </button>
-      {navLinks.map(([href, label]) => (
-        <a key={href} href={hrefFor(href)} onClick={onClose}>
-          {label}
-        </a>
+      <LanguageSwitcher compact />
+      {navLinks.map(({ href, key, label }) => (
+        <div className="mob-link-group" key={href}>
+          <a
+            href={hrefFor(href)}
+            className={activeSection === key ? 'active' : ''}
+            onClick={(event) => handleLinkClick(event, href, key)}
+          >
+            {t(`nav.${key}`, label)}
+          </a>
+          {key === 'services' && (
+            <div className="mob-service-links">
+              {services.map((service) => (
+                <a
+                  href={hrefFor('#services')}
+                  key={service.id}
+                  onClick={(event) => handleServiceClick(event, service.id)}
+                >
+                  {t(`services.cards.${service.id}.title`, service.title)}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
       ))}
-      <a href={hrefFor('#contact')} className="btn-glow" style={{ marginTop: 10 }} onClick={onClose}>
-        Get Started
+      <a href={hrefFor('#contact')} className="btn-glow" style={{ marginTop: 10 }} onClick={(event) => handleLinkClick(event, '#contact', 'contact')}>
+        {t('nav.getStarted')}
       </a>
     </div>
   )
