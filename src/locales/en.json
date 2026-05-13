@@ -36,14 +36,14 @@
   },
   "services": {
     "eyebrow": "What We Offer",
-    "titleA": "Premium MERN",
+    "titleA": "Digital Software & Marketing",
     "titleB": "Service Systems",
     "body": "Six focused capabilities for brands that need fast software, persuasive identity, and live business intelligence without sacrificing performance.",
     "learnMore": "Learn More",
     "active": "Active focus",
     "cards": {
       "web-app-development": {
-        "stat": "MERN",
+        "stat": "Digital Software",
         "title": "Web App Development",
         "desc": "High-performance React, Node, Express, and MongoDB platforms engineered for growth, conversion, and long-term maintainability."
       },
