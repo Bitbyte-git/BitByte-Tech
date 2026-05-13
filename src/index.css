@@ -2263,7 +2263,7 @@ footer {
 /* ══ PLANET REAL IMAGE ══ */
 #hero .planet-sys {
   position: absolute;
-  left: 950px;
+  left: 800px;
   right: auto;
   top: 50%;
   transform: translate(-50%, -50%);
