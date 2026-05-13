@@ -8,7 +8,7 @@ export default function WhyUs() {
     <section id="why" className="section wrap center">
       <div className="eyebrow reveal" data-magnify="true">{t('why.eyebrow')}</div>
       <h2 className="sec-title reveal reveal-delay-1" data-magnify="true">
-        {t('why.titleA')} <span className="c">{t('why.titleB')}</span>
+        Why Choose <span className="c">Bit Byte Technologies</span>
       </h2>
       <p className="sec-sub reveal reveal-delay-2" data-magnify="true" style={{ margin: '12px auto 0' }}>
         {t('why.body')}

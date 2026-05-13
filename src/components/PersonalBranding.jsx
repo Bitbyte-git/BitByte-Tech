@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 const brandServices = [
   ['fa-regular fa-user', 'Profile Optimization', 'We optimize your social media profiles to reflect your expertise and create a strong first impression.'],
   ['fa-regular fa-newspaper', 'Content Strategy', 'We create a content strategy that showcases your knowledge, story, and value.'],
@@ -79,6 +81,10 @@ function BrandingMockup() {
 }
 
 export default function PersonalBranding() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <main className="pb-page wrap">
       <style>{`

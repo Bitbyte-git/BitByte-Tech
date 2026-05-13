@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import ServiceFaq from "./ServiceFaq";
 
 const marketingServices = [
@@ -213,6 +214,10 @@ function AiMarketingVisual() {
 }
 
 export default function DigitalMarketingSolutions() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <main className="webapp-page dm-page wrap">
       <section className="dm-hero">

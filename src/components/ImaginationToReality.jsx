@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 const heroCards = [
   ['fa-solid fa-lightbulb', '02', 'Idea'],
   ['fa-solid fa-magnifying-glass-chart', '02', 'Research'],
@@ -76,6 +78,10 @@ function HeroLabVisual() {
 }
 
 export default function ImaginationToReality() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <main className="ir-page wrap">
       <style>{`

@@ -74,9 +74,9 @@ export const whyItems = [
 ]
 
 export const projects = [
-  ['pt-1', '🚀', 'Web Development', 'OrbitalShop E-Commerce', 'A high-performance e-commerce platform with real-time inventory, AI recommendations, and blazing load speeds.'],
-  ['pt-2', '📊', 'Digital Marketing', 'NexaCloud Growth Campaign', '350% increase in qualified leads in 90 days through a multi-channel digital strategy and precision ad targeting.'],
-  ['pt-3', '🎨', 'UI/UX Design', 'Starlite SaaS Dashboard', 'A stunning enterprise dashboard redesign that reduced onboarding time by 60% and boosted NPS by 42 points.'],
+  ['pt-1', '/assets/Bharathi-img.png', 'Web App Development', 'Bharathi Jewellers E-Commerce', 'A premium e-commerce platform for Bharathi Jewellers with secure shopping, real-time gold rates, and an elegant user experience.'],
+  ['pt-2', 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2426&auto=format&fit=crop', 'Digital Marketing', 'NexaCloud Growth Campaign', '350% increase in qualified leads in 90 days through a multi-channel digital strategy and precision ad targeting.'],
+  ['pt-3', 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2670&auto=format&fit=crop', 'UI/UX Design', 'Starlite SaaS Dashboard', 'A stunning enterprise dashboard redesign that reduced onboarding time by 60% and boosted NPS by 42 points.'],
 ]
 
 export const testimonials = [

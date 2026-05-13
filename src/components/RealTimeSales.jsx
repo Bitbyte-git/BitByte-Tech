@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+
 const heroPillars = [
   ['fa-solid fa-chart-line', 'Live Monitoring', 'Track sales as they happen'],
   ['fa-solid fa-chart-pie', 'Smart Analytics', 'Get insights that matter'],
@@ -181,6 +183,10 @@ function SalesDashboard() {
 }
 
 export default function RealTimeSales() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <main className="sales-page wrap">
       <section className="sales-hero">

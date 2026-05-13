@@ -64,7 +64,7 @@ function Hero({ planetRef }) {
           height="600"
           loading="eager"
           decoding="async"
-          fetchPriority="high"
+          fetchpriority="high"
         />
         <img
           src="/assets/optimized/planet-640.png"
@@ -76,7 +76,7 @@ function Hero({ planetRef }) {
           height="640"
           loading="eager"
           decoding="async"
-          fetchPriority="high"
+          fetchpriority="high"
         />
       </div>
 
@@ -93,7 +93,8 @@ function Hero({ planetRef }) {
           <span className="grad">{t('hero.title3')}</span>
         </h1>
         <p className="hero-p" data-magnify="true">
-          {t('hero.body')}
+          We engineer cutting-edge Web App Development and data-driven digital marketing solutions, crafted for brands that dare to reach
+          beyond the horizon.
         </p>
         <div className="hero-btns">
           <a href="#services" className="btn-primary">
@@ -104,7 +105,12 @@ function Hero({ planetRef }) {
           </a>
         </div>
         <div className="hero-stats">
-          {stats.map(([num, label], index) => (
+          {[
+            ['200+', 'Projects'],
+            ['98%', 'Satisfaction'],
+            ['1+', 'Years'],
+            ['6000+', 'Clients'],
+          ].map(([num, label], index) => (
             <div className={index > 0 ? 'stat-group' : ''} key={label}>
               {index > 0 && <div className="stat-sep" />}
               <span className="snum">{num}</span>

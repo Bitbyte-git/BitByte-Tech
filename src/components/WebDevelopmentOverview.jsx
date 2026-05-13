@@ -90,7 +90,7 @@ function WebsiteMockup() {
         <h3>We Build Digital Products That Drive Real Growth</h3>
         <p>Fast, responsive, and business-focused websites.</p>
         <button type="button">Get Quote</button>
-        <div className="wd-phone-card">Our Services<br /><b>Web Development</b></div>
+        <div className="wd-phone-card">Our Services<br /><b>Web App Development</b></div>
       </div>
     </div>
   )
@@ -119,7 +119,7 @@ export default function WebDevelopmentOverview() {
           <span>›</span>
           <a href="/#services">Services</a>
           <span>›</span>
-          <strong>Web Development</strong>
+          <strong>Web App Development</strong>
         </div>
         <div className="wd-hero-grid">
           <div className="wd-hero-copy">
@@ -166,7 +166,7 @@ export default function WebDevelopmentOverview() {
       <section className="wd-services-section" id="wd-services">
         <div className="service-section-eyebrow center reveal">What We Do</div>
         <h2 className="dm-section-title reveal reveal-delay-1">
-          Our Web Development <span>Services</span>
+          Our Web App Development <span>Services</span>
         </h2>
         <p className="wd-section-sub reveal reveal-delay-2">End-to-end web solutions tailored to your business goals.</p>
         <div className="wd-service-grid">

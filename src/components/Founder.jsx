@@ -14,8 +14,8 @@ export default function Founder() {
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">
-          <p data-magnify="true">{t('founder.quote')}</p>
-          <cite>{t('founder.cite')}</cite>
+          <p data-magnify="true">Change is the only constant. Growth begins when we learn to adapt.</p>
+          <cite>Founder, Bit Byte Technologies</cite>
         </div>
       </div>
       <div className="founder-content inner-content">
@@ -32,7 +32,13 @@ export default function Founder() {
           {t('founder.bodyB')}
         </p>
         <div className="founder-pills reveal reveal-delay-4">
-          {pills.map((pill) => (
+          {[
+            "14+ Years Experience",
+            "Global Clients",
+            "Award-Winning",
+            "Innovation-First",
+            "Cosmos-Inspired",
+          ].map((pill) => (
             <span className="pill" key={pill}>
               {pill}
             </span>

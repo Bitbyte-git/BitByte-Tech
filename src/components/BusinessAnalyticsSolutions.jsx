@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import ServiceFaq from './ServiceFaq'
 
 const analyticsServices = [
@@ -178,6 +179,10 @@ function DataVisual() {
 }
 
 export default function BusinessAnalyticsSolutions() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   return (
     <main className="webapp-page ba-page wrap">
       <section className="dm-hero ba-hero">

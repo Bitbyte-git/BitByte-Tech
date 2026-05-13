@@ -10,7 +10,7 @@ function Logo({ height = 44, loading = 'eager', fetchPriority = 'auto' }) {
       height="512"
       loading={loading}
       decoding="async"
-      fetchPriority={fetchPriority}
+      fetchpriority={fetchPriority}
       style={{ height: `${height}px`, width: 'auto', objectFit: 'contain' }} 
     />
   )

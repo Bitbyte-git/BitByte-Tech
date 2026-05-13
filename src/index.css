@@ -30,7 +30,7 @@
   /* Accent gradient (matches logo flow) */
   --grad: linear-gradient(135deg, #a4ec70 0%, #00a4ec 45%, #294d9d 100%);
   --grad-h: linear-gradient(135deg, #bcf096 0%, #33bcf0 45%, #3d6eb8 100%);
-  --grad-text: linear-gradient(90deg, #a4ec70, #00a4ec, #294d9d);
+  --grad-text: linear-gradient(90deg, #294d9d, #00a4ec, #a4ec70);
 
   /* Glow colours */
   --glow-g: rgba(164, 236, 112, 0.35);
@@ -293,6 +293,11 @@ body::before {
   transform-origin: left center;
 }
 #navbar.stuck {
+
+  padding: 8px 64px;
+  background: rgba(6, 214, 160, 0.15);
+  border-bottom-color:rgba(2, 8, 18, 0.92);
+
   padding: 6px 64px;
   background: rgba(2, 8, 18, 0.92);
   border-bottom-color: rgba(6, 214, 160, 0.15);
@@ -305,6 +310,12 @@ body::before {
 }
 .logo-txt {
   position: relative;
+
+  left:110px;
+  top:2px;
+  transform: scale(1.5);
+   font-family: 'Montserrat', sans-serif;
+  font-size: 15px;  
   left: 88px;
   top: 2px;
   transform: scale(1.2);
@@ -1289,6 +1300,70 @@ body::before {
 }
 
 .svc-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  /* Animated hover for main service cards */
+  .svc-card[href*="web-development"],
+  .svc-card[href*="digital-marketing"],
+  .svc-card[href*="business-analytics"] {
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s;
+  }
+  .svc-card[href*="web-development"]:hover,
+  .svc-card[href*="digital-marketing"]:hover,
+  .svc-card[href*="business-analytics"]:hover {
+    transform: translateY(-16px) scale(1.045) rotate(-1deg);
+    box-shadow: 0 12px 48px 0 rgba(0,180,216,0.18), 0 0 0 4px rgba(6,214,160,0.08);
+    border-color: var(--teal);
+  }
+  /* Service Card Button (explicit class) */
+  .svc-btn {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 12px 32px;
+    font-family: var(--f-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #000;
+    background: var(--grad);
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 0 30px var(--glow-g);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .svc-btn:hover {
+    background: var(--grad-h);
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 0 32px var(--glow-t);
+  }
+  /* Service Card Button */
+  .svc-card button {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 12px 32px;
+    font-family: var(--f-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: #000;
+    background: var(--grad);
+    border: none;
+    border-radius: 28px;
+    box-shadow: 0 0 18px var(--glow-g);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .svc-card button:hover {
+    background: var(--grad-h);
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 0 32px var(--glow-t);
+  }
   position: relative;
   background: var(--glass);
   backdrop-filter: blur(20px);
@@ -1364,6 +1439,7 @@ body::before {
   font-weight: 700;
   color: var(--white);
   margin-bottom: 16px;
+  text-align: center;
   line-height: 1.25;
 }
 .svc-desc {
@@ -1371,6 +1447,9 @@ body::before {
   line-height: 1.8;
   color: var(--white60);
   font-weight: 300;
+  text-align: center;
+  margin: 0 auto 0 auto;
+  max-width: 340px;
 }
 .svc-link {
   display: inline-flex;
@@ -1751,7 +1830,6 @@ body::before {
   font-family: var(--f-label);
   font-size: 12px;
   letter-spacing: 2px;
-  text-transform: uppercase;
   color: var(--green);
   font-style: normal;
 }
@@ -1800,15 +1878,44 @@ body::before {
   padding: 40px 32px;
   position: relative;
   overflow: hidden;
-  transition: all 0.4s;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: none;
+  isolation: isolate;
+}
+.why-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.05),
+    transparent
+  );
+  transition: 0.5s;
+  z-index: 1;
+}
+.why-card:hover::before {
+  left: 100%;
 }
 .why-card:hover {
-  border-color: rgba(6, 214, 160, 0.25);
-  transform: translateY(-8px);
+  border-color: rgba(6, 214, 160, 0.4);
+  transform: translateY(-12px) scale(1.02);
   box-shadow:
-    0 20px 55px rgba(0, 0, 0, 0.4),
-    0 0 35px rgba(0, 119, 182, 0.12);
+    0 25px 65px rgba(0, 0, 0, 0.5),
+    0 0 45px rgba(6, 214, 160, 0.15);
+}
+.why-card:hover .why-num {
+  color: rgba(6, 214, 160, 0.12);
+  transform: translateY(-5px) scale(1.1);
+  filter: blur(1px);
+}
+.why-card:hover .why-icon {
+  transform: scale(1.2) rotate(10deg);
+  filter: drop-shadow(0 0 15px var(--glow-g));
 }
 .why-num {
   font-family: var(--f-display);
@@ -1819,11 +1926,13 @@ body::before {
   top: 20px;
   right: 24px;
   line-height: 1;
+  transition: all 0.5s ease;
 }
 .why-icon {
   font-size: 28px;
   margin-bottom: 20px;
   display: block;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .why-title {
   font-family: var(--f-display);
@@ -1874,7 +1983,19 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, var(--glass) 100%);
+  background: linear-gradient(180deg, transparent 40%, var(--navy) 100%);
+  z-index: 2;
+}
+.port-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  position: absolute;
+  inset: 0;
+}
+.port-card:hover .port-img {
+  transform: scale(1.1);
 }
 .port-body {
   padding: 24px;
@@ -5338,7 +5459,7 @@ select,
 }
 
 /* ══════════════════════════════════════════════
-   WEB DEVELOPMENT OVERVIEW PAGE
+   Web App Development OVERVIEW PAGE
 ══════════════════════════════════════════════ */
 .wd-page {
   padding-bottom: 48px;
