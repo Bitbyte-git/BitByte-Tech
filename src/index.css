@@ -186,15 +186,14 @@ body::before {
   transform-origin: left center;
 }
 #navbar.stuck {
-<<<<<<< HEAD
+
   padding: 8px 64px;
   background: rgba(6, 214, 160, 0.15);
   border-bottom-color:rgba(2, 8, 18, 0.92);
-=======
+
   padding: 6px 64px;
   background: rgba(2, 8, 18, 0.92);
   border-bottom-color: rgba(6, 214, 160, 0.15);
->>>>>>> 233e2f1e56d59a055083f58360a34e4cc441076c
 }
 .logo-wrap {
   display: flex;
@@ -204,19 +203,17 @@ body::before {
 }
 .logo-txt {
   position: relative;
-<<<<<<< HEAD
+
   left:110px;
   top:2px;
   transform: scale(1.5);
    font-family: 'Montserrat', sans-serif;
   font-size: 15px;  
-=======
   left: 88px;
   top: 2px;
   transform: scale(1.2);
   font-family: "Montserrat", sans-serif;
   font-size: 10px;
->>>>>>> 233e2f1e56d59a055083f58360a34e4cc441076c
   font-weight: 900;
   color: var(--white);
   line-height: 1.1;
