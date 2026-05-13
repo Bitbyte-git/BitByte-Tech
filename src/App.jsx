@@ -1,25 +1,27 @@
-import { useRef, useState } from 'react'
+import { Suspense, lazy, useCallback, useRef, useState } from 'react'
 import Cursor from './components/Cursor'
 import BackgroundCanvas from './components/BackgroundCanvas'
 import MobileMenu from './components/MobileMenu'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import Services from './components/Services'
-import Founder from './components/Founder'
-import WhyUs from './components/WhyUs'
-import Portfolio from './components/Portfolio'
-import Testimonials from './components/Testimonials'
-import Contact from './components/Contact'
-import CTA from './components/CTA'
 import Footer from './components/Footer'
 import useLandingEffects from './components/useLandingEffects'
-import CustomWebApplications from './components/CustomWebApplications'
-import DigitalMarketingSolutions from './components/DigitalMarketingSolutions'
-import BusinessAnalyticsSolutions from './components/BusinessAnalyticsSolutions'
-import WebDevelopmentOverview from './components/WebDevelopmentOverview'
-import WebDevelopmentSubService from './components/WebDevelopmentSubService'
 
-import CareersPage from './components/CareersPage'
+const Services = lazy(() => import('./components/Services'))
+const Founder = lazy(() => import('./components/Founder'))
+const WhyUs = lazy(() => import('./components/WhyUs'))
+const Portfolio = lazy(() => import('./components/Portfolio'))
+const Testimonials = lazy(() => import('./components/Testimonials'))
+const Contact = lazy(() => import('./components/Contact'))
+const CTA = lazy(() => import('./components/CTA'))
+const CustomWebApplications = lazy(() => import('./components/CustomWebApplications'))
+const DigitalMarketingSolutions = lazy(() => import('./components/DigitalMarketingSolutions'))
+const BusinessAnalyticsSolutions = lazy(() => import('./components/BusinessAnalyticsSolutions'))
+const WebDevelopmentOverview = lazy(() => import('./components/WebDevelopmentOverview'))
+const WebDevelopmentSubService = lazy(() => import('./components/WebDevelopmentSubService'))
+const CareersPage = lazy(() => import('./components/CareersPage'))
+
+const SectionFallback = () => null
 
 export default function App() {
   const canvasRef = useRef(null)
@@ -28,6 +30,8 @@ export default function App() {
   const planetRef = useRef(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [navStuck, setNavStuck] = useState(false)
+  const openMobileMenu = useCallback(() => setMobileOpen(true), [])
+  const closeMobileMenu = useCallback(() => setMobileOpen(false), [])
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
   const isWebDevelopmentPage = pathname === '/services/web-development'
   const isCustomWebAppPage = pathname === '/services/web-development/custom-web-applications'
@@ -45,32 +49,48 @@ export default function App() {
     <>
       <Cursor cursorRef={cursorRef} ringRef={ringRef} />
       <BackgroundCanvas canvasRef={canvasRef} />
-      <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} rootLinks={isServiceDetailPage} />
-      <Navbar stuck={navStuck} onMenuOpen={() => setMobileOpen(true)} rootLinks={isServiceDetailPage} />
+      <MobileMenu open={mobileOpen} onClose={closeMobileMenu} rootLinks={isServiceDetailPage} />
+      <Navbar stuck={navStuck} onMenuOpen={openMobileMenu} rootLinks={isServiceDetailPage} />
       {isWebDevelopmentPage ? (
-        <WebDevelopmentOverview />
+        <Suspense fallback={<SectionFallback />}>
+          <WebDevelopmentOverview />
+        </Suspense>
       ) : isCustomWebAppPage ? (
-        <CustomWebApplications />
+        <Suspense fallback={<SectionFallback />}>
+          <CustomWebApplications />
+        </Suspense>
       ) : isEcommercePage ? (
-        <WebDevelopmentSubService type="ecommerce" />
+        <Suspense fallback={<SectionFallback />}>
+          <WebDevelopmentSubService type="ecommerce" />
+        </Suspense>
       ) : isPortalsPage ? (
-        <WebDevelopmentSubService type="portals" />
+        <Suspense fallback={<SectionFallback />}>
+          <WebDevelopmentSubService type="portals" />
+        </Suspense>
       ) : isDigitalMarketingPage ? (
-        <DigitalMarketingSolutions />
+        <Suspense fallback={<SectionFallback />}>
+          <DigitalMarketingSolutions />
+        </Suspense>
       ) : isBusinessAnalyticsPage ? (
-        <BusinessAnalyticsSolutions />
+        <Suspense fallback={<SectionFallback />}>
+          <BusinessAnalyticsSolutions />
+        </Suspense>
       ) : isCareersPage ? (
-        <CareersPage />
+        <Suspense fallback={<SectionFallback />}>
+          <CareersPage />
+        </Suspense>
       ) : (
         <>
           <Hero planetRef={planetRef} />
-          <Services />
-          <Founder />
-          <WhyUs />
-          <Portfolio />
-          <Testimonials />
-          <Contact />
-          <CTA />
+          <Suspense fallback={<SectionFallback />}>
+            <Services />
+            <Founder />
+            <WhyUs />
+            <Portfolio />
+            <Testimonials />
+            <Contact />
+            <CTA />
+          </Suspense>
         </>
       )}
       <Footer rootLinks={isServiceDetailPage} />

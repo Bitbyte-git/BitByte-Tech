@@ -11,6 +11,16 @@ export default function BitByteHero() {
     const ctx = cv?.getContext("2d");
     if (!el || !cv || !ctx) return undefined;
 
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const saveData = Boolean(navigator.connection?.saveData);
+    if (prefersReducedMotion || saveData) {
+      cv.hidden = true;
+      return () => {
+        cv.hidden = false;
+      };
+    }
+
     let width = 0;
     let height = 0;
     let centerX = 0;
@@ -18,9 +28,10 @@ export default function BitByteHero() {
     let scale = 1;
     let time = 0;
     let frameId = 0;
+    let isActive = false;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = el.clientWidth;
       height = el.clientHeight;
       centerX = width / 2;
@@ -34,8 +45,8 @@ export default function BitByteHero() {
     };
 
     resize();
-    const observer = new ResizeObserver(resize);
-    observer.observe(el);
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(el);
 
     const onMove = (event) => {
       const rect = el.getBoundingClientRect();
@@ -49,11 +60,13 @@ export default function BitByteHero() {
       mouse.current = { x: -999, y: -999 };
     };
 
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
+    if (!coarsePointer) {
+      el.addEventListener("mousemove", onMove, { passive: true });
+      el.addEventListener("mouseleave", onLeave);
+    }
 
     const radius = 220;
-    const rowCount = 28;
+    const rowCount = 22;
     const dots = [];
 
     for (let row = 0; row < rowCount; row += 1) {
@@ -143,7 +156,7 @@ export default function BitByteHero() {
     };
 
     const drawRing = (ring) => {
-      const segments = 200;
+      const segments = 120;
       const angle = time * ring.speed + ring.phase;
 
       ctx.beginPath();
@@ -182,6 +195,9 @@ export default function BitByteHero() {
     };
 
     const draw = () => {
+      frameId = 0;
+      if (!isActive) return;
+
       time += 0.007;
       ctx.clearRect(0, 0, width, height);
 
@@ -270,13 +286,27 @@ export default function BitByteHero() {
       frameId = requestAnimationFrame(draw);
     };
 
-    draw();
+    const viewportObserver = new IntersectionObserver(
+      ([entry]) => {
+        isActive = entry.isIntersecting;
+        if (isActive && !frameId) frameId = requestAnimationFrame(draw);
+        if (!isActive && frameId) {
+          cancelAnimationFrame(frameId);
+          frameId = 0;
+        }
+      },
+      { rootMargin: "180px 0px" },
+    );
+    viewportObserver.observe(el);
 
     return () => {
       cancelAnimationFrame(frameId);
-      observer.disconnect();
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseleave", onLeave);
+      resizeObserver.disconnect();
+      viewportObserver.disconnect();
+      if (!coarsePointer) {
+        el.removeEventListener("mousemove", onMove);
+        el.removeEventListener("mouseleave", onLeave);
+      }
     };
   }, []);
 
@@ -284,9 +314,13 @@ export default function BitByteHero() {
     <div ref={heroRef} className="bitbyte-hero-visual" aria-hidden="true">
       <canvas ref={canvasRef} className="bitbyte-hero-canvas" />
       <img
-        src="/assets/planet.png"
+        src="/assets/optimized/planet-640.png"
         alt=""
         className="bitbyte-center-planet"
+        width="640"
+        height="640"
+        loading="lazy"
+        decoding="async"
         draggable="false"
       />
     </div>

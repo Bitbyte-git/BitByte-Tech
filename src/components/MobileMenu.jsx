@@ -1,6 +1,7 @@
+import { memo } from 'react'
 import { navLinks } from '../constants'
 
-export default function MobileMenu({ open, onClose, rootLinks = false }) {
+function MobileMenu({ open, onClose, rootLinks = false }) {
   const hrefFor = (href) => {
     if (href.startsWith('/')) return href
     return rootLinks ? `/${href}` : href
@@ -22,3 +23,5 @@ export default function MobileMenu({ open, onClose, rootLinks = false }) {
     </div>
   )
 }
+
+export default memo(MobileMenu)

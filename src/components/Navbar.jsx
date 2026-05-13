@@ -1,7 +1,8 @@
+import { memo } from 'react'
 import { navLinks } from '../constants'
 import Logo from './Logo'
 
-export default function Navbar({ stuck, onMenuOpen, rootLinks = false }) {
+function Navbar({ stuck, onMenuOpen, rootLinks = false }) {
   const hrefFor = (href) => {
     if (href.startsWith('/')) return href
     return rootLinks ? `/${href}` : href
@@ -10,7 +11,7 @@ export default function Navbar({ stuck, onMenuOpen, rootLinks = false }) {
   return (
     <nav id="navbar" className={stuck ? 'stuck' : ''}>
       <a href={hrefFor('#hero')} className="logo-wrap" aria-label="Bit Byte Technologies home">
-        <Logo idPrefix="nav-logo" />
+        <Logo fetchPriority="high" />
         <div className="logo-txt">
          <em>Bit Byte</em>
         </div>
@@ -35,3 +36,5 @@ export default function Navbar({ stuck, onMenuOpen, rootLinks = false }) {
     </nav>
   )
 }
+
+export default memo(Navbar)

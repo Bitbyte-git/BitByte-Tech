@@ -35,7 +35,7 @@ export default function Footer({ rootLinks = false }) {
       <div className="footer-top">
         <div className="footer-brand">
           <a href="#hero" className="logo-wrap" style={{ display: 'inline-flex' }} aria-label="Bit Byte Technologies home">
-            <Logo idPrefix="footer-logo" height={40} />
+            <Logo height={40} loading="lazy" fetchPriority="low" />
           </a>
           <p>Transforming ideas into digital reality: one line of code, one campaign, one galaxy at a time.</p>
           <div className="social-row" style={{ marginTop: 20 }}>

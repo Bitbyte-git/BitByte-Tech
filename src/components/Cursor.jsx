@@ -1,4 +1,6 @@
-export default function Cursor({ cursorRef, ringRef }) {
+import { memo } from 'react'
+
+function Cursor({ cursorRef, ringRef }) {
   return (
     <>
       <div id="cursor" ref={cursorRef} />
@@ -6,3 +8,5 @@ export default function Cursor({ cursorRef, ringRef }) {
     </>
   )
 }
+
+export default memo(Cursor)
