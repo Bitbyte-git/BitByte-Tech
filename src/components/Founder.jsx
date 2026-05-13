@@ -1,12 +1,12 @@
-import BitByteGlobe from './BitByteGlobe'
+import BitByteHero from './BitByteHero'
 
 export default function Founder() {
   return (
-    <section id="founder" className="wrap bg-tint-1">
+    <section id="founder" className="section wrap bg-tint-1">
       <div className="founder-visual inner-content reveal">
         <div className="founder-planet">
           <div className="founder-globe-frame">
-            <BitByteGlobe />
+            <BitByteHero />
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">

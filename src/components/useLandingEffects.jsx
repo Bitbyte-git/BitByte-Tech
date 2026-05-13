@@ -120,9 +120,25 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
     const ctx = canvas?.getContext('2d')
     if (!canvas || !ctx) return undefined
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+    const saveData = Boolean(navigator.connection?.saveData)
+    const lowPowerDevice = Boolean(navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4)
+    const disableCanvas = prefersReducedMotion || coarsePointer || saveData || lowPowerDevice
+
+    if (disableCanvas) {
+      canvas.hidden = true
+      return () => {
+        canvas.hidden = false
+      }
+    }
+
     let width = 0
     let height = 0
     let frame = 0
+    let lastFrameTime = 0
+    let isVisible = !document.hidden
+    const frameInterval = 1000 / 30
     
     // Mouse tracking for interactivity
     let mouse = { x: -1000, y: -1000 }
@@ -130,7 +146,7 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
       mouse.x = e.clientX
       mouse.y = e.clientY
     }
-    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mousemove', onMouseMove, { passive: true })
 
     // Entities
     let planets = []
@@ -142,9 +158,9 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
       const cx = width / 2
       const cy = height / 2
 
-      // 10 Unique Planets
+      // Keep this cinematic layer light enough to preserve INP on laptops.
       planets = []
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 6; i++) {
         const orbitRadius = (maxDim / 2) * (0.1 + (i * 0.1)) // Scales to fill viewport
         const radius = Math.random() * 12 + 4 // 4px to 16px
         const color = `hsl(${Math.random() * 360}, 70%, 60%)`
@@ -153,8 +169,8 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
         planets.push(new Planet(orbitRadius, radius, color, speed))
       }
 
-      // Astro-Plexus Nodes (55 nodes)
-      plexusNodes = Array.from({ length: 55 }, () => ({
+      // Astro-Plexus Nodes
+      plexusNodes = Array.from({ length: 34 }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.4, // ultra-low velocity (max 0.2 each direction)
@@ -162,17 +178,18 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
         r: 2.5, // fixed size
       }))
 
-      // Comets (3 active)
-      comets = [
-        new Comet(width, height, '#4cc9f0'),
-        new Comet(width, height, '#4cc9f0'),
-        new Comet(width, height, '#4cc9f0')
-      ]
+      comets = [new Comet(width, height, '#4cc9f0')]
     }
 
     const resize = () => {
-      width = canvas.width = window.innerWidth
-      height = canvas.height = window.innerHeight
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5)
+      width = window.innerWidth
+      height = window.innerHeight
+      canvas.width = Math.max(1, Math.floor(width * dpr))
+      canvas.height = Math.max(1, Math.floor(height * dpr))
+      canvas.style.width = `${width}px`
+      canvas.style.height = `${height}px`
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
       initEntities()
     }
     resize()
@@ -180,7 +197,15 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
     // We can read smoothScrollY from window if needed, or track it locally again
     let canvasSmoothScrollY = window.scrollY
 
-    const drawBg = () => {
+    const drawBg = (now = 0) => {
+      frame = 0
+      if (!isVisible) return
+      if (now - lastFrameTime < frameInterval) {
+        frame = requestAnimationFrame(drawBg)
+        return
+      }
+      lastFrameTime = now
+
       const accent = '#4cc9f0'
       
       // Calculate smooth scroll for parallax
@@ -223,8 +248,10 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
         const dist = Math.sqrt(dx * dx + dy * dy)
         if (dist < 150) {
           const force = (150 - dist) / 150
-          node.vx -= (dx / dist) * force * 0.02
-          node.vy -= (dy / dist) * force * 0.02
+          if (dist > 0.001) {
+            node.vx -= (dx / dist) * force * 0.02
+            node.vy -= (dy / dist) * force * 0.02
+          }
         }
 
         // Friction & Velocity Limit (max 0.2)
@@ -281,69 +308,83 @@ export default function useLandingEffects({ canvasRef, cursorRef, ringRef, plane
     }
 
     window.addEventListener('resize', resize)
-    drawBg()
+    const onVisibilityChange = () => {
+      isVisible = !document.hidden
+      if (isVisible && !frame) frame = requestAnimationFrame(drawBg)
+    }
+    document.addEventListener('visibilitychange', onVisibilityChange)
+    frame = requestAnimationFrame(drawBg)
 
     return () => {
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('visibilitychange', onVisibilityChange)
       cancelAnimationFrame(frame)
     }
   }, [canvasRef])
 
   // 2. Custom Cursor & Scroll Animation Layer
   useEffect(() => {
-    let smoothScrollY = 0
-    let targetScrollY = window.scrollY
-    let pointerX = 0
-    let pointerY = 0
-    let frame = 0
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches
+    let navIsStuck = window.scrollY > 50
+    let scrollFrame = 0
+    setNavStuck(navIsStuck)
 
     // Intersection Observer for .reveal sections
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible')
+          revealObserver.unobserve(entry.target)
         }
       })
     }, { threshold: 0.15 })
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
+    const observeNewReveals = () => {
+      document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
+        el.classList.add('observed')
+        revealObserver.observe(el)
+      })
+    }
+
+    observeNewReveals()
+    const mutationObserver = new MutationObserver(observeNewReveals)
+    mutationObserver.observe(document.body, { childList: true, subtree: true })
 
     const onScroll = () => {
-      targetScrollY = window.scrollY
-      if (targetScrollY > 50) setNavStuck(true)
-      else setNavStuck(false)
+      if (scrollFrame) return
+      scrollFrame = requestAnimationFrame(() => {
+        scrollFrame = 0
+        const nextStuck = window.scrollY > 50
+        if (nextStuck !== navIsStuck) {
+          navIsStuck = nextStuck
+          setNavStuck(nextStuck)
+        }
+      })
     }
 
     const onMouseMove = (event) => {
-      pointerX = event.clientX / window.innerWidth - 0.5
-      pointerY = event.clientY / window.innerHeight - 0.5
-
       if (cursorRef.current && ringRef.current) {
-        cursorRef.current.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`
-        ringRef.current.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`
+        cursorRef.current.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`
+        ringRef.current.style.transform = `translate3d(${event.clientX}px, ${event.clientY}px, 0)`
       }
     }
 
-    const loop = () => {
-      smoothScrollY += (targetScrollY - smoothScrollY) * 0.08
-      if (planetRef.current) {
-        planetRef.current.style.transform = `translateY(calc(-50% + 50px + ${
-          pointerY * -14 + smoothScrollY * -0.06
-        }px)) translateX(calc(-100px + ${pointerX * -22 + smoothScrollY * -0.12}px))`
-      }
-      frame = requestAnimationFrame(loop)
+    if (planetRef.current) {
+      planetRef.current.style.transform = 'translate(-50%, -50%)'
     }
 
     window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('mousemove', onMouseMove)
-    loop()
+    if (!coarsePointer) {
+      window.addEventListener('mousemove', onMouseMove, { passive: true })
+    }
 
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('mousemove', onMouseMove)
-      observer.disconnect()
-      cancelAnimationFrame(frame)
+      cancelAnimationFrame(scrollFrame)
+      revealObserver.disconnect()
+      mutationObserver.disconnect()
     }
   }, [cursorRef, ringRef, planetRef, setNavStuck])
 }
