@@ -4280,6 +4280,50 @@ select,
   padding: 7px 14px;
   background: rgba(3, 15, 35, 0.55);
 }
+.dm-line {
+  position: absolute;
+  height: 3px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, transparent, #00a8ff 50%, #fff 90%, #00a8ff 100%);
+  background-size: 200% 100%;
+  box-shadow: 0 0 18px rgba(0, 168, 255, 0.75);
+  transform-origin: left center;
+  z-index: 3;
+  animation: tradeLineMove 2.5s infinite linear;
+}
+
+@keyframes tradeLineMove {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes spinWheel {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes counterSpinWheel {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes tradeLinePulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
 .dm-stat-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -8058,4 +8102,84 @@ select,
   .career-value {
     grid-template-columns: 1fr;
   }
+}
+
+/* Final copy alignment pass: justify readable descriptions inside boxes/cards. */
+.svc-desc,
+.why-desc,
+.founder-quote p,
+.footer-brand p,
+.webapp-lead,
+.webapp-info-copy p,
+.webapp-build-item span,
+.process-step p,
+.tech-panel-title p,
+.tech-stack-head p,
+.feature-item p,
+.webapp-cta p,
+.dm-about p,
+.dm-service-card p,
+.dm-why > p,
+.dm-industries > p,
+.service-faq-item p,
+.wd-service-card p,
+.wd-work-card p,
+.sales-lead,
+.sales-pillar span,
+.sales-matter p,
+.sales-service-card p,
+.sales-use-list span,
+.sales-process-step p,
+.sales-growth-card p,
+.sales-consult-card p,
+.career-hero-copy p,
+.career-value p,
+.career-job-desc,
+.career-benefit p,
+.career-resume-cta p {
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+
+.svc-card,
+.why-card,
+.founder-quote,
+.webapp-benefits div,
+.webapp-info-panel,
+.webapp-tech-panel,
+.webapp-build-item,
+.feature-item,
+.webapp-cta,
+.dm-dashboard,
+.dm-service-card,
+.dm-why-card,
+.dm-industry-card,
+.service-faq-item,
+.wd-service-card,
+.wd-work-card,
+.sales-pillar,
+.sales-stat-card,
+.sales-panel,
+.sales-info-panel,
+.sales-band,
+.sales-service-card,
+.sales-growth-card,
+.sales-consult-card,
+.career-value,
+.career-job-row,
+.career-benefit,
+.career-resume-cta {
+  min-width: 0;
+}
+
+.dm-channel-row,
+.ba-insight-list,
+.sales-product-row,
+.sales-use-list > div,
+.career-job-main {
+  min-width: 0;
+  overflow-wrap: break-word;
 }

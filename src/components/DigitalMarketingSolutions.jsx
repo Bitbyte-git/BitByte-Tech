@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import ServiceFaq from "./ServiceFaq";
 
 const marketingServices = [
@@ -112,12 +112,58 @@ const digitalMarketingFaqs = [
 ];
 
 function MarketingDashboard() {
-  const stats = [
-    ["Total Users", "125.4K", "18.6%"],
-    ["New Leads", "8.45K", "24.8%"],
-    ["Conversions", "3.24K", "32.7%"],
-    ["ROI Growth", "246%", "28.4%"],
+  const [activePeriod, setActivePeriod] = useState('This Month');
+  const [activeChannel, setActiveChannel] = useState('All');
+
+  const channels = [
+    { id: 'All', icon: 'fa-solid fa-globe', label: 'All', color: '#00b4d8' },
+    { id: 'Google Ads', icon: 'fab fa-google', label: 'Google Ads', color: '#58a6ff' },
+    { id: 'SEO', icon: 'fa-solid fa-magnifying-glass', label: 'SEO', color: '#9af75a' },
+    { id: 'Facebook', icon: 'fab fa-facebook-f', label: 'Facebook', color: '#1877f2' },
+    { id: 'Instagram', icon: 'fab fa-instagram', label: 'Instagram', color: '#f45aa2' },
+    { id: 'X', icon: 'fa-brands fa-x-twitter', label: 'X (Twitter)', color: '#ffffff' },
+    { id: 'LinkedIn', icon: 'fab fa-linkedin-in', label: 'LinkedIn', color: '#4aa8ff' },
+    { id: 'YouTube', icon: 'fab fa-youtube', label: 'YouTube', color: '#ff3434' },
+    { id: 'Reddit', icon: 'fab fa-reddit', label: 'Reddit', color: '#ff4500' },
+    { id: 'TikTok', icon: 'fab fa-tiktok', label: 'TikTok', color: '#25F4EE' },
+    { id: 'Threads', icon: 'fa-brands fa-threads', label: 'Threads', color: '#ffffff' },
   ];
+
+  // Base mock data multiplier for periods
+  const periodMultipliers = { 'This Month': 1, 'Last Month': 0.85, 'This Year': 9.5 };
+
+  // Base data per channel (for 'This Month')
+  const baseChannelData = {
+    'All': { users: 125.4, leads: 8.45, conv: 3.24, roi: 246, growth: 3.24, traffic: [38, 28, 20, 14] },
+    'Google Ads': { users: 45.2, leads: 3.12, conv: 1.15, roi: 310, growth: 1.15, traffic: [0, 0, 100, 0] },
+    'SEO': { users: 52.8, leads: 2.85, conv: 0.95, roi: 420, growth: 0.95, traffic: [100, 0, 0, 0] },
+    'Facebook': { users: 28.5, leads: 1.95, conv: 0.65, roi: 185, growth: 0.65, traffic: [0, 100, 0, 0] },
+    'Instagram': { users: 34.2, leads: 2.10, conv: 0.75, roi: 215, growth: 0.75, traffic: [0, 100, 0, 0] },
+    'X': { users: 12.5, leads: 0.45, conv: 0.12, roi: 140, growth: 0.12, traffic: [0, 100, 0, 0] },
+    'LinkedIn': { users: 8.4, leads: 1.25, conv: 0.45, roi: 350, growth: 0.45, traffic: [0, 100, 0, 0] },
+    'YouTube': { users: 42.1, leads: 1.85, conv: 0.55, roi: 280, growth: 0.55, traffic: [20, 80, 0, 0] },
+    'Reddit': { users: 15.6, leads: 0.65, conv: 0.25, roi: 195, growth: 0.25, traffic: [0, 100, 0, 0] },
+    'TikTok': { users: 55.4, leads: 2.45, conv: 0.85, roi: 260, growth: 0.85, traffic: [0, 100, 0, 0] },
+    'Threads': { users: 9.2, leads: 0.35, conv: 0.08, roi: 110, growth: 0.08, traffic: [0, 100, 0, 0] },
+  };
+
+  const currentBase = baseChannelData[activeChannel] || baseChannelData['All'];
+  const mult = periodMultipliers[activePeriod];
+  
+  // Format numbers nicely
+  const formatNum = (num) => (num >= 1000 ? (num / 1000).toFixed(1) + 'M' : num.toFixed(2) + 'K');
+
+  const currentData = {
+    stats: [
+      ["Total Users", formatNum(currentBase.users * mult), (18.6 * (mult === 1 ? 1 : 1.2)).toFixed(1) + "%"],
+      ["New Leads", formatNum(currentBase.leads * mult), (24.8 * (mult === 1 ? 1 : 1.1)).toFixed(1) + "%"],
+      ["Conversions", formatNum(currentBase.conv * mult), (32.7 * (mult === 1 ? 1 : 1.3)).toFixed(1) + "%"],
+      ["ROI Growth", Math.round(currentBase.roi * (mult === 0.85 ? 0.9 : 1)) + "%", (28.4 * (mult === 1 ? 1 : 0.9)).toFixed(1) + "%"],
+    ],
+    growth: formatNum(currentBase.growth * mult),
+    traffic: activeChannel === 'All' ? [38, 28, 20, 14] : currentBase.traffic,
+    monthLabel: activePeriod === 'This Year' ? '2024' : (activePeriod === 'Last Month' ? 'Apr 24' : 'May 24')
+  };
 
   return (
     <div
@@ -125,12 +171,34 @@ function MarketingDashboard() {
       aria-label="Marketing performance overview"
     >
       <div className="dm-dashboard-head">
-        <strong>Marketing Performance Overview</strong>
-        <span>This Month</span>
+        <strong style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          {activeChannel !== 'All' && <i className={channels.find(c => c.id === activeChannel)?.icon} style={{ color: channels.find(c => c.id === activeChannel)?.color }}></i>}
+          {activeChannel === 'All' ? 'Overall' : activeChannel} Performance
+        </strong>
+        <select 
+          value={activePeriod} 
+          onChange={(e) => setActivePeriod(e.target.value)}
+          style={{
+            background: 'rgba(3, 15, 35, 0.55)',
+            border: '1px solid rgba(0, 180, 216, 0.12)',
+            borderRadius: '18px',
+            color: '#fff',
+            padding: '6px 12px',
+            fontFamily: 'var(--f-label)',
+            fontSize: '12px',
+            fontWeight: '700',
+            outline: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          <option value="This Month">This Month</option>
+          <option value="Last Month">Last Month</option>
+          <option value="This Year">This Year</option>
+        </select>
       </div>
       <div className="dm-stat-grid">
-        {stats.map(([label, value, gain]) => (
-          <div className="dm-stat-card" key={label}>
+        {currentData.stats.map(([label, value, gain]) => (
+          <div className="dm-stat-card" key={label} style={{ animation: 'hReveal 0.4s ease forwards' }}>
             <small>{label}</small>
             <b>{value}</b>
             <em>▲ {gain}</em>
@@ -145,45 +213,62 @@ function MarketingDashboard() {
           <span className="dm-line dm-line-three" />
           <span className="dm-line dm-line-four" />
           <span className="dm-line dm-line-five" />
-          <i>
-            May 24
+          <i style={{ animation: 'hReveal 0.4s ease forwards' }}>
+            {currentData.monthLabel}
             <br />
-            3.24K
+            {currentData.growth}
           </i>
         </div>
         <div className="dm-traffic">
           <strong>Traffic Sources</strong>
-          <div className="dm-donut">
-            <span>38%</span>
+          <div className="dm-donut" style={{
+            animation: 'spinWheel 15s linear infinite',
+            background: `conic-gradient(
+              #8c3cff 0 ${currentData.traffic[0]}%,
+              #00b4d8 ${currentData.traffic[0]}% ${currentData.traffic[0] + currentData.traffic[1]}%,
+              #ffb22d ${currentData.traffic[0] + currentData.traffic[1]}% ${currentData.traffic[0] + currentData.traffic[1] + currentData.traffic[2]}%,
+              #ff6b3d ${currentData.traffic[0] + currentData.traffic[1] + currentData.traffic[2]}% 100%
+            )`
+          }}>
+            <span style={{ animation: 'counterSpinWheel 15s linear infinite, hReveal 0.4s ease forwards' }}>
+              {currentData.traffic.find(t => t > 0) || 0}%
+            </span>
           </div>
           <ul>
-            <li>
-              Google Search <b>38%</b>
-            </li>
-            <li>
-              Social Media <b>28%</b>
-            </li>
-            <li>
-              Paid Ads <b>20%</b>
-            </li>
-            <li>
-              Direct <b>14%</b>
-            </li>
+            <li>Google Search <b>{currentData.traffic[0]}%</b></li>
+            <li>Social Media <b>{currentData.traffic[1]}%</b></li>
+            <li>Paid Ads <b>{currentData.traffic[2]}%</b></li>
+            <li>Direct <b>{currentData.traffic[3]}%</b></li>
           </ul>
         </div>
       </div>
-      <div className="dm-channel-row">
-        {[
-          ["fab fa-google", "Google Ads"],
-          ["fab fa-facebook-f", "Facebook Ads"],
-          ["fab fa-instagram", "Instagram"],
-          ["fa-solid fa-magnifying-glass", "SEO"],
-          ["fab fa-youtube", "YouTube"],
-          ["fab fa-linkedin-in", "LinkedIn"],
-        ].map(([icon, label]) => (
-          <div key={label}>
-            <i className={icon} aria-hidden="true" />
-            <span>{label}</span>
+      
+      <div style={{ marginTop: '16px', fontSize: '11px', color: 'var(--white60)', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '8px' }}>
+        Filter by Channel:
+      </div>
+      <div className="dm-channel-row" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '14px', padding: '16px 20px' }}>
+        {channels.map((channel) => (
+          <div 
+            key={channel.id} 
+            onClick={() => setActiveChannel(channel.id)}
+            style={{ 
+              cursor: 'pointer', 
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)', 
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '6px',
+              padding: '6px 10px',
+              borderRadius: '8px',
+              background: activeChannel === channel.id ? 'rgba(0, 180, 216, 0.15)' : 'transparent',
+              border: `1px solid ${activeChannel === channel.id ? 'rgba(0, 180, 216, 0.4)' : 'transparent'}`,
+              transform: activeChannel === channel.id ? 'scale(1.05)' : 'scale(1)'
+            }} 
+            onMouseEnter={(e) => { if(activeChannel !== channel.id) e.currentTarget.style.transform = 'scale(1.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)' }} 
+            onMouseLeave={(e) => { if(activeChannel !== channel.id) e.currentTarget.style.transform = 'scale(1)'; e.currentTarget.style.background = 'transparent' }}
+          >
+            <i className={channel.icon} style={{ color: channel.color, fontSize: '20px', filter: activeChannel === channel.id ? `drop-shadow(0 0 8px ${channel.color})` : 'none' }} aria-hidden="true" />
+            <span style={{ fontSize: '10px', color: activeChannel === channel.id ? '#fff' : 'var(--white60)' }}>{channel.label}</span>
           </div>
         ))}
       </div>
@@ -234,8 +319,8 @@ export default function DigitalMarketingSolutions() {
               AI-Powered Digital Marketing
             </div>
             <h1 className="webapp-title dm-title reveal reveal-delay-1">
-              AI-Powered
-              <span>Digital Marketing </span>
+              AI-Powered<br />
+              <span>Digital Marketing</span>
             </h1>
             <h2 className="webapp-kicker reveal reveal-delay-2">
               Smarter Marketing. Stronger Visibility. Higher Conversions.

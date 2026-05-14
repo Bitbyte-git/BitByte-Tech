@@ -1,21 +1,19 @@
-import { memo, useState, useEffect, useRef } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useTranslation } from '../i18n'
+
+const HERO_GIF_SRC = '/assets/optimized/hero-bg-480.gif'
 
 function Hero({ planetRef }) {
   const { t } = useTranslation()
   const fullText = t('hero.badge')
   const floatCards = t('hero.floatCards', { returnObjects: true })
-  const [gifKey, setGifKey] = useState(Date.now())
-  const gifRef = useRef(null)
+  const [gifReplayKey, setGifReplayKey] = useState(0)
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      const newKey = Date.now()
-      setGifKey(newKey)
-      if (gifRef.current) {
-        gifRef.current.src = `/assets/optimized/hero-bg-480.gif?v=${newKey}`
-      }
+    const interval = window.setInterval(() => {
+      setGifReplayKey((key) => key + 1)
     }, 10000)
+
     return () => clearInterval(interval)
   }, [])
 
@@ -30,8 +28,8 @@ function Hero({ planetRef }) {
         ref={planetRef}
       >
         <img 
-          ref={gifRef}
-          src={`/assets/optimized/hero-bg-480.gif?v=${gifKey}`}
+          key={gifReplayKey}
+          src={HERO_GIF_SRC}
           alt="" 
           className="hero-gif" 
           width="480"

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const heroPillars = [
   ['fa-solid fa-chart-line', 'Live Monitoring', 'Track sales as they happen'],
@@ -114,69 +114,139 @@ function MiniTrendChart() {
 }
 
 function SalesDashboard() {
+  const [activePeriod, setActivePeriod] = useState('This Month');
+  const [activeRegion, setActiveRegion] = useState('All');
+
+  const periodMult = { 'Today': 0.04, 'This Week': 0.25, 'This Month': 1, 'This Year': 11.5 };
+  
+  const regions = [
+    { id: 'All', label: 'Global Sales' },
+    { id: 'South', label: 'South Region' },
+    { id: 'West', label: 'West Region' },
+    { id: 'North', label: 'North Region' },
+    { id: 'East', label: 'East Region' },
+  ];
+
+  const regionData = {
+    'All': { rev: 245880000, orders: 24568, cust: 8456, products: [['Gold Necklace', 34520000], ['Diamond Ring', 21540000], ['Gold Bracelet', 18530000], ['Silver Coin', 12560000]], channels: [45, 30, 15, 10] },
+    'South': { rev: 98352000, orders: 9820, cust: 3380, products: [['Gold Necklace', 15200000], ['Diamond Ring', 9500000], ['Temple Jewellery', 8500000], ['Gold Bangle', 5500000]], channels: [55, 20, 15, 10] },
+    'North': { rev: 49176000, orders: 4910, cust: 1690, products: [['Diamond Ring', 7500000], ['Gold Set', 6200000], ['Platinum Band', 4500000], ['Gold Chain', 3200000]], channels: [35, 40, 15, 10] },
+    'East': { rev: 36882000, orders: 3680, cust: 1260, products: [['Gold Bracelet', 5800000], ['Diamond Pendant', 4200000], ['Gold Ring', 3500000], ['Silver Utensils', 2100000]], channels: [40, 35, 20, 5] },
+    'West': { rev: 61470000, orders: 6150, cust: 2120, products: [['Diamond Ring', 10500000], ['Platinum Chain', 8500000], ['Gold Coin', 6200000], ['Bridal Set', 5100000]], channels: [30, 45, 20, 5] }
+  };
+
+  const curr = regionData[activeRegion];
+  const mult = periodMult[activePeriod];
+
+  const fmt = (num) => new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(num);
+
   const statCards = [
-    ['Total Revenue', '24,58,80,000', '+12.5%'],
-    ['Total Orders', '24,568', '+8.3%'],
-    ['New Customers', '8,456', '+15.2%'],
+    ['Total Revenue', fmt(curr.rev * mult), '+12.5%'],
+    ['Total Orders', fmt(curr.orders * mult), '+8.3%'],
+    ['New Customers', fmt(curr.cust * mult), '+15.2%'],
   ]
 
   return (
     <div className="sales-dashboard" aria-label="Sales overview dashboard">
+      
+      <div style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(5, 20, 39, 0.8)', padding: '10px 16px', borderRadius: '10px', border: '1px solid rgba(0, 180, 216, 0.15)', zIndex: 10, position: 'relative' }}>
+        <strong style={{ color: '#fff', fontSize: '13px' }}>Live Analytics View</strong>
+        <select 
+          value={activePeriod} 
+          onChange={(e) => setActivePeriod(e.target.value)}
+          style={{
+            background: 'rgba(0, 180, 216, 0.1)',
+            border: '1px solid rgba(0, 180, 216, 0.3)',
+            borderRadius: '8px',
+            color: '#fff',
+            padding: '6px 12px',
+            fontFamily: 'var(--f-label)',
+            fontSize: '12px',
+            fontWeight: '700',
+            outline: 'none',
+            cursor: 'pointer'
+          }}
+        >
+          <option value="Today">Today (Live)</option>
+          <option value="This Week">This Week</option>
+          <option value="This Month">This Month</option>
+          <option value="This Year">This Year</option>
+        </select>
+      </div>
+
       <div className="sales-stat-row">
         {statCards.map(([label, value, gain]) => (
-          <article className="sales-stat-card" key={label}>
+          <article className="sales-stat-card" key={label} style={{ animation: 'hReveal 0.4s ease forwards' }}>
             <span>{label}</span>
             <strong><small>&#8377;</small> {value}</strong>
-            <em>{gain} <small>vs last month</small></em>
+            <em>{gain} <small>vs past {activePeriod.split(' ')[1] || 'period'}</small></em>
           </article>
         ))}
       </div>
 
       <div className="sales-panel sales-trend-panel">
-        <div className="sales-panel-title">Sales Trend (This Month)</div>
-        <MiniTrendChart />
+        <div className="sales-panel-title">Sales Trend ({activePeriod})</div>
+        <div style={{ animation: 'hReveal 0.5s ease forwards' }}>
+          <MiniTrendChart />
+        </div>
       </div>
 
       <div className="sales-panel sales-channel-panel">
         <div className="sales-panel-title">Sales by Channel</div>
-        <div className="sales-donut" aria-hidden="true" />
+        <div className="sales-donut" aria-hidden="true" style={{
+            animation: 'spinWheel 20s linear infinite',
+            background: `conic-gradient(
+              #286dff 0 ${curr.channels[0]}%,
+              #00b8ff ${curr.channels[0]}% ${curr.channels[0] + curr.channels[1]}%,
+              #74f06b ${curr.channels[0] + curr.channels[1]}% ${curr.channels[0] + curr.channels[1] + curr.channels[2]}%,
+              #ffb22d ${curr.channels[0] + curr.channels[1] + curr.channels[2]}% 100%
+            )`
+        }} />
         <ul>
-          {['Retail Store 45%', 'Online Store 30%', 'Wholesale 15%', 'Others 10%'].map((item) => (
-            <li key={item}>{item}</li>
-          ))}
+          <li style={{ animation: 'hReveal 0.4s ease forwards', animationDelay: '0.1s' }}>Retail Store <b>{curr.channels[0]}%</b></li>
+          <li style={{ animation: 'hReveal 0.4s ease forwards', animationDelay: '0.2s' }}>Online Store <b>{curr.channels[1]}%</b></li>
+          <li style={{ animation: 'hReveal 0.4s ease forwards', animationDelay: '0.3s' }}>Wholesale <b>{curr.channels[2]}%</b></li>
+          <li style={{ animation: 'hReveal 0.4s ease forwards', animationDelay: '0.4s' }}>Others <b>{curr.channels[3]}%</b></li>
         </ul>
       </div>
 
       <div className="sales-panel sales-products-panel">
         <div className="sales-panel-title">Top Products</div>
-        {[
-          ['Gold Necklace', '3,45,20,000'],
-          ['Diamond Ring', '2,15,40,000'],
-          ['Gold Bracelet', '1,85,30,000'],
-          ['Silver Coin', '1,25,60,000'],
-        ].map(([name, amount], index) => (
-          <div className="sales-product-row" key={name}>
+        {curr.products.map(([name, amount], index) => (
+          <div className="sales-product-row" key={name} style={{ animation: 'hReveal 0.4s ease forwards', animationDelay: `${index * 0.1}s` }}>
             <span>{index + 1}</span>
             <b>{name}</b>
-            <em>&#8377; {amount}</em>
+            <em>&#8377; {fmt(amount * mult)}</em>
           </div>
         ))}
       </div>
 
-      <div className="sales-panel sales-region-panel">
-        <div className="sales-panel-title">Sales by Region</div>
-        <div className="sales-map" aria-hidden="true">
-          <div className="sales-map-shape" />
-          <span className="pin pin-a" />
-          <span className="pin pin-b" />
-          <span className="pin pin-c" />
-          <span className="pin pin-d" />
-        </div>
-        <ul>
-          {['South 40%', 'West 25%', 'North 20%', 'East 15%'].map((item) => (
-            <li key={item}>{item}</li>
+      <div className="sales-panel sales-region-panel" style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column' }}>
+        <div className="sales-panel-title" style={{ marginBottom: '16px' }}>Filter by Region</div>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap', justifyContent: 'center' }}>
+          {regions.map((reg) => (
+            <button
+              key={reg.id}
+              onClick={() => setActiveRegion(reg.id)}
+              style={{
+                background: activeRegion === reg.id ? 'rgba(0, 180, 216, 0.2)' : 'rgba(5, 20, 39, 0.6)',
+                border: `1px solid ${activeRegion === reg.id ? '#00b8ff' : 'rgba(0, 180, 216, 0.1)'}`,
+                color: activeRegion === reg.id ? '#fff' : 'var(--white60)',
+                padding: '10px 16px',
+                borderRadius: '8px',
+                fontFamily: 'var(--f-label)',
+                fontSize: '12px',
+                fontWeight: '700',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                transform: activeRegion === reg.id ? 'scale(1.05)' : 'scale(1)',
+                boxShadow: activeRegion === reg.id ? '0 0 15px rgba(0, 184, 255, 0.2)' : 'none'
+              }}
+            >
+              {reg.label}
+            </button>
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   )
