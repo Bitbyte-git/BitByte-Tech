@@ -4,13 +4,13 @@ function Logo({ height = 44, loading = 'eager', fetchPriority = 'auto' }) {
   return (
     <img 
       className="logo-img" 
-      src="/assets/optimized/logo-512.png" 
+      src="/assets/optimized/logo-mark-tight.png" 
       alt="Bit Byte Technologies Logo" 
       width="512"
-      height="512"
+      height="361"
       loading={loading}
       decoding="async"
-      fetchpriority={fetchPriority}
+      fetchPriority={fetchPriority}
       style={{ height: `${height}px`, width: 'auto', objectFit: 'contain' }} 
     />
   )

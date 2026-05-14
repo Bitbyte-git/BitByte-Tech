@@ -394,9 +394,6 @@ export default function useLandingEffects({
       '.svc-desc',
       '.why-title',
       '.why-desc',
-      '.port-name',
-      '.port-desc',
-      '.ttext',
       '.footer-brand p',
     ].join(',')
 

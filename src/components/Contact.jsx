@@ -1,22 +1,31 @@
-import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from '../i18n'
 import { services, socialIcons } from '../constants'
 
 export default function Contact() {
   const { t } = useTranslation()
   const [sent, setSent] = useState(false)
+  const sentTimeoutRef = useRef(0)
 
   function handleSubmit(event) {
     event.preventDefault()
+    window.clearTimeout(sentTimeoutRef.current)
     setSent(true)
-    window.setTimeout(() => setSent(false), 4000)
+    sentTimeoutRef.current = window.setTimeout(() => setSent(false), 4000)
   }
+
+  useEffect(() => () => window.clearTimeout(sentTimeoutRef.current), [])
 
   const hrefs = {
     'LinkedIn': 'https://www.linkedin.com/in/bit-byte-technologies-4aa820406/',
     'Twitter': 'https://x.com/BitbyteReachus',
     'Instagram': 'https://www.instagram.com/bit_byte.technologies/',
   }
+  const contactDetails = [
+    ['📧', 'Email', 'reachus@bitbytetech.org'],
+    ['📞', 'Phone', '+91 99437 43136'],
+    ['📍', 'Address', 'BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.'],
+  ]
 
   return (
     <section id="contact" className="section wrap">
@@ -28,13 +37,9 @@ export default function Contact() {
           <span className="c">{t('contact.titleB')}</span>
         </h2>
         <p className="sec-sub reveal reveal-delay-2" data-magnify="true">{t('contact.body')}</p>
-        {[
-          ['📧', 'Email', 'reacus@bitbytetech.org'],
-          ['📞', 'Phone', '+91 99437 43136'],
-          ['📍', 'Address', 'BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.'],
-        ].map(([icon, label, value]) => (
+        {contactDetails.map(([cIcon, label, value]) => (
           <div className="cinfo-item reveal reveal-delay-3" key={label}>
-            <div className="cinfo-icon">{icon}</div>
+            <div className="cinfo-icon">{cIcon}</div>
             <div>
               <div className="cinfo-lbl">{label}</div>
               <div className="cinfo-val">{value}</div>
@@ -42,9 +47,9 @@ export default function Contact() {
           </div>
         ))}
         <div className="social-row reveal reveal-delay-4">
-          {socialIcons.map(([label, icon]) => (
+          {socialIcons.map(([label, sIcon]) => (
             <a href={hrefs[label] || '#'} className="soc-btn" title={label} aria-label={label} key={label}>
-              <i className={icon} aria-hidden="true" />
+              <i className={sIcon} aria-hidden="true" />
             </a>
           ))}
         </div>
@@ -89,15 +94,14 @@ export default function Contact() {
           <label htmlFor="message">{t('contact.message')}</label>
           <textarea id="message" placeholder={t('contact.messagePlaceholder')} />
         </div>
-        <button className="btn-submit" type="submit">
-          {sent ? (
-            t('contact.sent')
-          ) : (
-            <>
-              <i className="fas fa-paper-plane" style={{ marginRight: 8 }} aria-hidden="true" />
-              {t('contact.submit')}
-            </>
-          )}
+        <button className="btn-submit" type="submit" aria-label={sent ? t('contact.sent') : t('contact.submit')}>
+          <span className={`btn-submit-state ${sent ? 'is-hidden' : ''}`} aria-hidden={sent}>
+            <i className="fas fa-paper-plane" aria-hidden="true" />
+            <span>{t('contact.submit')}</span>
+          </span>
+          <span className={`btn-submit-state ${sent ? '' : 'is-hidden'}`} aria-hidden={!sent}>
+            {t('contact.sent')}
+          </span>
         </button>
       </form>
     </section>

@@ -220,8 +220,8 @@ export default function CustomWebApplications() {
               <a href="/#contact" className="btn-primary">
                 Start a Project <span className="arr">→</span>
               </a>
-              <a href="/#portfolio" className="btn-ghost">
-                View Our Work
+              <a href="/#contact" className="btn-ghost">
+                Discuss Your Project
               </a>
             </div>
           </div>

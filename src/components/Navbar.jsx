@@ -1,7 +1,6 @@
 import { memo } from 'react'
-import { useTranslation } from 'react-i18next'
-import { navLinks } from '../constants'
-import { services } from '../constants'
+import { useTranslation } from '../i18n'
+import { navLinks, services } from '../constants'
 import LanguageSwitcher from './LanguageSwitcher'
 import Logo from './Logo'
 
@@ -24,9 +23,10 @@ function Navbar({
   return (
     <nav id="navbar" className={stuck ? 'stuck' : ''}>
       <a href={hrefFor('#hero')} className="logo-wrap" aria-label="Bit Byte Technologies home">
-        <Logo fetchPriority="high" />
+        <Logo fetchPriority="high" height={80} />
         <div className="logo-txt">
          <em>Bit Byte</em>
+         <p>Technologies</p>
         </div>
       </a>
       <ul className="nav-links">

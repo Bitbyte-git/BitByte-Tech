@@ -1,9 +1,8 @@
-import { useTranslation } from 'react-i18next'
-import BitByteHero from './BitByteHero'
+import { useTranslation } from "../i18n";
+import BitByteHero from "./BitByteHero";
 
 export default function Founder() {
-  const { t } = useTranslation()
-  const pills = t('founder.pills', { returnObjects: true })
+  const { t } = useTranslation();
 
   return (
     <section id="founder" className="section wrap bg-tint-1">
@@ -14,22 +13,31 @@ export default function Founder() {
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">
-          <p data-magnify="true">Change is the only constant. Growth begins when we learn to adapt.</p>
+          <p data-magnify="true">
+            We were shaped by comfort- We were Shaped by the universe, the
+            weight of reality and the courage to build what once felt impossible
+          </p>
           <cite>Founder, Bit Byte Technologies</cite>
         </div>
       </div>
       <div className="founder-content inner-content">
-        <div className="eyebrow reveal" data-magnify="true">{t('founder.eyebrow')}</div>
+        <div className="eyebrow reveal" data-magnify="true">
+          {t("founder.eyebrow")}
+        </div>
         <h2 className="sec-title reveal reveal-delay-1" data-magnify="true">
-          {t('founder.titleA')}
+          {t("founder.titleA")}
           <br />
-          <span className="c">{t('founder.titleB')}</span>
+          <span className="c">{t("founder.titleB")}</span>
         </h2>
         <p className="sec-sub reveal reveal-delay-2" data-magnify="true">
-          {t('founder.bodyA')}
+          {t("founder.bodyA")}
         </p>
-        <p className="sec-sub reveal reveal-delay-3" data-magnify="true" style={{ marginTop: 16 }}>
-          {t('founder.bodyB')}
+        <p
+          className="sec-sub reveal reveal-delay-3"
+          data-magnify="true"
+          style={{ marginTop: 16 }}
+        >
+          {t("founder.bodyB")}
         </p>
         <div className="founder-pills reveal reveal-delay-4">
           {[

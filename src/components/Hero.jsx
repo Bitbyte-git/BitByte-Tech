@@ -1,49 +1,23 @@
-import { memo, useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { memo, useState, useEffect, useRef } from 'react'
+import { useTranslation } from '../i18n'
 
 function Hero({ planetRef }) {
   const { t } = useTranslation()
-  const [typedText, setTypedText] = useState('')
   const fullText = t('hero.badge')
-  const stats = t('hero.stats', { returnObjects: true })
   const floatCards = t('hero.floatCards', { returnObjects: true })
-
-  const [gifKey, setGifKey] = useState(0)
+  const [gifKey, setGifKey] = useState(Date.now())
+  const gifRef = useRef(null)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setGifKey(k => k + 1)
-    }, 20000) // Restart GIF every 20s
+      const newKey = Date.now()
+      setGifKey(newKey)
+      if (gifRef.current) {
+        gifRef.current.src = `/assets/optimized/hero-bg-480.gif?v=${newKey}`
+      }
+    }, 10000)
     return () => clearInterval(interval)
   }, [])
-
-  useEffect(() => {
-    let index = 0
-    let isDeleting = false
-    let timeoutId
-    let isMounted = true
-
-    const type = () => {
-      if (!isMounted) return
-      setTypedText(fullText.slice(0, index))
-      
-      if (!isDeleting && index <= fullText.length) {
-        index++
-        timeoutId = setTimeout(type, 80)
-      } else if (isDeleting && index >= 0) {
-        index--
-        timeoutId = setTimeout(type, 40)
-      } else {
-        isDeleting = !isDeleting
-        timeoutId = setTimeout(type, isDeleting ? 1500 : 500)
-      }
-    }
-    type()
-    return () => {
-      isMounted = false
-      clearTimeout(timeoutId)
-    }
-  }, [fullText])
 
   return (
     <section id="hero" className="wrap">
@@ -56,15 +30,15 @@ function Hero({ planetRef }) {
         ref={planetRef}
       >
         <img 
-          key={gifKey}
-          src={`/assets/Hero-bg.gif?v=${gifKey}`}
+          ref={gifRef}
+          src={`/assets/optimized/hero-bg-480.gif?v=${gifKey}`}
           alt="" 
           className="hero-gif" 
-          width="600"
-          height="600"
+          width="480"
+          height="480"
           loading="eager"
           decoding="async"
-          fetchpriority="high"
+          fetchPriority="high"
         />
         <img
           src="/assets/optimized/planet-640.png"
@@ -76,14 +50,17 @@ function Hero({ planetRef }) {
           height="640"
           loading="eager"
           decoding="async"
-          fetchpriority="high"
+          fetchPriority="high"
         />
       </div>
 
       <div className="hero-content">
         <div className="hero-badge" data-magnify="true">
           <div className="badge-dot" />
-          <span className="badge-txt">{typedText}<span className="cursor-blink">|</span></span>
+          <span className="badge-txt">
+            {fullText}
+            <span className="cursor-blink notranslate" translate="no">|</span>
+          </span>
         </div>
         <h1 className="hero-h1" data-magnify="true">
           <span className="grad">{t('hero.title1')}</span> 

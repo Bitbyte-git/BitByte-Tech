@@ -10,8 +10,8 @@ import useLandingEffects from './components/useLandingEffects'
 const Services = lazy(() => import('./components/Services'))
 const Founder = lazy(() => import('./components/Founder'))
 const WhyUs = lazy(() => import('./components/WhyUs'))
-const Portfolio = lazy(() => import('./components/Portfolio'))
-const Testimonials = lazy(() => import('./components/Testimonials'))
+
+
 const Contact = lazy(() => import('./components/Contact'))
 const CTA = lazy(() => import('./components/CTA'))
 const CustomWebApplications = lazy(() => import('./components/CustomWebApplications'))
@@ -49,9 +49,9 @@ export default function App() {
   const isDigitalMarketingPage = pathname === '/services/digital-marketing/ai-powered-digital-marketing-solutions'
   const isBusinessAnalyticsPage = pathname === '/services/business-analytics/data-driven-business-analytics-solutions'
   const isCareersPage = pathname === '/careers'
-const isImaginationToRealityPage = pathname === '/services/imagination-to-reality'
-const isRealTimeSalesPage = pathname === '/services/real-time-sales-data'
-const isPersonalBrandingPage = pathname === '/services/personal-branding'
+  const isImaginationToRealityPage = pathname === '/services/imagination-to-reality'
+  const isRealTimeSalesPage = pathname === '/services/real-time-sales-data'
+  const isPersonalBrandingPage = pathname === '/services/personal-branding'
   const isServiceDetailPage =
     isWebDevelopmentPage || isCustomWebAppPage || isEcommercePage || isPortalsPage || isDigitalMarketingPage || isBusinessAnalyticsPage || isCareersPage || isImaginationToRealityPage || isRealTimeSalesPage || isPersonalBrandingPage
   const navActiveSection = isCareersPage ? 'careers' : isServiceDetailPage ? 'services' : activeSection
@@ -227,12 +227,8 @@ const isPersonalBrandingPage = pathname === '/services/personal-branding'
           <Suspense fallback={<SectionFallback />}>
             <WhyUs />
           </Suspense>
-          <Suspense fallback={<SectionFallback />}>
-            <Portfolio />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
-            <Testimonials />
-          </Suspense>
+
+
           <Suspense fallback={<SectionFallback />}>
             <Contact />
           </Suspense>

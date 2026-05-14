@@ -1,16 +1,33 @@
-import { memo, useCallback, useEffect, useMemo, useRef, useState, useTransition } from 'react'
-import { useTranslation } from 'react-i18next'
-import { languages, loadLanguage } from '../i18n'
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  applyGoogleTranslateLanguage,
+  bootGoogleTranslate,
+  getSavedGoogleTranslateLanguage,
+  googleTranslateLanguages,
+} from '../googleTranslate'
 
 function LanguageSwitcher({ compact = false }) {
-  const { i18n, t } = useTranslation()
   const [open, setOpen] = useState(false)
-  const [isPending, startTransition] = useTransition()
+  const [isPending, setIsPending] = useState(false)
+  const [activeCode, setActiveCode] = useState(getSavedGoogleTranslateLanguage)
   const switcherRef = useRef(null)
   const activeLanguage = useMemo(
-    () => languages.find((language) => language.code === i18n.resolvedLanguage) || languages[0],
-    [i18n.resolvedLanguage],
+    () => googleTranslateLanguages.find((language) => language.code === activeCode) || googleTranslateLanguages[0],
+    [activeCode],
   )
+
+  useEffect(() => {
+    if (getSavedGoogleTranslateLanguage() !== 'en') {
+      bootGoogleTranslate()
+    }
+
+    const syncActiveLanguage = (event) => {
+      if (event.detail?.code) setActiveCode(event.detail.code)
+    }
+
+    window.addEventListener('bitbyte:languagechange', syncActiveLanguage)
+    return () => window.removeEventListener('bitbyte:languagechange', syncActiveLanguage)
+  }, [])
 
   useEffect(() => {
     if (!open) return undefined
@@ -35,18 +52,22 @@ function LanguageSwitcher({ compact = false }) {
   }, [open])
 
   const changeLanguage = useCallback((code) => {
-    startTransition(() => {
-      setOpen(false)
-    })
-    loadLanguage(code)
+    setOpen(false)
+    setActiveCode(code)
+    setIsPending(true)
+
+    applyGoogleTranslateLanguage(code)
+      .then((appliedCode) => setActiveCode(appliedCode))
+      .catch(() => setActiveCode(getSavedGoogleTranslateLanguage()))
+      .finally(() => setIsPending(false))
   }, [])
 
   return (
-    <div className={`language-switcher ${compact ? 'compact' : ''}`} ref={switcherRef}>
+    <div className={`language-switcher notranslate ${compact ? 'compact' : ''}`} ref={switcherRef} translate="no">
       <button
         className="language-trigger"
         type="button"
-        aria-label={t('language.label')}
+        aria-label="Language"
         aria-haspopup="listbox"
         aria-expanded={open}
         onClick={() => setOpen((current) => !current)}
@@ -55,14 +76,14 @@ function LanguageSwitcher({ compact = false }) {
         <span>{activeLanguage.nativeName}</span>
         <i className="fa-solid fa-chevron-down" aria-hidden="true" />
       </button>
-      <div className={`language-menu ${open ? 'open' : ''}`} role="listbox" aria-label={t('language.label')}>
-        {languages.map((language) => (
+      <div className={`language-menu ${open ? 'open' : ''}`} role="listbox" aria-label="Language">
+        {googleTranslateLanguages.map((language) => (
           <button
-            className={language.code === activeLanguage.code ? 'active' : ''}
+            className={language.code === activeCode ? 'active' : ''}
             type="button"
             role="option"
-            aria-selected={language.code === activeLanguage.code}
-            aria-label={t('language.changeTo', { language: language.label })}
+            aria-selected={language.code === activeCode}
+            aria-label={`Change language to ${language.label}`}
             key={language.code}
             onClick={() => changeLanguage(language.code)}
             disabled={isPending}
