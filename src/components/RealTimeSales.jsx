@@ -67,7 +67,7 @@ const process = [
   ['fa-solid fa-magnifying-glass-chart', '01', 'Requirement Gathering'],
   ['fa-solid fa-database', '02', 'Data Integration'],
   ['fa-solid fa-chart-line', '03', 'Dashboard Design'],
-  ['fa-solid fa-gear', '04', 'Automation Setup'],
+  ['fa-solid fa-gear', '04', 'Automation setup'],
   ['fa-solid fa-shield-halved', '05', 'Testing'],
   ['fa-solid fa-rocket', '06', 'Deployment'],
   ['fa-solid fa-chart-column', '07', 'Optimization'],
