@@ -1146,7 +1146,7 @@ body {
 .float-cards {
   position: absolute;
   right: 60px;
-  bottom: 170px;
+  bottom: 150px;
   z-index: 20;
   display: flex;
   flex-direction: column;
