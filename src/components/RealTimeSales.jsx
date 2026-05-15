@@ -68,8 +68,8 @@ const process = [
   ['fa-solid fa-database', '02', 'Data Integration'],
   ['fa-solid fa-chart-line', '03', 'Dashboard Design'],
   ['fa-solid fa-gear', '04', 'Automation Setup'],
-  ['fa-solid fa-shield-halved', '05', 'Testing & Validation'],
-  ['fa-solid fa-rocket', '06', 'Deployment & Training'],
+  ['fa-solid fa-shield-halved', '05', 'Testing'],
+  ['fa-solid fa-rocket', '06', 'Deployment'],
   ['fa-solid fa-chart-column', '07', 'Optimization'],
 ]
 
