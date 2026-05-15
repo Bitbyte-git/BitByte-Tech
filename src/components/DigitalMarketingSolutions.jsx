@@ -188,7 +188,7 @@ function MarketingDashboard() {
             fontSize: '12px',
             fontWeight: '700',
             outline: 'none',
-            cursor: 'pointer'
+            cursor: 'none'
           }}
         >
           <option value="This Month">This Month</option>
@@ -252,7 +252,7 @@ function MarketingDashboard() {
             key={channel.id} 
             onClick={() => setActiveChannel(channel.id)}
             style={{ 
-              cursor: 'pointer', 
+              cursor: 'none', 
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)', 
               display: 'flex',
               flexDirection: 'column',
@@ -441,7 +441,7 @@ export default function DigitalMarketingSolutions() {
           </p>
         </div>
         <a href="/#contact" className="btn-primary">
-          Start Your Digital Growth Journey <span className="arr">→</span>
+          Start Your Digital Growth Extravaganza <span className="arr">→</span>
         </a>
       </section>
     </main>

@@ -11,6 +11,7 @@ const pages = {
     description:
       'We build powerful e-commerce platforms with fast product Requirement Gathering, smooth checkout experiences, secure payments, inventory workflows, and scalable architecture designed to grow with your business.',
     icon: 'fa-solid fa-cart-shopping',
+    color: '#f59e0b',
     features: [
       ['fa-solid fa-credit-card', 'Secure Payment Integration'],
       ['fa-solid fa-boxes-stacked', 'Product & Inventory Management'],
@@ -35,6 +36,7 @@ const pages = {
     description:
       'We design and develop secure portals and interactive dashboards that simplify workflows, centralize information, visualize business data, and help teams make faster decisions.',
     icon: 'fa-solid fa-chart-simple',
+    color: '#8b5cf6',
     features: [
       ['fa-solid fa-users-gear', 'Role-Based User Access'],
       ['fa-solid fa-gauge-high', 'Interactive Dashboards'],
@@ -357,7 +359,7 @@ function InteractiveMockup({ type }) {
                 onClick={() => setActiveView(key)}
                 title={view.title}
                 style={{ 
-                  cursor: 'pointer', 
+                  cursor: 'none', 
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center',
@@ -505,7 +507,7 @@ export default function WebDevelopmentSubService({ type }) {
         <div className="feature-grid">
           {page.features.map(([icon, title]) => (
             <div className="feature-item" key={title}>
-              <i className={icon} aria-hidden="true" />
+              <i className={icon} style={{ color: page.color }} aria-hidden="true" />
               <strong>{title}</strong>
               <p>Built around your workflow, users, integrations, performance needs, and long-term business growth.</p>
             </div>
@@ -516,8 +518,8 @@ export default function WebDevelopmentSubService({ type }) {
       <ServiceFaq items={page.faqs} />
 
       <section className="webapp-cta wd-final-cta reveal">
-        <div className="webapp-cta-icon">
-          <i className={page.icon} aria-hidden="true" />
+        <div className="webapp-cta-icon" style={{ background: `${page.color}15`, border: `1px solid ${page.color}30` }}>
+          <i className={page.icon} style={{ color: page.color }} aria-hidden="true" />
         </div>
         <div>
           <h2>Ready to Build {page.label}?</h2>

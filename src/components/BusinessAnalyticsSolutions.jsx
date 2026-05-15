@@ -172,7 +172,7 @@ function AnalyticsDashboard() {
             fontSize: '12px',
             fontWeight: '700',
             outline: 'none',
-            cursor: 'pointer'
+            cursor: 'none'
           }}
         >
           <option value="This Month">This Month</option>
@@ -223,7 +223,7 @@ function AnalyticsDashboard() {
             key={cat.id} 
             onClick={() => setActiveCategory(cat.id)}
             style={{ 
-              cursor: 'pointer', 
+              cursor: 'none', 
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)', 
               display: 'flex',
               flexDirection: 'column',
@@ -410,7 +410,7 @@ export default function BusinessAnalyticsSolutions() {
           </p>
         </div>
         <a href="/#contact" className="btn-primary">
-          Start Your Analytics Journey <span className="arr">→</span>
+          Start Your Analytics Extravaganza <span className="arr">→</span>
         </a>
       </section>
     </main>

@@ -92,7 +92,7 @@ function InteractiveBrandingMockup() {
                 key={key} 
                 onClick={() => setActiveProfile(key)}
                 style={{ 
-                  cursor: 'pointer', 
+                  cursor: 'none', 
                   color: activeProfile === key ? current.theme : 'rgba(255,255,255,0.75)',
                   textShadow: activeProfile === key ? `0 0 10px ${current.theme}` : 'none',
                   transition: 'all 0.3s'
@@ -901,7 +901,7 @@ export default function PersonalBranding() {
         .pb-story-card,
         .pb-cta {
           transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          cursor: pointer;
+          cursor: none;
         }
 
         .pb-service-card:hover,

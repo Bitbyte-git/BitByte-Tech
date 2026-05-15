@@ -356,7 +356,7 @@ export default function ImaginationToReality() {
           transform: translate(-50%, -50%);
           filter: drop-shadow(0 0 48px rgba(255, 176, 55, 0.62));
           transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-          cursor: pointer;
+          cursor: none;
           animation: irBulbPulse 4s ease-in-out infinite alternate;
         }
 
@@ -520,7 +520,7 @@ export default function ImaginationToReality() {
             inset 0 1px 0 rgba(255, 255, 255, 0.05);
           padding: 12px 14px;
           transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          cursor: pointer;
+          cursor: none;
         }
 
         .ir-float-card:hover {
@@ -594,7 +594,7 @@ export default function ImaginationToReality() {
         .ir-process-step {
           position: relative;
           transition: all 0.4s ease;
-          cursor: pointer;
+          cursor: none;
         }
 
         .ir-process-step:hover {
@@ -696,7 +696,7 @@ export default function ImaginationToReality() {
           padding: 34px 26px;
           text-align: left;
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          cursor: pointer;
+          cursor: none;
         }
 
         .ir-deliver-card:hover {
@@ -794,7 +794,7 @@ export default function ImaginationToReality() {
           font-size: 13px;
           font-weight: 800;
           transition: all 0.3s ease;
-          cursor: pointer;
+          cursor: none;
         }
 
         .ir-industry:hover {

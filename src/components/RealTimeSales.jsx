@@ -164,7 +164,7 @@ function SalesDashboard() {
             fontSize: '12px',
             fontWeight: '700',
             outline: 'none',
-            cursor: 'pointer'
+            cursor: 'none'
           }}
         >
           <option value="Today">Today (Live)</option>
@@ -237,7 +237,7 @@ function SalesDashboard() {
                 fontFamily: 'var(--f-label)',
                 fontSize: '12px',
                 fontWeight: '700',
-                cursor: 'pointer',
+                cursor: 'none',
                 transition: 'all 0.3s ease',
                 transform: activeRegion === reg.id ? 'scale(1.05)' : 'scale(1)',
                 boxShadow: activeRegion === reg.id ? '0 0 15px rgba(0, 184, 255, 0.2)' : 'none'

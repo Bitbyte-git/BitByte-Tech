@@ -21,21 +21,21 @@ const processSteps = [
 ]
 
 const pythonTech = [
-  ['fab fa-python', 'Python'],
-  ['dev-text', 'dj', 'Django'],
-  ['dev-text', 'Fl', 'Flask'],
-  ['fa-solid fa-database', 'PostgreSQL'],
-  ['fa-solid fa-server', 'Redis'],
-  ['fab fa-docker', 'Docker'],
+  ['fab fa-python', 'Python', null, 'python-gradient'],
+  ['dev-text', 'dj', 'Django', 'var(--c-django)'],
+  ['dev-text', 'Fl', 'Flask', '#fff'],
+  ['fa-solid fa-database', 'PostgreSQL', null, 'var(--c-postgres)'],
+  ['fa-solid fa-server', 'Redis', null, '#D82C20'],
+  ['fab fa-docker', 'Docker', null, 'var(--c-docker)'],
 ]
 
 const mernTech = [
-  ['fa-solid fa-leaf', 'MongoDB'],
-  ['dev-text', 'ex', 'Express.js'],
-  ['fa-brands fa-react', 'React'],
-  ['fa-brands fa-node-js', 'Node.js'],
-  ['fa-solid fa-wind', 'Tailwind CSS'],
-  ['fab fa-docker', 'Docker'],
+  ['fa-solid fa-leaf', 'MongoDB', null, 'var(--c-mongo)'],
+  ['dev-text', 'ex', 'Express.js', '#fff'],
+  ['fa-brands fa-react', 'React', null, 'var(--c-react)'],
+  ['fa-brands fa-node-js', 'Node.js', null, 'var(--c-node)'],
+  ['fa-solid fa-wind', 'Tailwind CSS', null, 'var(--c-tailwind)'],
+  ['fab fa-docker', 'Docker', null, 'var(--c-docker)'],
 ]
 
 const features = [
@@ -153,7 +153,7 @@ function DeviceMockup() {
                 onClick={() => setActiveView(key)}
                 title={view.title}
                 style={{ 
-                  cursor: 'pointer', 
+                  cursor: 'none', 
                   display: 'flex', 
                   alignItems: 'center', 
                   justifyContent: 'center',
@@ -259,12 +259,21 @@ function DeviceMockup() {
 }
 
 function TechTile({ item }) {
-  const [icon, label, altLabel] = item
+  const [icon, label, altLabel, color] = item
   const isText = icon === 'dev-text'
+  const isPython = color === 'python-gradient'
 
   return (
     <div className="tech-tile">
-      {isText ? <span>{label}</span> : <i className={icon} aria-hidden="true" />}
+      {isText ? (
+        <span style={{ color }}>{label}</span>
+      ) : (
+        <i 
+          className={`${icon} ${isPython ? 'python-gradient' : ''}`} 
+          style={isPython ? {} : { color }} 
+          aria-hidden="true" 
+        />
+      )}
       <small>{isText ? altLabel : label}</small>
     </div>
   )

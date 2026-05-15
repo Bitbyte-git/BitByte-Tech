@@ -426,21 +426,19 @@ export default function useLandingEffects({
       ringRef.current?.classList.toggle('is-input', Boolean(isInput))
     }
 
-    const RING_RADIUS = 16 // half of 32px ring
-    const DOT_ANGLE_RAD = 60 * Math.PI / 180 // 60° = bottom-right of circle
-    const DOT_OFFSET_X = RING_RADIUS * Math.cos(DOT_ANGLE_RAD) // +8px
-    const DOT_OFFSET_Y = RING_RADIUS * Math.sin(DOT_ANGLE_RAD) // +13.86px (bottom)
 
     const animateCursor = () => {
       cursorFrame = 0
 
-      // Ring follows cursor with smooth lag (magnifier-style)
-      ringX += (targetX - ringX) * 0.08
-      ringY += (targetY - ringY) * 0.08
+      // Ring follows cursor with smooth lag
+      // Snap faster when interactive to maintain "control" feeling
+      const lerpFactor = activeCursorTarget ? 0.2 : 0.12
+      ringX += (targetX - ringX) * lerpFactor
+      ringY += (targetY - ringY) * lerpFactor
 
-      // Dot is placed at 300° on the ring's circumference
-      const dotX = ringX + DOT_OFFSET_X
-      const dotY = ringY + DOT_OFFSET_Y
+      // Dot is the precision point — it must follow target exactly for "control"
+      const dotX = targetX
+      const dotY = targetY
 
       if (cursorRef.current) {
         cursorRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0)`
@@ -449,7 +447,7 @@ export default function useLandingEffects({
         ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`
       }
 
-      if (Math.abs(targetX - ringX) > 0.2 || Math.abs(targetY - ringY) > 0.2) {
+      if (Math.abs(targetX - ringX) > 0.1 || Math.abs(targetY - ringY) > 0.1) {
         cursorFrame = requestAnimationFrame(animateCursor)
       }
     }
@@ -489,7 +487,14 @@ export default function useLandingEffects({
       cursorRef.current?.classList.toggle('is-pressed', isPressed)
       ringRef.current?.classList.toggle('is-pressed', isPressed)
     }
-    const onMouseDown = () => setCursorPressed(true)
+
+    const onMouseDown = () => {
+      setCursorPressed(true)
+      // Snap ring closer to dot on click to eliminate separation gap
+      ringX += (targetX - ringX) * 0.45
+      ringY += (targetY - ringY) * 0.45
+      scheduleCursor()
+    }
     const onMouseUp = () => setCursorPressed(false)
 
     if (planetRef.current) {

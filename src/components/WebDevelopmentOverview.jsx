@@ -7,18 +7,21 @@ const developmentServices = [
     'Custom Web Applications',
     'We build custom web applications tailored to your unique business requirements with scalable and secure architecture.',
     '/services/web-development/custom-web-applications',
+    '#00d4ff'
   ],
   [
     'fa-solid fa-cart-shopping',
     'E-Commerce Solutions',
     'Powerful and secure e-commerce platforms that help you sell more, manage easily, and deliver great user experiences.',
     '/services/web-development/e-commerce-solutions',
+    '#f59e0b'
   ],
   [
     'fa-solid fa-chart-simple',
     'Web Portals & Dashboards',
     'Interactive dashboards and portals that simplify operations, visualize data, and improve decision-making.',
     '/services/web-development/web-portals-dashboards',
+    '#8b5cf6'
   ],
 ]
 
@@ -96,7 +99,7 @@ Designed to attract customers, streamline operations, and accelerate growth.`,
   },
   Contact: {
     label: 'WE CONNECT',
-    title: 'Lead Journeys That',
+    title: 'Lead Extravaganzas That',
     highlight: 'Convert Faster',
     text: 'Contact flows designed for quick inquiries, qualified leads, smooth handoffs, and measurable response.',
     primary: 'Start Project',
@@ -322,7 +325,7 @@ export default function WebDevelopmentOverview() {
         .webapp-breadcrumb a {
           color: rgba(232, 248, 255, 0.6);
           text-decoration: none;
-          cursor: pointer;
+          cursor: none;
         }
 
         .webapp-breadcrumb a:hover,
@@ -455,7 +458,7 @@ export default function WebDevelopmentOverview() {
           text-transform: uppercase;
           color: #000;
           text-decoration: none;
-          cursor: pointer;
+          cursor: none;
           background: linear-gradient(135deg, #a4ec70 0%, #00a4ec 45%, #294d9d 100%);
           padding: 13.5px 27px;
           border-radius: 40px;
@@ -495,7 +498,7 @@ export default function WebDevelopmentOverview() {
           text-transform: uppercase;
           color: #00a4ec;
           text-decoration: none;
-          cursor: pointer;
+          cursor: none;
           border: 1.5px solid rgba(0, 180, 216, 0.38);
           padding: 12.5px 25px;
           border-radius: 40px;
@@ -647,7 +650,7 @@ export default function WebDevelopmentOverview() {
           border: 0;
           background: transparent;
           color: rgba(255, 255, 255, 0.75);
-          cursor: pointer;
+          cursor: none;
           font: 700 11px 'Plus Jakarta Sans', system-ui, sans-serif;
           padding: 0 0 6px;
           transition: color 0.25s, text-shadow 0.25s;
@@ -706,7 +709,7 @@ export default function WebDevelopmentOverview() {
           height: 164px;
           border: 0;
           background: transparent;
-          cursor: pointer;
+          cursor: none;
           z-index: 6;
           transform-style: preserve-3d;
         }
@@ -876,7 +879,7 @@ export default function WebDevelopmentOverview() {
           border: 0;
           background: transparent;
           color: rgba(255, 255, 255, 0.88);
-          cursor: pointer;
+          cursor: none;
           font: 800 13px 'Plus Jakarta Sans', system-ui, sans-serif;
           text-align: left;
         }
@@ -1007,7 +1010,7 @@ export default function WebDevelopmentOverview() {
           backdrop-filter: blur(18px);
           transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
           text-decoration: none;
-          cursor: pointer;
+          cursor: none;
         }
 
         .wd-service-card:hover {
@@ -1419,13 +1422,13 @@ export default function WebDevelopmentOverview() {
           </h2>
           <p className="wd-section-sub reveal reveal-delay-2">End-to-end web solutions tailored to your business goals.</p>
           <div className="wd-service-grid">
-            {developmentServices.map(([icon, title, text, href], index) => (
+            {developmentServices.map(([icon, title, text, href, color], index) => (
               <a className={`wd-service-card reveal reveal-delay-${index + 1}`} href={href} key={title}>
-                <i className={icon} aria-hidden="true" />
+                <i className={icon} style={{ color }} aria-hidden="true" />
                 <div>
                   <h3>{title}</h3>
                   <p>{text}</p>
-                  <span>Learn more →</span>
+                  <span style={{ color }}>Learn more →</span>
                 </div>
               </a>
             ))}
