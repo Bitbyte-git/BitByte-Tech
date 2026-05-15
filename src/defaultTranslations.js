@@ -43,7 +43,7 @@ const defaultTranslations = {
     active: 'Active focus',
     cards: {
       'web-app-development': {
-        stat: 'Digital Software',
+        stat: 'Software',
         title: 'Web App Development',
         desc: 'Transform your business with high-performance, secure web apps tailored to your needs. From concept to deployment, we build scalable solutions. Get a free quote!',
       },

@@ -306,7 +306,7 @@ body::before {
   transform: scale(0.9);
   font-family: "Montserrat", sans-serif;
   font-size: 5px;
-  font-weight: 900;
+  font-weight: 700;
   color: var(--white);
   line-height: 1.1;
   letter-spacing: 0.1px;
@@ -317,6 +317,10 @@ body::before {
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-style: normal;
+  font-size: 20px;
+}
+.logo-txt p{
+  font-size: 20px;
 }
 .logo-sub {
   font-family: var(--f-label);
@@ -929,7 +933,7 @@ body {
 .hero-content {
   position: relative;
   z-index: 10;
-  max-width: 522px;
+  max-width: 480px;
   left: 0;
   top: -50px;
   animation: hReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -952,7 +956,7 @@ body {
   border: 1px solid rgba(6, 214, 160, 0.25);
   padding: 7px 18px;
   border-radius: 30px;
-  margin-bottom: 26px;
+  margin-bottom: 20px;
   animation: hReveal 1s 0.15s both;
 }
 .badge-dot {
@@ -997,12 +1001,12 @@ body {
 }
 .hero-h1 {
   font-family: var(--f-display);
-  font-size: clamp(27px, 3.8vw, 54px);
+  font-size: clamp(24px, 3.2vw, 48px);
   font-weight: 900;
   line-height: 1.08;
   letter-spacing: -1px;
   color: var(--white);
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   animation: hReveal 1s 0.3s both;
 }
 .hero-h1 .grad {
@@ -1012,7 +1016,7 @@ body {
   background-clip: text;
 }
 .hero-p {
-  font-size: 14.5px;
+  font-size: 13.5px;
   line-height: 1.8;
   color: var(--white60);
   font-weight: 300;
@@ -2347,7 +2351,7 @@ footer {
     padding: 140px 48px 80px;
   }
   .hero-content {
-    max-width: 480px;
+    max-width: 440px;
   }
   .planet-sys {
     left: 64%;
@@ -2531,7 +2535,7 @@ footer {
     padding: 114px 18px 64px;
   }
   .hero-h1 {
-    font-size: 28px;
+    font-size: 26px;
   }
   .hero-stats {
     display: grid;

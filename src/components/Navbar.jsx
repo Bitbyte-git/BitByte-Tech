@@ -1,6 +1,6 @@
 import { memo } from 'react'
-import { useTranslation } from '../i18n'
 import { navLinks, services } from '../constants'
+import { useTranslation } from '../i18n'
 import LanguageSwitcher from './LanguageSwitcher'
 import Logo from './Logo'
 
