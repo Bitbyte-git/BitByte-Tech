@@ -1140,42 +1140,6 @@ export default function PersonalBranding() {
         </div>
       </section>
 
-      <section className="pb-section" id="pb-work">
-        <div className="pb-eyebrow reveal">Our Work</div>
-        <h2 className="pb-section-title reveal reveal-delay-1">Personal <span>Branding Success Stories</span></h2>
-        <p className="pb-section-sub reveal reveal-delay-2">Real people. Real brands. Real impact.</p>
-        <div className="pb-story-grid">
-          {stories.map(([image, title, text]) => (
-            <article className="pb-card pb-story-card reveal" key={title}>
-              <img src={image} alt={title} />
-              <div>
-                <h3>{title}</h3>
-                <p>{text}</p>
-                <a href="/#contact">View Case Study &rarr;</a>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div className="pb-dots" aria-hidden="true"><span /><span /><span /><span /></div>
-      </section>
-
-      <section className="pb-section">
-        <div className="pb-eyebrow reveal">What Clients Say</div>
-        <h2 className="pb-section-title reveal reveal-delay-1">Trusted by <span>Professionals</span></h2>
-        <article className="pb-card pb-testimonial reveal reveal-delay-2">
-          <div className="pb-quote-mark">"</div>
-          <p>Bit Byte helped me build a strong personal brand on LinkedIn. My visibility increased, I started getting quality leads and new business opportunities.</p>
-          <div className="pb-client">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=220&auto=format&fit=crop" alt="Arun Prakash" />
-            <div>
-              <strong>Arun Prakash</strong>
-              <span>Real Estate Consultant</span>
-            </div>
-          </div>
-        </article>
-        <div className="pb-dots" aria-hidden="true"><span /><span /><span /><span /><span /></div>
-      </section>
-
       <section className="pb-cta reveal">
         <div className="pb-cta-icon"><i className="fa-solid fa-rocket" aria-hidden="true" /></div>
         <div>

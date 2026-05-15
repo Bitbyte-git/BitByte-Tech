@@ -6351,6 +6351,10 @@ select,
   position: relative;
   min-width: 0;
   transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .sales-matter:hover {
   transform: translateY(-5px);
@@ -6360,11 +6364,12 @@ select,
 .sales-process-step:not(:last-child)::after {
   content: "";
   position: absolute;
-  top: 36px;
-  left: calc(50% + 46px);
-  width: calc(100% - 74px);
+  top: 38px;
+  left: calc(50% + 40px);
+  width: calc(100% - 80px);
   height: 1px;
-  border-top: 2px dotted rgba(154, 247, 90, 0.62);
+  border-top: 2px dotted rgba(154, 247, 90, 0.4);
+  z-index: -1;
 }
 
 .sales-matter i,
@@ -6393,9 +6398,12 @@ select,
 
 .sales-matter p,
 .sales-process-step p {
-  color: rgba(232, 248, 255, 0.82);
-  font-size: 13px;
-  line-height: 1.55;
+  color: rgba(232, 248, 255, 0.9);
+  font-size: 13.5px;
+  line-height: 1.4;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 8px;
 }
 
 .sales-services {
@@ -7654,10 +7662,8 @@ select,
 .wd-work-card p,
 .sales-lead,
 .sales-pillar span,
-.sales-matter p,
 .sales-service-card p,
 .sales-use-list span,
-.sales-process-step p,
 .sales-growth-card p,
 .sales-consult-card p,
 .career-hero-copy p,
