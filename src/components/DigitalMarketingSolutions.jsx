@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import ServiceFaq from "./ServiceFaq";
 
 const marketingServices = [
   [
     "fa-solid fa-magnifying-glass",
     "SEO + AEO + GEO",
-    "Search Optimization Services – Improve your visibility across Google, AI-powered search engines, conversational platforms, and voice search experiences using advanced SEO, AEO (Answer Engine Optimization), and GEO (Generative Engine Optimization) strategies. Our optimization approach improves search rankings, featured snippets, AI recommendations, conversational search visibility, and long-term digital discoverability.",
+    "Search Optimization Services – Improve your visibility across Google, AI-powered search engines, conversational platforms, and voice search experiences using advanced SEO, AEO (Answer Engine Optimization), and GEO (Generative Engine Optimization) strategies. Our optimization approach improves search rankings, featured snippets, AI recommendations, conversational search visibility, and long-term digital Requirement Gatheringability.",
   ],
   [
     "fa-solid fa-bullseye",

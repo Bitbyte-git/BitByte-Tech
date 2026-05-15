@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const brandServices = [
   ['fa-regular fa-user', 'Profile Optimization', 'We optimize your social media profiles to reflect your expertise and create a strong first impression.'],
@@ -15,11 +15,11 @@ const heroBenefits = [
 ]
 
 const processSteps = [
-  ['fa-solid fa-magnifying-glass-chart', '01. Discovery', 'We understand your goals, expertise, and target audience.'],
+  ['fa-solid fa-magnifying-glass-chart', '01. Explore', 'We understand your goals, expertise, and target audience.'],
   ['fa-solid fa-pen-ruler', '02. Strategy', 'We create a customized branding and content strategy.'],
-  ['fa-solid fa-pen-fancy', '03. Create', 'We design, write, and develop content that represents you.'],
-  ['fa-solid fa-rocket', '04. Grow', 'We publish, promote, and grow your brand consistently.'],
-  ['fa-solid fa-chart-column', '05. Measure', 'We track performance and optimize for better results.'],
+  ['fa-solid fa-pen-fancy', '03. Develop', 'We design, write, and develop content that represents you.'],
+  ['fa-solid fa-rocket', '04. Boost', 'We publish, promote, and grow your brand consistently.'],
+  ['fa-solid fa-chart-column', '05. Evaluate', 'We track performance and optimize for better results.'],
 ]
 
 const impactCards = [
@@ -36,28 +36,90 @@ const stories = [
   ['https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=500&auto=format&fit=crop', 'Fitness Coach', 'Instagram Growth Strategy'],
 ]
 
-function BrandingMockup() {
+function InteractiveBrandingMockup() {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [activeProfile, setActiveProfile] = useState('linkedin')
+
+  const profiles = {
+    linkedin: {
+      name: 'LinkedIn Growth',
+      img: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=420&auto=format&fit=crop',
+      stats: ['15.2k Followers', '+24% Impressions', '342 Endorsements'],
+      theme: '#0a66c2'
+    },
+    instagram: {
+      name: 'Instagram Influence',
+      img: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=420&auto=format&fit=crop',
+      stats: ['42k Followers', '8.4% Engagement', '1.2M Reach'],
+      theme: '#e1306c'
+    },
+    website: {
+      name: 'Founder Portfolio',
+      img: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=420&auto=format&fit=crop',
+      stats: ['12k Monthly Visitors', '4.2% Conversion', 'Featured in Forbes'],
+      theme: '#9af75a'
+    }
+  }
+
+  const current = profiles[activeProfile]
+
+  const handleMouseMove = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 20
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -20
+    setTilt({ x, y })
+  }
+
   return (
-    <div className="pb-visual" aria-label="Personal branding website mockup">
+    <div 
+      className="pb-visual" 
+      aria-label="Personal branding interactive mockup"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+      style={{
+        '--tilt-x': `${tilt.x}deg`,
+        '--tilt-y': `${tilt.y}deg`
+      }}
+    >
       <div className="pb-plant pb-plant-left" aria-hidden="true" />
       <div className="pb-plant pb-plant-right" aria-hidden="true" />
       <div className="pb-laptop">
         <div className="pb-laptop-screen">
           <div className="pb-screen-nav">
-            <span><i /> Bit Byte</span>
-            <b>Home</b>
-            <b>About</b>
-            <b>Agenda</b>
-            <b>Contact</b>
+            <span><i style={{ borderColor: current.theme, boxShadow: `10px 0 0 -4px ${current.theme}`, transition: 'all 0.3s' }} /> Bit Byte</span>
+            {Object.keys(profiles).map(key => (
+              <b 
+                key={key} 
+                onClick={() => setActiveProfile(key)}
+                style={{ 
+                  cursor: 'pointer', 
+                  color: activeProfile === key ? current.theme : 'rgba(255,255,255,0.75)',
+                  textShadow: activeProfile === key ? `0 0 10px ${current.theme}` : 'none',
+                  transition: 'all 0.3s'
+                }}
+              >
+                {key.charAt(0).toUpperCase() + key.slice(1)}
+              </b>
+            ))}
           </div>
           <div className="pb-screen-content">
-            <div>
-              <h3>Building Personal Brands That <span>Inspire Trust</span></h3>
+            <div key={`content-${activeProfile}`} style={{ animation: 'hReveal 0.4s ease forwards', opacity: 0 }}>
+              <h3>Building Personal Brands That <span style={{ color: current.theme, WebkitTextFillColor: current.theme, transition: 'all 0.3s' }}>Inspire Trust</span></h3>
               <p>We craft powerful personal brands that reflect your identity, expertise, and vision.</p>
-              <button type="button">Get Started</button>
+              
+              <div style={{ display: 'flex', gap: '8px', marginTop: '16px', flexWrap: 'wrap' }}>
+                {current.stats.map((stat, i) => (
+                  <span key={`${stat}-${i}`} style={{ background: 'rgba(255,255,255,0.05)', padding: '5px 10px', borderRadius: '14px', fontSize: '9px', color: '#fff', border: `1px solid ${current.theme}`, animation: `hReveal 0.4s ${i * 0.1}s forwards`, opacity: 0 }}>
+                    <i className="fa-solid fa-check" style={{ color: current.theme, marginRight: '4px' }} />
+                    {stat}
+                  </span>
+                ))}
+              </div>
+              
+              <button type="button" style={{ marginTop: '24px', background: `linear-gradient(135deg, ${current.theme}, #00d5ff)`, transition: 'all 0.3s' }}>Get Started</button>
             </div>
             <div className="pb-portrait">
-              <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=420&auto=format&fit=crop" alt="" />
+              <img src={current.img} alt="" key={`img-${activeProfile}`} style={{ animation: 'hReveal 0.6s ease forwards' }} />
             </div>
           </div>
         </div>
@@ -66,16 +128,48 @@ function BrandingMockup() {
       <div className="pb-phone">
         <div className="pb-phone-speaker" />
         <div className="pb-phone-top">
-          <span><i /> BitByte</span>
-          <b />
+          <span><i style={{ borderColor: current.theme, boxShadow: `10px 0 0 -4px ${current.theme}` }} /> BitByte</span>
+          <b style={{ borderColor: current.theme }} />
         </div>
-        <h3>Building Personal Brands That <span>Inspire Trust</span></h3>
-        <p>We craft powerful personal brands that reflect your identity, expertise, and vision.</p>
-        <button type="button">Get Started</button>
-        <strong>Our Services</strong>
-        <em>Personal Branding</em>
+        <div key={`phone-${activeProfile}`} style={{ animation: 'hReveal 0.4s ease forwards', opacity: 0 }}>
+          <h3>Building Personal Brands That <span style={{ color: current.theme, WebkitTextFillColor: current.theme }}>Inspire Trust</span></h3>
+          <p>We craft powerful personal brands that reflect your identity, expertise, and vision.</p>
+          <button type="button" style={{ background: `linear-gradient(135deg, ${current.theme}, #00d5ff)` }}>Get Started</button>
+          <strong>{current.name}</strong>
+          <em style={{ color: current.theme }}>{current.stats[0]}</em>
+        </div>
       </div>
       <div className="pb-rock" aria-hidden="true" />
+      
+      <div 
+        aria-hidden="true" 
+        style={{
+          position: 'absolute',
+          left: '50%',
+          bottom: '-25px',
+          transform: 'translateX(-50%) translateZ(60px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          borderRadius: '28px',
+          border: '1px solid rgba(0, 212, 255, 0.16)',
+          background: 'rgba(8, 22, 42, 0.86)',
+          padding: '12px 22px',
+          color: '#fff',
+          zIndex: 10,
+          boxShadow: '0 18px 46px rgba(0, 0, 0, 0.54)',
+          backdropFilter: 'blur(12px)',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '13px',
+          fontWeight: 600,
+          pointerEvents: 'none',
+          animation: 'hReveal 0.8s 1s both'
+        }}
+      >
+        <i className="fa-solid fa-hand-pointer" style={{ color: '#00d5ff', fontSize: '18px' }} />
+        <span>Click navigation to switch brand profiles</span>
+      </div>
     </div>
   )
 }
@@ -262,6 +356,7 @@ export default function PersonalBranding() {
           position: relative;
           min-height: 520px;
           isolation: isolate;
+          perspective: 1200px;
         }
 
         .pb-laptop {
@@ -271,8 +366,10 @@ export default function PersonalBranding() {
           top: 18px;
           width: min(690px, 92%);
           height: 400px;
-          transform: rotateZ(-6deg) skewX(-2deg);
+          transform: rotateX(calc(var(--tilt-y, 0deg) * 0.8)) rotateY(calc(var(--tilt-x, 0deg) * 0.8)) rotateZ(-6deg) skewX(-2deg);
           transform-origin: center bottom;
+          transition: transform 0.2s ease-out;
+          transform-style: preserve-3d;
         }
 
         .pb-laptop-screen {
@@ -417,7 +514,9 @@ export default function PersonalBranding() {
           box-shadow:
             0 22px 48px rgba(0, 0, 0, 0.72),
             inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-          transform: rotateZ(-2deg);
+          transform: rotateX(calc(var(--tilt-y, 0deg) * 1.5)) rotateY(calc(var(--tilt-x, 0deg) * 1.5)) rotateZ(-2deg) translateZ(40px);
+          transition: transform 0.2s ease-out;
+          transform-style: preserve-3d;
           overflow: hidden;
         }
 
@@ -475,7 +574,8 @@ export default function PersonalBranding() {
             linear-gradient(180deg, rgba(60, 69, 78, 0.72), rgba(12, 16, 20, 0.96)),
             radial-gradient(ellipse, rgba(255, 255, 255, 0.16), transparent 68%);
           box-shadow: 0 28px 42px rgba(0, 0, 0, 0.62);
-          transform: rotateX(58deg);
+          transform: rotateX(calc(58deg + var(--tilt-y, 0deg) * 0.5)) rotateY(calc(var(--tilt-x, 0deg) * 0.5));
+          transition: transform 0.2s ease-out;
         }
 
         .pb-plant {
@@ -487,6 +587,8 @@ export default function PersonalBranding() {
           background: repeating-radial-gradient(ellipse at 50% 50%, rgba(119, 210, 94, 0.95) 0 6px, transparent 7px 15px);
           clip-path: polygon(45% 100%, 35% 75%, 14% 55%, 33% 54%, 22% 29%, 46% 45%, 48% 5%, 61% 42%, 82% 26%, 69% 57%, 92% 54%, 65% 75%, 57% 100%);
           opacity: 0.58;
+          transform: rotateX(calc(var(--tilt-y, 0deg) * -0.5)) rotateY(calc(var(--tilt-x, 0deg) * -0.5)) scaleX(var(--plant-scale, 1));
+          transition: transform 0.2s ease-out;
         }
 
         .pb-plant-left {
@@ -495,7 +597,7 @@ export default function PersonalBranding() {
 
         .pb-plant-right {
           right: -34px;
-          transform: scaleX(-1);
+          --plant-scale: -1;
         }
 
         .pb-section {
@@ -794,6 +896,50 @@ export default function PersonalBranding() {
           line-height: 1.6;
         }
 
+        .pb-service-card,
+        .pb-impact-card,
+        .pb-story-card,
+        .pb-cta {
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          cursor: pointer;
+        }
+
+        .pb-service-card:hover,
+        .pb-impact-card:hover,
+        .pb-story-card:hover {
+          transform: translateY(-8px) scale(1.02);
+          border-color: rgba(154, 247, 90, 0.45);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 25px rgba(154, 247, 90, 0.15);
+          z-index: 10;
+        }
+
+        .pb-service-card i,
+        .pb-impact-card i {
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .pb-service-card:hover i,
+        .pb-impact-card:hover i {
+          transform: scale(1.15) rotate(8deg) translateX(4px);
+          color: #9af75a;
+          text-shadow: 0 0 30px rgba(154, 247, 90, 0.6);
+        }
+
+        .pb-cta:hover {
+          border-color: rgba(154, 247, 90, 0.4);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(154, 247, 90, 0.1);
+        }
+        
+        .pb-cta-icon {
+          transition: all 0.4s ease;
+        }
+        
+        .pb-cta:hover .pb-cta-icon {
+          transform: scale(1.1) rotate(5deg);
+          border-color: #9af75a;
+          box-shadow: 0 0 30px rgba(154, 247, 90, 0.4);
+        }
+
         @media (max-width: 1180px) {
           .pb-hero-grid,
           .pb-cta {
@@ -943,7 +1089,7 @@ export default function PersonalBranding() {
             </div>
           </div>
 
-          <BrandingMockup />
+          <InteractiveBrandingMockup />
         </div>
       </section>
 

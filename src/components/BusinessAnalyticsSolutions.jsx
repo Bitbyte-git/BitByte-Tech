@@ -75,7 +75,7 @@ const analyticsFaqs = [
   ],
   [
     "Why is business analytics important for growing companies?",
-    "Business analytics helps companies track what is working, discover what needs improvement, forecast future performance, optimize operations, and make decisions based on data instead of guesswork.",
+    "Business analytics helps companies track what is working, Requirement Gathering what needs improvement, forecast future performance, optimize operations, and make decisions based on data instead of guesswork.",
   ],
   [
     "What types of dashboards can you build?",

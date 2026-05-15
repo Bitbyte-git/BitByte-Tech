@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import ServiceFaq from './ServiceFaq'
 
 const buildItems = [
@@ -10,7 +11,7 @@ const buildItems = [
 ]
 
 const processSteps = [
-  ['fa-solid fa-magnifying-glass', '01', 'Discovery', 'We understand your requirements and goals.'],
+  ['fa-solid fa-magnifying-glass', '01', 'Requirement Gathering', 'We understand your requirements and goals.'],
   ['fa-regular fa-calendar-days', '02', 'Planning', 'We create a roadmap and project plan.'],
   ['fa-solid fa-pen-nib', '03', 'Design', 'UI/UX design focused on user experience.'],
   ['fa-solid fa-code', '04', 'Development', 'We build with clean, scalable code.'],
@@ -82,52 +83,118 @@ const webDevelopmentFaqs = [
 ]
 
 function DeviceMockup() {
-  const stats = [
-    ['Total Users', '2,458', '+12%'],
-    ['Total Orders', '1,845', '+8%'],
-    ['Revenue', '$48,930', '+24%'],
-    ['Conversion Rate', '3.68%', '+5%'],
-  ]
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [activeView, setActiveView] = useState('ecommerce')
+
+  const views = {
+    ecommerce: {
+      title: 'E-Commerce Dashboard',
+      icon: 'fa-solid fa-cart-shopping',
+      stats: [
+        ['Total Orders', '1,845', '+12%'],
+        ['Revenue', '$48,930', '+24%'],
+        ['Conv. Rate', '3.68%', '+5%'],
+        ['Active Users', '2,458', '+8%'],
+      ],
+      list: ['iPhone 15 Pro', 'MacBook Air M2', 'AirPods Pro 2', 'iPad Pro 11"']
+    },
+    saas: {
+      title: 'SaaS User Portal',
+      icon: 'fa-solid fa-cubes',
+      stats: [
+        ['Subscribers', '1,240', '+18%'],
+        ['MRR', '$14,200', '+14%'],
+        ['Churn Rate', '1.2%', '-0.4%'],
+        ['Avg Session', '4m 12s', '+12%'],
+      ],
+      list: ['Pro Plan', 'Enterprise', 'Starter', 'Pro Plan']
+    },
+    crm: {
+      title: 'Sales CRM',
+      icon: 'fa-solid fa-users',
+      stats: [
+        ['New Leads', '342', '+28%'],
+        ['Deals Won', '84', '+15%'],
+        ['Pipeline Val', '$1.2M', '+10%'],
+        ['Meetings Set', '124', '+5%'],
+      ],
+      list: ['Acme Corp', 'Globex Inc', 'Initech', 'Soylent Corp']
+    }
+  }
+
+  const currentView = views[activeView]
+
+  const handleMouseMove = (event) => {
+    const bounds = event.currentTarget.getBoundingClientRect()
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 12
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * -10
+    setTilt({ x, y })
+  }
+
+  const resetTilt = () => setTilt({ x: 0, y: 0 })
 
   return (
-    <div className="webapp-device-stage" aria-label="Dashboard application mockup">
+    <div 
+      className="webapp-device-stage" 
+      aria-label="Dashboard application mockup"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={resetTilt}
+      style={{
+        '--tilt-x': `${tilt.x}deg`,
+        '--tilt-y': `${tilt.y}deg`,
+      }}
+    >
       <div className="webapp-laptop">
         <div className="webapp-laptop-screen">
           <div className="dash-sidebar">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
+            {Object.entries(views).map(([key, view]) => (
+              <span 
+                key={key} 
+                onClick={() => setActiveView(key)}
+                title={view.title}
+                style={{ 
+                  cursor: 'pointer', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  background: activeView === key ? 'rgba(0, 180, 216, 0.25)' : 'rgba(255, 255, 255, 0.06)',
+                  color: activeView === key ? '#00b4d8' : 'rgba(255, 255, 255, 0.4)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  transform: activeView === key ? 'scale(1.15)' : 'scale(1)'
+                }}
+              >
+                <i className={view.icon} style={{ fontSize: '13px' }} aria-hidden="true" />
+              </span>
+            ))}
           </div>
           <div className="dash-main">
             <div className="dash-topline">
-              <strong>Dashboard</strong>
+              <strong>{currentView.title}</strong>
               <span />
             </div>
             <div className="dash-stats">
-              {stats.map(([label, value, gain]) => (
-                <div className="dash-stat" key={label}>
+              {currentView.stats.map(([label, value, gain], index) => (
+                <div className="dash-stat" key={`${label}-${activeView}`} style={{ animation: `hReveal 0.4s ${index * 0.1}s ease forwards`, opacity: 0 }}>
                   <small>{label}</small>
                   <b>{value}</b>
-                  <em>{gain}</em>
+                  <em style={{ color: gain.startsWith('-') ? '#ff4d4d' : '#9af75a' }}>{gain}</em>
                 </div>
               ))}
             </div>
             <div className="dash-body">
-              <div className="dash-chart">
-                <span className="chart-line line-a" />
-                <span className="chart-line line-b" />
-                <span className="chart-line line-c" />
-                <span className="chart-line line-d" />
-                <span className="chart-line line-e" />
+              <div className="dash-chart" key={`chart-${activeView}`}>
+                <span className="chart-line line-a" style={{ animation: 'hReveal 0.4s 0.2s ease forwards', opacity: 0 }} />
+                <span className="chart-line line-b" style={{ animation: 'hReveal 0.4s 0.3s ease forwards', opacity: 0 }} />
+                <span className="chart-line line-c" style={{ animation: 'hReveal 0.4s 0.4s ease forwards', opacity: 0 }} />
+                <span className="chart-line line-d" style={{ animation: 'hReveal 0.4s 0.5s ease forwards', opacity: 0 }} />
+                <span className="chart-line line-e" style={{ animation: 'hReveal 0.4s 0.6s ease forwards', opacity: 0 }} />
               </div>
               <div className="dash-list">
-                {['Anita Rao', 'Jesse Smith', 'Aditya Boss', 'Emily Diaz'].map((name) => (
-                  <div className="dash-row" key={name}>
+                {currentView.list.map((name, index) => (
+                  <div className="dash-row" key={`${name}-${activeView}`} style={{ animation: `hReveal 0.4s ${index * 0.1}s ease forwards`, opacity: 0 }}>
                     <i />
                     <span>{name}</span>
-                    <b>$230</b>
+                    <b>{activeView === 'ecommerce' ? '$230' : (activeView === 'saas' ? 'Active' : 'Pending')}</b>
                   </div>
                 ))}
               </div>
@@ -139,23 +206,53 @@ function DeviceMockup() {
 
       <div className="webapp-phone">
         <div className="phone-speaker" />
-        <div className="phone-title">Dashboard</div>
-        <div className="phone-card">
-          <small>Revenue Overview</small>
-          <b>$48,930</b>
+        <div className="phone-title" key={`title-${activeView}`} style={{ animation: 'hReveal 0.3s ease forwards', opacity: 0 }}>{currentView.title}</div>
+        <div className="phone-card" key={`card-${activeView}`} style={{ animation: 'hReveal 0.4s 0.1s ease forwards', opacity: 0 }}>
+          <small>{currentView.stats[1][0]}</small>
+          <b>{currentView.stats[1][1]}</b>
           <div className="phone-chart">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
+            <span style={{ animation: 'hReveal 0.4s 0.2s ease forwards', opacity: 0 }} />
+            <span style={{ animation: 'hReveal 0.4s 0.3s ease forwards', opacity: 0 }} />
+            <span style={{ animation: 'hReveal 0.4s 0.4s ease forwards', opacity: 0 }} />
+            <span style={{ animation: 'hReveal 0.4s 0.5s ease forwards', opacity: 0 }} />
+            <span style={{ animation: 'hReveal 0.4s 0.6s ease forwards', opacity: 0 }} />
           </div>
         </div>
-        <div className="phone-products">
-          <small>Top Products</small>
+        <div className="phone-products" key={`prods-${activeView}`} style={{ animation: 'hReveal 0.4s 0.2s ease forwards', opacity: 0 }}>
+          <small>Recent Activity</small>
           <div />
           <div />
         </div>
+      </div>
+      
+      <div 
+        aria-hidden="true" 
+        style={{
+          position: 'absolute',
+          left: '50%',
+          bottom: '-12px',
+          transform: 'translateX(-50%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '12px',
+          borderRadius: '28px',
+          border: '1px solid rgba(0, 212, 255, 0.16)',
+          background: 'rgba(8, 22, 42, 0.86)',
+          padding: '12px 22px',
+          color: '#fff',
+          zIndex: 9,
+          boxShadow: '0 18px 46px rgba(0, 0, 0, 0.34)',
+          backdropFilter: 'blur(12px)',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '13px',
+          fontWeight: 600,
+          pointerEvents: 'none',
+          animation: 'hReveal 0.8s 1s both'
+        }}
+      >
+        <i className="fa-solid fa-hand-pointer" style={{ color: '#00d4ff', fontSize: '18px' }} />
+        <span>Click sidebar icons to switch apps</span>
       </div>
     </div>
   )

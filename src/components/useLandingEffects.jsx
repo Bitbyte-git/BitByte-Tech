@@ -396,6 +396,21 @@ export default function useLandingEffects({
       '.sales-service-card',
       '.career-job-row',
       '.career-benefit',
+      '.dm-service-card',
+      '.dm-why-card',
+      '.dm-industry-card',
+      '.webapp-info-card',
+      '.wd-grid-item',
+      '.process-step',
+      '.tech-card',
+      '.webapp-cta',
+      '.pb-service-card',
+      '.pb-impact-card',
+      '.pb-story-card',
+      '.pb-cta',
+      '.ba-stat-card',
+      '.ba-insight-card',
+      '.ba-feature-card',
     ].join(',')
 
     const setCursorMode = (target) => {
@@ -455,8 +470,14 @@ export default function useLandingEffects({
         hasCursorPosition = true
       }
 
-      const interactive = event.target instanceof Element ? event.target.closest(interactiveSelector) : null
-      setCursorMode(interactive)
+      const targetElement = event.target instanceof Element ? event.target : null
+      const interactive = targetElement?.closest(interactiveSelector)
+      
+      // Prevent flickering by ensuring we don't toggle states too rapidly on same element
+      if (interactive !== activeCursorTarget) {
+        setCursorMode(interactive)
+      }
+      
       scheduleCursor()
     }
 

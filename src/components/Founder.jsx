@@ -13,10 +13,9 @@ export default function Founder() {
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">
-          <p data-magnify="true">
-            We were shaped by comfort- We were Shaped by the universe, the
-            weight of reality and the courage to build what once felt impossible
-          </p>
+          <h1 data-magnify="true">
+           மாற்றம் ஒன்றே மாறாதது
+          </h1>
           <cite>Founder, Bit Byte Technologies</cite>
         </div>
       </div>

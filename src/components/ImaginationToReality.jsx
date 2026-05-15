@@ -1,18 +1,18 @@
 import { useEffect } from 'react'
 
 const heroCards = [
-  ['fa-solid fa-lightbulb', '02', 'Idea'],
-  ['fa-solid fa-magnifying-glass-chart', '02', 'Research'],
-  ['fa-solid fa-gears', '04', 'Launch'],
-  ['fa-solid fa-gear', '04', 'Development'],
-  ['fa-solid fa-magnifying-glass', '03', ''],
+  ['fa-solid fa-lightbulb', '01', 'CONCEPT'],
+  ['fa-solid fa-magnifying-glass-chart', '02', 'ANALYZE'],
+  ['fa-solid fa-gears', '03', 'VALIDATE'],
+  ['fa-solid fa-gear', '04', 'BUILD'],
+  ['fa-solid fa-magnifying-glass', '05', 'DELIVER'],
 ]
 
 const heroPillars = [
-  ['fa-solid fa-network-wired', 'Innovative Ideas', 'We explore creative possibilities and unique solutions.'],
-  ['fa-solid fa-shield-halved', 'Data-Driven Research', 'We analyze, validate, and ensure market relevance and feasibility.'],
-  ['fa-solid fa-file-magnifying-glass', 'Prototyping & Testing', 'We build prototypes, test rigorously, and refine ideas.'],
-  ['fa-solid fa-rocket', 'Real-World Solutions', 'We deliver scalable products that solve real problems.'],
+  ['fa-solid fa-brain', 'Innovative Ideas', 'We explore creative possibilities and unique solutions.'],
+  ['fa-solid fa-magnifying-glass-chart', 'Data-Driven Research', 'We analyze, validate, and ensure market relevance and feasibility.'],
+  ['fa-solid fa-microscope', 'Prototyping & Testing', 'We build prototypes, test rigorously, and refine ideas.'],
+  ['fa-solid fa-city', 'Real-World Solutions', 'We deliver scalable products that solve real problems.'],
 ]
 
 const processSteps = [
@@ -53,14 +53,14 @@ const industries = [
 function HeroLabVisual() {
   return (
     <div className="ir-visual" aria-label="R and D idea development visual">
-      <div className="ir-orbit ir-orbit-one" />
-      <div className="ir-orbit ir-orbit-two" />
       <div className="ir-bulb">
         <div className="ir-bulb-glass">
           <span />
         </div>
         <div className="ir-bulb-base" />
       </div>
+      <div className="ir-orbit ir-orbit-one" />
+      <div className="ir-orbit ir-orbit-two" />
       <div className="ir-stage">
         <span />
         <span />
@@ -126,7 +126,7 @@ export default function ImaginationToReality() {
           margin-bottom: 34px;
           color: rgba(232, 248, 255, 0.68);
           font-family: var(--f-label);
-          font-size: 11px;
+          font-size: 13px;
         }
 
         .ir-breadcrumb a {
@@ -220,16 +220,35 @@ export default function ImaginationToReality() {
         .ir-hero-pillar i {
           display: grid;
           place-items: center;
-          width: 38px;
-          height: 38px;
-          margin-bottom: 12px;
+          width: 48px;
+          height: 48px;
+          margin-bottom: 16px;
           color: #9af75a;
-          font-size: 23px;
-          text-shadow: 0 0 18px rgba(154, 247, 90, 0.36);
+          font-size: 20px;
+          background: rgba(154, 247, 90, 0.08);
+          border: 1px solid rgba(154, 247, 90, 0.24);
+          border-radius: 12px;
+          text-shadow: 0 0 15px rgba(154, 247, 90, 0.3);
+          transition: all 0.3s ease;
         }
 
         .ir-hero-pillar:nth-child(even) i {
           color: #00d5ff;
+          background: rgba(0, 213, 255, 0.08);
+          border-color: rgba(0, 213, 255, 0.24);
+        }
+
+        .ir-hero-pillar:hover i {
+          transform: translateY(-5px) rotate(5deg);
+          background: rgba(154, 247, 90, 0.15);
+          border-color: #9af75a;
+          box-shadow: 0 0 20px rgba(154, 247, 90, 0.2);
+        }
+
+        .ir-hero-pillar:nth-child(even):hover i {
+          background: rgba(0, 213, 255, 0.15);
+          border-color: #00d5ff;
+          box-shadow: 0 0 20px rgba(0, 213, 255, 0.2);
         }
 
         .ir-hero-pillar strong {
@@ -276,32 +295,79 @@ export default function ImaginationToReality() {
           position: absolute;
           left: 50%;
           top: 47%;
-          border: 2px dashed rgba(0, 213, 255, 0.35);
+          border: 1.5px dashed rgba(0, 213, 255, 0.28);
           border-radius: 50%;
-          transform: translate(-50%, -50%) rotate(-15deg);
+          transition: all 0.8s ease;
+          pointer-events: none;
+        }
+
+        .ir-orbit::before {
+          content: "";
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          background: #00d5ff;
+          border-radius: 50%;
+          box-shadow: 0 0 15px #00d5ff, 0 0 30px #00d5ff;
         }
 
         .ir-orbit-one {
           width: 440px;
           height: 260px;
+          animation: irRotateOne 20s linear infinite;
+        }
+
+        .ir-orbit-one::before {
+          top: 50%;
+          left: -4px;
         }
 
         .ir-orbit-two {
           width: 560px;
           height: 320px;
-          transform: translate(-50%, -50%) rotate(20deg);
+          animation: irRotateTwo 30s linear infinite;
           opacity: 0.45;
+          border-color: rgba(154, 247, 90, 0.3);
         }
+
+        .ir-orbit-two::before {
+          top: -4px;
+          left: 50%;
+          background: #9af75a;
+          box-shadow: 0 0 15px #9af75a, 0 0 30px #9af75a;
+        }
+
+        .ir-bulb:hover ~ .ir-orbit {
+          border-color: rgba(255, 176, 55, 0.5);
+          border-style: solid;
+          opacity: 0.8;
+        }
+
+        .ir-bulb:hover ~ .ir-orbit-one { animation-duration: 8s; }
+        .ir-bulb:hover ~ .ir-orbit-two { animation-duration: 12s; }
 
         .ir-bulb {
           position: absolute;
           z-index: 4;
           left: 50%;
-          top: 43%;
+          top: 50%;
           width: 135px;
           height: 218px;
           transform: translate(-50%, -50%);
           filter: drop-shadow(0 0 48px rgba(255, 176, 55, 0.62));
+          transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+          cursor: pointer;
+          animation: irBulbPulse 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes irBulbPulse {
+          from { filter: drop-shadow(0 0 30px rgba(255, 176, 55, 0.4)); }
+          to { filter: drop-shadow(0 0 60px rgba(255, 176, 55, 0.7)); }
+        }
+
+        .ir-bulb:hover {
+          transform: translate(-50%, -55%) scale(1.1);
+          filter: drop-shadow(0 0 80px rgba(255, 176, 55, 0.95));
         }
 
         .ir-bulb-glass {
@@ -319,6 +385,17 @@ export default function ImaginationToReality() {
             inset 0 0 28px rgba(255, 255, 255, 0.26),
             0 0 85px rgba(255, 166, 40, 0.6);
           overflow: hidden;
+          transition: all 0.6s ease;
+        }
+
+        .ir-bulb:hover .ir-bulb-glass {
+          background:
+            radial-gradient(circle at 48% 58%, rgba(255, 255, 255, 1), rgba(255, 214, 110, 0.75) 25%, transparent 40%),
+            radial-gradient(circle at 35% 22%, rgba(255, 255, 220, 1), rgba(255, 195, 71, 0.85) 34%, rgba(123, 70, 27, 0.62) 69%, rgba(255, 255, 255, 0.2));
+          border-color: rgba(255, 250, 195, 0.9);
+          box-shadow:
+            inset 0 0 40px rgba(255, 255, 255, 0.4),
+            0 0 120px rgba(255, 176, 55, 0.85);
         }
 
         .ir-bulb-glass::before,
@@ -351,6 +428,13 @@ export default function ImaginationToReality() {
           border: 2px solid rgba(255, 250, 195, 0.78);
           border-top: 0;
           border-radius: 0 0 26px 26px;
+          transition: all 0.6s ease;
+        }
+
+        .ir-bulb:hover .ir-bulb-glass span {
+          border-width: 3px;
+          border-color: #fff;
+          box-shadow: 0 0 15px #fff;
         }
 
         .ir-bulb-base {
@@ -365,6 +449,16 @@ export default function ImaginationToReality() {
             repeating-linear-gradient(180deg, #273442 0 10px, #101720 10px 18px),
             linear-gradient(90deg, #111820, #526070, #101720);
           box-shadow: 0 18px 26px rgba(0, 0, 0, 0.48);
+        }
+
+        @keyframes irRotateOne {
+          from { transform: translate(-50%, -50%) rotate(-15deg); }
+          to { transform: translate(-50%, -50%) rotate(345deg); }
+        }
+
+        @keyframes irRotateTwo {
+          from { transform: translate(-50%, -50%) rotate(20deg); }
+          to { transform: translate(-50%, -50%) rotate(-340deg); }
         }
 
         .ir-stage {
@@ -425,6 +519,15 @@ export default function ImaginationToReality() {
             0 0 26px rgba(0, 119, 255, 0.18),
             inset 0 1px 0 rgba(255, 255, 255, 0.05);
           padding: 12px 14px;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          cursor: pointer;
+        }
+
+        .ir-float-card:hover {
+          transform: scale(1.1) translateY(-10px) !important;
+          border-color: #9af75a;
+          box-shadow: 0 15px 35px rgba(0, 213, 255, 0.3), 0 0 20px rgba(154, 247, 90, 0.2);
+          z-index: 10;
         }
 
         .ir-float-card i {
@@ -490,6 +593,12 @@ export default function ImaginationToReality() {
 
         .ir-process-step {
           position: relative;
+          transition: all 0.4s ease;
+          cursor: pointer;
+        }
+
+        .ir-process-step:hover {
+          transform: translateY(-8px);
         }
 
         .ir-process-step:not(:last-child)::after {
@@ -500,6 +609,14 @@ export default function ImaginationToReality() {
           width: 86px;
           height: 1px;
           border-top: 2px dotted rgba(154, 247, 90, 0.66);
+          transition: all 0.4s ease;
+        }
+
+        .ir-process-step:hover:not(:last-child)::after {
+          border-top-style: solid;
+          border-color: #9af75a;
+          width: 100px;
+          left: calc(50% + 47px);
         }
 
         .ir-process-step i {
@@ -514,6 +631,14 @@ export default function ImaginationToReality() {
           color: #9af75a;
           font-size: 29px;
           box-shadow: 0 0 24px rgba(154, 247, 90, 0.18);
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .ir-process-step:hover i {
+          transform: scale(1.15) rotate(10deg);
+          border-color: #fff;
+          box-shadow: 0 0 40px rgba(154, 247, 90, 0.4);
+          background: rgba(154, 247, 90, 0.2);
         }
 
         .ir-process-step:nth-child(2) i,
@@ -570,12 +695,27 @@ export default function ImaginationToReality() {
           background: linear-gradient(145deg, rgba(7, 29, 54, 0.66), rgba(2, 16, 30, 0.78));
           padding: 34px 26px;
           text-align: left;
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          cursor: pointer;
+        }
+
+        .ir-deliver-card:hover {
+          transform: translateY(-10px) scale(1.02);
+          border-color: rgba(0, 213, 255, 0.45);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 0 25px rgba(0, 213, 255, 0.15);
         }
 
         .ir-deliver-card i {
           color: #00d5ff;
           font-size: 38px;
           text-shadow: 0 0 22px rgba(0, 213, 255, 0.28);
+          transition: all 0.4s ease;
+        }
+
+        .ir-deliver-card:hover i {
+          transform: scale(1.1) translateX(5px);
+          color: #9af75a;
+          text-shadow: 0 0 30px rgba(154, 247, 90, 0.5);
         }
 
         .ir-deliver-card:nth-child(3) i,
@@ -611,6 +751,14 @@ export default function ImaginationToReality() {
         .ir-trust-item {
           padding: 0 27px;
           border-right: 1px dashed rgba(0, 180, 216, 0.34);
+          transition: all 0.4s ease;
+          cursor: default;
+        }
+
+        .ir-trust-item:hover {
+          background: rgba(255, 255, 255, 0.03);
+          transform: scale(1.05);
+          z-index: 2;
         }
 
         .ir-trust-item:last-child {
@@ -645,11 +793,25 @@ export default function ImaginationToReality() {
           font-family: var(--f-display);
           font-size: 13px;
           font-weight: 800;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .ir-industry:hover {
+          transform: translateY(-5px);
+          color: #9af75a;
         }
 
         .ir-industry i {
           color: #00d5ff;
           font-size: 32px;
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .ir-industry:hover i {
+          transform: scale(1.2) rotate(8deg);
+          color: #9af75a;
+          filter: drop-shadow(0 0 15px rgba(154, 247, 90, 0.6));
         }
 
         .ir-industry:nth-child(even) i {
@@ -667,11 +829,17 @@ export default function ImaginationToReality() {
           background: linear-gradient(145deg, rgba(8, 31, 61, 0.78), rgba(3, 18, 34, 0.88));
           overflow: hidden;
           padding: 0 44px 0 0;
+          transition: all 0.5s ease;
+        }
+
+        .ir-cta:hover {
+          border-color: rgba(154, 247, 90, 0.4);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(154, 247, 90, 0.1);
         }
 
         .ir-rocket-art {
           position: relative;
-          min-height: 210px;
+          min-height: 250px;
           overflow: hidden;
         }
 
@@ -801,6 +969,7 @@ export default function ImaginationToReality() {
           .ir-hero-grid {
             grid-template-columns: 1fr;
             min-height: 0;
+            text-align: center;
           }
 
           .ir-title {
@@ -822,10 +991,10 @@ export default function ImaginationToReality() {
           }
 
           .ir-visual {
-            min-height: 390px;
-            transform: scale(0.72);
-            transform-origin: top center;
-            margin-bottom: -105px;
+            min-height: 320px;
+            transform: scale(0.65);
+            transform-origin: center center;
+            margin: 0 auto -80px;
           }
 
           .ir-section,

@@ -64,7 +64,7 @@ const useCases = [
 ]
 
 const process = [
-  ['fa-solid fa-magnifying-glass-chart', '01', 'Discovery', 'Understand your business & goals'],
+  ['fa-solid fa-magnifying-glass-chart', '01', 'Requirement Gathering', 'Understand your business & goals'],
   ['fa-solid fa-database', '02', 'Data Integration', 'Connect & consolidate your data'],
   ['fa-solid fa-chart-line', '03', 'Dashboard Design', 'Create intuitive & powerful visuals'],
   ['fa-solid fa-gear', '04', 'Automation Setup', 'Configure alerts & scheduled reports'],
