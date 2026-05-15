@@ -417,11 +417,9 @@ export default function useLandingEffects({
       if (activeCursorTarget === target) return
 
       activeCursorTarget = target
-      const isInteractive = Boolean(target)
       const isInput = target?.matches?.('input, textarea, select')
 
-      cursorRef.current?.classList.toggle('is-interactive', isInteractive)
-      ringRef.current?.classList.toggle('is-interactive', isInteractive)
+      // Interactive hover actions removed per user request
       cursorRef.current?.classList.toggle('is-input', Boolean(isInput))
       ringRef.current?.classList.toggle('is-input', Boolean(isInput))
     }
@@ -430,13 +428,16 @@ export default function useLandingEffects({
     const animateCursor = () => {
       cursorFrame = 0
 
-      // Ring follows cursor with smooth lag
-      // Snap faster when interactive to maintain "control" feeling
-      const lerpFactor = activeCursorTarget ? 0.2 : 0.12
-      ringX += (targetX - ringX) * lerpFactor
-      ringY += (targetY - ringY) * lerpFactor
+      const lerpFactor = 0.15
+      // Offset the ring's target upwards by 16px (radius) so the dot (at targetX/Y) 
+      // appears at the 270deg (bottom) position of the ring.
+      const ringTargetX = targetX
+      const ringTargetY = targetY - 16
 
-      // Dot is the precision point — it must follow target exactly for "control"
+      ringX += (ringTargetX - ringX) * lerpFactor
+      ringY += (ringTargetY - ringY) * lerpFactor
+
+      // Dot is the precision point — it follows the target exactly for "control"
       const dotX = targetX
       const dotY = targetY
 
@@ -447,7 +448,7 @@ export default function useLandingEffects({
         ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`
       }
 
-      if (Math.abs(targetX - ringX) > 0.1 || Math.abs(targetY - ringY) > 0.1) {
+      if (Math.abs(ringTargetX - ringX) > 0.1 || Math.abs(ringTargetY - ringY) > 0.1) {
         cursorFrame = requestAnimationFrame(animateCursor)
       }
     }

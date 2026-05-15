@@ -61,10 +61,7 @@
   box-shadow: 0 0 18px rgba(0, 180, 216, 0.22);
 }
 
-#cursor-ring.is-interactive {
-  opacity: 0.9;
-  scale: 0.74;
-}
+/* is-interactive styles removed */
 
 #cursor-ring.is-input {
   scale: 0.58;

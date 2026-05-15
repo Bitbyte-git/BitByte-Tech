@@ -178,21 +178,9 @@ body::before {
   transition: scale 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease, border-color 0.2s ease, background 0.2s ease;
   will-change: transform, scale, opacity;
 }
-#cursor.is-interactive {
-  opacity: 0.95;
-  background: var(--teal);
-  box-shadow:
-    0 0 14px rgba(0, 180, 216, 0.86),
-    0 0 30px rgba(6, 214, 160, 0.34);
-}
-#cursor-ring.is-interactive {
-  scale: 0.74;
-  border-color: rgba(0, 180, 216, 0.82);
-  background: rgba(0, 180, 216, 0.08);
-  box-shadow:
-    0 0 0 1px rgba(164, 236, 112, 0.2),
-    0 0 30px rgba(0, 180, 216, 0.38);
-}
+
+
+/* is-interactive styles removed per user request */
 #cursor.is-input {
   opacity: 0;
 }
@@ -2954,10 +2942,7 @@ select,
   box-shadow: 0 0 18px rgba(0, 180, 216, 0.22);
 }
 
-#cursor-ring.is-interactive {
-  opacity: 0.88;
-  scale: 0.74;
-}
+/* is-interactive styles removed */
 
 .careers-page {
   padding-top: 112px;
@@ -3163,10 +3148,7 @@ select,
   box-shadow: 0 0 18px rgba(0, 180, 216, 0.22);
 }
 
-#cursor-ring.is-interactive {
-  opacity: 0.88;
-  scale: 0.74;
-}
+/* is-interactive styles removed */
 
 @media (max-width: 1180px) {
   #navbar {
