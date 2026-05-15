@@ -341,6 +341,8 @@ export default function useLandingEffects({
     let currentX = 0
     let currentY = 0
     let activeCursorTarget = null
+    let ringX = 0
+    let ringY = 0
     setNavStuck(navIsStuck)
 
     // Intersection Observer for .reveal sections
@@ -409,17 +411,30 @@ export default function useLandingEffects({
       ringRef.current?.classList.toggle('is-input', Boolean(isInput))
     }
 
-    const animateCursor = (now = 0) => {
+    const RING_RADIUS = 16 // half of 32px ring
+    const DOT_ANGLE_RAD = 60 * Math.PI / 180 // 60° = bottom-right of circle
+    const DOT_OFFSET_X = RING_RADIUS * Math.cos(DOT_ANGLE_RAD) // +8px
+    const DOT_OFFSET_Y = RING_RADIUS * Math.sin(DOT_ANGLE_RAD) // +13.86px (bottom)
+
+    const animateCursor = () => {
       cursorFrame = 0
 
-      currentX += (targetX - currentX) * 0.2
-      currentY += (targetY - currentY) * 0.2
+      // Ring follows cursor with smooth lag (magnifier-style)
+      ringX += (targetX - ringX) * 0.08
+      ringY += (targetY - ringY) * 0.08
 
-      const transform = `translate3d(${currentX}px, ${currentY}px, 0)`
-      if (cursorRef.current) cursorRef.current.style.transform = transform
-      if (ringRef.current) ringRef.current.style.transform = transform
+      // Dot is placed at 300° on the ring's circumference
+      const dotX = ringX + DOT_OFFSET_X
+      const dotY = ringY + DOT_OFFSET_Y
 
-      if (Math.abs(targetX - currentX) > 0.2 || Math.abs(targetY - currentY) > 0.2) {
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${dotX}px, ${dotY}px, 0)`
+      }
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`
+      }
+
+      if (Math.abs(targetX - ringX) > 0.2 || Math.abs(targetY - ringY) > 0.2) {
         cursorFrame = requestAnimationFrame(animateCursor)
       }
     }
@@ -435,6 +450,8 @@ export default function useLandingEffects({
       if (!hasCursorPosition) {
         currentX = targetX
         currentY = targetY
+        ringX = targetX
+        ringY = targetY
         hasCursorPosition = true
       }
 

@@ -27,17 +27,19 @@ function Hero({ planetRef }) {
         className="planet-sys" 
         ref={planetRef}
       >
-        <img 
-          key={gifReplayKey}
-          src={HERO_GIF_SRC}
-          alt="" 
-          className="hero-gif" 
-          width="480"
-          height="480"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-        />
+        <div className="hero-gif-wrap">
+          <img 
+            key={gifReplayKey}
+            src={HERO_GIF_SRC}
+            alt="" 
+            className="hero-gif" 
+            width="480"
+            height="480"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
+        </div>
         <img
           src="/assets/optimized/planet-640.png"
           srcSet="/assets/optimized/planet-320.png 320w, /assets/optimized/planet-640.png 640w"
