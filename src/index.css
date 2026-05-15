@@ -898,7 +898,7 @@ body {
 .hero-content {
   position: relative;
   z-index: 10;
-  max-width: 430px;
+  max-width: 600px;
   left: 0;
   top: -50px;
   animation: hReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -945,9 +945,11 @@ body {
   font-family: var(--f-label);
   font-size: 11px;
   letter-spacing: 2.25px;
-  color: var(--green);
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 .cursor-blink {
   animation: blink 0.8s step-end infinite;
@@ -974,11 +976,19 @@ body {
   margin-bottom: 18px;
   animation: hReveal 1s 0.3s both;
 }
-.hero-h1 .grad {
+.grad {
   background: var(--grad-text);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
+}
+
+@keyframes gradShimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 .hero-p {
   font-size: 13.5px;

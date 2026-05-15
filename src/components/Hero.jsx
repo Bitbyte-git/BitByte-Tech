@@ -1,4 +1,5 @@
 import { memo, useEffect, useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '../i18n'
 
 const HERO_GIF_SRC = '/assets/optimized/Hero-bg.gif'
@@ -9,20 +10,23 @@ function Hero({ planetRef }) {
   const floatCards = t('hero.floatCards', { returnObjects: true })
   const [activeBuffer, setActiveBuffer] = useState(0)
   const [keys, setKeys] = useState([0, 1])
+  const [loopKey, setLoopKey] = useState(0)
 
   useEffect(() => {
-    // This creates a seamless loop by toggling between two image buffers.
-    // While one is visible, the other restarts in the background.
-    // Adjust the 9000ms value to match your GIF's exact duration for a perfect sync.
     const interval = window.setInterval(() => {
       setActiveBuffer(prev => (prev === 0 ? 1 : 0))
     }, 8000) 
-
     return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
-    // When a buffer becomes hidden, we increment its key to force a restart
+    const loopInterval = setInterval(() => {
+      setLoopKey(prev => prev + 1)
+    }, 6000)
+    return () => clearInterval(loopInterval)
+  }, [])
+
+  useEffect(() => {
     setKeys(prev => {
       const next = [...prev]
       const hiddenIndex = activeBuffer === 0 ? 1 : 0
@@ -30,6 +34,43 @@ function Hero({ planetRef }) {
       return next
     })
   }, [activeBuffer])
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.05,
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: {
+        staggerChildren: 0.02,
+        staggerDirection: -1,
+      }
+    }
+  }
+
+  const letterVariants = {
+    hidden: { opacity: 0, rotateY: 90, scale: 0.8, y: 10 },
+    visible: { 
+      opacity: 1, 
+      rotateY: 0, 
+      scale: 1,
+      y: 0,
+      transition: { 
+        duration: 0.6, 
+        ease: [0.34, 1.56, 0.64, 1] // Bouncy entry
+      }
+    },
+    exit: {
+      opacity: 0,
+      rotateY: -90,
+      scale: 0.8,
+      transition: { duration: 0.4 }
+    }
+  }
 
   return (
     <section id="hero" className="wrap">
@@ -86,10 +127,32 @@ function Hero({ planetRef }) {
       <div className="hero-content">
         <div className="hero-badge" data-magnify="true">
           <div className="badge-dot" />
-          <span className="badge-txt">
-            {fullText}
-            <span className="cursor-blink notranslate" translate="no">|</span>
-          </span>
+          <AnimatePresence mode="wait">
+            <motion.div 
+              key={loopKey}
+              className="badge-txt"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              style={{ display: 'flex', whiteSpace: 'nowrap', width: 'max-content' }}
+            >
+              {fullText.split('').map((char, index) => (
+                <motion.span
+                  key={index}
+                  variants={letterVariants}
+                  className="grad"
+                  style={{ 
+                    display: 'inline-block', 
+                    whiteSpace: char === ' ' ? 'pre' : 'normal',
+                    transformOrigin: 'center'
+                  }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </motion.div>
+          </AnimatePresence>
         </div>
         <h1 className="hero-h1" data-magnify="true">
           <span className="grad">{t('hero.title1')}</span> 

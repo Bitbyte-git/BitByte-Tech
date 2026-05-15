@@ -8,13 +8,13 @@ const heroPillars = [
 ]
 
 const matters = [
-  ['fa-regular fa-eye', 'Monitor revenue as it happens'],
-  ['fa-solid fa-arrow-trend-up', 'Track performance in real time'],
-  ['fa-solid fa-cart-shopping', 'Spot top-selling products'],
-  ['fa-regular fa-user', 'Analyze customer behavior'],
-  ['fa-regular fa-building', 'Compare branch & team performance'],
-  ['fa-solid fa-arrow-trend-up', 'Forecast trends with accuracy'],
-  ['fa-solid fa-rocket', 'Act faster & stay ahead of competitors'],
+  ['fa-regular fa-eye', 'Monitor'],
+  ['fa-solid fa-arrow-trend-up', 'Performance'],
+  ['fa-solid fa-cart-shopping', 'Products'],
+  ['fa-regular fa-user', 'Customer'],
+  ['fa-regular fa-building', 'Compare Branch'],
+  ['fa-solid fa-arrow-trend-up', 'Forecast'],
+  ['fa-solid fa-rocket', 'Act faster'],
 ]
 
 const services = [
