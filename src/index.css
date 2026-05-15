@@ -77,7 +77,7 @@ body {
   color: var(--white);
   font-family: var(--f-body);
   overflow-x: hidden;
-  cursor: auto;
+  cursor: none;
   -webkit-font-smoothing: antialiased;
   color-scheme: dark;
 }
@@ -189,56 +189,48 @@ body::before {
 }
 #cursor-ring {
   position: fixed;
-  width: 74px;
-  height: 74px;
-  margin-left: -37px;
-  margin-top: -37px;
+  width: 22px;
+  height: 22px;
+  margin-left: -11px;
+  margin-top: -11px;
   border-radius: 50%;
-  border: 1px solid rgba(164, 236, 112, 0.58);
+  border: 1px solid rgba(164, 236, 112, 0.75);
   pointer-events: none;
-  z-index: 99998;
+  z-index: 99997;
   opacity: 1;
-  background:
-    radial-gradient(
-      circle at 35% 28%,
-      rgba(255, 255, 255, 0.26),
-      transparent 18%
-    ),
-    radial-gradient(
-      circle,
-      rgba(0, 180, 216, 0.08),
-      rgba(6, 214, 160, 0.04) 58%,
-      transparent 70%
-    );
-  box-shadow:
-    0 0 0 1px rgba(0, 180, 216, 0.18),
-    0 0 26px rgba(0, 180, 216, 0.24);
-  mix-blend-mode: screen;
   transition:
     opacity 0.18s ease,
     scale 0.18s ease;
   will-change: transform;
 }
-#cursor-ring span {
-  position: absolute;
-  inset: 12px;
-  border-radius: inherit;
-  border: 1px solid rgba(232, 248, 255, 0.28);
+#cursor.is-interactive {
+  opacity: 0.95;
+  background: var(--teal);
+  box-shadow:
+    0 0 14px rgba(0, 180, 216, 0.86),
+    0 0 30px rgba(6, 214, 160, 0.34);
 }
-#cursor.is-text {
+#cursor-ring.is-interactive {
+  scale: 0.74;
+  border-color: rgba(0, 180, 216, 0.82);
+  background: rgba(0, 180, 216, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(164, 236, 112, 0.2),
+    0 0 30px rgba(0, 180, 216, 0.38);
+}
+#cursor.is-input {
   opacity: 0;
 }
-#cursor-ring.is-text {
-  scale: 1.2;
+#cursor-ring.is-input {
+  scale: 0.58;
+  border-radius: 8px;
 }
-.magnify-text-active {
-  cursor: none;
-  text-shadow:
-    0 0 18px rgba(0, 180, 216, 0.28),
-    0 0 28px rgba(164, 236, 112, 0.16);
-  transition:
-    text-shadow 0.18s ease,
-    filter 0.18s ease;
+#cursor.is-pressed {
+  scale: 0.72;
+}
+#cursor-ring.is-pressed {
+  scale: 0.5;
+  opacity: 0.72;
 }
 
 /* ══ CANVAS ══ */
@@ -2766,7 +2758,7 @@ footer {
 }
 @media (hover: none), (pointer: coarse) {
   body {
-    cursor: auto;
+    cursor: none;
   }
   #cursor,
   #cursor-ring {
@@ -2793,11 +2785,7 @@ select,
 .fcrd {
   cursor: pointer;
 }
-.magnify-text-active {
-  cursor: none;
-}
-
-/* Final layout pass: navbar alignment, real text magnifier, careers polish */
+/* Final layout pass: navbar alignment, interactive cursor, careers polish */
 #navbar {
   grid-template-columns: minmax(170px, auto) minmax(0, 1fr) auto;
   align-items: center;
@@ -2853,65 +2841,9 @@ select,
   box-shadow: 0 0 18px rgba(0, 180, 216, 0.22);
 }
 
-#cursor-ring.is-text {
-  opacity: 0.42;
-}
-
-#text-magnifier {
-  position: fixed;
-  width: 200px;
-  height: 110px;
-  margin-left: -100px;
-  margin-top: -55px;
-  z-index: 100000;
-  pointer-events: none;
-  opacity: 0;
-  overflow: hidden;
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(10, 20, 35, 0.4);
-  backdrop-filter: blur(12px) saturate(1.8);
-  -webkit-backdrop-filter: blur(12px) saturate(1.8);
-  box-shadow:
-    0 20px 50px rgba(0, 0, 0, 0.4),
-    inset 0 0 20px rgba(255, 255, 255, 0.05);
-  transform: translate3d(-999px, -999px, 0);
-  transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.1s linear;
-  will-change: transform;
-}
-
-#text-magnifier::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-radius: inherit;
-  background:
-    radial-gradient(
-      circle at 30% 24%,
-      rgba(255, 255, 255, 0.24),
-      transparent 18%
-    ),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 48%);
-}
-
-#text-magnifier.is-active {
-  opacity: 1;
-}
-
-#text-magnifier-content {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  transform-origin: top left;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.magnify-text-active {
-  filter: brightness(1.08);
+#cursor-ring.is-interactive {
+  opacity: 0.88;
+  scale: 0.74;
 }
 
 .careers-page {
@@ -3062,7 +2994,7 @@ select,
   }
 }
 
-/* Final navbar and magnifier polish */
+/* Final navbar and cursor polish */
 #navbar {
   grid-template-columns: minmax(170px, auto) minmax(0, 1fr) auto;
   align-items: center;
@@ -3118,67 +3050,9 @@ select,
   box-shadow: 0 0 18px rgba(0, 180, 216, 0.22);
 }
 
-#cursor-ring.is-text {
-  opacity: 0.42;
-}
-
-#text-magnifier {
-  position: fixed;
-  width: 168px;
-  height: 92px;
-  margin-left: -84px;
-  margin-top: -46px;
-  z-index: 100000;
-  pointer-events: none;
-  opacity: 0;
-  overflow: hidden;
-  border-radius: 999px;
-  border: 1px solid rgba(164, 236, 112, 0.62);
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(0, 180, 216, 0.05)),
-    rgba(2, 14, 25, 0.16);
-  box-shadow:
-    0 0 0 1px rgba(0, 180, 216, 0.18),
-    0 14px 36px rgba(0, 0, 0, 0.18),
-    0 0 34px rgba(0, 180, 216, 0.2);
-  transform: translate3d(-999px, -999px, 0);
-  transition: opacity 0.16s ease;
-  will-change: transform;
-  contain: layout paint style;
-}
-
-#text-magnifier::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-radius: inherit;
-  background:
-    radial-gradient(
-      circle at 30% 24%,
-      rgba(255, 255, 255, 0.24),
-      transparent 18%
-    ),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 48%);
-}
-
-#text-magnifier.is-active {
-  opacity: 1;
-}
-
-#text-magnifier-content {
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
-  transform-origin: top left;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.magnify-text-active {
-  filter: brightness(1.08);
+#cursor-ring.is-interactive {
+  opacity: 0.88;
+  scale: 0.74;
 }
 
 @media (max-width: 1180px) {
@@ -6284,10 +6158,6 @@ select,
   cursor: pointer;
 }
 
-.magnify-text-active {
-  cursor: none;
-}
-
 @media (max-width: 700px), (update: slow) {
   #bgCanvas {
     display: none;
@@ -7222,25 +7092,6 @@ select,
   .sales-bottom-grid,
   .sales-growth-card {
     grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 760px) {
-  .sales-page {
-    padding: 92px 16px 30px;
-  }
-
-  .sales-breadcrumb {
-    margin-bottom: 28px;
-    font-size: 11px;
-  }
-
-  .sales-hero-grid {
-    min-height: 0;
-  }
-
-  .sales-title {
-    font-size: clamp(36px, 11vw, 48px);
   }
 
   .sales-lead {

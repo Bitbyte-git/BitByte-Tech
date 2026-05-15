@@ -1,5 +1,5 @@
-import { useTranslation } from "../i18n";
 import { services, socialIcons } from "../constants";
+import { useTranslation } from "../i18n";
 import Logo from "./Logo";
 
 export default function Footer({ rootLinks = false }) {
@@ -113,7 +113,7 @@ export default function Footer({ rootLinks = false }) {
           </a>
           <a
             style={{ color: "#a4ec70" }}
-            href="https://www.linkedin.com/in/roshini-govindaraj-233941331/"
+            href="https://www.linkedin.com/in/roshini-govindaraj-233941331?utm_source=share_via&utm_content=profile&utm_medium=member_android"
           >
             Roshini G
           </a>

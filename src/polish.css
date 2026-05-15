@@ -61,63 +61,18 @@
   box-shadow: 0 0 18px rgba(0, 180, 216, 0.22);
 }
 
-#cursor-ring.is-text {
-  opacity: 0.36;
+#cursor-ring.is-interactive {
+  opacity: 0.9;
+  scale: 0.74;
 }
 
-#text-magnifier {
-  position: fixed;
-  width: 168px;
-  height: 92px;
-  margin-left: -84px;
-  margin-top: -46px;
-  z-index: 100000;
-  pointer-events: none;
-  opacity: 0;
-  overflow: hidden;
-  border: 1px solid rgba(164, 236, 112, 0.62);
-  border-radius: 999px;
-  background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(0, 180, 216, 0.05)),
-    rgba(2, 14, 25, 0.14);
-  box-shadow:
-    0 0 0 1px rgba(0, 180, 216, 0.18),
-    0 14px 36px rgba(0, 0, 0, 0.18),
-    0 0 34px rgba(0, 180, 216, 0.2);
-  transform: translate3d(-999px, -999px, 0);
-  transition: opacity 0.16s ease;
-  will-change: transform;
-  contain: layout paint style;
+#cursor-ring.is-input {
+  scale: 0.58;
+  border-radius: 8px;
 }
 
-#text-magnifier::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  border-radius: inherit;
-  background:
-    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.24), transparent 18%),
-    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 48%);
-}
-
-#text-magnifier.is-active {
-  opacity: 1;
-}
-
-#text-magnifier-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  transform-origin: top left;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.magnify-text-active {
-  filter: brightness(1.08);
+#cursor-ring.is-pressed {
+  scale: 0.5;
 }
 
 .careers-page {
@@ -258,11 +213,5 @@
 
   .careers-page .job-card {
     align-items: flex-start;
-  }
-}
-
-@media (hover: none), (pointer: coarse), (max-width: 760px) {
-  #text-magnifier {
-    display: none;
   }
 }

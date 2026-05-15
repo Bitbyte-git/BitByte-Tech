@@ -116,8 +116,6 @@ class Comet {
 export default function useLandingEffects({
   canvasRef,
   cursorRef,
-  magnifierContentRef,
-  magnifierRef,
   ringRef,
   planetRef,
   setNavStuck,
@@ -342,12 +340,7 @@ export default function useLandingEffects({
     let targetY = 0
     let currentX = 0
     let currentY = 0
-    let activeTextTarget = null
-    let activeRect = null
-    let lastRectRead = 0
-    const lensWidth = 168
-    const lensHeight = 92
-    const lensScale = 1.58
+    let activeCursorTarget = null
     setNavStuck(navIsStuck)
 
     // Intersection Observer for .reveal sections
@@ -383,73 +376,37 @@ export default function useLandingEffects({
       })
     }
 
-    const textSelector = [
-      '[data-magnify="true"]',
-      '.hero-h1',
-      '.hero-p',
-      '.sec-title',
-      '.sec-sub',
-      '.eyebrow',
-      '.svc-title',
-      '.svc-desc',
-      '.why-title',
-      '.why-desc',
-      '.footer-brand p',
+    const interactiveSelector = [
+      'a',
+      'button',
+      'input',
+      'textarea',
+      'select',
+      'iframe',
+      '[role="button"]',
+      '[tabindex]:not([tabindex="-1"])',
+      '.svc-card',
+      '.why-card',
+      '.fcrd',
+      '.job-card',
+      '.dm-channel-row > div',
+      '.ba-insight-list div',
+      '.sales-service-card',
+      '.career-job-row',
+      '.career-benefit',
     ].join(',')
 
-    const setActiveTextTarget = (target) => {
-      if (activeTextTarget === target) return
+    const setCursorMode = (target) => {
+      if (activeCursorTarget === target) return
 
-      activeTextTarget?.classList.remove('magnify-text-active')
-      activeTextTarget = target
-      activeRect = null
-      lastRectRead = 0
-      activeTextTarget?.classList.add('magnify-text-active')
+      activeCursorTarget = target
+      const isInteractive = Boolean(target)
+      const isInput = target?.matches?.('input, textarea, select')
 
-      const isActive = Boolean(activeTextTarget)
-      cursorRef.current?.classList.toggle('is-text', isActive)
-      ringRef.current?.classList.toggle('is-text', isActive)
-      magnifierRef.current?.classList.toggle('is-active', isActive)
-
-      if (!isActive || !magnifierContentRef.current) {
-        if (magnifierContentRef.current) magnifierContentRef.current.innerHTML = ''
-        return
-      }
-
-      const computed = window.getComputedStyle(activeTextTarget)
-      const content = magnifierContentRef.current
-
-      content.innerHTML = activeTextTarget.innerHTML
-      content.style.width = `${activeTextTarget.getBoundingClientRect().width}px`
-      content.style.minHeight = `${activeTextTarget.getBoundingClientRect().height}px`
-      content.style.fontFamily = computed.fontFamily
-      content.style.fontSize = computed.fontSize
-      content.style.fontWeight = computed.fontWeight
-      content.style.fontStyle = computed.fontStyle
-      content.style.lineHeight = computed.lineHeight
-      content.style.letterSpacing = computed.letterSpacing
-      content.style.textTransform = computed.textTransform
-      content.style.textAlign = computed.textAlign
-      content.style.color = computed.color
-      content.style.backgroundImage = computed.backgroundImage
-      content.style.backgroundClip = computed.backgroundClip
-      content.style.webkitBackgroundClip = computed.webkitBackgroundClip
-      content.style.webkitTextFillColor = computed.webkitTextFillColor
-      content.style.textShadow = computed.textShadow
-      content.style.whiteSpace = computed.whiteSpace
-      content.style.overflowWrap = computed.overflowWrap
-    }
-
-    const updateActiveRect = (now) => {
-      if (!activeTextTarget || now - lastRectRead < 120) return
-
-      activeRect = activeTextTarget.getBoundingClientRect()
-      lastRectRead = now
-
-      if (magnifierContentRef.current) {
-        magnifierContentRef.current.style.width = `${activeRect.width}px`
-        magnifierContentRef.current.style.minHeight = `${activeRect.height}px`
-      }
+      cursorRef.current?.classList.toggle('is-interactive', isInteractive)
+      ringRef.current?.classList.toggle('is-interactive', isInteractive)
+      cursorRef.current?.classList.toggle('is-input', Boolean(isInput))
+      ringRef.current?.classList.toggle('is-input', Boolean(isInput))
     }
 
     const animateCursor = (now = 0) => {
@@ -461,18 +418,6 @@ export default function useLandingEffects({
       const transform = `translate3d(${currentX}px, ${currentY}px, 0)`
       if (cursorRef.current) cursorRef.current.style.transform = transform
       if (ringRef.current) ringRef.current.style.transform = transform
-      if (magnifierRef.current) magnifierRef.current.style.transform = transform
-
-      updateActiveRect(now)
-
-      if (activeRect && magnifierContentRef.current) {
-        const localX = currentX - activeRect.left
-        const localY = currentY - activeRect.top
-        const contentX = (lensWidth / 2) - (localX * lensScale)
-        const contentY = (lensHeight / 2) - (localY * lensScale)
-
-        magnifierContentRef.current.style.transform = `translate3d(${contentX}px, ${contentY}px, 0) scale(${lensScale})`
-      }
 
       if (Math.abs(targetX - currentX) > 0.2 || Math.abs(targetY - currentY) > 0.2) {
         cursorFrame = requestAnimationFrame(animateCursor)
@@ -493,19 +438,21 @@ export default function useLandingEffects({
         hasCursorPosition = true
       }
 
-      const target = event.target instanceof Element ? event.target.closest(textSelector) : null
-      const interactive = event.target instanceof Element ? event.target.closest('button, a, input, textarea, select, iframe') : null
-      setActiveTextTarget(interactive ? null : target)
-
-      if (target && !interactive) {
-        // Additional logic if needed for target
-      }
+      const interactive = event.target instanceof Element ? event.target.closest(interactiveSelector) : null
+      setCursorMode(interactive)
       scheduleCursor()
     }
 
     const onMouseLeave = () => {
-      setActiveTextTarget(null)
+      setCursorMode(null)
     }
+
+    const setCursorPressed = (isPressed) => {
+      cursorRef.current?.classList.toggle('is-pressed', isPressed)
+      ringRef.current?.classList.toggle('is-pressed', isPressed)
+    }
+    const onMouseDown = () => setCursorPressed(true)
+    const onMouseUp = () => setCursorPressed(false)
 
     if (planetRef.current) {
       planetRef.current.style.transform = 'translate(-50%, -50%)'
@@ -515,18 +462,22 @@ export default function useLandingEffects({
     if (!coarsePointer) {
       window.addEventListener('mousemove', onMouseMove, { passive: true })
       window.addEventListener('mouseleave', onMouseLeave)
+      window.addEventListener('mousedown', onMouseDown)
+      window.addEventListener('mouseup', onMouseUp)
     }
 
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseleave', onMouseLeave)
+      window.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('mouseup', onMouseUp)
       cancelAnimationFrame(scrollFrame)
       cancelAnimationFrame(cursorFrame)
-      activeTextTarget?.classList.remove('magnify-text-active')
-      magnifierRef.current?.classList.remove('is-active')
+      setCursorMode(null)
+      setCursorPressed(false)
       revealObserver.disconnect()
       mutationObserver.disconnect()
     }
-  }, [cursorRef, magnifierContentRef, magnifierRef, ringRef, planetRef, setNavStuck])
+  }, [cursorRef, ringRef, planetRef, setNavStuck])
 }

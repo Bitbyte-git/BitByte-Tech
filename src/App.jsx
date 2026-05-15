@@ -31,8 +31,6 @@ export default function App() {
   const canvasRef = useRef(null)
   const cursorRef = useRef(null)
   const ringRef = useRef(null)
-  const magnifierRef = useRef(null)
-  const magnifierContentRef = useRef(null)
   const planetRef = useRef(null)
   const serviceHighlightTimeoutRef = useRef(0)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -56,7 +54,7 @@ export default function App() {
     isWebDevelopmentPage || isCustomWebAppPage || isEcommercePage || isPortalsPage || isDigitalMarketingPage || isBusinessAnalyticsPage || isCareersPage || isImaginationToRealityPage || isRealTimeSalesPage || isPersonalBrandingPage
   const navActiveSection = isCareersPage ? 'careers' : isServiceDetailPage ? 'services' : activeSection
 
-  useLandingEffects({ canvasRef, cursorRef, magnifierContentRef, magnifierRef, ringRef, planetRef, setNavStuck })
+  useLandingEffects({ canvasRef, cursorRef, ringRef, planetRef, setNavStuck })
 
   const focusService = useCallback((serviceId = 'all') => {
     window.clearTimeout(serviceHighlightTimeoutRef.current)
@@ -153,8 +151,6 @@ export default function App() {
     <>
       <Cursor
         cursorRef={cursorRef}
-        magnifierContentRef={magnifierContentRef}
-        magnifierRef={magnifierRef}
         ringRef={ringRef}
       />
       <BackgroundCanvas canvasRef={canvasRef} />
