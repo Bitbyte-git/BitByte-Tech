@@ -14,7 +14,7 @@ const matters = [
   ['fa-regular fa-user', 'Customer'],
   ['fa-regular fa-building', 'Compare Branch'],
   ['fa-solid fa-arrow-trend-up', 'Forecast'],
-  ['fa-solid fa-rocket', 'Act faster'],
+  ['fa-solid fa-rocket', 'Act Faster'],
 ]
 
 const services = [
@@ -64,13 +64,13 @@ const useCases = [
 ]
 
 const process = [
-  ['fa-solid fa-magnifying-glass-chart', '01', 'Requirement Gathering', 'Understand your business & goals'],
-  ['fa-solid fa-database', '02', 'Data Integration', 'Connect & consolidate your data'],
-  ['fa-solid fa-chart-line', '03', 'Dashboard Design', 'Create intuitive & powerful visuals'],
-  ['fa-solid fa-gear', '04', 'Automation Setup', 'Configure alerts & scheduled reports'],
-  ['fa-solid fa-shield-halved', '05', 'Testing & Validation', 'Ensure accuracy & reliability'],
-  ['fa-solid fa-rocket', '06', 'Deployment & Training', 'Launch solution & train your team'],
-  ['fa-solid fa-chart-column', '07', 'Ongoing Optimization', 'Improve & scale as your business grows'],
+  ['fa-solid fa-magnifying-glass-chart', '01', 'Requirement Gathering'],
+  ['fa-solid fa-database', '02', 'Data Integration'],
+  ['fa-solid fa-chart-line', '03', 'Dashboard Design'],
+  ['fa-solid fa-gear', '04', 'Automation Setup'],
+  ['fa-solid fa-shield-halved', '05', 'Testing & Validation'],
+  ['fa-solid fa-rocket', '06', 'Deployment & Training'],
+  ['fa-solid fa-chart-column', '07', 'Optimization'],
 ]
 
 function MiniTrendChart() {
