@@ -1,5 +1,5 @@
 import { useTranslation } from "../i18n";
-import AtomRings from "./AtomRings";
+import BitByteHero from "./BitByteHero";
 
 export default function Founder() {
   const { t } = useTranslation();
@@ -9,7 +9,7 @@ export default function Founder() {
       <div className="founder-visual inner-content reveal">
         <div className="founder-planet">
           <div className="founder-globe-frame">
-            <AtomRings />
+            <BitByteHero />
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">

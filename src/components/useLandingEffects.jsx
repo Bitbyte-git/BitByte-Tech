@@ -484,20 +484,6 @@ export default function useLandingEffects({
       setCursorMode(null)
     }
 
-    const setCursorPressed = (isPressed) => {
-      cursorRef.current?.classList.toggle('is-pressed', isPressed)
-      ringRef.current?.classList.toggle('is-pressed', isPressed)
-    }
-
-    const onMouseDown = () => {
-      setCursorPressed(true)
-      // Snap ring closer to dot on click to eliminate separation gap
-      ringX += (targetX - ringX) * 0.45
-      ringY += (targetY - ringY) * 0.45
-      scheduleCursor()
-    }
-    const onMouseUp = () => setCursorPressed(false)
-
     if (planetRef.current) {
       planetRef.current.style.transform = 'translate(-50%, -50%)'
     }
@@ -506,20 +492,15 @@ export default function useLandingEffects({
     if (!coarsePointer) {
       window.addEventListener('mousemove', onMouseMove, { passive: true })
       window.addEventListener('mouseleave', onMouseLeave)
-      window.addEventListener('mousedown', onMouseDown)
-      window.addEventListener('mouseup', onMouseUp)
     }
 
     return () => {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('mousemove', onMouseMove)
       window.removeEventListener('mouseleave', onMouseLeave)
-      window.removeEventListener('mousedown', onMouseDown)
-      window.removeEventListener('mouseup', onMouseUp)
       cancelAnimationFrame(scrollFrame)
       cancelAnimationFrame(cursorFrame)
       setCursorMode(null)
-      setCursorPressed(false)
       revealObserver.disconnect()
       mutationObserver.disconnect()
     }

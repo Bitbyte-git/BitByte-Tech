@@ -23,7 +23,7 @@ function Navbar({
   return (
     <nav id="navbar" className={stuck ? 'stuck' : ''}>
       <a href={hrefFor('#hero')} className="logo-wrap" aria-label="Bit Byte Technologies home">
-        <Logo fetchPriority="high" height={80} />
+        <Logo fetchpriority="high" height={80} />
         <div className="logo-txt">
          <em>Bit Byte</em>
          <p>Technologies</p>

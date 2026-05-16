@@ -1,6 +1,6 @@
 import { memo } from 'react'
 
-function Logo({ height = 44, loading = 'eager', fetchPriority = 'auto' }) {
+function Logo({ height = 44, loading = 'eager', fetchpriority = 'auto' }) {
   return (
     <img 
       className="logo-img" 
@@ -10,7 +10,7 @@ function Logo({ height = 44, loading = 'eager', fetchPriority = 'auto' }) {
       height="361"
       loading={loading}
       decoding="async"
-      fetchPriority={fetchPriority}
+      fetchpriority={fetchpriority}
       style={{ height: `${height}px`, width: 'auto', objectFit: 'contain' }} 
     />
   )

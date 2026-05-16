@@ -1,5 +1,5 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { memo, useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslation } from '../i18n'
 
 const HERO_GIF_SRC = '/assets/optimized/Hero-bg.gif'
@@ -120,7 +120,7 @@ function Hero({ planetRef }) {
           height="640"
           loading="eager"
           decoding="async"
-          fetchPriority="high"
+          fetchpriority="high"
         />
       </div>
 

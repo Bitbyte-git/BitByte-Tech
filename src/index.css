@@ -2530,13 +2530,15 @@ footer {
     grid-template-columns: 1fr;
   }
   #founder {
-    padding: 80px 24px;
+    padding: 40px 24px 80px;
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
   .founder-visual {
-    width: min(620px, 100%);
+    width: 100%;
   }
   .founder-planet {
-    transform: translateX(-50px);
+    transform: none;
   }
   #contact {
     padding: 80px 24px;
@@ -5461,7 +5463,7 @@ footer {
     align-items: stretch;
     justify-content: flex-start;
     min-height: auto;
-    padding: 104px clamp(18px, 5vw, 32px) 72px;
+    padding: 20px clamp(18px, 5vw, 32px) 72px;
     gap: 34px;
   }
 
@@ -5576,16 +5578,18 @@ footer {
   }
 
   #hero {
-    padding: 96px 18px 64px;
+    padding: 170px 18px 64px;
   }
 
   .hero-badge {
     border-radius: 24px;
+    gap: 6px;
+    padding: 6px 12px;
   }
 
   .badge-txt {
-    font-size: 11px;
-    letter-spacing: 2px;
+    font-size: 8.5px;
+    letter-spacing: 0.5px;
     line-height: 1.45;
   }
 
@@ -5627,8 +5631,14 @@ footer {
   #contact,
   #cta,
   footer {
+    padding-top: 40px;
     padding-left: 18px;
     padding-right: 18px;
+  }
+
+  .founder-globe-frame {
+    width: 380px;
+    height: 380px;
   }
 
   .svc-card,
