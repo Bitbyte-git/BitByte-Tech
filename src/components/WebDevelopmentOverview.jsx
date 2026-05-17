@@ -1329,7 +1329,7 @@ export default function WebDevelopmentOverview() {
 
           .wd-hero-visual {
             min-height: 370px;
-            overflow: hidden;
+            overflow: visible;
           }
 
           .wd-laptop {
@@ -1355,7 +1355,8 @@ export default function WebDevelopmentOverview() {
           }
 
           .wd-laptop {
-            transform: scale(0.62) rotateX(3deg) rotateY(-5deg) rotateZ(-2deg);
+            transform: scale(0.82) rotateX(3deg) rotateY(-5deg) rotateZ(-2deg);
+            right: 40px;
           }
 
           .tech-grid {

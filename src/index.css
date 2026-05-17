@@ -4151,6 +4151,7 @@ select,
   }
   .webapp-laptop {
     transform: scale(0.62) rotateX(3deg) rotateY(-5deg) rotateZ(-2deg);
+    right: 50px;
   }
   .webapp-phone {
     transform: scale(0.62) rotateZ(3deg);
@@ -5639,6 +5640,8 @@ footer {
   .founder-globe-frame {
     width: 380px;
     height: 380px;
+    margin-right: 160px;
+    margin-bottom: 150px;
   }
 
   .svc-card,

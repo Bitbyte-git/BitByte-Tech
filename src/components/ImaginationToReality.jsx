@@ -88,7 +88,7 @@ export default function ImaginationToReality() {
         .ir-page {
           position: relative;
           z-index: 2;
-          padding: 132px clamp(20px, 5vw, 88px) 34px;
+          padding: 112px clamp(20px, 5vw, 88px) 34px;
           overflow: hidden;
           background:
             radial-gradient(circle at 68% 12%, rgba(0, 119, 255, 0.2), transparent 31%),
@@ -959,7 +959,7 @@ export default function ImaginationToReality() {
 
         @media (max-width: 720px) {
           .ir-page {
-            padding: 102px 18px 30px;
+            padding: 82px 18px 30px;
           }
 
           .ir-breadcrumb {
@@ -991,10 +991,10 @@ export default function ImaginationToReality() {
           }
 
           .ir-visual {
-            min-height: 320px;
+            min-height: 340px;
             transform: scale(0.65);
-            transform-origin: center center;
-            margin: 0 auto -80px;
+            transform-origin: top center;
+            margin: 0 auto -110px;
           }
 
           .ir-section,
