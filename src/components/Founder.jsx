@@ -6,6 +6,16 @@ export default function Founder() {
 
   return (
     <section id="founder" className="section wrap bg-tint-1">
+      <div className="founder-mobile-heading inner-content">
+        <div className="eyebrow reveal" data-magnify="true">
+          {t("founder.eyebrow")}
+        </div>
+        <h2 className="sec-title reveal reveal-delay-1" data-magnify="true">
+          {t("founder.titleA")}
+          <br />
+          <span className="c">{t("founder.titleB")}</span>
+        </h2>
+      </div>
       <div className="founder-visual inner-content reveal">
         <div className="founder-planet">
           <div className="founder-globe-frame">
@@ -20,10 +30,10 @@ export default function Founder() {
         </div>
       </div>
       <div className="founder-content inner-content">
-        <div className="eyebrow reveal" data-magnify="true">
+        <div className="eyebrow founder-desktop-copy reveal" data-magnify="true">
           {t("founder.eyebrow")}
         </div>
-        <h2 className="sec-title reveal reveal-delay-1" data-magnify="true">
+        <h2 className="sec-title founder-desktop-copy reveal reveal-delay-1" data-magnify="true">
           {t("founder.titleA")}
           <br />
           <span className="c">{t("founder.titleB")}</span>

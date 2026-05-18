@@ -13,8 +13,7 @@ export default function BitByteHero() {
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
-    const saveData = Boolean(navigator.connection?.saveData);
-    if (prefersReducedMotion || saveData) {
+    if (prefersReducedMotion) {
       cv.hidden = true;
       return () => {
         cv.hidden = false;
@@ -65,15 +64,16 @@ export default function BitByteHero() {
       el.addEventListener("mouseleave", onLeave);
     }
 
-    const radius = 220;
-    const rowCount = 22;
+    const isMobileViewport = window.matchMedia("(max-width: 700px)").matches;
+    const radius = isMobileViewport ? 190 : 220;
+    const rowCount = isMobileViewport ? 17 : 22;
     const dots = [];
 
     for (let row = 0; row < rowCount; row += 1) {
       const phi = Math.PI * ((row + 0.5) / rowCount);
       const y3base = -Math.cos(phi) * radius;
       const r3 = Math.sin(phi) * radius;
-      const count = Math.max(4, Math.round(Math.sin(phi) * 56));
+      const count = Math.max(4, Math.round(Math.sin(phi) * (isMobileViewport ? 40 : 56)));
 
       for (let point = 0; point < count; point += 1) {
         const theta0 = (point / count) * Math.PI * 2 + row * 0.15;
