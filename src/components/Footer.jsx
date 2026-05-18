@@ -108,12 +108,16 @@ export default function Footer({ rootLinks = false }) {
           <a
             style={{ color: "#a4ec70" }}
             href="https://www.linkedin.com/in/selvaperumal-g-9656b32a1?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Selvaperumal G &{" "}
           </a>
           <a
             style={{ color: "#a4ec70" }}
             href="https://www.linkedin.com/in/roshini-govindaraj-233941331?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Roshini G
           </a>

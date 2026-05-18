@@ -1,22 +1,33 @@
 import { useEffect, useRef } from "react";
 
 export default function BitByteHero() {
-  const canvasRef = useRef(null);
+  const backCanvasRef = useRef(null);
+  const frontCanvasRef = useRef(null);
   const heroRef = useRef(null);
+  const planetRef = useRef(null);
   const mouse = useRef({ x: -999, y: -999 });
 
   useEffect(() => {
     const el = heroRef.current;
-    const cv = canvasRef.current;
-    const ctx = cv?.getContext("2d");
-    if (!el || !cv || !ctx) return undefined;
+    const backCanvas = backCanvasRef.current;
+    const frontCanvas = frontCanvasRef.current;
+    const planet = planetRef.current;
+    const backCtx = backCanvas?.getContext("2d");
+    const frontCtx = frontCanvas?.getContext("2d");
+    let ctx = backCtx;
+    if (!el || !backCanvas || !frontCanvas || !planet || !backCtx || !frontCtx)
+      return undefined;
 
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     if (prefersReducedMotion) {
-      cv.hidden = true;
+      backCanvas.hidden = true;
+      frontCanvas.hidden = true;
       return () => {
-        cv.hidden = false;
+        backCanvas.hidden = false;
+        frontCanvas.hidden = false;
       };
     }
 
@@ -24,8 +35,10 @@ export default function BitByteHero() {
     let height = 0;
     let centerX = 0;
     let centerY = 0;
+    let orbitCenterY = 0;
     let scale = 1;
     let time = 0;
+    let lastFrameTime = 0;
     let frameId = 0;
     let isActive = false;
 
@@ -35,12 +48,17 @@ export default function BitByteHero() {
       height = el.clientHeight;
       centerX = width / 2;
       centerY = height / 2;
+      orbitCenterY = centerY;
       scale = Math.min(1.08, Math.max(0.72, Math.min(width, height) / 620));
-      cv.width = Math.max(1, Math.floor(width * dpr));
-      cv.height = Math.max(1, Math.floor(height * dpr));
-      cv.style.width = `${width}px`;
-      cv.style.height = `${height}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      [backCanvas, frontCanvas].forEach((canvas) => {
+        canvas.width = Math.max(1, Math.floor(width * dpr));
+        canvas.height = Math.max(1, Math.floor(height * dpr));
+        canvas.style.width = `${width}px`;
+        canvas.style.height = `${height}px`;
+      });
+      [backCtx, frontCtx].forEach((canvasCtx) => {
+        canvasCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      });
     };
 
     resize();
@@ -73,7 +91,10 @@ export default function BitByteHero() {
       const phi = Math.PI * ((row + 0.5) / rowCount);
       const y3base = -Math.cos(phi) * radius;
       const r3 = Math.sin(phi) * radius;
-      const count = Math.max(4, Math.round(Math.sin(phi) * (isMobileViewport ? 40 : 56)));
+      const count = Math.max(
+        4,
+        Math.round(Math.sin(phi) * (isMobileViewport ? 40 : 56)),
+      );
 
       for (let point = 0; point < count; point += 1) {
         const theta0 = (point / count) * Math.PI * 2 + row * 0.15;
@@ -92,39 +113,23 @@ export default function BitByteHero() {
       }
     }
 
+    const ringScale = isMobileViewport ? 0.72 : 1;
     const rings = [
       {
-        rx: 300,
-        ry: 80,
+        rx: 292 * ringScale,
+        ry: 72 * ringScale,
         tiltX: 0.32,
-        tiltZ: 0.05,
+        tiltZ: 0.04,
         speed: 0.004,
         phase: 0,
-        color: "#4dff88",
-        line: 0.9,
-        alpha: 0.56,
-      },
-      {
-        rx: 330,
-        ry: 90,
-        tiltX: -0.22,
-        tiltZ: 0.45,
-        speed: -0.003,
-        phase: 2.1,
-        color: "#00ddff",
-        line: 0.75,
-        alpha: 0.41,
-      },
-      {
-        rx: 360,
-        ry: 100,
-        tiltX: 0.55,
-        tiltZ: -0.25,
-        speed: 0.0022,
-        phase: 4.2,
-        color: "#88ffcc",
-        line: 0.6,
-        alpha: 0.26,
+        color: "#9af75a",
+        line: 1.05,
+        alpha: 0.66,
+        glow: 16,
+        dash: [],
+        nodeCount: 2,
+        nodeSize: 5.8,
+        frontZ: 10,
       },
     ];
 
@@ -149,38 +154,70 @@ export default function BitByteHero() {
       const perspective = fov / (fov + z3 + 60);
       return {
         px: centerX + x3 * perspective * scale,
-        py: centerY + y3 * perspective * scale,
+        py: orbitCenterY + y3 * perspective * scale,
         sc: perspective * scale,
         z: z3,
       };
     };
 
-    const drawRing = (ring) => {
-      const segments = 120;
-      const angle = time * ring.speed + ring.phase;
+    const projectRingPoint = (ring, ringAngle, pointAngle) => {
+      let x = Math.cos(pointAngle) * ring.rx;
+      let y = Math.sin(pointAngle) * ring.ry;
+      let z = 0;
+      [x, y, z] = rotX(x, y, z, ring.tiltX);
+      [x, y, z] = rotZ(x, y, z, ring.tiltZ);
+      [x, y, z] = rotY(x, y, z, ringAngle);
+      return project(x, y, z);
+    };
 
+    const drawRing = (ring, layer = "back") => {
+      const segments = 160;
+      const angle = time * ring.speed + ring.phase;
+      const isFrontLayer = layer === "front";
+      let hasActiveSegment = false;
+
+      ctx.save();
       ctx.beginPath();
       for (let index = 0; index <= segments; index += 1) {
         const a = (index / segments) * Math.PI * 2;
-        let x = Math.cos(a) * ring.rx;
-        let y = Math.sin(a) * ring.ry;
-        let z = 0;
-        [x, y, z] = rotX(x, y, z, ring.tiltX);
-        [x, y, z] = rotZ(x, y, z, ring.tiltZ);
-        [x, y, z] = rotY(x, y, z, angle);
-        const point = project(x, y, z);
-        if (index === 0) ctx.moveTo(point.px, point.py);
-        else ctx.lineTo(point.px, point.py);
+        const point = projectRingPoint(ring, angle, a);
+        const shouldDraw = !isFrontLayer || point.z > ring.frontZ;
+
+        if (!shouldDraw) {
+          hasActiveSegment = false;
+          continue;
+        }
+
+        if (!hasActiveSegment) {
+          ctx.moveTo(point.px, point.py);
+          hasActiveSegment = true;
+        } else {
+          ctx.lineTo(point.px, point.py);
+        }
       }
 
+      ctx.lineCap = "round";
+      ctx.setLineDash(ring.dash.map((unit) => unit * scale));
       ctx.strokeStyle = ring.color;
-      ctx.lineWidth = ring.line * 2.8 * scale;
-      ctx.globalAlpha = ring.alpha * 0.22;
+      ctx.shadowColor = ring.color;
+      ctx.shadowBlur = ring.glow * scale;
+      ctx.lineWidth = ring.line * (isFrontLayer ? 4.2 : 3.6) * scale;
+      ctx.globalAlpha = ring.alpha * (isFrontLayer ? 0.18 : 0.22);
       ctx.stroke();
-      ctx.lineWidth = ring.line * scale;
-      ctx.globalAlpha = ring.alpha;
+
+      ctx.shadowBlur = ring.glow * (isFrontLayer ? 0.62 : 0.42) * scale;
+      ctx.lineWidth = ring.line * (isFrontLayer ? 1.35 : 1.15) * scale;
+      ctx.globalAlpha = ring.alpha * (isFrontLayer ? 1.08 : 1);
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+      ctx.shadowBlur = 0;
+      ctx.lineWidth = Math.max(0.5, ring.line * 0.38 * scale);
+      ctx.strokeStyle = "rgba(255,255,255,0.72)";
+      ctx.globalAlpha = ring.alpha * (isFrontLayer ? 0.38 : 0.28);
       ctx.stroke();
       ctx.globalAlpha = 1;
+      ctx.restore();
     };
 
     const drawGlowPoint = (x, y, color, size) => {
@@ -194,19 +231,30 @@ export default function BitByteHero() {
       ctx.fill();
     };
 
-    const draw = () => {
+    const draw = (now = performance.now()) => {
       frameId = 0;
       if (!isActive) return;
 
-      time += 0.007;
-      ctx.clearRect(0, 0, width, height);
+      const delta = lastFrameTime
+        ? Math.min(34, now - lastFrameTime) / 16.67
+        : 1;
+      lastFrameTime = now;
+      time += 0.007 * delta;
+
+      const planetFloat = Math.sin(time * 1.46) * 8 * scale;
+      orbitCenterY = centerY + planetFloat;
+      planet.style.transform = `translate3d(0, ${planetFloat}px, 0) rotate(${Math.sin(time * 0.72) * 1.4}deg)`;
+
+      backCtx.clearRect(0, 0, width, height);
+      frontCtx.clearRect(0, 0, width, height);
+      ctx = backCtx;
 
       const ambient = ctx.createRadialGradient(
         centerX,
-        centerY,
+        orbitCenterY,
         0,
         centerX,
-        centerY,
+        orbitCenterY,
         radius * 1.25 * scale,
       );
       ambient.addColorStop(0, "rgba(0,55,28,0.22)");
@@ -215,7 +263,7 @@ export default function BitByteHero() {
       ctx.fillStyle = ambient;
       ctx.fillRect(0, 0, width, height);
 
-      rings.forEach((ring) => drawRing(ring));
+      rings.forEach((ring) => drawRing(ring, "back"));
 
       const mx = mouse.current.x;
       const my = mouse.current.y;
@@ -267,20 +315,23 @@ export default function BitByteHero() {
       });
       ctx.shadowBlur = 0;
 
-      const mainRing = rings[0];
-      const ringAngle = time * mainRing.speed + mainRing.phase;
-      [
-        [-mainRing.rx, 7],
-        [mainRing.rx, 5],
-      ].forEach(([targetX, size]) => {
-        let x = targetX;
-        let y = 0;
-        let z = 0;
-        [x, y, z] = rotX(x, y, z, mainRing.tiltX);
-        [x, y, z] = rotZ(x, y, z, mainRing.tiltZ);
-        [x, y, z] = rotY(x, y, z, ringAngle);
-        const point = project(x, y, z);
-        drawGlowPoint(point.px, point.py, "#7fffaa", size);
+      ctx = frontCtx;
+      rings.forEach((ring) => drawRing(ring, "front"));
+
+      rings.forEach((ring, ringIndex) => {
+        const ringAngle = time * ring.speed + ring.phase;
+        for (let index = 0; index < ring.nodeCount; index += 1) {
+          const direction = ring.speed >= 0 ? 1 : -1;
+          const pointAngle =
+            direction * time * 0.72 +
+            (index / ring.nodeCount) * Math.PI * 2 +
+            ring.phase +
+            ringIndex * 0.58;
+          const point = projectRingPoint(ring, ringAngle, pointAngle);
+          const size = ring.nodeSize * (ringIndex === 0 ? 1.08 : 1);
+          ctx = point.z > ring.frontZ ? frontCtx : backCtx;
+          drawGlowPoint(point.px, point.py, ring.color, size);
+        }
       });
 
       frameId = requestAnimationFrame(draw);
@@ -289,7 +340,10 @@ export default function BitByteHero() {
     const viewportObserver = new IntersectionObserver(
       ([entry]) => {
         isActive = entry.isIntersecting;
-        if (isActive && !frameId) frameId = requestAnimationFrame(draw);
+        if (isActive && !frameId) {
+          lastFrameTime = 0;
+          frameId = requestAnimationFrame(draw);
+        }
         if (!isActive && frameId) {
           cancelAnimationFrame(frameId);
           frameId = 0;
@@ -312,8 +366,12 @@ export default function BitByteHero() {
 
   return (
     <div ref={heroRef} className="bitbyte-hero-visual" aria-hidden="true">
-      <canvas ref={canvasRef} className="bitbyte-hero-canvas" />
+      <canvas
+        ref={backCanvasRef}
+        className="bitbyte-hero-canvas bitbyte-hero-canvas-back"
+      />
       <img
+        ref={planetRef}
         src="/assets/optimized/planet-640.png"
         alt=""
         className="bitbyte-center-planet"
@@ -322,6 +380,10 @@ export default function BitByteHero() {
         loading="lazy"
         decoding="async"
         draggable="false"
+      />
+      <canvas
+        ref={frontCanvasRef}
+        className="bitbyte-hero-canvas bitbyte-hero-canvas-front"
       />
     </div>
   );

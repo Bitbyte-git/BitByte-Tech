@@ -3116,6 +3116,11 @@ footer {
   inset: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+.bitbyte-hero-canvas-front {
+  z-index: 3;
 }
 .bitbyte-center-planet {
   position: relative;
@@ -3125,16 +3130,8 @@ footer {
   user-select: none;
   pointer-events: none;
   filter: drop-shadow(0 0 34px rgba(0, 164, 236, 0.44));
-  animation: bitbytePlanetFloat 10s ease-in-out infinite;
-}
-@keyframes bitbytePlanetFloat {
-  0%,
-  100% {
-    transform: translateY(-8px) rotate(-1deg);
-  }
-  50% {
-    transform: translateY(8px) rotate(1deg);
-  }
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
 }
 
 /* ensure hero content is above bg layers */
