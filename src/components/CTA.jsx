@@ -11,9 +11,10 @@ export default function CTA() {
           {t('cta.eyebrow')}
         </div>
         <h2 className="sec-title center" data-magnify="true" style={{ maxWidth: 540, margin: '0 auto 14px' }}>
-          {t('cta.titleA')}
+             {t('cta.title1')} <br />
+          <span className="c">{t('cta.titleA')}</span>
           <br />
-          <span className="c">{t('cta.titleB')}</span>
+           <span className="c">{t('cta.titleB')}</span>
         </h2>
         <p className="sec-sub center" data-magnify="true" style={{ margin: '0 auto 40px' }}>
           {t('cta.body')}

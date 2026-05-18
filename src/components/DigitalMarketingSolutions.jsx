@@ -1,57 +1,118 @@
 import { useEffect, useState } from 'react';
 import ServiceFaq from "./ServiceFaq";
 
+const termData = {
+  SEO: {
+    title: "SEO",
+    fullName: "Search Engine Optimization",
+    desc: "Optimizing your website's content and structure to rank #1 on standard search engine results like Google.",
+    example: "Searching Google for 'IT agency Salem' and finding BitByte Technologies at the very top."
+  },
+  AEO: {
+    title: "AEO",
+    fullName: "Answer Engine Optimization",
+    desc: "Optimizing content so smart assistants (Alexa, Siri, Google Assistant) read it aloud as the single verbal answer.",
+    example: "Asking Alexa 'What is the best SaaS agency?' and it responds with your company's profile."
+  },
+  GEO: {
+    title: "GEO",
+    fullName: "Generative Engine Optimization",
+    desc: "Structuring content and data to be fetched, cited, and recommended by generative AI search engines like ChatGPT, Gemini, and Perplexity.",
+    example: "ChatGPT recommending your brand as a top-tier choice when asked to 'Find a premium software team'."
+  },
+  ROI: {
+    title: "ROI",
+    fullName: "Return on Investment",
+    desc: "A key business metric measuring the net profit generated from advertising relative to the capital spent.",
+    example: "Spending $1,000 on Facebook Ads and making $5,000 in sales (which is a 400% ROI)."
+  }
+};
+
+function MarketingTerm({ term }) {
+  const data = termData[term];
+  if (!data) return <span>{term}</span>;
+
+  return (
+    <span className="tooltip-term">
+      {term}
+      <span className="tooltip-box">
+        <span className="tooltip-header">{data.title}: {data.fullName}</span>
+        <span className="tooltip-desc">{data.desc}</span>
+        <span className="tooltip-example">
+          <strong>Example: </strong>{data.example}
+        </span>
+      </span>
+    </span>
+  );
+}
+
 const marketingServices = [
   [
     "fa-solid fa-magnifying-glass",
-    "SEO + AEO + GEO",
-    "Search Optimization Services – Improve your visibility across Google, AI-powered search engines, conversational platforms, and voice search experiences using advanced SEO, AEO (Answer Engine Optimization), and GEO (Generative Engine Optimization) strategies. Our optimization approach improves search rankings, featured snippets, AI recommendations, conversational search visibility, and long-term digital Requirement Gatheringability.",
+    <span><MarketingTerm term="SEO" /> + <MarketingTerm term="AEO" /> + <MarketingTerm term="GEO" /></span>,
+    <span>
+      Search Optimization Services – Improve your visibility across Google, <MarketingTerm term="AI" />-powered search engines, conversational platforms, and voice search experiences using advanced <MarketingTerm term="SEO" />, <MarketingTerm term="AEO" /> (Answer Engine Optimization), and <MarketingTerm term="GEO" /> (Generative Engine Optimization) strategies. Our optimization approach improves search rankings, featured snippets, <MarketingTerm term="AI" /> recommendations, conversational search visibility, and long-term digital Requirement Gatheringability.
+    </span>,
   ],
   [
     "fa-solid fa-bullseye",
     "Performance Marketing & Paid Advertising",
-    "Performance Marketing & Paid Advertising – ROI-focused advertising campaigns powered by AI audience targeting, smart bidding strategies, conversion optimization, predictive analytics, and real-time performance insights to maximize leads, sales, customer acquisition, and business growth across digital advertising platforms.",
+    <span>
+      Performance Marketing & Paid Advertising – <MarketingTerm term="ROI" />-focused advertising campaigns powered by <MarketingTerm term="AI" /> audience targeting, smart bidding strategies, conversion optimization, predictive analytics, and real-time performance insights to maximize leads, sales, customer acquisition, and business growth across digital advertising platforms.
+    </span>,
   ],
   [
     "fab fa-google",
     "Google Ads & Search Advertising",
-    "Google Ads & Search Advertising – AI-enhanced Google Ads campaigns including Search Ads, Display Ads, Shopping Ads, YouTube Ads, and Performance Max campaigns designed to attract high-intent audiences, increase traffic, improve lead generation, and maximize advertising performance through smart automation and conversion-focused strategies.",
+    <span>
+      Google Ads & Search Advertising – <MarketingTerm term="AI" />-enhanced Google Ads campaigns including Search Ads, Display Ads, Shopping Ads, YouTube Ads, and Performance Max campaigns designed to attract high-intent audiences, increase traffic, improve lead generation, and maximize advertising performance through smart automation and conversion-focused strategies.
+    </span>,
   ],
   [
     "fa-solid fa-share-nodes",
     "Social Media Marketing & Brand Growth",
-    "Social Media Marketing & Brand Growth – AI-powered social media marketing solutions focused on increasing brand awareness, audience engagement, online community growth, customer interaction, and digital influence across Facebook, Instagram, LinkedIn, YouTube, and emerging social platforms through creative campaigns, trend-driven content strategies, AI audience insights, and performance-focused marketing.",
+    <span>
+      Social Media Marketing & Brand Growth – <MarketingTerm term="AI" />-powered social media marketing solutions focused on increasing brand awareness, audience engagement, online community growth, customer interaction, and digital influence across Facebook, Instagram, LinkedIn, YouTube, and emerging social platforms through creative campaigns, trend-driven content strategies, <MarketingTerm term="AI" /> audience insights, and performance-focused marketing.
+    </span>,
   ],
   [
     "fa-solid fa-user-check",
     "Personal Branding & Online Reputation Growth",
-    "Personal Branding & Online Reputation Growth – Strategic personal branding solutions designed to help entrepreneurs, business owners, influencers, executives, and professionals build powerful online presence, industry authority, audience trust, and long-term digital credibility through AI-driven content strategies and social media growth marketing.",
+    <span>
+      Personal Branding & Online Reputation Growth – Strategic personal branding solutions designed to help entrepreneurs, business owners, influencers, executives, and professionals build powerful online presence, industry authority, audience trust, and long-term digital credibility through <MarketingTerm term="AI" />-driven content strategies and social media growth marketing.
+    </span>,
   ],
   [
     "fa-solid fa-file-pen",
     "Content Marketing & Brand Communication",
-    "Content Marketing & Brand Communication – High-quality, AI-friendly, and search-optimized content creation designed to improve search visibility, customer engagement, authority building, and conversion performance while maintaining a strong and consistent brand voice across digital platforms.",
+    <span>
+      Content Marketing & Brand Communication – High-quality, <MarketingTerm term="AI" />-friendly, and search-optimized content creation designed to improve search visibility, customer engagement, authority building, and conversion performance while maintaining a strong and consistent brand voice across digital platforms.
+    </span>,
   ],
   [
     "fa-solid fa-palette",
     "Branding & Creative Digital Experiences",
-    "Branding & Creative Digital Experiences – Creative branding strategies, visual storytelling, AI-enhanced ad creatives, social media designs, and digital brand experiences that help businesses build memorable identities, stronger emotional connections, and impactful customer engagement across online platforms.",
+    <span>
+      Branding & Creative Digital Experiences – Creative branding strategies, visual storytelling, <MarketingTerm term="AI" />-enhanced ad creatives, social media designs, and digital brand experiences that help businesses build memorable identities, stronger emotional connections, and impactful customer engagement across online platforms.
+    </span>,
   ],
   [
     "fa-solid fa-chart-line",
     "Analytics, Automation & Growth Intelligence",
-    "Analytics, Automation & Growth Intelligence – Advanced analytics, audience behavior insights, AI-powered automation, predictive reporting, and performance tracking solutions that support smarter marketing decisions, continuous optimization, and scalable digital growth.",
+    <span>
+      Analytics, Automation & Growth Intelligence – Advanced analytics, audience behavior insights, <MarketingTerm term="AI" />-powered automation, predictive reporting, and performance tracking solutions that support smarter marketing decisions, continuous optimization, and scalable digital growth.
+    </span>,
   ],
 ];
 
 const whyFeatures = [
-  ["fa-solid fa-wand-magic-sparkles", "AI-Powered Marketing Strategies"],
-  ["fa-solid fa-magnifying-glass", "SEO, AEO & GEO Expertise"],
+  ["fa-solid fa-wand-magic-sparkles", <span><MarketingTerm term="AI" />-Powered Marketing Strategies</span>],
+  ["fa-solid fa-magnifying-glass", <span><MarketingTerm term="SEO" />, <MarketingTerm term="AEO" /> & <MarketingTerm term="GEO" /> Expertise</span>],
   ["fab fa-google", "Google Ads & Performance Marketing Specialists"],
   ["fa-solid fa-user-check", "Social Media & Personal Branding Growth"],
   ["fa-solid fa-compass", "Conversion-Driven Marketing Solutions"],
   ["fa-solid fa-chart-simple", "Advanced Analytics & Automation"],
-  ["fa-solid fa-shield-halved", "ROI-Focused Campaign Optimization"],
+  ["fa-solid fa-shield-halved", <span><MarketingTerm term="ROI" />-Focused Campaign Optimization</span>],
   ["fa-solid fa-network-wired", "Customized Business Growth Strategies"],
 ];
 
@@ -70,44 +131,64 @@ const industries = [
 
 const digitalMarketingFaqs = [
   [
-    "What is AI-powered digital marketing?",
-    "AI-powered digital marketing uses automation, audience intelligence, and smart data insights to improve online visibility, customer engagement, lead generation, and business growth more effectively than traditional marketing methods.",
+    <span>What is <MarketingTerm term="AI" />-powered digital marketing?</span>,
+    <span>
+      <MarketingTerm term="AI" />-powered digital marketing uses automation, audience intelligence, and smart data insights to improve online visibility, customer engagement, lead generation, and business growth more effectively than traditional marketing methods.
+    </span>,
   ],
   [
     "Why is digital marketing important for modern businesses?",
-    "Digital marketing helps businesses increase brand visibility, attract targeted customers, build trust, generate quality leads, and grow consistently across search engines, social media, and AI-powered platforms.",
+    <span>
+      Digital marketing helps businesses increase brand visibility, attract targeted customers, build trust, generate quality leads, and grow consistently across search engines, social media, and <MarketingTerm term="AI" />-powered platforms.
+    </span>,
   ],
   [
-    "What are SEO, AEO, and GEO services?",
-    "SEO improves your Google rankings, AEO helps your business appear in direct answers and voice searches, while GEO increases visibility in AI-generated search experiences like ChatGPT and AI-powered search platforms.",
+    <span>What are <MarketingTerm term="SEO" />, <MarketingTerm term="AEO" />, and <MarketingTerm term="GEO" /> services?</span>,
+    <span>
+      <MarketingTerm term="SEO" /> improves your Google rankings, <MarketingTerm term="AEO" /> helps your business appear in direct answers and voice searches, while <MarketingTerm term="GEO" /> increases visibility in AI-generated search experiences like ChatGPT and AI-powered search platforms.
+    </span>,
   ],
   [
-    "How does AI improve digital marketing performance?",
-    "AI helps analyze customer behavior, optimize campaigns in real time, improve audience targeting, personalize content, and increase marketing efficiency through smarter automation and data-driven insights.",
+    <span>How does <MarketingTerm term="AI" /> improve digital marketing performance?</span>,
+    <span>
+      <MarketingTerm term="AI" /> helps analyze customer behavior, optimize campaigns in real time, improve audience targeting, personalize content, and increase marketing efficiency through smarter automation and data-driven insights.
+    </span>,
   ],
   [
     "Can digital marketing help generate more leads and sales?",
-    "Yes. Strategic digital marketing helps businesses reach the right audience, improve engagement, increase website traffic, and convert visitors into customers using performance-focused marketing strategies.",
+    <span>
+      Yes. Strategic digital marketing helps businesses reach the right audience, improve engagement, increase website traffic, and convert visitors into customers using performance-focused marketing strategies.
+    </span>,
   ],
   [
-    "How long does it take to see results from digital marketing?",
-    "Paid advertising campaigns can deliver faster results, while SEO, AEO, and GEO strategies build long-term organic visibility, stronger rankings, and sustainable business growth over time.",
+    <span>How long does it take to see results from digital marketing?</span>,
+    <span>
+      Paid advertising campaigns can deliver faster results, while <MarketingTerm term="SEO" />, <MarketingTerm term="AEO" />, and <MarketingTerm term="GEO" /> strategies build long-term organic visibility, stronger rankings, and sustainable business growth over time.
+    </span>,
   ],
   [
-    "Why is AI search optimization becoming important?",
-    "Search behavior is evolving toward AI-generated answers, conversational search, and voice assistants. AI search optimization helps businesses stay visible in future search experiences and modern digital ecosystems.",
+    <span>Why is <MarketingTerm term="AI" /> search optimization becoming important?</span>,
+    <span>
+      Search behavior is evolving toward <MarketingTerm term="AI" />-generated answers, conversational search, and voice assistants. <MarketingTerm term="AI" /> search optimization helps businesses stay visible in future search experiences and modern digital ecosystems.
+    </span>,
   ],
   [
     "Do you provide customized marketing strategies for different industries?",
-    "Yes. We create customized digital marketing strategies based on your industry, target audience, business goals, and competition to deliver better engagement, visibility, and ROI.",
+    <span>
+      Yes. We create customized digital marketing strategies based on your industry, target audience, business goals, and competition to deliver better engagement, visibility, and <MarketingTerm term="ROI" />.
+    </span>,
   ],
   [
     "How do you measure digital marketing success?",
-    "We track performance using advanced analytics, keyword rankings, audience insights, lead generation, engagement metrics, conversion tracking, and ROI-focused reporting.",
+    <span>
+      We track performance using advanced analytics, keyword rankings, audience insights, lead generation, engagement metrics, conversion tracking, and <MarketingTerm term="ROI" />-focused reporting.
+    </span>,
   ],
   [
     "BitByte Technologies for digital marketing services?",
-    "BitByte Technologies combines AI-powered strategies, creative marketing, SEO expertise, and performance-driven solutions to help businesses build stronger visibility, improve customer engagement, and achieve scalable digital growth.",
+    <span>
+      BitByte Technologies combines <MarketingTerm term="AI" />-powered strategies, creative marketing, <MarketingTerm term="SEO" /> expertise, and performance-driven solutions to help businesses build stronger visibility, improve customer engagement, and achieve scalable digital growth.
+    </span>,
   ],
 ];
 
@@ -129,10 +210,8 @@ function MarketingDashboard() {
     { id: 'Threads', icon: 'fa-brands fa-threads', label: 'Threads', color: '#ffffff' },
   ];
 
-  // Base mock data multiplier for periods
   const periodMultipliers = { 'This Month': 1, 'Last Month': 0.85, 'This Year': 9.5 };
 
-  // Base data per channel (for 'This Month')
   const baseChannelData = {
     'All': { users: 125.4, leads: 8.45, conv: 3.24, roi: 246, growth: 3.24, traffic: [38, 28, 20, 14] },
     'Google Ads': { users: 45.2, leads: 3.12, conv: 1.15, roi: 310, growth: 1.15, traffic: [0, 0, 100, 0] },
@@ -150,7 +229,6 @@ function MarketingDashboard() {
   const currentBase = baseChannelData[activeChannel] || baseChannelData['All'];
   const mult = periodMultipliers[activePeriod];
   
-  // Format numbers nicely
   const formatNum = (num) => (num >= 1000 ? (num / 1000).toFixed(1) + 'M' : num.toFixed(2) + 'K');
 
   const currentData = {
@@ -316,20 +394,20 @@ export default function DigitalMarketingSolutions() {
         <div className="dm-hero-grid">
           <div className="dm-hero-copy">
             <div className="webapp-pill reveal">
-              AI-Powered Digital Marketing
+              <MarketingTerm term="AI" />-Powered Digital Marketing
             </div>
             <h1 className="webapp-title dm-title reveal reveal-delay-1">
-              AI-Powered<br />
+              <MarketingTerm term="AI" />-Powered<br />
               <span>Digital Marketing</span>
             </h1>
             <h2 className="webapp-kicker reveal reveal-delay-2">
               Smarter Marketing. Stronger Visibility. Higher Conversions.
             </h2>
             <p className="webapp-lead reveal reveal-delay-3">
-              We empower businesses with AI-driven digital marketing strategies
+              We empower businesses with <MarketingTerm term="AI" />-driven digital marketing strategies
               designed to increase online visibility, attract high-intent
               audiences, improve engagement, and accelerate business growth
-              across search engines, social media, and AI-powered platforms.
+              across search engines, social media, and <MarketingTerm term="AI" />-powered platforms.
             </p>
             <div className="webapp-actions reveal reveal-delay-4">
               <a href="/#contact" className="btn-primary">
@@ -348,9 +426,9 @@ export default function DigitalMarketingSolutions() {
         <AiMarketingVisual />
         <div>
           <div className="service-section-eyebrow">About Digital Marketing</div>
-          <h2>Future-Ready Digital Marketing for the AI Era</h2>
+          <h2>Future-Ready Digital Marketing for the <MarketingTerm term="AI" /> Era</h2>
           <p>
-            Our digital marketing solutions combine Artificial Intelligence,
+            Our digital marketing solutions combine <MarketingTerm term="AI" /> (Artificial Intelligence),
             automation, performance analytics, creative storytelling, and
             data-driven strategies to build powerful digital brand presence and
             measurable business growth. From search optimization and paid
@@ -363,7 +441,7 @@ export default function DigitalMarketingSolutions() {
 
       <section className="dm-services-section" id="dm-services">
         <div className="service-section-eyebrow center reveal">
-          Our AI-Powered
+          Our <MarketingTerm term="AI" />-Powered
         </div>
         <h2 className="dm-section-title reveal reveal-delay-1">
           Digital Marketing Services
@@ -372,7 +450,7 @@ export default function DigitalMarketingSolutions() {
           {marketingServices.map(([icon, title, text], index) => (
             <article
               className={`dm-service-card reveal reveal-delay-${(index % 4) + 1}`}
-              key={title}
+              key={index}
             >
               <i className={icon} aria-hidden="true" />
               <h3>{title}</h3>
@@ -386,18 +464,18 @@ export default function DigitalMarketingSolutions() {
         <div className="service-section-eyebrow center">Why Choose</div>
         <h2 className="dm-section-title"> BitByte Technologies?</h2>
         <div className="dm-why-grid">
-          {whyFeatures.map(([icon, title]) => (
-            <div className="dm-why-card" key={title}>
+          {whyFeatures.map(([icon, title], index) => (
+            <div className="dm-why-card" key={index}>
               <i className={icon} aria-hidden="true" />
               <strong>{title}</strong>
             </div>
           ))}
         </div>
         <p>
-          We combine AI intelligence, creative innovation, performance marketing
+          We combine <MarketingTerm term="AI" /> intelligence, creative innovation, performance marketing
           expertise, and future-ready digital strategies to deliver measurable
           business growth. Our marketing solutions are designed to help brands
-          stay ahead in evolving search ecosystems, AI-powered platforms, and
+          stay ahead in evolving search ecosystems, <MarketingTerm term="AI" />-powered platforms, and
           competitive digital markets.
         </p>
       </section>
@@ -407,15 +485,15 @@ export default function DigitalMarketingSolutions() {
           Industries We Serve
         </div>
         <p>
-          We provide customized AI-powered digital marketing solutions for
+          We provide customized <MarketingTerm term="AI" />-powered digital marketing solutions for
           ecommerce brands, jewellery businesses, real estate companies,
           healthcare providers, educational institutions, startups, travel
           businesses, lifestyle brands, local businesses, and enterprise
           organizations.
         </p>
         <div className="dm-industry-grid">
-          {industries.map(([icon, title]) => (
-            <div className="dm-industry-card" key={title}>
+          {industries.map(([icon, title], index) => (
+            <div className="dm-industry-card" key={index}>
               <i className={icon} aria-hidden="true" />
               <strong>{title}</strong>
             </div>
@@ -431,11 +509,11 @@ export default function DigitalMarketingSolutions() {
         </div>
         <div>
           <h2>
-            Ready to Accelerate Your Digital Growth with AI-Powered Marketing?
+            Ready to Accelerate Your Digital Growth with <MarketingTerm term="AI" />-Powered Marketing?
           </h2>
           <p>
             Strengthen your digital presence, attract the right audience,
-            improve customer engagement, and scale your business with AI-powered
+            improve customer engagement, and scale your business with <MarketingTerm term="AI" />-powered
             digital marketing solutions designed for future-ready brands and
             modern search experiences.
           </p>

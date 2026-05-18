@@ -24,7 +24,7 @@ export default function Footer({ rootLinks = false }) {
       "Contact",
       [
         "reachus@bitbytetech.org",
-        "+91 99437 43136",
+        "+91 99437 43136 (Only Whatsapp) " ,
         "BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "Privacy Policy",
         "Terms of Service",
