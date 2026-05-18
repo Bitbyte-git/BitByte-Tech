@@ -1,5 +1,16 @@
 import { useEffect, useState } from 'react'
 
+const pbIndustries = [
+  ["fa-solid fa-cart-shopping", "Ecommerce & Retail"],
+  ["fa-solid fa-user-tie", "Corporate Leadership"],
+  ["fa-solid fa-hospital-user", "Healthcare & Medical"],
+  ["fa-solid fa-chalkboard-user", "Education & Coaching"],
+  ["fa-solid fa-seedling", "Agriculture & Farming"],
+  ["fa-solid fa-briefcase", "Entrepreneurs & Startups"],
+  ["fa-solid fa-pen-nib", "Creative Professionals"],
+  ["fa-solid fa-laptop-code", "Tech Specialists & SaaS"],
+];
+
 const brandServices = [
   ['fa-regular fa-user', 'Profile Optimization', 'We optimize your social media profiles to reflect your expertise and create a strong first impression.'],
   ['fa-regular fa-newspaper', 'Content Strategy', 'We create a content strategy that showcases your knowledge, story, and value.'],
@@ -1103,8 +1114,22 @@ export default function PersonalBranding() {
               <i className={icon} aria-hidden="true" />
               <h3>{title}</h3>
               <p>{text}</p>
-              <a href="/#contact">Learn more &rarr;</a>
+           
             </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="pb-section">
+        <div className="pb-eyebrow reveal">Industries We Serve</div>
+        <h2 className="pb-section-title reveal reveal-delay-1">Personal Branding Across <span>Sectors</span></h2>
+        <p className="pb-section-sub reveal reveal-delay-2">We build powerful personal brands for founders, executives, and leaders across diverse industries.</p>
+        <div className="dm-industry-grid">
+          {pbIndustries.map(([icon, title], index) => (
+            <div className="dm-industry-card" key={index}>
+              <i className={icon} aria-hidden="true" />
+              <strong>{title}</strong>
+            </div>
           ))}
         </div>
       </section>

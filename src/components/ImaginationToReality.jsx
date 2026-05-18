@@ -1090,7 +1090,7 @@ export default function ImaginationToReality() {
               <i className={icon} aria-hidden="true" />
               <h3>{title}</h3>
               <p>{text}</p>
-              <a href="/#contact">Learn more &#8594;</a>
+          
             </article>
           ))}
         </div>

@@ -65,6 +65,7 @@ const analyticsIndustries = [
   ["fa-solid fa-industry", "Manufacturing"],
   ["fa-solid fa-plane-departure", "Travel"],
   ["fa-solid fa-laptop-code", "SaaS"],
+  ["fa-solid fa-seedling", "Agriculture"],
   ["fa-solid fa-briefcase", "Enterprise"],
 ];
 
@@ -381,12 +382,12 @@ export default function BusinessAnalyticsSolutions() {
           We provide customized business analytics solutions for ecommerce
           companies, real estate teams, healthcare providers, educational
           institutions, finance teams, retail businesses, manufacturing
-          operations, travel companies, SaaS platforms, and enterprise
+          operations, travel companies, SaaS platforms, agricultural sectors, and enterprise
           organizations.
         </p>
         <div className="dm-industry-grid">
-          {analyticsIndustries.map(([icon, title]) => (
-            <div className="dm-industry-card" key={title}>
+          {analyticsIndustries.map(([icon, title], index) => (
+            <div className="dm-industry-card" key={index}>
               <i className={icon} aria-hidden="true" />
               <strong>{title}</strong>
             </div>

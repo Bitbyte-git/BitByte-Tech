@@ -1,21 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
-import { services, socialIcons } from '../constants'
+import { socialIcons } from '../constants'
 import { useTranslation } from '../i18n'
+import WhatsAppEnquiryForm from './WhatsAppEnquiryForm.jsx'
 
 export default function Contact() {
   const { t } = useTranslation()
-  const [sent, setSent] = useState(false)
-  const sentTimeoutRef = useRef(0)
-
-  function handleSubmit(event) {
-    event.preventDefault()
-    window.clearTimeout(sentTimeoutRef.current)
-    setSent(true)
-    sentTimeoutRef.current = window.setTimeout(() => setSent(false), 4000)
-  }
-
-  useEffect(() => () => window.clearTimeout(sentTimeoutRef.current), [])
-
   const hrefs = {
     'LinkedIn': 'https://www.linkedin.com/in/bit-byte-technologies-4aa820406/',
     'Twitter': 'https://x.com/BitbyteReachus',
@@ -58,52 +46,7 @@ export default function Contact() {
         </div>
       </div>
 
-      <form className="contact-form reveal reveal-delay-2" onSubmit={handleSubmit}>
-        <div className="eyebrow" style={{ marginBottom: 18 }}>
-          {t('contact.formTitle')}
-        </div>
-        <div className="form-row">
-          <div className="fgroup">
-            <label htmlFor="firstName">{t('contact.firstName')}</label>
-            <input id="firstName" type="text" placeholder="John" />
-          </div>
-          <div className="fgroup">
-            <label htmlFor="lastName">{t('contact.lastName')}</label>
-            <input id="lastName" type="text" placeholder="Doe" />
-          </div>
-        </div>
-        <div className="fgroup">
-          <label htmlFor="email">{t('contact.email')}</label>
-          <input id="email" type="email" placeholder="john@company.com" />
-        </div>
-        <div className="fgroup">
-          <label htmlFor="phone">{t('contact.phone')}</label>
-          <input id="phone" type="tel" placeholder="+91 9943* *****" />
-        </div>
-        <div className="fgroup">
-          <label htmlFor="service">{t('contact.service')}</label>
-          <select id="service" defaultValue="">
-            <option value="">{t('contact.select')}</option>
-            {services.map((service) => (
-              <option key={service.id}>{t(`services.cards.${service.id}.title`, service.title)}</option>
-            ))}
-            <option>{t('contact.other')}</option>
-          </select>
-        </div>
-        <div className="fgroup">
-          <label htmlFor="message">{t('contact.message')}</label>
-          <textarea id="message" placeholder={t('contact.messagePlaceholder')} />
-        </div>
-        <button className="btn-submit" type="submit" aria-label={sent ? t('contact.sent') : t('contact.submit')}>
-          <span className={`btn-submit-state ${sent ? 'is-hidden' : ''}`} aria-hidden={sent}>
-            <i className="fas fa-paper-plane" aria-hidden="true" />
-            <span>{t('contact.submit')}</span>
-          </span>
-          <span className={`btn-submit-state ${sent ? '' : 'is-hidden'}`} aria-hidden={!sent}>
-            {t('contact.sent')}
-          </span>
-        </button>
-      </form>
+      <WhatsAppEnquiryForm />
     </section>
   )
 }

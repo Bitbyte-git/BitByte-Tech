@@ -126,6 +126,7 @@ const industries = [
   ["fa-solid fa-plane", "Travel"],
   ["fa-solid fa-spa", "Lifestyle"],
   ["fa-solid fa-shop", "Local Business"],
+  ["fa-solid fa-seedling", "Agriculture"],
   ["fa-regular fa-building", "Enterprise"],
 ];
 
@@ -488,7 +489,7 @@ export default function DigitalMarketingSolutions() {
           We provide customized <MarketingTerm term="AI" />-powered digital marketing solutions for
           ecommerce brands, jewellery businesses, real estate companies,
           healthcare providers, educational institutions, startups, travel
-          businesses, lifestyle brands, local businesses, and enterprise
+          businesses, lifestyle brands, local businesses, agricultural sectors, and enterprise
           organizations.
         </p>
         <div className="dm-industry-grid">

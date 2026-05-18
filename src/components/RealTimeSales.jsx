@@ -38,6 +38,7 @@ const industries = [
   ['fa-solid fa-boxes-stacked', 'Wholesale Distributors'],
   ['fa-solid fa-microchip', 'Consumer Electronics'],
   ['fa-solid fa-industry', 'Manufacturing Companies'],
+  ['fa-solid fa-seedling', 'Agriculture & Farming'],
   ['fa-solid fa-building-user', 'Franchise Networks'],
 ]
 
@@ -329,7 +330,7 @@ export default function RealTimeSales() {
               <div>
                 <h3>{title}</h3>
                 <p>{text}</p>
-                <a href="/#contact">Learn more <span>&rarr;</span></a>
+                
               </div>
             </article>
           ))}
@@ -338,15 +339,6 @@ export default function RealTimeSales() {
 
       <section className="sales-info-grid">
         <article className="sales-info-panel reveal">
-          <h2>Industries <span>We Serve</span></h2>
-          <div className="sales-two-col-list">
-            {industries.map(([icon, title]) => (
-              <div key={title}><i className={icon} aria-hidden="true" /> {title}</div>
-            ))}
-          </div>
-        </article>
-
-        <article className="sales-info-panel reveal reveal-delay-1">
           <h2>Key Metrics <span>We Track</span></h2>
           <div className="sales-two-col-list">
             {metrics.map((item) => (
@@ -355,7 +347,7 @@ export default function RealTimeSales() {
           </div>
         </article>
 
-        <article className="sales-info-panel reveal reveal-delay-2">
+        <article className="sales-info-panel reveal reveal-delay-1">
           <h2>Example <span>Use Cases</span></h2>
           <div className="sales-use-list">
             {useCases.map(([icon, title, text]) => (
@@ -366,6 +358,26 @@ export default function RealTimeSales() {
             ))}
           </div>
         </article>
+      </section>
+
+      <section className="dm-industries reveal" style={{ borderTop: '1px solid rgba(0, 180, 216, 0.08)', padding: '58px 0', textAlign: 'center' }}>
+        <div className="service-section-eyebrow center">
+          Industries We Serve
+        </div>
+        <h2 className="dm-section-title" style={{ color: '#fff', fontFamily: 'var(--f-display)', fontSize: 'clamp(30px, 3vw, 42px)', fontWeight: 900, marginBottom: '13px', textAlign: 'center' }}>
+          Real-Time Sales Intelligence for <span>Sectors</span>
+        </h2>
+        <p style={{ color: 'rgba(232, 248, 255, 0.64)', fontSize: '14px', maxWidth: '800px', margin: '0 auto 24px', textAlign: 'center' }}>
+          We deploy live performance monitoring, sales analytics, and integration pipelines across diverse commercial and agricultural industries.
+        </p>
+        <div className="dm-industry-grid">
+          {industries.map(([icon, title], index) => (
+            <div className="dm-industry-card" key={index}>
+              <i className={icon} aria-hidden="true" />
+              <strong>{title}</strong>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="sales-band sales-process reveal">
