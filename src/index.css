@@ -5794,6 +5794,11 @@ footer {
 }
 
 @media (max-width: 380px) {
+  .hero-badge .badge-txt {
+    font-size: 7px;
+    letter-spacing: 0.18px;
+  }
+
   .mob-menu {
     gap: 12px;
     padding-left: 18px;
@@ -5962,14 +5967,20 @@ select,
   }
 
   .hero-badge {
-    width: min(100%, 320px);
-    overflow: hidden;
+    width: min(100%, calc(100vw - 36px));
+    justify-content: center;
+    overflow: visible;
+    padding-inline: 10px;
   }
 
   .hero-badge .badge-txt {
     max-width: 100%;
     width: 100% !important;
-    overflow: hidden;
+    justify-content: center;
+    overflow: visible;
+    font-size: clamp(7px, 2.05vw, 8px);
+    letter-spacing: 0.28px;
+    white-space: nowrap;
   }
 
   .hero-h1 {
