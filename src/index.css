@@ -8373,3 +8373,39 @@ select,
   color: #90e0ef;
   display: block;
 }
+
+/* ══════════════════════════════════════════════
+   GLOBAL MOBILE SECTORS CAROUSEL RESPONSIVENESS
+   Enforces non-squeezing, horizontally scrollable layout
+   across all 4 industry sectors grids on mobile screens.
+   ══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .dm-industry-grid {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 12px !important;
+    overflow-x: auto !important;
+    padding: 10px 4px 18px !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .dm-industry-grid::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  .dm-industry-card {
+    flex: 0 0 130px !important;
+    min-width: 130px !important;
+    min-height: 84px !important;
+    box-sizing: border-box !important;
+  }
+
+  .dm-industry-card strong {
+    white-space: normal !important;
+    text-align: center !important;
+    font-size: 9.5px !important;
+    line-height: 1.3 !important;
+  }
+}
+

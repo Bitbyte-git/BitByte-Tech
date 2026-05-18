@@ -992,6 +992,7 @@ export default function PersonalBranding() {
           .pb-hero-grid {
             grid-template-columns: 1fr;
             min-height: 0;
+            gap: 40px;
           }
 
           .pb-title {
@@ -1014,20 +1015,131 @@ export default function PersonalBranding() {
             width: 100%;
           }
 
+          /* ── Mockup Responsive Fix (Mobile Stacking) ── */
           .pb-visual {
-            min-height: 410px;
-            transform: scale(0.82);
-            transform-origin: top center;
-            margin-bottom: -70px;
+            min-height: auto;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 28px;
+            padding: 20px 0 45px;
+            perspective: none;
+            overflow: visible;
+            transform: none;
+            margin-bottom: 0;
           }
 
           .pb-laptop {
-            right: -78px;
-            width: 680px;
+            position: relative;
+            right: auto;
+            left: auto;
+            top: auto;
+            width: 100%;
+            max-width: 480px;
+            height: auto;
+            aspect-ratio: 1.45 / 1;
+            transform: none !important;
+            margin: 0 auto;
+          }
+
+          .pb-laptop-screen {
+            position: absolute;
+            inset: 0 4.6% 12.5% 4.6%;
+            padding: clamp(10px, 3vw, 18px);
+            border-width: 4px;
+            border-radius: 8px;
+          }
+
+          .pb-screen-nav {
+            margin-bottom: 12px;
+            gap: 10px;
+            font-size: 8px;
+          }
+
+          .pb-screen-content {
+            grid-template-columns: 1fr;
+            gap: 8px;
+            text-align: center;
+          }
+
+          .pb-screen-content h3 {
+            font-size: clamp(13px, 3.8vw, 16px);
+            max-width: 100%;
+            margin-bottom: 6px;
+            margin-inline: auto;
+          }
+
+          .pb-screen-content p {
+            font-size: clamp(8px, 2.5vw, 10px);
+            max-width: 100%;
+            margin-bottom: 8px;
+            margin-inline: auto;
+          }
+
+          .pb-screen-content button {
+            padding: 6px 14px;
+            font-size: 8px;
+            margin-inline: auto;
+            margin-top: 4px;
+          }
+
+          .pb-portrait {
+            display: none; /* Hide cluttered background image inside small mobile screen mockup */
+          }
+
+          .pb-laptop-base {
+            bottom: 0;
+            height: 24px;
+            border-radius: 0 0 12px 12px;
+            clip-path: polygon(7% 0, 93% 0, 100% 100%, 0 100%);
           }
 
           .pb-phone {
-            right: -34px;
+            position: relative;
+            right: auto;
+            left: auto;
+            top: auto;
+            width: 190px;
+            height: 330px;
+            transform: none !important;
+            margin: 0 auto;
+            padding: 24px 16px 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+          }
+
+          .pb-plant,
+          .pb-rock {
+            display: none;
+          }
+
+          /* ── Sector Cards Horizontal Scroll Fix (No Squeezing) ── */
+          .dm-industry-grid {
+            display: flex !important;
+            flex-wrap: nowrap !important;
+            gap: 12px !important;
+            overflow-x: auto !important;
+            padding: 10px 4px 18px !important;
+            -webkit-overflow-scrolling: touch !important;
+            scrollbar-width: none !important;
+          }
+
+          .dm-industry-grid::-webkit-scrollbar {
+            display: none !important;
+          }
+
+          .dm-industry-card {
+            flex: 0 0 130px !important;
+            min-width: 130px !important;
+            min-height: 84px !important;
+            box-sizing: border-box !important;
+          }
+
+          .dm-industry-card strong {
+            white-space: normal !important;
+            text-align: center !important;
+            font-size: 9.5px !important;
+            line-height: 1.3 !important;
           }
 
           .pb-section {
@@ -1046,21 +1158,6 @@ export default function PersonalBranding() {
           .pb-client img {
             width: 70px;
             height: 70px;
-          }
-        }
-
-        @media (max-width: 460px) {
-          .pb-visual {
-            transform: scale(0.62);
-            margin-bottom: -170px;
-          }
-
-          .pb-laptop {
-            right: -170px;
-          }
-
-          .pb-phone {
-            right: -92px;
           }
         }
       `}</style>
