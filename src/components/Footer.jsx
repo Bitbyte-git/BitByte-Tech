@@ -62,7 +62,7 @@ export default function Footer({ rootLinks = false }) {
       <div className="footer-top">
         <div className="footer-brand">
           <a
-            href="#hero"
+            href={hrefFor('#hero')}
             className="logo-wrap"
             style={{ display: "inline-flex" }}
             aria-label="Bit Byte Technologies home"
@@ -77,6 +77,8 @@ export default function Footer({ rootLinks = false }) {
                 className="soc-btn"
                 aria-label={label}
                 key={label}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <i className={icon} aria-hidden="true" />
               </a>

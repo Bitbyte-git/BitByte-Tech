@@ -47,9 +47,15 @@ function MobileMenu({
             <div className="mob-service-links">
               {services.map((service) => (
                 <a
-                  href={hrefFor('#services')}
+                  href={hrefFor(service.route)}
                   key={service.id}
-                  onClick={(event) => handleServiceClick(event, service.id)}
+                  onClick={(event) => {
+                    if (!service.route.startsWith('/')) {
+                      handleServiceClick(event, service.id)
+                    } else {
+                      onClose()
+                    }
+                  }}
                 >
                   {t(`services.cards.${service.id}.title`, service.title)}
                 </a>

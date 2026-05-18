@@ -102,6 +102,31 @@ export default function App() {
 
   useEffect(() => () => window.clearTimeout(serviceHighlightTimeoutRef.current), [])
 
+  // When arriving at the home page from a service-page link like /#services,
+  // the target section may not yet be in the DOM (lazy Suspense). Poll until
+  // it appears, then scroll to it exactly once per page load.
+  useEffect(() => {
+    if (isServiceDetailPage) return
+    const hash = window.location.hash
+    if (!hash) return
+
+    const id = hash.replace('#', '')
+    let attempts = 0
+
+    const interval = setInterval(() => {
+      const el = document.getElementById(id)
+      if (el) {
+        clearInterval(interval)
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        el.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' })
+      }
+      if (++attempts > 25) clearInterval(interval) // give up after ~3 s
+    }, 120)
+
+    return () => clearInterval(interval)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []) // intentionally run only once on mount
+
   useEffect(() => {
     if (isServiceDetailPage) return undefined
 

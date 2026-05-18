@@ -1407,8 +1407,8 @@ export default function WebDevelopmentOverview() {
                 <a href="/#contact" className="btn-primary">
                   Let&apos;s Build Your Website <span className="arr">→</span>
                 </a>
-                <a href="/#portfolio" className="btn-ghost">
-                  View Our Work
+                <a href="#wd-services" className="btn-ghost">
+                  View Our Services
                 </a>
               </div>
             </div>

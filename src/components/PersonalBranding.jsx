@@ -1096,7 +1096,7 @@ export default function PersonalBranding() {
 
             <div className="pb-actions reveal reveal-delay-4">
               <a className="btn-primary" href="/#contact">Let's Build Your Brand</a>
-              <a className="btn-ghost" href="#pb-work">View Our Work</a>
+              <a className="btn-ghost" href="/#services">Explore All Services</a>
             </div>
           </div>
 
