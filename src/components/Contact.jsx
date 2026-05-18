@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { useTranslation } from '../i18n'
 import { services, socialIcons } from '../constants'
+import { useTranslation } from '../i18n'
 
 export default function Contact() {
   const { t } = useTranslation()
@@ -23,7 +23,7 @@ export default function Contact() {
   }
   const contactDetails = [
     ['📧', 'Email', 'reachus@bitbytetech.org'],
-    ['📞', 'Phone', '+91 99437 43136'],
+    ['📞', 'Phone', '+91 99437 43136 (Only Whatsapp)'],
     ['📍', 'Address', 'BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.'],
   ]
 

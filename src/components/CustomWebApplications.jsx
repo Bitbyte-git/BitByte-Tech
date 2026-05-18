@@ -25,7 +25,6 @@ const pythonTech = [
   ['dev-text', 'dj', 'Django', 'var(--c-django)'],
   ['dev-text', 'Fl', 'Flask', '#fff'],
   ['fa-solid fa-database', 'PostgreSQL', null, 'var(--c-postgres)'],
-  ['fa-solid fa-server', 'Redis', null, '#D82C20'],
   ['fab fa-docker', 'Docker', null, 'var(--c-docker)'],
 ]
 
@@ -62,7 +61,7 @@ const webDevelopmentFaqs = [
   ],
   [
     'Which technologies do you use for web application development?',
-    'We use modern and reliable technologies such as React, Node.js, Express.js, MongoDB, Python, Django, Flask, PostgreSQL, Redis, Docker, and Tailwind CSS based on the project requirements.',
+    'We use modern and reliable technologies such as React, Node.js, Express.js, MongoDB, Python, Django, Flask, PostgreSQL, Docker, and Tailwind CSS based on the project requirements.',
   ],
   [
     'Are your web applications secure and scalable?',
@@ -297,8 +296,8 @@ export default function CustomWebApplications() {
           <div className="webapp-hero-copy">
             <div className="webapp-pill reveal">Web App Development</div>
             <h1 className="webapp-title reveal reveal-delay-1">
-              Custom Web
-              <span>Applications</span>
+              
+              <span>Custom Web Applications</span>
             </h1>
             <h2 className="webapp-kicker reveal reveal-delay-2">Tailored Web Solutions Built for Your Business</h2>
             <p className="webapp-lead reveal reveal-delay-3">

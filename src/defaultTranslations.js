@@ -1,3 +1,4 @@
+
 const defaultTranslations = {
   language: {
     label: 'Language',
@@ -28,10 +29,10 @@ const defaultTranslations = {
       ['50+', 'Clients'],
     ],
     floatCards: [
-      ['🌐', 'Web App Development', 'MERN · React · Node'],
-      ['📈', 'Digital Marketing', 'SEO · Ads · Social'],
-      ['🚀', 'Product Innovation', 'AI · Cloud · APIs'],
-      ['📊', 'Revenue Intelligence', 'Analytics · ROI · KPIs'],
+      ['🌐', 'Web App Development', 'MERN · Python · PERN'],
+      ['📈', 'Digital Marketing', 'SEO · Ads · Social Media'],
+      ['🚀', 'Product Innovation', 'AI · ML · LLM · API'],
+      ['📊', 'Revenue Intelligence', 'Analytics · ROI · KPI'],
     ],
   },
   services: {
@@ -116,7 +117,8 @@ const defaultTranslations = {
   },
   cta: {
     eyebrow: 'Ready for Launch?',
-    titleA: 'Your Digital Extravaganza',
+    title1: "Your",
+    titleA: 'Digital Extravaganza',
     titleB: 'Starts Now',
     body: 'Join 200+ forward-thinking businesses that trusted Bit Byte Technologies to build their digital universe.',
     primary: 'Explore Services',

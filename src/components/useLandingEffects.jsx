@@ -428,16 +428,17 @@ export default function useLandingEffects({
     const animateCursor = () => {
       cursorFrame = 0
 
-      const lerpFactor = 0.15
-      // Offset the ring's target upwards by 16px (radius) so the dot (at targetX/Y) 
-      // appears at the 270deg (bottom) position of the ring.
+      // Snappier tracking when hovering over input elements to ensure perfect responsiveness
+      const isInputHovered = ringRef.current?.classList.contains('is-input')
+      const lerpFactor = isInputHovered ? 0.8 : 0.28
+      // Center the ring's target exactly on the click/mouse position
       const ringTargetX = targetX
-      const ringTargetY = targetY - 16
+      const ringTargetY = targetY
 
       ringX += (ringTargetX - ringX) * lerpFactor
       ringY += (ringTargetY - ringY) * lerpFactor
 
-      // Dot is the precision point — it follows the target exactly for "control"
+      // Laser dot sits perfectly concentric in the center of the ring for 100% targeting accuracy
       const dotX = targetX
       const dotY = targetY
 
