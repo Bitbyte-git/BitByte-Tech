@@ -1328,13 +1328,101 @@ export default function WebDevelopmentOverview() {
           }
 
           .wd-hero-visual {
-            min-height: 370px;
+            min-height: auto;
+            padding: 40px 0;
             overflow: visible;
+            flex-direction: column;
           }
 
           .wd-laptop {
+            flex-shrink: 0;
             width: 620px;
             transform: scale(0.82) rotateX(3deg) rotateY(-7deg) rotateZ(-2deg);
+            margin-bottom: -40px;
+            margin-top: -20px;
+          }
+
+          /* Tablet & Mobile Layout Polish for Interaction mockup */
+          .wd-side-nav {
+            position: relative;
+            right: auto;
+            top: auto;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            z-index: 10;
+          }
+          .wd-side-nav::before {
+            display: none;
+          }
+          .wd-side-nav button {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            width: 70px;
+            grid-template-columns: 1fr;
+            text-align: center;
+          }
+          .wd-side-nav button span {
+            font-size: 10px;
+            white-space: nowrap;
+          }
+          .wd-hand-cursor {
+            display: none;
+          }
+          .wd-click-tooltip {
+            position: relative;
+            left: auto;
+            bottom: auto;
+            transform: none;
+            margin: 20px auto 0;
+            width: fit-content;
+          }
+          .wd-screen-nav span {
+            display: none; /* Hide absolute brand logo inside screen to prevent overlaps */
+          }
+          .wd-screen-nav div {
+            gap: 16px;
+          }
+          .wd-screen-nav button {
+            font-size: 9.5px;
+          }
+          .wd-dashboard-copy {
+            max-width: 100%;
+          }
+          .wd-dashboard-copy h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+          }
+          .wd-dashboard-copy p {
+            font-size: 9px;
+            line-height: 1.4;
+            margin-bottom: 12px;
+            max-width: 85%;
+          }
+          .wd-screen-stats {
+            bottom: 14px;
+            left: 20px;
+            right: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+          }
+          .wd-screen-stats span {
+            min-height: 38px;
+            padding: 6px 8px;
+          }
+          .wd-screen-stats strong {
+            font-size: 12px;
+          }
+          .wd-screen-stats small {
+            font-size: 8px;
+            line-height: 1.1;
+            margin-top: 1px;
+          }
+          .wd-holo-cube {
+            display: none; /* Hide floating 3D cube to maximize screen copy area */
           }
 
           .webapp-cta {
@@ -1355,8 +1443,13 @@ export default function WebDevelopmentOverview() {
           }
 
           .wd-laptop {
-            transform: scale(0.82) rotateX(3deg) rotateY(-5deg) rotateZ(-2deg);
-            right: 40px;
+            transform: scale(0.58) rotateX(3deg) rotateY(-5deg) rotateZ(-2deg);
+            margin-top: -60px;
+            margin-bottom: -110px;
+          }
+
+          .wd-hero-visual {
+            min-height: 280px;
           }
 
           .tech-grid {

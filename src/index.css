@@ -4399,11 +4399,14 @@ select,
   }
   .webapp-device-stage {
     min-height: 370px;
-    overflow: hidden;
+    overflow: visible;
   }
   .webapp-laptop {
+    flex-shrink: 0;
     width: 620px;
     transform: scale(0.82) rotateX(3deg) rotateY(-7deg) rotateZ(-2deg);
+    margin-top: -30px;
+    margin-bottom: -30px;
   }
   .webapp-phone {
     right: 4px;
@@ -4447,15 +4450,17 @@ select,
   }
   .webapp-device-stage {
     min-height: 300px;
+    overflow: visible;
   }
   .webapp-laptop {
-    transform: scale(0.62) rotateX(3deg) rotateY(-5deg) rotateZ(-2deg);
-    right: 50px;
+    transform: scale(0.58) rotateX(3deg) rotateY(-5deg) rotateZ(-2deg);
+    margin-top: -80px;
+    margin-bottom: -110px;
   }
   .webapp-phone {
-    transform: scale(0.62) rotateZ(3deg);
-    right: -12px;
-    bottom: 15px;
+    transform: scale(0.58) rotateZ(3deg);
+    right: -6px;
+    bottom: 20px;
   }
   .process-track,
   .feature-grid {
