@@ -171,13 +171,17 @@ export default function ImaginationToReality() {
 
         .ir-title {
           max-width: 520px;
-          color: #fff;
           font-family: var(--f-display);
           font-size: clamp(44px, 4.6vw, 64px);
           font-weight: 900;
           line-height: 1.02;
           letter-spacing: 0;
           margin-bottom: 16px;
+          background: linear-gradient(90deg, #9af75a 0%, #00d5ff 54%, #2874ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
         }
 
         .ir-grad,
@@ -188,6 +192,7 @@ export default function ImaginationToReality() {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          color: transparent;
         }
 
         .ir-title span {
@@ -569,13 +574,17 @@ export default function ImaginationToReality() {
         }
 
         .ir-section-title {
-          color: #fff;
           font-family: var(--f-display);
           font-size: clamp(31px, 3.15vw, 45px);
           font-weight: 900;
           line-height: 1.12;
           letter-spacing: 0;
           margin-bottom: 13px;
+          background: linear-gradient(90deg, #9af75a 0%, #00d5ff 54%, #2874ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
         }
 
         .ir-section-sub {

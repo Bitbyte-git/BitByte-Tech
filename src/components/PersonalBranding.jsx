@@ -272,13 +272,17 @@ export default function PersonalBranding() {
         }
 
         .pb-title {
-          color: #fff;
           font-family: var(--f-display);
           font-size: clamp(48px, 5.7vw, 76px);
           font-weight: 900;
           line-height: 1.02;
           letter-spacing: 0;
           margin-bottom: 17px;
+          background: linear-gradient(90deg, #9af75a 0%, #00d5ff 56%, #2874ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
         }
 
         .pb-grad,
@@ -289,6 +293,7 @@ export default function PersonalBranding() {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          color: transparent;
         }
 
         .pb-subtitle {
@@ -622,13 +627,17 @@ export default function PersonalBranding() {
         }
 
         .pb-section-title {
-          color: #fff;
           font-family: var(--f-display);
           font-size: clamp(30px, 3vw, 42px);
           font-weight: 900;
           line-height: 1.12;
           letter-spacing: 0;
           margin-bottom: 13px;
+          background: linear-gradient(90deg, #9af75a 0%, #00d5ff 56%, #2874ff 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          color: transparent;
         }
 
         .pb-section-sub {

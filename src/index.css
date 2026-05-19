@@ -1147,41 +1147,76 @@ body {
   margin-top: 2px;
 }
 
-/* Floating hero cards */
+/* Floating hero cards — 2×2 square grid */
 .float-cards {
   position: absolute;
-  right: 60px;
-  bottom: 130px;
+  right: 48px;
+  bottom: 80px;
   z-index: 20;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
   animation: hReveal 1s 0.9s both;
 }
+
 .fcrd {
-  background: rgba(3, 15, 35, 0.6);
-  backdrop-filter: blur(22px);
+  background: linear-gradient(135deg, rgba(8, 22, 42, 0.72) 0%, rgba(3, 11, 23, 0.9) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(0, 180, 216, 0.2);
-  border-radius: 18px;
-  padding: 16px 22px;
-  min-width: 200px;
+  border-radius: 16px;
+  padding: 20px 22px;
+  min-width: 0;
   box-shadow:
-    0 8px 36px rgba(0, 0, 0, 0.45),
-    0 0 26px rgba(0, 119, 182, 0.08);
+    0 12px 40px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(0, 180, 216, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
   animation: cfloat 7s ease-in-out infinite;
   position: relative;
   overflow: hidden;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
 }
+
+/* Glass shine overlay */
 .fcrd::before {
   content: "";
   position: absolute;
-  top: 0;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  opacity: 0.8;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Add a bottom glow line */
+.fcrd::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 2px;
   background: var(--grad);
-  opacity: 0.5;
+  opacity: 0.3;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transform: scaleX(0.85);
 }
+
+.fcrd:hover {
+  animation-play-state: paused;
+  border-color: rgba(6, 214, 160, 0.45);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.6),
+    0 0 35px rgba(0, 180, 216, 0.15),
+    0 0 15px rgba(6, 214, 160, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.fcrd:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
 .fcrd:nth-child(2) {
   animation-delay: -3s;
 }
@@ -1191,35 +1226,106 @@ body {
 .fcrd:nth-child(4) {
   animation-delay: -2s;
 }
+
 @keyframes cfloat {
-  0%,
-  100% {
+  0%, 100% {
     transform: translateY(0);
   }
   50% {
     transform: translateY(-9px);
   }
 }
+
 .fcrd-icon {
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 8px;
   display: block;
 }
+
+.fcrd:nth-child(1) .fcrd-icon {
+  color: #00d5ff;
+  filter: drop-shadow(0 0 8px rgba(0, 213, 255, 0.5));
+}
+
+.fcrd:nth-child(2) .fcrd-icon {
+  color: #70b3ff;
+  filter: drop-shadow(0 0 8px rgba(112, 179, 255, 0.5));
+}
+
+.fcrd:nth-child(3) .fcrd-icon {
+  color: #ff5e97;
+  filter: drop-shadow(0 0 8px rgba(255, 94, 151, 0.5));
+}
+
+.fcrd:nth-child(4) .fcrd-icon {
+  color: #b380ff;
+  filter: drop-shadow(0 0 8px rgba(179, 128, 255, 0.5));
+}
+
 .fcrd-name {
   font-family: var(--f-display);
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 800;
   letter-spacing: 1px;
   color: var(--white);
+  margin-bottom: 12px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
-.fcrd-tag {
+
+.fcrd-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.fcrd-list li {
   font-family: var(--f-label);
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+  font-size: 9.5px;
+  letter-spacing: 0.8px;
   color: var(--teal);
-  margin-top: 2px;
+  padding: 4px 6px 4px 16px;
+  border-radius: 6px;
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
+  user-select: none;
 }
+
+/* Technical Tech-Node Bullet */
+.fcrd-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 6px var(--green);
+  transition: all 0.25s ease;
+}
+
+/* Premium micro-interactions on list items */
+.fcrd-list li:hover {
+  background: rgba(0, 213, 255, 0.08);
+  transform: translateX(4px);
+  color: var(--white);
+  text-shadow: 0 0 8px rgba(0, 213, 255, 0.6);
+}
+
+.fcrd-list li:hover::before {
+  background: var(--white);
+  box-shadow: 
+    0 0 8px var(--teal),
+    0 0 15px var(--teal);
+  transform: translateY(-50%) scale(1.4);
+}
+
+
 
 /* ══ TRUSTED STRIP ══ */
 #trusted {
@@ -5682,7 +5788,7 @@ footer {
 .webapp-kicker,
 .webapp-lead,
 .fcrd-name,
-.fcrd-tag,
+.fcrd-list li,
 .svc-title,
 .svc-desc,
 .cinfo-val {
@@ -8434,5 +8540,106 @@ select,
     display: none !important; /* Hide arrow since it is a fixed bottom sheet */
   }
 }
+
+/* ── Global Cinematic Title Gradient Style Override ── */
+.sec-title,
+.webapp-title,
+.wd-title,
+.dm-title,
+.sales-title,
+.pb-title,
+.pb-section-title,
+.ir-title,
+.ir-section-title,
+.svc-title,
+.why-title,
+.job-title,
+.phone-title,
+.tech-panel-title h2,
+.sales-panel-title,
+.sales-subtitle,
+.career-visual-card .fcrd-name,
+.fcrd-name,
+.sec-title span,
+.webapp-title span,
+.wd-title span,
+.dm-title span,
+.sales-title span,
+.pb-title span,
+.pb-section-title span,
+.ir-title span,
+.ir-section-title span,
+.tech-panel-title h2 span,
+.sales-panel-title span,
+.pb-service-card h3,
+.pb-impact-card h3,
+.pb-story-card h3,
+.ir-deliver-card h3,
+.ir-trust-item h3,
+.pb-process-step h3,
+.ir-process-step h3,
+.pb-process-step h3 span,
+.ir-process-step h3 span,
+.ir-hero-pillar strong,
+.webapp-benefits strong,
+.footer-col-title,
+.webapp-page h2,
+.webapp-page h2 span,
+.careers-page h2,
+.careers-page h2 span,
+.pb-page h2,
+.pb-page h2 span,
+.ir-page h2,
+.ir-page h2 span,
+.webapp-info-copy h2,
+.webapp-build-list h2,
+.webapp-process h2,
+.webapp-tech-panel h2,
+.webapp-features h2,
+.webapp-cta h2,
+.tech-stack-head h3,
+.tech-stack h3,
+.feature-item strong {
+  background: linear-gradient(90deg, #9af75a 0%, #00d5ff 56%, #2874ff 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+/* ── Cinematic Entrance Animation for Page Hero Titles ── */
+@keyframes cinematicTitleReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scaleY(1.2) skewY(2deg);
+    filter: blur(8px);
+    letter-spacing: 0.08em;
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0 100%);
+  }
+  30% {
+    opacity: 0.6;
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleY(1) skewY(0);
+    filter: blur(0);
+    letter-spacing: normal;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+.hero-h1.visible,
+.webapp-title.visible,
+.pb-title.visible,
+.ir-title.visible,
+.career-hero-copy.visible h1,
+.sales-title.visible {
+  animation: cinematicTitleReveal 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 
 
