@@ -375,9 +375,11 @@ export default function WebDevelopmentOverview() {
         .webapp-title span {
           display: block;
           background: linear-gradient(90deg, #9af75a, #00ccf5, #0077ff);
+          background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          animation: gradShimmer 4s linear infinite;
         }
 
         .webapp-kicker {
@@ -689,9 +691,11 @@ export default function WebDevelopmentOverview() {
         .wd-dashboard-copy h3 em {
           font-style: normal;
           background: linear-gradient(90deg, #1687ff, #00d4ff);
+          background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          animation: gradShimmer 4s linear infinite;
         }
 
         .wd-dashboard-copy p {
@@ -983,7 +987,12 @@ export default function WebDevelopmentOverview() {
         }
 
         .dm-section-title span {
-          color: #8ee85b;
+          background: linear-gradient(90deg, #9af75a, #00ccf5, #0077ff);
+          background-size: 200% auto;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: gradShimmer 4s linear infinite;
         }
 
         .wd-section-sub {
@@ -1117,9 +1126,11 @@ export default function WebDevelopmentOverview() {
 
         .python-gradient {
           background: linear-gradient(135deg, #306998 50%, #FFD43B 50%);
+          background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          animation: gradShimmer 4s linear infinite;
         }
 
         .tech-stack-head h3 {

@@ -445,7 +445,7 @@ export default function DigitalMarketingSolutions() {
           Our <MarketingTerm term="AI" />-Powered
         </div>
         <h2 className="dm-section-title reveal reveal-delay-1">
-          Digital Marketing Services
+          Digital Marketing <span>Services</span>
         </h2>
         <div className="dm-service-grid">
           {marketingServices.map(([icon, title, text], index) => (
@@ -463,7 +463,7 @@ export default function DigitalMarketingSolutions() {
 
       <section className="dm-why reveal">
         <div className="service-section-eyebrow center">Why Choose</div>
-        <h2 className="dm-section-title"> BitByte Technologies?</h2>
+        <h2 className="dm-section-title"> <span>BitByte Technologies?</span></h2>
         <div className="dm-why-grid">
           {whyFeatures.map(([icon, title], index) => (
             <div className="dm-why-card" key={index}>

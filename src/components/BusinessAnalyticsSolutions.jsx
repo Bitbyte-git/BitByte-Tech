@@ -338,7 +338,7 @@ export default function BusinessAnalyticsSolutions() {
           Our Analytics Solutions
         </div>
         <h2 className="dm-section-title reveal reveal-delay-1">
-          Business Analytics Services
+          Business Analytics <span>Services</span>
         </h2>
         <div className="dm-service-grid ba-service-grid">
           {analyticsServices.map(([icon, title, text], index) => (
@@ -356,7 +356,7 @@ export default function BusinessAnalyticsSolutions() {
 
       <section className="dm-why reveal">
         <div className="service-section-eyebrow center">Why Choose</div>
-        <h2 className="dm-section-title">Why Choose BitByte Technologies?</h2>
+        <h2 className="dm-section-title">Why Choose <span>BitByte Technologies?</span></h2>
         <div className="dm-why-grid">
           {analyticsFeatures.map(([icon, title]) => (
             <div className="dm-why-card ba-why-card" key={title}>

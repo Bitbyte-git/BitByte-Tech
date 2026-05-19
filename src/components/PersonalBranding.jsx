@@ -286,9 +286,11 @@ export default function PersonalBranding() {
         .pb-section-title span,
         .pb-cta h2 span {
           background: linear-gradient(90deg, #9af75a 0%, #00d5ff 56%, #2874ff 100%);
+          background-size: 200% auto;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
+          animation: gradShimmer 4s linear infinite;
         }
 
         .pb-subtitle {

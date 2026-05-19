@@ -288,9 +288,11 @@ body::before {
 }
 .logo-txt em {
   background: var(--grad-text);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
   font-style: normal;
   font-size: 15x;
 }
@@ -584,9 +586,11 @@ body {
 }
 .sec-title .c {
   background: var(--grad-text);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
 }
 .sec-sub {
   font-size: 15.5px;
@@ -1132,9 +1136,11 @@ body {
   font-size: 28px;
   font-weight: 900;
   background: var(--grad-text);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
   display: block;
 }
 .slbl {
@@ -1660,6 +1666,13 @@ body {
   font-size: clamp(17px, 1.7vw, 22px);
   line-height: 1.18;
   letter-spacing: 0;
+  background: var(--grad-text);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradShimmer 4s linear infinite;
+  text-align: left;
 }
 .premium-service-card .svc-desc {
   min-height: 104px;
@@ -1779,9 +1792,11 @@ body {
   font-family: var(--f-display);
   font-size: 60px;
   background: var(--grad-text);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
   position: absolute;
   top: -15px;
   left: 20px;
@@ -2620,9 +2635,11 @@ footer {
 }
 .footer-copy span {
   background: var(--grad-text);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
 }
 .footer-socials {
   display: flex;
@@ -3599,9 +3616,11 @@ select,
 .webapp-title span {
   display: block;
   background: linear-gradient(90deg, #9af75a, #00ccf5, #0077ff);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
 }
 .webapp-kicker {
   font-family: var(--f-body);
@@ -4106,7 +4125,12 @@ select,
 .webapp-process h2 span,
 .tech-panel-title h2 span,
 .webapp-features h2 span {
-  color: #8ee85b;
+  background: var(--grad-text);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradShimmer 4s linear infinite;
 }
 .process-track {
   display: grid;
@@ -4505,9 +4529,11 @@ select,
 .dm-title span {
   display: inline;
   background: linear-gradient(90deg, #9af75a, #00ccf5, #0077ff);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
 }
 .dm-dashboard {
   min-height: 430px;
@@ -4937,6 +4963,15 @@ select,
   font-weight: 900;
   color: #fff;
   margin-bottom: 26px;
+}
+.dm-section-title span {
+  background: var(--grad-text);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradShimmer 4s linear infinite;
+  display: inline;
 }
 .dm-service-grid {
   display: grid;
@@ -6354,9 +6389,11 @@ select,
 .sales-growth-card h2 span,
 .sales-section-eyebrow span {
   background: linear-gradient(90deg, #9af75a 0%, #00d5ff 54%, #2874ff 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradShimmer 4s linear infinite;
 }
 
 .sales-title span {
@@ -7394,9 +7431,11 @@ select,
 .career-hero-copy h1 span {
   display: block;
   background: linear-gradient(90deg, #9af75a 0%, #00d5ff 58%, #2874ff 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gradShimmer 4s linear infinite;
 }
 
 .career-hero-copy p {

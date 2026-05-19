@@ -364,7 +364,7 @@ export default function RealTimeSales() {
         <div className="service-section-eyebrow center">
           Industries We Serve
         </div>
-        <h2 className="dm-section-title" style={{ color: '#fff', fontFamily: 'var(--f-display)', fontSize: 'clamp(30px, 3vw, 42px)', fontWeight: 900, marginBottom: '13px', textAlign: 'center' }}>
+        <h2 className="dm-section-title" style={{ fontFamily: 'var(--f-display)', fontSize: 'clamp(30px, 3vw, 42px)', fontWeight: 900, marginBottom: '13px', textAlign: 'center' }}>
           Real-Time Sales Intelligence for <span>Sectors</span>
         </h2>
         <p style={{ color: 'rgba(232, 248, 255, 0.64)', fontSize: '14px', maxWidth: '800px', margin: '0 auto 24px', textAlign: 'center' }}>
