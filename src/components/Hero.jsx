@@ -190,15 +190,11 @@ function Hero({ planetRef }) {
       </div>
 
       <div className="float-cards">
-        {floatCards.map(([icon, name, items]) => (
+        {floatCards.map(([icon, name, tag]) => (
           <div className="fcrd" key={name}>
-            <i className={`fcrd-icon ${icon}`} />
+            <span className="fcrd-icon">{icon}</span>
             <div className="fcrd-name">{name}</div>
-            <ul className="fcrd-list">
-              {items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            <div className="fcrd-tag">{tag}</div>
           </div>
         ))}
       </div>

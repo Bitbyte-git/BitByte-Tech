@@ -29,10 +29,10 @@ const defaultTranslations = {
       ['50+', 'Clients'],
     ],
     floatCards: [
-      ['fa-solid fa-globe', 'Web App Development', ['MERN Stack', 'MEAN Stack', 'MEUN Stack', 'PERN Stack', 'Dev Ops', "API's", 'Authentication & Security']],
-      ['fa-solid fa-chart-line', 'Digital Marketing', ['Complete SEO', 'SMM', 'Google / Meta Ads']],
-      ['fa-solid fa-rocket', 'Product Innovation', ['SaaS', 'CaaS', 'DDaaS', "API's", 'Custom Apps', 'AI Apps']],
-      ['fa-solid fa-chart-column', 'Business Analytics', ['Business Analysis', 'Business Studies', 'Market Analysis', 'Business Metrics', 'Revenue Intelligence', 'ROI', 'KPI']],
+      ['🌐', 'Web App Development', 'MERN · Python · PERN'],
+      ['📈', 'Digital Marketing', 'SEO · Ads · Social Media'],
+      ['🚀', 'Product Innovation', 'AI · ML · LLM · API'],
+      ['📊', 'Revenue Intelligence', 'Analytics · ROI · KPI'],
     ],
   },
   services: {
