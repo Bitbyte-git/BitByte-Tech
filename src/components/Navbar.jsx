@@ -1,11 +1,11 @@
-import { memo } from 'react'
-import { navLinks, services } from '../constants'
-import { useTranslation } from '../i18n'
-import LanguageSwitcher from './LanguageSwitcher'
-import Logo from './Logo'
+import { memo } from "react";
+import { navLinks, services } from "../constants";
+import { useTranslation } from "../i18n";
+import LanguageSwitcher from "./LanguageSwitcher";
+import Logo from "./Logo";
 
 function Navbar({
-  activeSection = 'home',
+  activeSection = "home",
   activeServiceId,
   stuck,
   onMenuOpen,
@@ -13,20 +13,24 @@ function Navbar({
   onServiceSelect,
   rootLinks = false,
 }) {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const hrefFor = (href) => {
-    if (href.startsWith('/')) return href
-    return rootLinks ? `/${href}` : href
-  }
+    if (href.startsWith("/")) return href;
+    return rootLinks ? `/${href}` : href;
+  };
 
   return (
-    <nav id="navbar" className={stuck ? 'stuck' : ''}>
-      <a href={hrefFor('#hero')} className="logo-wrap" aria-label="Bit Byte Technologies home">
+    <nav id="navbar" className={stuck ? "stuck" : ""}>
+      <a
+        href={hrefFor("#hero")}
+        className="logo-wrap"
+        aria-label="Bit Byte Technologies home"
+      >
         <Logo fetchpriority="high" height={80} />
         <div className="logo-txt">
-         <em>Bit Byte</em>
-         <p>Technologies</p>
+          <em>Bit Byte</em>
+          <p>Technologies</p>
         </div>
       </a>
       <ul className="nav-links">
@@ -34,26 +38,28 @@ function Navbar({
           <li key={href}>
             <a
               href={hrefFor(href)}
-              className={`${activeSection === key ? 'active' : ''} ${key === 'services' && activeServiceId ? 'service-pulsing' : ''}`}
+              className={`${activeSection === key ? "active" : ""} ${key === "services" && activeServiceId ? "service-pulsing" : ""}`}
               onClick={(event) => onNavClick?.(event, href, key)}
             >
               {t(`nav.${key}`, label)}
             </a>
-            {key === 'services' && (
-              <div className="service-nav-menu" aria-label={t('nav.services')}>
+            {key === "services" && (
+              <div className="service-nav-menu" aria-label={t("nav.services")}>
                 {services.map((service) => (
                   <a
                     href={hrefFor(service.route)}
-                    className={activeServiceId === service.id ? 'active' : ''}
+                    className={activeServiceId === service.id ? "active" : ""}
                     key={service.id}
                     onClick={(event) => {
-                      if (service.route.startsWith('#')) {
-                        onServiceSelect?.(event, service.id)
+                      if (service.route.startsWith("#")) {
+                        onServiceSelect?.(event, service.id);
                       }
                     }}
                   >
                     <i className={service.icon} aria-hidden="true" />
-                    <span>{t(`services.cards.${service.id}.title`, service.title)}</span>
+                    <span>
+                      {t(`services.cards.${service.id}.title`, service.title)}
+                    </span>
                   </a>
                 ))}
               </div>
@@ -63,17 +69,26 @@ function Navbar({
       </ul>
       <div className="nav-actions">
         <LanguageSwitcher />
-        <a href={hrefFor('#contact')} className="btn-glow">
-          {t('nav.getStarted')}
+        <a href={hrefFor("#contact")} className="btn-glow">
+          {t("nav.getStarted")}
         </a>
       </div>
-      <button className="ham" type="button" id="hamBtn" aria-label={t('nav.openMenu')} onClick={onMenuOpen}>
+      <div className="mobile-nav-actions">
+        <LanguageSwitcher compact />
+      </div>
+      <button
+        className="ham"
+        type="button"
+        id="hamBtn"
+        aria-label={t("nav.openMenu")}
+        onClick={onMenuOpen}
+      >
         <span />
         <span />
         <span />
       </button>
     </nav>
-  )
+  );
 }
 
-export default memo(Navbar)
+export default memo(Navbar);
