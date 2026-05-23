@@ -8,6 +8,13 @@ function Hero({ planetRef }) {
   const { t } = useTranslation()
   const fullText = t('hero.badge')
   const floatCards = t('hero.floatCards', { returnObjects: true })
+  const serviceCards = Array.isArray(floatCards)
+    ? floatCards.map((card) => (
+        Array.isArray(card)
+          ? { icon: card[0], name: card[1], tag: card[2], items: [] }
+          : { items: [], ...card }
+      ))
+    : []
   const [activeBuffer, setActiveBuffer] = useState(0)
   const [keys, setKeys] = useState([0, 1])
   const [loopKey, setLoopKey] = useState(0)
@@ -190,11 +197,18 @@ function Hero({ planetRef }) {
       </div>
 
       <div className="float-cards">
-        {floatCards.map(([icon, name, tag]) => (
+        {serviceCards.map(({ icon, name, tag, items }) => (
           <div className="fcrd" key={name}>
             <span className="fcrd-icon">{icon}</span>
             <div className="fcrd-name">{name}</div>
             <div className="fcrd-tag">{tag}</div>
+            {items.length > 0 && (
+              <ul className="fcrd-list" aria-label={`${name} capabilities`}>
+                {items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            )}
           </div>
         ))}
       </div>
