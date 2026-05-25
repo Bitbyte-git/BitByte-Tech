@@ -8987,3 +8987,146 @@ select,
     margin-top: 28px;
   }
 }
+
+/* Keep the desktop hero composition through laptop-width previews. */
+@media (min-width: 1181px) and (max-width: 1800px) {
+  #hero {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    gap: 0;
+    padding: 130px clamp(32px, 4vw, 72px) 72px;
+    text-align: left;
+  }
+
+  #hero .hero-content {
+    order: initial;
+    left: 0;
+    top: -50px;
+    width: min(440px, 35vw);
+    margin-inline: 0;
+    text-align: left;
+  }
+
+  #hero .hero-p {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  #hero .hero-btns,
+  #hero .hero-stats {
+    justify-content: flex-start;
+  }
+
+  #hero .planet-sys {
+    order: initial;
+    display: flex;
+    position: absolute;
+    left: clamp(650px, 52vw, 920px);
+    right: auto;
+    top: 60%;
+    transform: translate(-50%, -50%) !important;
+    width: clamp(380px, 33vw, 620px);
+    height: clamp(380px, 33vw, 620px);
+    margin: 0;
+    opacity: 0.8;
+    z-index: 8;
+  }
+
+  #hero .float-cards {
+    order: initial;
+    position: absolute;
+    right: clamp(28px, 5vw, 118px);
+    top: 42%;
+    left: auto;
+    bottom: auto;
+    translate: none;
+    transform: none;
+    width: clamp(350px, 25vw, 420px);
+    margin: 0;
+    z-index: 20;
+  }
+}
+
+@media (min-width: 1181px) and (max-width: 1320px) {
+  #hero {
+    padding: 112px clamp(30px, 3.8vw, 48px) 34px;
+  }
+
+  #hero .hero-content {
+    top: 0;
+    width: min(390px, 33vw);
+  }
+
+  #hero .hero-badge {
+    margin-top: 0;
+    margin-bottom: 22px;
+  }
+
+  #hero .hero-h1 {
+    font-size: clamp(36px, 3.1vw, 42px);
+  }
+
+  #hero .hero-p {
+    max-width: 370px;
+    margin-bottom: 24px;
+  }
+
+  #hero .hero-stats {
+    gap: 22px;
+    margin-top: 30px;
+  }
+
+  #hero .snum {
+    font-size: 24px;
+  }
+
+  #hero .slbl {
+    font-size: 9px;
+  }
+
+  #hero .planet-sys {
+    left: clamp(610px, 50.5vw, 675px);
+    width: clamp(340px, 29vw, 380px);
+    height: clamp(340px, 29vw, 380px);
+  }
+
+  #hero .float-cards {
+    right: clamp(24px, 2.5vw, 36px);
+    width: clamp(320px, 27vw, 350px);
+    gap: 12px;
+  }
+
+  #hero .fcrd {
+    min-height: 0;
+    padding: 12px 13px;
+    border-radius: 14px;
+  }
+
+  #hero .fcrd-icon {
+    font-size: 15px;
+    margin-bottom: 5px;
+  }
+
+  #hero .fcrd-name {
+    font-size: 8.5px;
+  }
+
+  #hero .fcrd-tag {
+    font-size: 7.5px;
+    letter-spacing: 1px;
+  }
+
+  #hero .fcrd-list {
+    gap: 4px 6px;
+    margin-top: 8px;
+  }
+
+  #hero .fcrd-list li {
+    font-size: 6.5px;
+    line-height: 1.25;
+    letter-spacing: 0.2px;
+    padding-left: 7px;
+  }
+}
