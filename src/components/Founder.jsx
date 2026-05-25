@@ -23,17 +23,21 @@ export default function Founder() {
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">
-          <h1 data-magnify="true">
-           மாற்றம் ஒன்றே மாறாதது
-          </h1>
+          <h1 data-magnify="true">மாற்றம் ஒன்றே மாறாதது</h1>
           <cite>Founder, Bit Byte Technologies</cite>
         </div>
       </div>
       <div className="founder-content inner-content">
-        <div className="eyebrow founder-desktop-copy reveal" data-magnify="true">
+        <div
+          className="eyebrow founder-desktop-copy reveal"
+          data-magnify="true"
+        >
           {t("founder.eyebrow")}
         </div>
-        <h2 className="sec-title founder-desktop-copy reveal reveal-delay-1" data-magnify="true">
+        <h2
+          className="sec-title founder-desktop-copy reveal reveal-delay-1"
+          data-magnify="true"
+        >
           {t("founder.titleA")}
           <br />
           <span className="c">{t("founder.titleB")}</span>
@@ -62,6 +66,9 @@ export default function Founder() {
           ))}
         </div>
       </div>
+      {/* <div className="founder-milky-way" aria-hidden="true">
+        <MilkyWay className="founder-milky-way-canvas" />
+      </div> */}
     </section>
   );
 }

@@ -114,22 +114,42 @@ export default function BitByteHero() {
     }
 
     const ringScale = isMobileViewport ? 0.72 : 1;
+    const atomOrbit = {
+      rx: 312 * ringScale,
+      ry: 74 * ringScale,
+    };
+    const greenRing = {
+      tiltX: 0.24,
+      tiltZ: 0,
+      orbitAngle: 0,
+      speed: 0,
+      phase: 0,
+      color: "#9af75a",
+      line: 1.05,
+      alpha: 0.6,
+      glow: 16,
+      dash: [],
+      nodeCount: 1,
+      nodeSize: 5.8,
+      frontZ: 10,
+    };
     const rings = [
       {
-        rx: 292 * ringScale,
-        ry: 72 * ringScale,
-        tiltX: 0.32,
-        tiltZ: 0.04,
-        speed: 0.004,
-        phase: 0,
-        color: "#9af75a",
-        line: 1.05,
+        ...greenRing,
+        ...atomOrbit,
+        tiltZ: -0.58,
         alpha: 0.66,
-        glow: 16,
-        dash: [],
         nodeCount: 2,
-        nodeSize: 5.8,
-        frontZ: 10,
+        nodePhase: 0,
+      },
+
+      {
+        ...greenRing,
+        ...atomOrbit,
+        tiltZ: 0.58,
+        nodePhase: Math.PI * 0.82,
+        alpha: 0.58,
+        nodeCount: 1,
       },
     ];
 

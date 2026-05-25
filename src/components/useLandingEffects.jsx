@@ -417,20 +417,14 @@ export default function useLandingEffects({
       if (activeCursorTarget === target) return
 
       activeCursorTarget = target
-      const isInput = target?.matches?.('input, textarea, select')
-
-      // Interactive hover actions removed per user request
-      cursorRef.current?.classList.toggle('is-input', Boolean(isInput))
-      ringRef.current?.classList.toggle('is-input', Boolean(isInput))
     }
 
 
     const animateCursor = () => {
       cursorFrame = 0
 
-      // Snappier tracking when hovering over input elements to ensure perfect responsiveness
-      const isInputHovered = ringRef.current?.classList.contains('is-input')
-      const lerpFactor = isInputHovered ? 0.8 : 0.28
+      // Consistent cursor tracking
+      const lerpFactor = 0.28
       // Center the ring's target exactly on the click/mouse position
       const ringTargetX = targetX
       const ringTargetY = targetY
