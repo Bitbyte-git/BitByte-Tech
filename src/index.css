@@ -8892,6 +8892,20 @@ select,
   }
 }
 
+@media (min-width: 1729px) and (max-width: 1800px) and (max-height: 700px) {
+  #hero .planet-sys {
+    left: clamp(880px, 51.5vw, 920px);
+    width: clamp(570px, 39vw, 620px);
+    height: clamp(470px, 29vw, 520px);
+  }
+
+  #hero .float-cards {
+    right: clamp(112px, 8vw, 150px);
+    width: clamp(390px, 23vw, 410px);
+    gap: 14px;
+  }
+}
+
 @media (max-width: 380px) {
   #hero {
     width: 100%;
