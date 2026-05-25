@@ -9038,12 +9038,12 @@ select,
     order: initial;
     position: absolute;
     right: clamp(28px, 5vw, 118px);
-    top: 42%;
+    top: 35%;
     left: auto;
     bottom: auto;
     translate: none;
     transform: none;
-    width: clamp(350px, 25vw, 420px);
+    width: clamp(450px, 25vw - 100px, 520px);
     margin: 0;
     z-index: 20;
   }

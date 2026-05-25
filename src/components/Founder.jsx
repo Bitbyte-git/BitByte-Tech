@@ -1,6 +1,6 @@
 import { useTranslation } from "../i18n";
 import BitByteHero from "./BitByteHero";
-
+import MilkyWay from "./milkey-way";
 export default function Founder() {
   const { t } = useTranslation();
 
@@ -66,9 +66,9 @@ export default function Founder() {
           ))}
         </div>
       </div>
-      {/* <div className="founder-milky-way" aria-hidden="true">
+      <div className="founder-milky-way" aria-hidden="true">
         <MilkyWay className="founder-milky-way-canvas" />
-      </div> */}
+      </div>
     </section>
   );
 }
