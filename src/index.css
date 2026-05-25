@@ -8906,6 +8906,12 @@ select,
   }
 }
 
+@media (min-width: 1729px) and (max-width: 1800px) and (min-height: 701px) {
+  #hero .planet-sys {
+    left: 850px;
+  }
+}
+
 @media (max-width: 380px) {
   #hero {
     width: 100%;

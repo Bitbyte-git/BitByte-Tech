@@ -13,18 +13,15 @@ export default function Footer({ rootLinks = false }) {
         "digital-marketing",
         "business-analytics",
         "imagination-to-reality",
-        "real-time-sales-data"
+        "real-time-sales-data",
       ],
     ],
-    [
-      "Company",
-      ["About Us", "Careers", "Contact"],
-    ],
+    ["Company", ["About Us", "Careers", "Contact"]],
     [
       "Contact",
       [
         "reachus@bitbytetech.org",
-        "+91 99437 43136 (Only Whatsapp) " ,
+        "+91 99437 43136 (Only Whatsapp) ",
         "BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "Privacy Policy",
         "Terms of Service",
@@ -47,8 +44,10 @@ export default function Footer({ rootLinks = false }) {
       Contact: "#contact",
       "web-app-development": "/services/web-development",
       "personal-branding": "/services/personal-branding",
-      "digital-marketing": "/services/digital-marketing/ai-powered-digital-marketing-solutions",
-      "business-analytics": "/services/business-analytics/data-driven-business-analytics-solutions",
+      "digital-marketing":
+        "/services/digital-marketing/ai-powered-digital-marketing-solutions",
+      "business-analytics":
+        "/services/business-analytics/data-driven-business-analytics-solutions",
       "imagination-to-reality": "/services/imagination-to-reality",
       "real-time-sales-data": "/services/real-time-sales-data",
     };
@@ -62,7 +61,7 @@ export default function Footer({ rootLinks = false }) {
       <div className="footer-top">
         <div className="footer-brand">
           <a
-            href={hrefFor('#hero')}
+            href={hrefFor("#hero")}
             className="logo-wrap"
             style={{ display: "inline-flex" }}
             aria-label="Bit Byte Technologies home"
@@ -104,16 +103,16 @@ export default function Footer({ rootLinks = false }) {
       </div>
       <div className="footer-bottom">
         <div className="footer-copy">
-          © {new Date().getFullYear()} <span>Bit Byte Technologies</span>. All
-          rights reserved. Designed, Developed and Maintained by Web development
-          Team at Bit Byte Technologies{" "}
+          © {new Date().getFullYear()} <span> Bit Byte Technologies </span>All
+          rights reserved. Designed, Developed and Maintained by Bit Byte
+          Technologies. Core Developers : Selvaperumal G & Roshini G"{" "}
           <a
             style={{ color: "#a4ec70" }}
             href="https://www.linkedin.com/in/selvaperumal-g-9656b32a1?utm_source=share_via&utm_content=profile&utm_medium=member_android"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Selvaperumal G &{" "}
+            Roshini G &{" "}
           </a>
           <a
             style={{ color: "#a4ec70" }}
@@ -121,7 +120,7 @@ export default function Footer({ rootLinks = false }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Roshini G
+            Selvaperumal G
           </a>
         </div>
       </div>
