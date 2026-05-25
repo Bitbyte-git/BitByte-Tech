@@ -8882,6 +8882,7 @@ select,
     left: clamp(760px, 50.8vw, 860px);
     width: clamp(500px, 33vw, 560px);
     height: clamp(500px, 33vw, 560px);
+    margin-left: 50px;
   }
 
   #hero .float-cards {
