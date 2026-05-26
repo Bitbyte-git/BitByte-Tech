@@ -9207,3 +9207,21 @@ footer {
 #hero {
   content-visibility: visible;
 }
+
+/* Desktop alignment fix for the 6-card Services and Why sections. */
+@media (min-width: 1101px) {
+  .services-shell,
+  #why {
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .services-grid,
+  #why .grid-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    justify-content: center;
+    align-items: stretch;
+    gap: clamp(18px, 1.6vw, 24px);
+  }
+}
