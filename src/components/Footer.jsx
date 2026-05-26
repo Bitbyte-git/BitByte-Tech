@@ -67,6 +67,10 @@ export default function Footer({ rootLinks = false }) {
             aria-label="Bit Byte Technologies home"
           >
             <Logo height={64} loading="lazy" fetchPriority="low" />
+            <div className="footer-logo-txt">
+              <em>Bit Byte</em>
+              <p>Technologies</p>
+            </div>
           </a>
           <p data-magnify="true">{t("footer.brand")}</p>
           <div className="social-row" style={{ marginTop: 20 }}>
