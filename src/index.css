@@ -9056,8 +9056,8 @@ select,
     bottom: auto;
     translate: none;
     transform: none;
-    width: clamp(380px, 20vw - 100px, 420px);
-    height: clamp(660px, 28vw, 760px);
+    width: clamp(350px, 20vw - 100px, 3900px);
+    height: clamp(630px, 28vw, 730px);
     margin: 0;
     font-size: 1.5rem;
     z-index: 20;
