@@ -134,10 +134,11 @@ export default function useLandingEffects({
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
     const saveData = Boolean(navigator.connection?.saveData);
     const lowPowerDevice = Boolean(
-      navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4,
+      navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 6,
     );
+    const allowCanvas = false;
     const disableCanvas =
-      prefersReducedMotion || coarsePointer || saveData || lowPowerDevice;
+      !allowCanvas || prefersReducedMotion || coarsePointer || saveData || lowPowerDevice;
 
     if (disableCanvas) {
       canvas.hidden = true;
@@ -151,7 +152,7 @@ export default function useLandingEffects({
     let frame = 0;
     let lastFrameTime = 0;
     let isVisible = !document.hidden;
-    const frameInterval = 1000 / 30;
+    const frameInterval = 1000 / 24;
 
     // Mouse tracking for interactivity
     let mouse = { x: -1000, y: -1000 };
@@ -173,7 +174,7 @@ export default function useLandingEffects({
 
       // Keep this cinematic layer light enough to preserve INP on laptops.
       planets = [];
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 4; i++) {
         const orbitRadius = (maxDim / 2) * (0.1 + i * 0.1); // Scales to fill viewport
         const radius = Math.random() * 12 + 4; // 4px to 16px
         const color = `hsl(${Math.random() * 360}, 70%, 60%)`;
@@ -183,7 +184,7 @@ export default function useLandingEffects({
       }
 
       // Astro-Plexus Nodes
-      plexusNodes = Array.from({ length: 34 }, () => ({
+      plexusNodes = Array.from({ length: 20 }, () => ({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.4, // ultra-low velocity (max 0.2 each direction)
@@ -195,7 +196,7 @@ export default function useLandingEffects({
     };
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      const dpr = 1;
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.max(1, Math.floor(width * dpr));
@@ -339,6 +340,7 @@ export default function useLandingEffects({
   // 2. Custom Cursor & Scroll Animation Layer
   useEffect(() => {
     const coarsePointer = window.matchMedia("(pointer: coarse)").matches;
+    const useCustomCursor = false;
     let navIsStuck = window.scrollY > 50;
     let scrollFrame = 0;
     let cursorFrame = 0;
@@ -497,7 +499,7 @@ export default function useLandingEffects({
     }
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    if (!coarsePointer) {
+    if (!coarsePointer && useCustomCursor) {
       window.addEventListener("mousemove", onMouseMove, { passive: true });
       window.addEventListener("mouseleave", onMouseLeave);
     }

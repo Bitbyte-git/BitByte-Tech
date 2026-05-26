@@ -1,10 +1,23 @@
 import { memo, useEffect, useState } from 'react'
 import { useTranslation } from '../i18n'
 
+const HERO_POSTER_SRC = '/assets/optimized/hero-bg-poster.png'
 const HERO_GIF_SRC = '/assets/optimized/hero-bg-480.gif'
+const HERO_GIF_DELAY = 5000
+
+const runWhenIdle = (task) => {
+  if ('requestIdleCallback' in window) {
+    const idleId = window.requestIdleCallback(task, { timeout: 1600 })
+    return () => window.cancelIdleCallback?.(idleId)
+  }
+
+  const fallbackId = window.setTimeout(task, 120)
+  return () => window.clearTimeout(fallbackId)
+}
 
 function Hero({ planetRef }) {
   const { t } = useTranslation()
+  const [heroMediaSrc, setHeroMediaSrc] = useState(HERO_POSTER_SRC)
   const fullText = t('hero.badge')
   const floatCards = t('hero.floatCards', { returnObjects: true })
   const serviceCards = Array.isArray(floatCards)
@@ -14,41 +27,22 @@ function Hero({ planetRef }) {
           : { items: [], ...card }
       ))
     : []
-  const [badgeText, setBadgeText] = useState('')
 
   useEffect(() => {
-    let timeoutId
-    let index = 0
-    let deleting = false
+    let cancelIdle
+    let cancelled = false
+    const timerId = window.setTimeout(() => {
+      cancelIdle = runWhenIdle(() => {
+        if (!cancelled) setHeroMediaSrc(HERO_GIF_SRC)
+      })
+    }, HERO_GIF_DELAY)
 
-    const tick = () => {
-      setBadgeText(fullText.slice(0, index))
-
-      if (!deleting && index < fullText.length) {
-        index += 1
-        timeoutId = window.setTimeout(tick, 75)
-        return
-      }
-
-      if (!deleting && index === fullText.length) {
-        deleting = true
-        timeoutId = window.setTimeout(tick, 1800)
-        return
-      }
-
-      if (deleting && index > 0) {
-        index -= 1
-        timeoutId = window.setTimeout(tick, 35)
-        return
-      }
-
-      deleting = false
-      timeoutId = window.setTimeout(tick, 450)
+    return () => {
+      cancelled = true
+      window.clearTimeout(timerId)
+      cancelIdle?.()
     }
-
-    tick()
-    return () => window.clearTimeout(timeoutId)
-  }, [fullText])
+  }, [])
 
   return (
     <section id="hero" className="wrap">
@@ -62,14 +56,14 @@ function Hero({ planetRef }) {
       >
         <div className="hero-gif-wrap" style={{ position: 'relative', width: '100%', height: '100%' }}>
           <img 
-            src={HERO_GIF_SRC}
+            src={heroMediaSrc}
             alt="" 
             className="hero-gif" 
             width="480"
             height="480"
             loading="eager"
             decoding="async"
-            fetchPriority="high"
+            fetchPriority={heroMediaSrc === HERO_POSTER_SRC ? 'high' : 'low'}
             style={{ 
               position: 'absolute',
               inset: 0,
@@ -94,7 +88,7 @@ function Hero({ planetRef }) {
         <div className="hero-badge" data-magnify="true">
           <div className="badge-dot" />
           <div className="badge-txt">
-            <span className="grad">{badgeText}</span>
+            <span className="grad">{fullText}</span>
             <span className="badge-cursor" aria-hidden="true" />
           </div>
         </div>

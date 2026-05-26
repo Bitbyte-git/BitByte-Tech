@@ -10,6 +10,7 @@ export const services = [
   {
     id: 'web-app-development',
     icon: 'fa-solid fa-code',
+    glyph: '</>',
     stat: 'MERN',
     title: 'Web App Development',
     desc: 'High-performance React, Node, Express, and MongoDB platforms engineered for growth, conversion, and long-term maintainability.',
@@ -18,6 +19,7 @@ export const services = [
   {
     id: 'personal-branding',
     icon: 'fa-solid fa-fingerprint',
+    glyph: 'ID',
     stat: 'Identity',
     title: 'Personal Branding',
     desc: 'Premium identity systems, portfolio experiences, and brand storytelling that make founders and creators feel sharply positioned.',
@@ -26,6 +28,7 @@ export const services = [
   {
     id: 'digital-marketing',
     icon: 'fa-solid fa-bullhorn',
+    glyph: 'SEO',
     stat: 'Growth',
     title: 'Digital Marketing',
     desc: 'SEO, paid campaigns, content strategy, and social systems built around measurable acquisition, not vanity impressions.',
@@ -34,6 +37,7 @@ export const services = [
   {
     id: 'business-analytics',
     icon: 'fa-solid fa-chart-line',
+    glyph: 'BI',
     stat: 'Insight',
     title: 'Business Analytics',
     desc: 'Dashboards, reporting automation, and decision intelligence that convert raw business data into operational clarity.',
@@ -42,6 +46,7 @@ export const services = [
   {
     id: 'imagination-to-reality',
     icon: 'fa-solid fa-wand-magic-sparkles',
+    glyph: 'MVP',
     stat: 'Prototype',
     title: 'Imagination to Reality',
     desc: 'From a raw idea to a usable MVP, we shape product strategy, UI systems, engineering architecture, and launch paths.',
@@ -50,6 +55,7 @@ export const services = [
   {
     id: 'real-time-sales-data',
     icon: 'fa-solid fa-satellite-dish',
+    glyph: 'LIVE',
     stat: 'Live Ops',
     title: 'Real-Time Sales Data Driven Solutions',
     desc: 'Live sales dashboards, pipeline intelligence, and integrations that help teams act on revenue signals as they happen.',

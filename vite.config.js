@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ['react', 'react-dom', 'framer-motion'],
+    include: ['react', 'react-dom'],
   },
   build: {
     assetsInlineLimit: 2048,
@@ -23,7 +23,6 @@ export default defineConfig({
         entryFileNames: 'assets/[name]-[hash].js',
         manualChunks(id) {
           if (id.includes('/src/i18n') || id.includes('/src/defaultTranslations')) return 'translations'
-          if (id.includes('framer-motion')) return 'motion'
           if (id.includes('node_modules')) return 'vendor'
           if (id.includes('/src/components/WebDevelopment') || id.includes('/src/components/CustomWebApplications')) return 'services-web'
           if (id.includes('/src/components/DigitalMarketing') || id.includes('/src/components/BusinessAnalytics')) return 'services-growth'

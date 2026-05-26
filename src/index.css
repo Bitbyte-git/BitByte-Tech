@@ -9150,3 +9150,60 @@ select,
     padding-left: 7px;
   }
 }
+
+/* Final performance overrides. Keep these at the end so older visual rules cannot re-enable heavy work. */
+#bgCanvas,
+#cursor,
+#cursor-ring {
+  display: none !important;
+}
+
+body,
+a[href],
+button,
+input,
+textarea,
+select,
+.svc-card,
+.why-card,
+.job-card,
+.fcrd {
+  cursor: auto !important;
+}
+
+.neb {
+  animation: none !important;
+}
+
+.hero-gif {
+  animation: none !important;
+  filter: none !important;
+  transform: none;
+  will-change: auto;
+  width: 200px;
+}
+
+.svc-icon-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4em;
+  font-family: var(--f-label);
+  font-size: clamp(0.72rem, 1vw, 0.9rem);
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.section,
+#founder,
+#contact,
+#cta,
+footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
+#hero {
+  content-visibility: visible;
+}
