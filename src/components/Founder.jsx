@@ -23,7 +23,7 @@ export default function Founder() {
           </div>
         </div>
         <div className="founder-quote reveal reveal-delay-2">
-          <h1 data-magnify="true">மாற்றம் ஒன்றே மாறாதது</h1>
+          <h2 data-magnify="true">மாற்றம் ஒன்றே மாறாதது</h2>
           <cite>Founder, Bit Byte Technologies</cite>
         </div>
       </div>
@@ -66,9 +66,9 @@ export default function Founder() {
           ))}
         </div>
       </div>
-      <div className="founder-milky-way" aria-hidden="true">
+      {/* <div className="founder-milky-way" aria-hidden="true">
         <MilkyWay className="founder-milky-way-canvas" />
-      </div>
+      </div> */}
     </section>
   );
 }

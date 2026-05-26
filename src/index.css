@@ -1031,7 +1031,7 @@ body {
   line-height: 1.08;
   letter-spacing: -1px;
   color: var(--white);
-  margin-bottom: 18px;
+  margin-bottom: 30px;
   animation: hReveal 1s 0.3s both;
 }
 .grad {
@@ -1060,7 +1060,7 @@ body {
   color: var(--white60);
   font-weight: 300;
   max-width: 414px;
-  margin-bottom: 34px;
+  margin-bottom: 60px;
   animation: hReveal 1s 0.45s both;
 }
 .hero-btns {

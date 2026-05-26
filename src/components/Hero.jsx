@@ -134,6 +134,7 @@ function Hero({ planetRef }) {
           {t('hero.title2')}
           <br />
           <span className="grad">{t('hero.title3')}</span>
+          
         </h1>
         <p className="hero-p" data-magnify="true">
           We engineer cutting-edge Web App Development and data-driven digital marketing solutions, crafted for brands that dare to reach
