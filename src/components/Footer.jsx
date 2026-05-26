@@ -105,14 +105,15 @@ export default function Footer({ rootLinks = false }) {
         <div className="footer-copy">
           © {new Date().getFullYear()} <span> Bit Byte Technologies </span>All
           rights reserved. Designed, Developed and Maintained by Bit Byte
-          Technologies. Core Developers : Selvaperumal G & Roshini G"{" "}
+          Technologies. Core Developers : {" "}
           <a
             style={{ color: "#a4ec70" }}
             href="https://www.linkedin.com/in/selvaperumal-g-9656b32a1?utm_source=share_via&utm_content=profile&utm_medium=member_android"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Roshini G &{" "}
+             Selvaperumal G &{" "}
+           
           </a>
           <a
             style={{ color: "#a4ec70" }}
@@ -120,7 +121,7 @@ export default function Footer({ rootLinks = false }) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Selvaperumal G
+            Roshini G 
           </a>
         </div>
       </div>

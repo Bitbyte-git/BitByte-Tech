@@ -49,7 +49,7 @@ export default function BitByteHero() {
       centerX = width / 2;
       centerY = height / 2;
       orbitCenterY = centerY;
-      scale = Math.min(1.08, Math.max(0.72, Math.min(width, height) / 620));
+      scale = Math.min(1.45, Math.max(0.72, Math.min(width, height) / 620));
       [backCanvas, frontCanvas].forEach((canvas) => {
         canvas.width = Math.max(1, Math.floor(width * dpr));
         canvas.height = Math.max(1, Math.floor(height * dpr));

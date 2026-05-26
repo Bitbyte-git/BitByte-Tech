@@ -1,4 +1,3 @@
-import { AnimatePresence, motion } from 'framer-motion'
 import { memo, useEffect, useState } from 'react'
 import { useTranslation } from '../i18n'
 
@@ -17,20 +16,13 @@ function Hero({ planetRef }) {
     : []
   const [activeBuffer, setActiveBuffer] = useState(0)
   const [keys, setKeys] = useState([0, 1])
-  const [loopKey, setLoopKey] = useState(0)
+  const [badgeText, setBadgeText] = useState('')
 
   useEffect(() => {
     const interval = window.setInterval(() => {
       setActiveBuffer(prev => (prev === 0 ? 1 : 0))
     }, 8000) 
     return () => clearInterval(interval)
-  }, [])
-
-  useEffect(() => {
-    const loopInterval = setInterval(() => {
-      setLoopKey(prev => prev + 1)
-    }, 6000)
-    return () => clearInterval(loopInterval)
   }, [])
 
   useEffect(() => {
@@ -42,42 +34,39 @@ function Hero({ planetRef }) {
     })
   }, [activeBuffer])
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.05,
-      }
-    },
-    exit: {
-      opacity: 0,
-      transition: {
-        staggerChildren: 0.02,
-        staggerDirection: -1,
-      }
-    }
-  }
+  useEffect(() => {
+    let timeoutId
+    let index = 0
+    let deleting = false
 
-  const letterVariants = {
-    hidden: { opacity: 0, rotateY: 90, scale: 0.8, y: 10 },
-    visible: { 
-      opacity: 1, 
-      rotateY: 0, 
-      scale: 1,
-      y: 0,
-      transition: { 
-        duration: 0.6, 
-        ease: [0.34, 1.56, 0.64, 1] // Bouncy entry
+    const tick = () => {
+      setBadgeText(fullText.slice(0, index))
+
+      if (!deleting && index < fullText.length) {
+        index += 1
+        timeoutId = window.setTimeout(tick, 75)
+        return
       }
-    },
-    exit: {
-      opacity: 0,
-      rotateY: -90,
-      scale: 0.8,
-      transition: { duration: 0.4 }
+
+      if (!deleting && index === fullText.length) {
+        deleting = true
+        timeoutId = window.setTimeout(tick, 1800)
+        return
+      }
+
+      if (deleting && index > 0) {
+        index -= 1
+        timeoutId = window.setTimeout(tick, 35)
+        return
+      }
+
+      deleting = false
+      timeoutId = window.setTimeout(tick, 450)
     }
-  }
+
+    tick()
+    return () => window.clearTimeout(timeoutId)
+  }, [fullText])
 
   return (
     <section id="hero" className="wrap">
@@ -134,32 +123,10 @@ function Hero({ planetRef }) {
       <div className="hero-content">
         <div className="hero-badge" data-magnify="true">
           <div className="badge-dot" />
-          <AnimatePresence mode="wait">
-            <motion.div 
-              key={loopKey}
-              className="badge-txt"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              style={{ display: 'flex', whiteSpace: 'nowrap', width: 'max-content' }}
-            >
-              {fullText.split('').map((char, index) => (
-                <motion.span
-                  key={index}
-                  variants={letterVariants}
-                  className="grad"
-                  style={{ 
-                    display: 'inline-block', 
-                    whiteSpace: char === ' ' ? 'pre' : 'normal',
-                    transformOrigin: 'center'
-                  }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </motion.div>
-          </AnimatePresence>
+          <div className="badge-txt">
+            <span className="grad">{badgeText}</span>
+            <span className="badge-cursor" aria-hidden="true" />
+          </div>
         </div>
         <h1 className="hero-h1" data-magnify="true">
           <span className="grad">{t('hero.title1')}</span> 

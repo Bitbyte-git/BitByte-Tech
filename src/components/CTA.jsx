@@ -14,7 +14,8 @@ export default function CTA() {
              {t('cta.title1')} <br />
           <span className="c">{t('cta.titleA')}</span>
           <br />
-           <span className="c">{t('cta.titleB')}</span>
+          {t('cta.titleB')} <br />
+           <span className="c">{t('cta.titleC')}</span>
         </h2>
         <p className="sec-sub center" data-magnify="true" style={{ margin: '0 auto 40px' }}>
           {t('cta.body')}

@@ -170,9 +170,10 @@ const defaultTranslations = {
   },
   cta: {
     eyebrow: "Ready for Launch?",
-    title1: "Your",
+    title1: "Step Into Your",
     titleA: "Digital Extravaganza",
-    titleB: "Starts Now",
+    titleB:"with",
+    titleC: "Bit Byte Technologies",
     body: "Join 200+ forward-thinking businesses that trusted Bit Byte Technologies to build their digital universe.",
     primary: "Explore Services",
     secondary: "Contact Us",
