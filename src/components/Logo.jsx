@@ -1,16 +1,16 @@
 import { memo } from 'react'
 
-function Logo({ height = 44, loading = 'eager', fetchpriority = 'auto' }) {
+function Logo({ height = 44, loading = 'eager', fetchPriority = 'auto' }) {
   return (
     <img 
       className="logo-img" 
       src="/assets/optimized/logo-mark-tight.png" 
-      alt="Bit Byte Technologies Logo" 
+      alt="" 
       width="512"
       height="361"
       loading={loading}
       decoding="async"
-      fetchpriority={fetchpriority}
+      fetchPriority={fetchPriority}
       style={{ height: `${height}px`, width: 'auto', objectFit: 'contain' }} 
     />
   )

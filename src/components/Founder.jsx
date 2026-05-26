@@ -1,6 +1,6 @@
 import { useTranslation } from "../i18n";
 import BitByteHero from "./BitByteHero";
-import MilkyWay from "./milkey-way";
+
 export default function Founder() {
   const { t } = useTranslation();
 

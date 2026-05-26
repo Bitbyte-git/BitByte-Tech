@@ -27,7 +27,7 @@ function Navbar({
         className="logo-wrap"
         aria-label="Bit Byte Technologies home"
       >
-        <Logo fetchpriority="high" height={80} />
+        <Logo fetchPriority="high" height={80} />
         <div className="logo-txt">
           <em>Bit Byte</em>
           <p>Technologies</p>

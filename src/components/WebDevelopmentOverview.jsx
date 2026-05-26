@@ -252,12 +252,13 @@ export default function WebDevelopmentOverview() {
   const containerRef = useRef(null)
 
   useEffect(() => {
-    // 1. Inject FontAwesome for icons if not present in the new project
-    if (!document.querySelector('#fa-stylesheet')) {
+    // 1. Inject FontAwesome for icons if the deferred global loader has not run yet.
+    if (!document.querySelector('#font-awesome-css')) {
       const link = document.createElement('link')
-      link.id = 'fa-stylesheet'
+      link.id = 'font-awesome-css'
       link.rel = 'stylesheet'
-      link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+      link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css'
+      link.crossOrigin = 'anonymous'
       document.head.appendChild(link)
     }
 

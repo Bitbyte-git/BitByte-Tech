@@ -6280,7 +6280,9 @@ footer {
 
   .hero-gif,
   .hero-planet {
+    animation: none !important;
     filter: drop-shadow(0 0 24px rgba(0, 180, 216, 0.28));
+    will-change: auto;
   }
 }
 
@@ -6302,7 +6304,9 @@ select,
   }
   .hero-gif,
   .hero-planet {
+    animation: none !important;
     filter: drop-shadow(0 0 24px rgba(0, 180, 216, 0.28));
+    will-change: auto;
   }
 }
 
