@@ -1235,20 +1235,20 @@ body {
   }
 }
 .fcrd-icon {
-  font-size: 18px;
+  font-size: 24px;
   margin-bottom: 8px;
   display: block;
 }
 .fcrd-name {
   font-family: var(--f-display);
-  font-size: 10px;
+  font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--white);
 }
 .fcrd-tag {
   font-family: var(--f-label);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--teal);
@@ -1268,7 +1268,7 @@ body {
   max-width: 100%;
   padding-left: 9px;
   font-family: var(--f-label);
-  font-size: 8px;
+  font-size: 12px;
   line-height: 1.35;
   letter-spacing: 0.45px;
   text-transform: uppercase;
@@ -1280,8 +1280,8 @@ body {
   position: absolute;
   left: 0;
   top: 0.58em;
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 999px;
   background: var(--green);
   box-shadow: 0 0 8px rgba(154, 247, 90, 0.58);
@@ -9038,13 +9038,15 @@ select,
     order: initial;
     position: absolute;
     right: clamp(28px, 5vw, 118px);
-    top: 35%;
+    top: 17%;
     left: auto;
     bottom: auto;
     translate: none;
     transform: none;
-    width: clamp(450px, 25vw - 100px, 520px);
+    width: clamp(380px, 20vw - 100px, 420px);
+    height: clamp(660px, 28vw, 760px);
     margin: 0;
+    font-size: 1.5rem;
     z-index: 20;
   }
 }
