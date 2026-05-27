@@ -719,7 +719,7 @@ body {
 .hero-gif-wrap {
   position: relative;
   z-index: 1;
-  width: 550px;
+  width: 650px;
   max-width: 100vw;
   height: auto;
   aspect-ratio: 1/1;
@@ -3268,7 +3268,7 @@ footer {
 .bitbyte-center-planet {
   position: relative;
   z-index: 2;
-  width: clamp(280px, 65%, 560px);
+  width: clamp(380px, 65%, 660px);
   height: auto;
   user-select: none;
   pointer-events: none;
@@ -5250,29 +5250,28 @@ select,
 }
 .dm-industry-grid {
   display: flex;
-  flex-wrap: nowrap;
-  gap: 10px;
-  margin-top: 24px;
-  overflow-x: auto;
-  scrollbar-width: none; /* Hide scrollbar on Firefox */
-  padding: 4px 4px 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 4px;
 }
 .dm-industry-grid::-webkit-scrollbar {
-  display: none; /* Hide scrollbar on Chrome/Safari */
+  display: none;
 }
 .dm-industry-card {
-  flex: 1 0 calc(9.09% - 10px);
-  min-width: 82px;
-  min-height: 74px;
+  flex: 0 1 140px;
+  min-width: 130px;
+  min-height: 90px;
   border: 1px solid rgba(0, 180, 216, 0.14);
-  border-radius: 10px;
+  border-radius: 12px;
   background: rgba(3, 18, 34, 0.68);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 10px;
+  gap: 10px;
+  padding: 16px 12px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-sizing: border-box;
 }
@@ -5283,14 +5282,16 @@ select,
   box-shadow: 0 8px 24px rgba(0, 180, 216, 0.15);
 }
 .dm-industry-card i {
-  font-size: 22px;
+  font-size: 26px;
   color: #00d5ff;
 }
 .dm-industry-card strong {
   font-family: var(--f-display);
-  font-size: 10px;
+  font-size: 11px;
   color: #fff;
-  white-space: nowrap;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.4;
 }
 
 .service-faq {
@@ -6387,7 +6388,7 @@ select,
   }
 
   .bitbyte-center-planet {
-    width: min(64%, 280px);
+    width: min(64%, 380px);
   }
 
   .founder-milky-way {
@@ -6483,7 +6484,7 @@ select,
   }
 
   .bitbyte-center-planet {
-    width: min(60%, 210px);
+    width: min(60%, 310px);
     filter: drop-shadow(0 0 28px rgba(0, 164, 236, 0.48));
   }
 }
@@ -7462,8 +7463,8 @@ select,
 
 .sales-result-stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
 }
 
 .sales-result-stats strong {

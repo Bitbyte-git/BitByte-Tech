@@ -1,0 +1,233 @@
+/* HRMS Access Popup Styles */
+.hrms-popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(6, 9, 15, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.hrms-popup-content {
+  background: #0b101e;
+  border: 1px solid rgba(0, 180, 216, 0.2);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  padding: 40px 32px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 180, 216, 0.1);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--f-body, 'Inter', sans-serif);
+}
+
+.hrms-popup-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hrms-popup-header h3 {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.hrms-popup-header p {
+  font-size: 14px;
+  color: #8c9bba;
+  margin-bottom: 24px;
+}
+
+.hrms-instruction {
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.hrms-input-group {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.hrms-input-group input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1.5px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 16px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 2px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.hrms-input-group input:focus {
+  border-color: rgba(0, 180, 216, 0.6);
+  box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.1);
+}
+
+.hrms-input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+  letter-spacing: normal;
+}
+
+.btn-hrms-submit,
+.btn-hrms-action {
+  width: 100%;
+  background: #2b9348;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-hrms-submit:hover:not(:disabled) {
+  background: #38b000;
+  box-shadow: 0 0 15px rgba(43, 147, 72, 0.4);
+}
+
+.btn-hrms-submit.verifying {
+  background: #1e5a2d;
+  cursor: wait;
+}
+
+.btn-hrms-action {
+  background: #0077b6;
+}
+
+.btn-hrms-action:hover {
+  background: #0096c7;
+  box-shadow: 0 0 15px rgba(0, 119, 182, 0.4);
+}
+
+.hrms-popup-footer {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #e63946;
+  opacity: 0.8;
+}
+
+.hrms-status-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  color: white;
+}
+
+.success-icon {
+  background: rgba(43, 147, 72, 0.1);
+  color: #38b000;
+  border: 2px solid #38b000;
+}
+
+.error-icon {
+  background: rgba(230, 57, 70, 0.1);
+  color: #e63946;
+  border: 2px solid #e63946;
+}
+
+.hrms-status-icon svg {
+  width: 32px;
+  height: 32px;
+}
+
+.success-text {
+  color: #38b000;
+  font-size: 24px;
+  margin: 12px 0 16px;
+}
+
+.error-text {
+  color: #e63946;
+  font-size: 24px;
+  margin: 12px 0 16px;
+}
+
+.hrms-popup-success p,
+.hrms-popup-denied p,
+.hrms-popup-blocked p {
+  color: #8c9bba;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.hrms-spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(0, 180, 216, 0.2);
+  border-top-color: #00b4d8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Fix language switcher text */
+.language-trigger {
+  white-space: nowrap !important;
+  width: auto !important;
+  min-width: max-content !important;
+  padding: 8px 16px !important;
+}
+#navbar .language-switcher {
+  flex-shrink: 0;
+}
+
+/* Custom Nav HRMS Button */
+.btn-hrms-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--f-display, 'Inter', sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #00b4d8;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid rgba(0, 180, 216, 0.4);
+  padding: 8px 20px;
+  border-radius: 40px;
+  background: transparent;
+  transition: all 0.3s ease;
+  min-height: 38px;
+}
+
+.btn-hrms-nav:hover {
+  background: rgba(0, 180, 216, 0.1);
+  border-color: rgba(0, 180, 216, 0.8);
+  box-shadow: 0 0 12px rgba(0, 180, 216, 0.2);
+  transform: translateY(-1px);
+}

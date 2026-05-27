@@ -6,6 +6,7 @@ import Hero from './components/Hero'
 import MobileMenu from './components/MobileMenu'
 import Navbar from './components/Navbar'
 import useLandingEffects from './components/useLandingEffects'
+import HRMSAccessPopup from './components/HRMSAccessPopup'
 
 const Services = lazy(() => import('./components/Services'))
 const Founder = lazy(() => import('./components/Founder'))
@@ -34,6 +35,7 @@ export default function App() {
   const planetRef = useRef(null)
   const serviceHighlightTimeoutRef = useRef(0)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [isHRMSPopupOpen, setHRMSPopupOpen] = useState(false)
   const [navStuck, setNavStuck] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
   const [activeServiceId, setActiveServiceId] = useState(null)
@@ -186,6 +188,7 @@ export default function App() {
         onServiceSelect={handleServiceSelect}
         open={mobileOpen}
         rootLinks={isServiceDetailPage}
+        onHRMSClick={() => setHRMSPopupOpen(true)}
       />
       <Navbar
         activeSection={navActiveSection}
@@ -195,6 +198,11 @@ export default function App() {
         onServiceSelect={handleServiceSelect}
         rootLinks={isServiceDetailPage}
         stuck={navStuck}
+        onHRMSClick={() => setHRMSPopupOpen(true)}
+      />
+      <HRMSAccessPopup 
+        isOpen={isHRMSPopupOpen} 
+        onClose={() => setHRMSPopupOpen(false)} 
       />
       {isWebDevelopmentPage ? (
         <Suspense fallback={<SectionFallback />}>

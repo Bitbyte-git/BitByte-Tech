@@ -57,12 +57,6 @@ const metrics = [
   'Inventory Turnover',
 ]
 
-const useCases = [
-  ['fa-solid fa-gem', 'Bharathi Jewellers', 'Live Gold & Jewellery Sales Dashboard'],
-  ['fa-solid fa-award', 'Vasanth & Co', 'Retail Sales Analytics Across Showrooms'],
-  ['fa-solid fa-cart-shopping', 'E-Commerce Brand', 'Real-Time Conversion Tracking'],
-  ['fa-solid fa-people-carry-box', 'Distribution Company', 'Territory Sales Performance Monitoring'],
-]
 
 const process = [
   ['fa-solid fa-magnifying-glass-chart', '01', 'Requirement Gathering'],
@@ -347,17 +341,7 @@ export default function RealTimeSales() {
           </div>
         </article>
 
-        <article className="sales-info-panel reveal reveal-delay-1">
-          <h2>Example <span>Use Cases</span></h2>
-          <div className="sales-use-list">
-            {useCases.map(([icon, title, text]) => (
-              <div key={title}>
-                <i className={icon} aria-hidden="true" />
-                <p><strong>{title}</strong><span>{text}</span></p>
-              </div>
-            ))}
-          </div>
-        </article>
+
       </section>
 
       <section className="dm-industries reveal" style={{ borderTop: '1px solid rgba(0, 180, 216, 0.08)', padding: '58px 0', textAlign: 'center' }}>

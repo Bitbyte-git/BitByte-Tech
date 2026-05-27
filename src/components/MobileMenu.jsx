@@ -9,6 +9,7 @@ function MobileMenu({
   onNavClick,
   onServiceSelect,
   rootLinks = false,
+  onHRMSClick,
 }) {
   const { t } = useTranslation();
 
@@ -24,6 +25,11 @@ function MobileMenu({
 
   const handleServiceClick = (event, serviceId) => {
     onServiceSelect?.(event, serviceId);
+    onClose();
+  };
+
+  const handleHRMSClick = () => {
+    onHRMSClick?.();
     onClose();
   };
 
@@ -67,6 +73,14 @@ function MobileMenu({
           )}
         </div>
       ))}
+      <button
+        type="button"
+        className="btn-hrms-nav"
+        style={{ marginTop: 20, width: '100%' }}
+        onClick={handleHRMSClick}
+      >
+        HRMS LOGIN
+      </button>
       <a
         href={hrefFor("#contact")}
         className="btn-glow"

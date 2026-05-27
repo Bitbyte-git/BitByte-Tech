@@ -19,6 +19,7 @@ function Hero({ planetRef }) {
   const { t } = useTranslation()
   const [heroMediaSrc, setHeroMediaSrc] = useState(HERO_POSTER_SRC)
   const fullText = t('hero.badge')
+  const [displayText, setDisplayText] = useState('')
   const floatCards = t('hero.floatCards', { returnObjects: true })
   const serviceCards = Array.isArray(floatCards)
     ? floatCards.map((card) => (
@@ -44,6 +45,37 @@ function Hero({ planetRef }) {
     }
   }, [])
 
+  useEffect(() => {
+    let i = 0;
+    let isDeleting = false;
+    let timeout;
+
+    const loop = () => {
+      setDisplayText(fullText.substring(0, i));
+
+      let delay = isDeleting ? 50 : 100;
+
+      if (!isDeleting && i === fullText.length) {
+        delay = 2000;
+        isDeleting = true;
+      } else if (isDeleting && i === 0) {
+        delay = 500;
+        isDeleting = false;
+      }
+
+      if (isDeleting) {
+        i--;
+      } else {
+        i++;
+      }
+
+      timeout = setTimeout(loop, delay);
+    };
+
+    timeout = setTimeout(loop, 100);
+    return () => clearTimeout(timeout);
+  }, [fullText]);
+
   return (
     <section id="hero" className="wrap">
       <div className="neb neb-1" />
@@ -59,8 +91,8 @@ function Hero({ planetRef }) {
             src={heroMediaSrc}
             alt="" 
             className="hero-gif" 
-            width="480"
-            height="480"
+            width="580"
+            height="580"
             loading="eager"
             decoding="async"
             fetchPriority={heroMediaSrc === HERO_POSTER_SRC ? 'high' : 'low'}
@@ -88,7 +120,7 @@ function Hero({ planetRef }) {
         <div className="hero-badge" data-magnify="true">
           <div className="badge-dot" />
           <div className="badge-txt">
-            <span className="grad">{fullText}</span>
+            <span className="grad">{displayText}</span>
             <span className="badge-cursor" aria-hidden="true" />
           </div>
         </div>
