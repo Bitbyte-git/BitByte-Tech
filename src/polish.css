@@ -495,7 +495,7 @@ footer,
   grid-row: 1;
   display: flex;
   justify-self: center;
-  width: min(100%, clamp(260px, 30vw, 500px));
+  width: min(100%, clamp(260px, 30vw, 800px));
   aspect-ratio: 1;
   opacity: 0.82;
   z-index: 3;

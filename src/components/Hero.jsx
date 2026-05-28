@@ -86,26 +86,26 @@ function Hero({ planetRef }) {
         className="planet-sys" 
         ref={planetRef}
       >
-        <div className="hero-gif-wrap" style={{ position: 'relative', width: '100%', height: '100%' }}>
-          <img 
+        <div className="hero-gif-wrap" style={{ position: 'relative', width: 'calc(100% + 150px)', height: 'calc(100% + 150px)' }}>
+          <img
             src={heroMediaSrc}
-            alt="" 
-            className="hero-gif" 
-            width="580"
-            height="580"
+            alt=""
+            className="hero-gif"
             loading="eager"
             decoding="async"
             fetchPriority={heroMediaSrc === HERO_POSTER_SRC ? 'high' : 'low'}
-            style={{ 
+            style={{
               position: 'absolute',
               inset: 0,
+              width: '100%',
+              height: '100%'
             }}
           />
         </div>
         <img
           src="/assets/optimized/planet-640.png"
           srcSet="/assets/optimized/planet-320.png 320w, /assets/optimized/planet-640.png 640w"
-          sizes="(max-width: 900px) 0px, 280px"
+          sizes="(max-width: 900px) 88vw, 600px"
           alt=""
           className="hero-planet"
           width="640"
