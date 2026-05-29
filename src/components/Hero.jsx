@@ -19,7 +19,7 @@ function Hero({ planetRef }) {
   const { t } = useTranslation()
   const [heroMediaSrc, setHeroMediaSrc] = useState(HERO_POSTER_SRC)
   const fullText = t('hero.badge')
-  const [displayText, setDisplayText] = useState('')
+  const [displayText] = useState(fullText)
   const floatCards = t('hero.floatCards', { returnObjects: true })
   const serviceCards = Array.isArray(floatCards)
     ? floatCards.map((card) => (
@@ -45,36 +45,6 @@ function Hero({ planetRef }) {
     }
   }, [])
 
-  useEffect(() => {
-    let i = 0;
-    let isDeleting = false;
-    let timeout;
-
-    const loop = () => {
-      setDisplayText(fullText.substring(0, i));
-
-      let delay = isDeleting ? 50 : 100;
-
-      if (!isDeleting && i === fullText.length) {
-        delay = 2000;
-        isDeleting = true;
-      } else if (isDeleting && i === 0) {
-        delay = 500;
-        isDeleting = false;
-      }
-
-      if (isDeleting) {
-        i--;
-      } else {
-        i++;
-      }
-
-      timeout = setTimeout(loop, delay);
-    };
-
-    timeout = setTimeout(loop, 100);
-    return () => clearTimeout(timeout);
-  }, [fullText]);
 
   return (
     <section id="hero" className="wrap">

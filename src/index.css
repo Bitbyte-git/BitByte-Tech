@@ -318,13 +318,21 @@ body::before {
 }
 .nav-links {
   display: flex;
+  align-items: center;
   gap: 28px;
   list-style: none;
 }
 .nav-links li {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
   font-family: var(--f-label);
   font-size: clamp(12px, 0.58vw, 14px);
   font-weight: 600;
@@ -335,6 +343,39 @@ body::before {
   position: relative;
   transition: color 0.3s;
   cursor: none;
+}
+html[lang="ta"] .nav-links a,
+html[lang="hi"] .nav-links a,
+html[lang="kn"] .nav-links a,
+html[lang="te"] .nav-links a {
+  font-family: var(--f-body);
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: 1.4;
+  white-space: normal;
+}
+
+html[lang="ta"] #navbar .nav-links a,
+html[lang="hi"] #navbar .nav-links a,
+html[lang="kn"] #navbar .nav-links a,
+html[lang="te"] #navbar .nav-links a {
+  white-space: normal !important;
+}
+
+/* Tamil-specific logo sizing to keep brand text balanced */
+html[lang="ta"] .logo-txt {
+  font-size: clamp(14px, 1.1vw, 18px) !important;
+  line-height: 1.05 !important;
+}
+html[lang="ta"] .logo-txt em {
+  font-size: 16px !important;
+  font-family: var(--f-body) !important;
+  letter-spacing: 0 !important;
+}
+html[lang="ta"] .logo-txt p {
+  font-size: 12px !important;
+  font-family: var(--f-body) !important;
+  letter-spacing: 0 !important;
 }
 .nav-links a::after {
   content: "";
@@ -1276,7 +1317,7 @@ body {
   font-size: clamp(12px, 0.58vw, 13.5px);
   line-height: 1.35;
   letter-spacing: 0.45px;
-  text-transform: uppercase;
+  text-transform: none;
   color: rgba(232, 248, 255, 0.68);
   overflow-wrap: anywhere;
 }
@@ -1506,9 +1547,13 @@ body {
     0 24px 60px rgba(0, 0, 0, 0.4),
     0 0 40px rgba(0, 180, 216, 0.12);
 }
-.svc-card:hover .svc-icon-box {
-  transform: scale(1.1) rotate(3deg);
-  background: rgba(6, 214, 160, 0.15);
+.svc-card:hover .svc-icon-wrap,
+.premium-service-card:hover .svc-icon-wrap,
+.premium-service-card.is-focused .svc-icon-wrap {
+  transform: translateY(-4px) rotate(3deg) scale(1.08);
+  background: var(--grad);
+  border-color: var(--teal);
+  box-shadow: 0 0 20px var(--glow-g);
 }
 .svc-card:hover::before {
   opacity: 1;
@@ -1616,6 +1661,10 @@ body {
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   transform: translateZ(0);
   will-change: transform, opacity;
+  transition:
+    transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border-color 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .premium-service-card::before {
   content: "";
@@ -1711,10 +1760,70 @@ body {
   border: 1px solid rgba(6, 214, 160, 0.16);
   box-shadow: 0 0 24px rgba(0, 180, 216, 0.1);
   margin-bottom: 24px;
+  transition:
+    transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    background 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    border-color 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .svc-icon-wrap i {
   font-size: 20px;
 }
+
+/* cool floating + hover animation for service icon */
+.svc-icon-fa {
+  display: inline-block;
+  color: var(--green);
+  width: 1.4em;
+  height: 1.4em;
+  line-height: 1.4em;
+  text-align: center;
+  transform-origin: 50% 50%;
+  transition: transform 260ms cubic-bezier(.2,.8,.2,1), box-shadow 260ms ease;
+  will-change: transform;
+  filter: drop-shadow(0 6px 18px rgba(0,200,180,0.06));
+  animation: svcIconFloat 4.5s ease-in-out infinite;
+}
+.svc-card:hover .svc-icon-wrap .svc-icon-fa,
+.premium-service-card:hover .svc-icon-wrap .svc-icon-fa,
+.premium-service-card.is-focused .svc-icon-wrap .svc-icon-fa {
+  transform: scale(1.06);
+  animation: none;
+}
+
+@keyframes svcIconFloat {
+  0% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(-2deg); }
+  50% { transform: translateY(0) rotate(0deg); }
+  75% { transform: translateY(3px) rotate(2deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+/* Icon color on hover — matches footer soc-btn (box + icon animate together) */
+.svc-icon-fa,
+.svc-icon-glyph,
+.svc-mini-item {
+  transition:
+    color 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    filter 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.svc-card:hover .svc-icon-wrap .svc-icon-fa,
+.svc-card:hover .svc-icon-wrap .svc-icon-glyph,
+.premium-service-card:hover .svc-icon-wrap .svc-icon-fa,
+.premium-service-card:hover .svc-icon-wrap .svc-icon-glyph,
+.premium-service-card.is-focused .svc-icon-wrap .svc-icon-fa,
+.premium-service-card.is-focused .svc-icon-wrap .svc-icon-glyph,
+.svc-card:hover .svc-mini-item {
+  color: #000;
+  background-image: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  animation: none;
+  filter: none;
+}
+
 .svc-stat {
   position: absolute;
   top: 28px;

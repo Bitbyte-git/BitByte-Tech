@@ -30,7 +30,11 @@ function Services({ activeServiceId }) {
               >
                 <span className="svc-orbit" aria-hidden="true" />
                 <span className="svc-icon-wrap">
-                  <span className="svc-icon-glyph" aria-hidden="true">{service.glyph}</span>
+                  {service.icon ? (
+                    <i className={`${service.icon} svc-icon-fa`} aria-hidden="true" />
+                  ) : (
+                    <span className="svc-icon-glyph" aria-hidden="true">{service.glyph}</span>
+                  )}
                 </span>
                 <span className="svc-stat">{t(`services.cards.${service.id}.stat`, service.stat)}</span>
                 <div className="svc-title" data-magnify="true">{t(`services.cards.${service.id}.title`, service.title)}</div>
