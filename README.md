@@ -1,4 +1,1 @@
-# BitByte-Tech
-
-# BitByte-Tech-Landing
-small changes
+# Bitbyte Landing page
