@@ -6,6 +6,8 @@ export default function WhyUs() {
 
   return (
     <section id="why" className="section wrap center">
+      <span id="showcase" style={{ position: 'relative', top: '-90px', display: 'block' }} aria-hidden="true" />
+      <span id="pricing" style={{ position: 'relative', top: '-90px', display: 'block' }} aria-hidden="true" />
       <div className="eyebrow reveal" data-magnify="true">{t('why.eyebrow')}</div>
       <h2 className="sec-title reveal reveal-delay-1" data-magnify="true">
         Why Choose <span className="c"><b>Bit Byte Technologies</b></span>

@@ -6,6 +6,7 @@ const defaultTranslations = {
   nav: {
     home: "Home",
     services: "Services",
+    showcase: "Showcase",
     about: "About Us",
     careers: "Careers",
     contact: "Contact Us",
@@ -172,7 +173,7 @@ const defaultTranslations = {
     eyebrow: "Ready for Launch?",
     title1: "Step Into Your",
     titleA: "Digital Extravaganza",
-    titleB:"with",
+    titleB: "with",
     titleC: "Bit Byte Technologies",
     body: "Join 200+ forward-thinking businesses that trusted Bit Byte Technologies to build their digital universe.",
     primary: "Explore Services",

@@ -179,6 +179,7 @@ export default function WhatsAppEnquiryForm() {
 
   return (
     <form
+      id="contact-form"
       className="contact-form whatsapp-contact-form reveal reveal-delay-2"
       onSubmit={handleSubmit}
       noValidate
