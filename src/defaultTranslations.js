@@ -37,7 +37,7 @@ const defaultTranslations = {
           "Mern / Pern Stack",
           "Mean / Mevn Stack",
           "Devops",
-          "APIS",
+          "APIs",
           "Authentication & Security",
         ],
       },
@@ -50,7 +50,7 @@ const defaultTranslations = {
           "Answer Engine Optimization",
           "Generative Engine Optimization",
           "Social Media Marketing",
-          "Google , Meta Ads",
+          "Google Ads , Meta Ads",
         ],
       },
       {
@@ -61,7 +61,7 @@ const defaultTranslations = {
           "Software as a Service",
           "Containers as a Service",
           "Database as a Service",
-          "Custom Application",
+          "Custom Web Application",
         ],
       },
       {

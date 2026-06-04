@@ -246,7 +246,7 @@ export default function ShowcasePage() {
               >
                 <span className="showcase-cta-button-bg" />
                 <Sparkles className="relative z-10 shrink-0" size={16} />
-                <span className="relative z-10">See the showcase</span>
+                <span className="relative z-10">Click  Showcase</span>
                 <FileText
                   className="relative z-10 shrink-0 opacity-80 transition group-hover:opacity-100"
                   size={16}
@@ -272,7 +272,7 @@ export default function ShowcasePage() {
             <button
               type="button"
               onClick={() => setViewerOpen(false)}
-              className="absolute right-4 top-4 z-30 grid h-11 w-11 place-items-center rounded-full border border-white/20 bg-navy/90 text-white shadow-lg backdrop-blur hover:bg-navy cursor-none"
+              className="absolute right-4 top-4 z-30 grid h-11 w-11 place-items-center rounded-full border border-red-500/30 bg-red-600 text-white shadow-lg hover:bg-red-700 hover:scale-110 active:scale-90 transition-all duration-200 cursor-none"
               aria-label="Close showcase"
             >
               <X size={20} />
@@ -285,10 +285,6 @@ export default function ShowcasePage() {
                 className="canva-embed-iframe h-full w-full border-0 bg-white"
                 scrolling="yes"
                 referrerPolicy="no-referrer-when-downgrade"
-              />
-              <div
-                className="canva-chrome-mask canva-chrome-mask-corner"
-                aria-hidden
               />
             </div>
           </motion.div>

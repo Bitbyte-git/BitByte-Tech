@@ -90,12 +90,23 @@ body {
   cursor: none;
   -webkit-font-smoothing: antialiased;
   color-scheme: dark;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* IE10+/Edge */
+  user-select: none;         /* Standard */
 }
 
 #root {
   overflow-x: hidden;
   position: relative;
   width: 100%;
+}
+
+input, textarea, select {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
 }
 
 html[lang="ta"],
@@ -1126,6 +1137,8 @@ body {
   background: var(--grad);
   padding: 13.5px 27px;
   border-radius: 40px;
+  border: none;
+  outline: none;
   box-shadow:
     0 0 28px var(--glow-g),
     0 8px 28px rgba(0, 100, 180, 0.3);

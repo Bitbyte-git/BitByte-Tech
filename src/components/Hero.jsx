@@ -1,5 +1,6 @@
 import { memo, useEffect, useState } from 'react'
 import { useTranslation } from '../i18n'
+import { getSavedGoogleTranslateLanguage } from '../googleTranslate'
 
 const HERO_POSTER_SRC = '/assets/optimized/hero-bg-poster.png'
 const HERO_GIF_SRC = '/assets/optimized/hero-bg-480.gif'
@@ -19,7 +20,63 @@ function Hero({ planetRef }) {
   const { t } = useTranslation()
   const [heroMediaSrc, setHeroMediaSrc] = useState(HERO_POSTER_SRC)
   const fullText = t('hero.badge')
-  const [displayText] = useState(fullText)
+  const [displayText, setDisplayText] = useState('')
+  const [currentLang, setCurrentLang] = useState(getSavedGoogleTranslateLanguage)
+
+  useEffect(() => {
+    const handleLangChange = (e) => {
+      if (e.detail?.code) {
+        setCurrentLang(e.detail.code)
+      }
+    }
+    window.addEventListener('bitbyte:languagechange', handleLangChange)
+    return () => window.removeEventListener('bitbyte:languagechange', handleLangChange)
+  }, [])
+
+  useEffect(() => {
+    if (currentLang !== 'en') {
+      setDisplayText(fullText)
+      return
+    }
+
+    let isMounted = true
+    let index = 0
+    let isDeleting = false
+    let timer
+
+    const tick = () => {
+      if (!isMounted) return
+
+      if (!isDeleting) {
+        setDisplayText(fullText.substring(0, index + 1))
+        index++
+
+        if (index === fullText.length) {
+          isDeleting = true
+          timer = setTimeout(tick, 2500) // Pause when text is fully typed
+        } else {
+          timer = setTimeout(tick, 80) // Typing speed (80ms per character)
+        }
+      } else {
+        setDisplayText(fullText.substring(0, index - 1))
+        index--
+
+        if (index === 0) {
+          isDeleting = false
+          timer = setTimeout(tick, 800) // Pause when text is completely deleted
+        } else {
+          timer = setTimeout(tick, 45) // Backspacing speed (45ms per character)
+        }
+      }
+    }
+
+    tick()
+
+    return () => {
+      isMounted = false
+      clearTimeout(timer)
+    }
+  }, [fullText, currentLang])
   const floatCards = t('hero.floatCards', { returnObjects: true })
   const serviceCards = Array.isArray(floatCards)
     ? floatCards.map((card) => (
@@ -107,27 +164,37 @@ function Hero({ planetRef }) {
           beyond the horizon.
         </p>
         <div className="hero-btns">
-          <a 
-            href="#services" 
+          <button 
+            type="button"
             className="btn-primary"
             onClick={(e) => {
+              const navigate = () => {
+                const target = document.getElementById('services');
+                if (target) {
+                  target.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  window.location.hash = 'services';
+                }
+              };
               if (typeof window.gtag_report_conversion === 'function') {
                 e.preventDefault();
                 let navigated = false;
                 const doNavigate = () => {
                   if (!navigated) {
                     navigated = true;
-                    window.location.hash = 'services';
+                    navigate();
                   }
                 };
                 // Safety timeout fallback (500ms) to guarantee navigation if GTag callback is blocked
                 setTimeout(doNavigate, 500);
                 window.gtag_report_conversion('#services');
+              } else {
+                navigate();
               }
             }}
           >
             {t('hero.primary')} <span className="arr">→</span>
-          </a>
+          </button>
           <a href="#contact" className="btn-ghost">
             {t('hero.secondary')} <span className="arr">→</span>
           </a>
