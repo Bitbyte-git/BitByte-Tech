@@ -107,7 +107,25 @@ function Hero({ planetRef }) {
           beyond the horizon.
         </p>
         <div className="hero-btns">
-          <a href="#services" className="btn-primary">
+          <a 
+            href="#services" 
+            className="btn-primary"
+            onClick={(e) => {
+              if (typeof window.gtag_report_conversion === 'function') {
+                e.preventDefault();
+                let navigated = false;
+                const doNavigate = () => {
+                  if (!navigated) {
+                    navigated = true;
+                    window.location.hash = 'services';
+                  }
+                };
+                // Safety timeout fallback (500ms) to guarantee navigation if GTag callback is blocked
+                setTimeout(doNavigate, 500);
+                window.gtag_report_conversion('#services');
+              }
+            }}
+          >
             {t('hero.primary')} <span className="arr">→</span>
           </a>
           <a href="#contact" className="btn-ghost">
@@ -116,10 +134,10 @@ function Hero({ planetRef }) {
         </div>
         <div className="hero-stats">
           {[
-            ['200+', 'Projects'],
+            ['50+', 'Projects'],
             ['98%', 'Satisfaction'],
             ['1+', 'Years'],
-            ['6000+', 'Clients'],
+            ['200+', 'Clients'],
           ].map(([num, label], index) => (
             <div className={index > 0 ? 'stat-group' : ''} key={label}>
               {index > 0 && <div className="stat-sep" />}

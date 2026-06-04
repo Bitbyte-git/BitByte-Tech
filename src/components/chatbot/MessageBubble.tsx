@@ -16,8 +16,18 @@ export default function MessageBubble({ message, onAction }) {
         )}
         {message.phone && (
           <div className="bb-chat-contact">
-            <span>Phone:</span>
-            <a href={`tel:${message.phone.replace(/[^+\d]/g, '')}`}>{message.phone}</a>
+            <span>{message.phone.toLowerCase().includes('whatsapp') ? 'WhatsApp (Only):' : 'Phone:'}</span>
+            {message.phone.toLowerCase().includes('whatsapp') ? (
+              <a
+                href={`https://wa.me/${message.phone.replace(/[^0-9]/g, '')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {message.phone}
+              </a>
+            ) : (
+              <a href={`tel:${message.phone.replace(/[^+\d]/g, '')}`}>{message.phone}</a>
+            )}
           </div>
         )}
         {message.cta && (

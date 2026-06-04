@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { navLinks, services } from "../constants";
 import { useTranslation } from "../i18n";
 
@@ -12,6 +12,7 @@ function MobileMenu({
   onHRMSClick,
 }) {
   const { t } = useTranslation();
+  const [workspaceOpen, setWorkspaceOpen] = useState(false);
 
   const hrefFor = (href) => {
     if (href.startsWith("/")) return href;
@@ -43,7 +44,7 @@ function MobileMenu({
       >
         <i className="fas fa-times" aria-hidden="true" />
       </button>
-      {navLinks.map(({ href, key, label }) => (
+      {navLinks.filter(link => link.key !== "showcase").map(({ href, key, label }) => (
         <div className="mob-link-group" key={href}>
           <a
             href={hrefFor(href)}
@@ -73,22 +74,66 @@ function MobileMenu({
           )}
         </div>
       ))}
-      <button
-        type="button"
-        className="btn-hrms-nav"
-        style={{ marginTop: 20, width: '100%' }}
-        onClick={handleHRMSClick}
-      >
-        HRMS LOGIN
-      </button>
-      <a
-        href={hrefFor("#contact")}
-        className="btn-glow"
-        style={{ marginTop: 10 }}
-        onClick={(event) => handleLinkClick(event, "#contact", "contact")}
-      >
-        {t("nav.getStarted")}
-      </a>
+      <div className="mob-workspace-container" style={{ marginTop: 20, width: "100%" }}>
+        <button
+          type="button"
+          className="btn-glow"
+          style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}
+          onClick={() => setWorkspaceOpen(!workspaceOpen)}
+        >
+          <span>BB Workspace</span>
+          <i className={`fa-solid fa-chevron-${workspaceOpen ? "up" : "down"}`} aria-hidden="true" />
+        </button>
+        {workspaceOpen && (
+          <div className="mob-workspace-dropdown" style={{
+            marginTop: 10,
+            display: "flex",
+            flexDirection: "column",
+            gap: 12,
+            padding: "12px 16px",
+            background: "rgba(3, 15, 31, 0.6)",
+            borderRadius: 8,
+            border: "1px solid rgba(0, 180, 216, 0.1)"
+          }}>
+            <a
+              href={hrefFor("/showcase?from=navbar")}
+              onClick={onClose}
+              style={{
+                fontFamily: "var(--f-body)",
+                fontSize: "15px",
+                color: "var(--white80)",
+                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                gap: 10
+              }}
+            >
+              <i className="fa-solid fa-briefcase" style={{ color: "var(--teal)" }} aria-hidden="true" />
+              Showcase
+            </a>
+            <button
+              type="button"
+              onClick={handleHRMSClick}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontFamily: "var(--f-body)",
+                fontSize: "15px",
+                color: "var(--white80)",
+                textAlign: "left",
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                cursor: "pointer"
+              }}
+            >
+              <i className="fa-solid fa-lock" style={{ color: "var(--teal)" }} aria-hidden="true" />
+              HRMS Login
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

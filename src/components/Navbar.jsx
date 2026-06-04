@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { navLinks, services } from "../constants";
 import { useTranslation } from "../i18n";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -15,6 +15,7 @@ function Navbar({
   onHRMSClick,
 }) {
   const { t } = useTranslation();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const hrefFor = (href) => {
     if (href.startsWith("/")) return href;
@@ -36,7 +37,7 @@ function Navbar({
           </div>
         </a>
         <ul className="nav-links">
-          {navLinks.map(({ href, key, label }) => (
+          {navLinks.filter(link => link.key !== "showcase").map(({ href, key, label }) => (
             <li key={href}>
               <a
                 href={hrefFor(href)}
@@ -71,16 +72,38 @@ function Navbar({
         </ul>
         <div className="nav-actions">
           <LanguageSwitcher />
-          <button 
-            type="button" 
-            className="btn-hrms-nav" 
-            onClick={onHRMSClick}
+          <div 
+            className={`workspace-dropdown ${dropdownOpen ? "open" : ""}`}
+            onMouseLeave={() => setDropdownOpen(false)}
           >
-            HRMS LOGIN
-          </button>
-          <a href={hrefFor("#contact")} className="btn-glow">
-            {t("nav.getStarted")}
-          </a>
+            <button 
+              type="button" 
+              className="btn-workspace-trigger"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+            >
+              <span>BB Workspace</span>
+              <i className="fa-solid fa-chevron-down dropdown-arrow" aria-hidden="true" />
+            </button>
+            <div className="workspace-dropdown-menu">
+              <a 
+                href={hrefFor("/showcase?from=navbar")} 
+                onClick={() => setDropdownOpen(false)}
+              >
+                <i className="fa-solid fa-briefcase" aria-hidden="true" />
+                <span>Showcase</span>
+              </a>
+              <button 
+                type="button" 
+                onClick={(e) => {
+                  setDropdownOpen(false);
+                  onHRMSClick?.(e);
+                }}
+              >
+                <i className="fa-solid fa-lock" aria-hidden="true" />
+                <span>HRMS Login</span>
+              </button>
+            </div>
+          </div>
         </div>
         <div className="mobile-nav-actions">
           <LanguageSwitcher compact />

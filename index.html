@@ -55,24 +55,16 @@
       fbq("init", "1533780781440843");
       fbq("track", "PageView");
     </script>
-    <noscript
-      ><img
-        height="1"
-        width="1"
-        style="display: none"
-        src="https://www.facebook.com/tr?id=1533780781440843&ev=PageView&noscript=1"
-    /></noscript>
     <!-- End Meta Pixel Code -->
 
-    <!-- Global site tag (gtag.js) - Google Ads -->
-    <script async src="https://googletagmanager.com"></script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18194250314"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-      gtag("config", "AW-18194250314");
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-18194250314');
     </script>
 
     <!-- Event snippet for BB_Home Page view_GAds conversion page -->
@@ -83,8 +75,34 @@
         currency: "INR",
       });
     </script>
+
+    <!-- Event snippet for BB_Home_Page_Explore Service_Event conversion page -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-18194250314/bO6KCN7Y7bgcEMr02OND',
+            'event_callback': callback
+        });
+        return false;
+      }
+    </script>
   </head>
   <body>
+    <!-- Meta Pixel fallback for users with JavaScript disabled -->
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=1533780781440843&ev=PageView&noscript=1"
+        alt=""
+      />
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
