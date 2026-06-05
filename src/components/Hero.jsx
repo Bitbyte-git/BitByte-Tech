@@ -5,22 +5,68 @@ import { getSavedGoogleTranslateLanguage } from '../googleTranslate'
 const HERO_POSTER_SRC = '/assets/optimized/hero-bg-poster.png'
 const HERO_GIF_SRC = '/assets/optimized/hero-bg-480.gif'
 const HERO_GIF_DELAY = 5000
+const STATS_REPLAY_INTERVAL = 5000
+const STATS_COUNT_DURATION = 1200
 
-const runWhenIdle = (task) => {
-  if ('requestIdleCallback' in window) {
-    const idleId = window.requestIdleCallback(task, { timeout: 1600 })
-    return () => window.cancelIdleCallback?.(idleId)
+const parseStatValue = (value) => {
+  const match = String(value).trim().match(/^(\d+)(.*)$/)
+  if (!match) return null
+
+  return {
+    target: Number(match[1]),
+    suffix: match[2] || '',
   }
+}
 
-  const fallbackId = window.setTimeout(task, 120)
-  return () => window.clearTimeout(fallbackId)
+function AnimatedStatNumber({ value, cycle }) {
+  const [displayValue, setDisplayValue] = useState(value)
+
+  useEffect(() => {
+    const parsedValue = parseStatValue(value)
+
+    if (!parsedValue || Number.isNaN(parsedValue.target)) {
+      setDisplayValue(value)
+      return undefined
+    }
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
+    if (prefersReducedMotion) {
+      setDisplayValue(value)
+      return undefined
+    }
+
+    let frameId = 0
+    const startedAt = performance.now()
+
+    const animate = (now) => {
+      const progress = Math.min((now - startedAt) / STATS_COUNT_DURATION, 1)
+      const easedProgress = 1 - Math.pow(1 - progress, 3)
+      const currentValue = Math.round(parsedValue.target * easedProgress)
+      setDisplayValue(`${currentValue}${parsedValue.suffix}`)
+
+      if (progress < 1) {
+        frameId = window.requestAnimationFrame(animate)
+      }
+    }
+
+    setDisplayValue(`0${parsedValue.suffix}`)
+    frameId = window.requestAnimationFrame(animate)
+
+    return () => window.cancelAnimationFrame(frameId)
+  }, [cycle, value])
+
+  return <span className="snum">{displayValue}</span>
 }
 
 function Hero({ planetRef }) {
   const { t } = useTranslation()
-  const [heroMediaSrc, setHeroMediaSrc] = useState(HERO_POSTER_SRC)
   const fullText = t('hero.badge')
+  const [heroMediaSrc, setHeroMediaSrc] = useState(HERO_POSTER_SRC)
   const [displayText, setDisplayText] = useState('')
+  const [statsCycle, setStatsCycle] = useState(0)
   const [currentLang, setCurrentLang] = useState(getSavedGoogleTranslateLanguage)
 
   useEffect(() => {
@@ -85,21 +131,30 @@ function Hero({ planetRef }) {
           : { items: [], ...card }
       ))
     : []
+  const heroStats = t('hero.stats', { returnObjects: true })
+  const stats = Array.isArray(heroStats)
+    ? heroStats
+    : [
+        ['50+', 'Projects'],
+        ['98%', 'Satisfaction'],
+        ['1+', 'Years'],
+        ['200+', 'Clients'],
+      ]
 
   useEffect(() => {
-    let cancelIdle
-    let cancelled = false
     const timerId = window.setTimeout(() => {
-      cancelIdle = runWhenIdle(() => {
-        if (!cancelled) setHeroMediaSrc(HERO_GIF_SRC)
-      })
+      setHeroMediaSrc(HERO_GIF_SRC)
     }, HERO_GIF_DELAY)
 
-    return () => {
-      cancelled = true
-      window.clearTimeout(timerId)
-      cancelIdle?.()
-    }
+    return () => window.clearTimeout(timerId)
+  }, [])
+
+  useEffect(() => {
+    const timerId = window.setInterval(() => {
+      setStatsCycle((cycle) => cycle + 1)
+    }, STATS_REPLAY_INTERVAL)
+
+    return () => window.clearInterval(timerId)
   }, [])
 
 
@@ -147,8 +202,11 @@ function Hero({ planetRef }) {
         <div className="hero-badge" data-magnify="true">
           <div className="badge-dot" />
           <div className="badge-txt">
-            <span className="grad">{displayText}</span>
-            <span className="badge-cursor" aria-hidden="true" />
+            <span className="badge-measure grad" aria-hidden="true">{fullText}</span>
+            <span className="badge-live">
+              <span className="grad">{displayText}</span>
+              <span className="badge-cursor" aria-hidden="true" />
+            </span>
           </div>
         </div>
         <h1 className="hero-h1" data-magnify="true">
@@ -200,15 +258,10 @@ function Hero({ planetRef }) {
           </a>
         </div>
         <div className="hero-stats">
-          {[
-            ['50+', 'Projects'],
-            ['98%', 'Satisfaction'],
-            ['1+', 'Years'],
-            ['200+', 'Clients'],
-          ].map(([num, label], index) => (
+          {stats.map(([num, label], index) => (
             <div className={index > 0 ? 'stat-group' : ''} key={label}>
               {index > 0 && <div className="stat-sep" />}
-              <span className="snum">{num}</span>
+              <AnimatedStatNumber value={num} cycle={statsCycle} />
               <span className="slbl">{label}</span>
             </div>
           ))}

@@ -3,18 +3,27 @@ import './hrms-popup.css';
 
 const CORRECT_KEY = 'BITBYTE123';
 const MAX_ATTEMPTS = 3;
+const DEFAULT_REDIRECT_URL = 'https://bitbyte-lemon.vercel.app/login';
 
-export default function HRMSAccessPopup({ isOpen, onClose }) {
+export default function HRMSAccessPopup({
+  isOpen,
+  onClose,
+  appName = 'HRMS',
+  redirectUrl = DEFAULT_REDIRECT_URL,
+  title = 'Secure Employee Access',
+  subtitle = 'Authorized Employees Only',
+}) {
   const [accessKey, setAccessKey] = useState('');
   const [status, setStatus] = useState('idle'); // idle, verifying, success, denied, blocked
   const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
-    if (isOpen && status !== 'blocked') {
+    if (isOpen) {
       setAccessKey('');
       setStatus('idle');
+      setAttempts(0);
     }
-  }, [isOpen]);
+  }, [isOpen, appName]);
 
   if (!isOpen) return null;
 
@@ -29,7 +38,7 @@ export default function HRMSAccessPopup({ isOpen, onClose }) {
       if (accessKey === CORRECT_KEY) {
         setStatus('success');
         setTimeout(() => {
-          window.open('https://bitbyte-lemon.vercel.app/login', '_blank', 'noopener,noreferrer');
+          window.open(redirectUrl, '_blank', 'noopener,noreferrer');
           onClose();
         }, 2000);
       } else {
@@ -61,17 +70,17 @@ export default function HRMSAccessPopup({ isOpen, onClose }) {
         {status === 'idle' || status === 'verifying' ? (
           <div className="hrms-popup-state hrms-popup-idle">
             <div className="hrms-popup-header">
-              <h3>Secure Employee Access</h3>
-              <p>Authorized Employees Only</p>
+              <h3>{title}</h3>
+              <p>{subtitle}</p>
             </div>
             
             <form onSubmit={handleSubmit} className="hrms-popup-body">
-              <p className="hrms-instruction">Please enter your access key<br />to continue</p>
+              <p className="hrms-instruction">Please enter your secret key<br />to continue</p>
               
               <div className="hrms-input-group">
                 <input
                   type="password"
-                  placeholder="Enter Access Key"
+                  placeholder="Enter Secret Key"
                   value={accessKey}
                   onChange={(e) => setAccessKey(e.target.value)}
                   disabled={status === 'verifying'}
@@ -98,7 +107,7 @@ export default function HRMSAccessPopup({ isOpen, onClose }) {
             </div>
             <h3>Verifying...</h3>
             <h2 className="success-text">Access Granted!</h2>
-            <p>Redirecting to HRMS<br />login page...</p>
+            <p>Redirecting to {appName}<br />application...</p>
             <div className="hrms-spinner"></div>
           </div>
         ) : status === 'denied' ? (

@@ -47,6 +47,20 @@ const ImaginationToReality = lazy(
 const RealTimeSales = lazy(() => import("./components/RealTimeSales"));
 
 const SectionFallback = () => null;
+const WORKSPACE_ACCESS_APPS = {
+  hrms: {
+    appName: "HRMS",
+    redirectUrl: "https://bitbyte-lemon.vercel.app/login",
+    title: "Secure Employee Access",
+    subtitle: "Authorized Employees Only",
+  },
+  billing: {
+    appName: "Billing",
+    redirectUrl: "bit-byte-billing-client.vercel.app",
+    title: "Secure Billing Access",
+    subtitle: "Authorized Finance Access Only",
+  },
+};
 
 export default function App() {
   const canvasRef = useRef(null);
@@ -55,12 +69,15 @@ export default function App() {
   const planetRef = useRef(null);
   const serviceHighlightTimeoutRef = useRef(0);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isHRMSPopupOpen, setHRMSPopupOpen] = useState(false);
+  const [workspaceAccessApp, setWorkspaceAccessApp] = useState(null);
   const [navStuck, setNavStuck] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [activeServiceId, setActiveServiceId] = useState(null);
   const openMobileMenu = useCallback(() => setMobileOpen(true), []);
   const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
+  const openWorkspaceAccess = useCallback((appKey) => {
+    setWorkspaceAccessApp(WORKSPACE_ACCESS_APPS[appKey] || null);
+  }, []);
   const pathname = window.location.pathname.replace(/\/$/, "") || "/";
   const isWebDevelopmentPage = pathname === "/services/web-development";
   const isCustomWebAppPage =
@@ -252,7 +269,8 @@ export default function App() {
         onServiceSelect={handleServiceSelect}
         open={mobileOpen}
         rootLinks={isRoutedPage}
-        onHRMSClick={() => setHRMSPopupOpen(true)}
+        onHRMSClick={() => openWorkspaceAccess("hrms")}
+        onBillingClick={() => openWorkspaceAccess("billing")}
       />
       <Navbar
         activeSection={navActiveSection}
@@ -262,11 +280,13 @@ export default function App() {
         onServiceSelect={handleServiceSelect}
         rootLinks={isRoutedPage}
         stuck={navStuck}
-        onHRMSClick={() => setHRMSPopupOpen(true)}
+        onHRMSClick={() => openWorkspaceAccess("hrms")}
+        onBillingClick={() => openWorkspaceAccess("billing")}
       />
       <HRMSAccessPopup
-        isOpen={isHRMSPopupOpen}
-        onClose={() => setHRMSPopupOpen(false)}
+        isOpen={Boolean(workspaceAccessApp)}
+        onClose={() => setWorkspaceAccessApp(null)}
+        {...(workspaceAccessApp || {})}
       />
       {isWebDevelopmentPage ? (
         <Suspense fallback={<SectionFallback />}>

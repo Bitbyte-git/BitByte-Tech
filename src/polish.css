@@ -1197,3 +1197,40 @@ footer {
     min-height: 132px;
   }
 }
+
+#hero .hero-badge .badge-txt {
+  position: relative;
+  display: inline-grid !important;
+  grid-template-columns: minmax(0, max-content);
+  justify-content: start;
+  width: max-content !important;
+}
+
+#hero .badge-measure,
+#hero .badge-live {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+#hero .badge-measure {
+  visibility: hidden;
+  pointer-events: none;
+  white-space: nowrap !important;
+}
+
+#hero .badge-live {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 0;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+#hero .badge-live .grad {
+  flex: 0 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}

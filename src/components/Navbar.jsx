@@ -13,6 +13,7 @@ function Navbar({
   onServiceSelect,
   rootLinks = false,
   onHRMSClick,
+  onBillingClick,
 }) {
   const { t } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -101,6 +102,16 @@ function Navbar({
               >
                 <i className="fa-solid fa-lock" aria-hidden="true" />
                 <span>HRMS Login</span>
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  setDropdownOpen(false);
+                  onBillingClick?.(e);
+                }}
+              >
+                <i className="fa-solid fa-file-invoice-dollar" aria-hidden="true" />
+                <span>Billing</span>
               </button>
             </div>
           </div>

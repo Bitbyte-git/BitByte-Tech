@@ -10,6 +10,7 @@ function MobileMenu({
   onServiceSelect,
   rootLinks = false,
   onHRMSClick,
+  onBillingClick,
 }) {
   const { t } = useTranslation();
   const [workspaceOpen, setWorkspaceOpen] = useState(false);
@@ -31,6 +32,11 @@ function MobileMenu({
 
   const handleHRMSClick = () => {
     onHRMSClick?.();
+    onClose();
+  };
+
+  const handleBillingClick = () => {
+    onBillingClick?.();
     onClose();
   };
 
@@ -130,6 +136,26 @@ function MobileMenu({
             >
               <i className="fa-solid fa-lock" style={{ color: "var(--teal)" }} aria-hidden="true" />
               HRMS Login
+            </button>
+            <button
+              type="button"
+              onClick={handleBillingClick}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontFamily: "var(--f-body)",
+                fontSize: "15px",
+                color: "var(--white80)",
+                textAlign: "left",
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                cursor: "pointer"
+              }}
+            >
+              <i className="fa-solid fa-file-invoice-dollar" style={{ color: "var(--teal)" }} aria-hidden="true" />
+              Billing
             </button>
           </div>
         )}
