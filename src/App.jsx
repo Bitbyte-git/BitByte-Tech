@@ -56,7 +56,7 @@ const WORKSPACE_ACCESS_APPS = {
   },
   billing: {
     appName: "Billing",
-    redirectUrl: "bit-byte-billing-client.vercel.app",
+    redirectUrl: "https://bit-byte-billing-client.vercel.app",
     title: "Secure Billing Access",
     subtitle: "Authorized Finance Access Only",
   },

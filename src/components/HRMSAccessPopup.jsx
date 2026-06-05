@@ -4,6 +4,12 @@ import './hrms-popup.css';
 const CORRECT_KEY = 'BITBYTE123';
 const MAX_ATTEMPTS = 3;
 const DEFAULT_REDIRECT_URL = 'https://bitbyte-lemon.vercel.app/login';
+const normalizeRedirectUrl = (url) => {
+  const trimmedUrl = String(url || '').trim();
+  if (!trimmedUrl) return DEFAULT_REDIRECT_URL;
+  if (/^[a-z][a-z\d+\-.]*:\/\//i.test(trimmedUrl)) return trimmedUrl;
+  return `https://${trimmedUrl.replace(/^\/+/, '')}`;
+};
 
 export default function HRMSAccessPopup({
   isOpen,
@@ -38,7 +44,7 @@ export default function HRMSAccessPopup({
       if (accessKey === CORRECT_KEY) {
         setStatus('success');
         setTimeout(() => {
-          window.open(redirectUrl, '_blank', 'noopener,noreferrer');
+          window.open(normalizeRedirectUrl(redirectUrl), '_blank', 'noopener,noreferrer');
           onClose();
         }, 2000);
       } else {
