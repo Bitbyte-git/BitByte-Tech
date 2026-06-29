@@ -33,7 +33,7 @@ export function bootNonCriticalAssets() {
   const start = () => {
     runWhenIdle(() => {
       loadStylesheet(
-        'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap',
+        'https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Space+Grotesk:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap',
         'google-fonts-css',
       )
 

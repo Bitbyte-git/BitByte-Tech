@@ -53,6 +53,7 @@
   --f-display: "Space Grotesk", system-ui, sans-serif;
   --f-body: "Plus Jakarta Sans", system-ui, sans-serif;
   --f-label: "Inter", system-ui, sans-serif;
+  --f-logo: "Montserrat", system-ui, sans-serif;
 
   /* Radii */
   --r-sm: 12px;
@@ -300,7 +301,7 @@ body::before {
   left: 88px;
   top: 2px;
   transform: scale(0.9);
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--f-logo);
   font-size: 5px;
   font-weight: 700;
   color: var(--white);
@@ -2807,7 +2808,7 @@ footer {
 .footer-brand .footer-logo-txt {
   display: flex;
   flex-direction: column;
-  font-family: "Montserrat", sans-serif;
+  font-family: var(--f-logo);
   font-size: 16px;
   font-weight: 700;
   color: var(--white);
