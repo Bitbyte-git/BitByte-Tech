@@ -41,24 +41,28 @@ export default function ChatWindow({
         {typing && (
           <div className="bb-chat-message is-bot">
             <div className="bb-typing" aria-label="Assistant is typing">
-              <span />
-              <span />
-              <span />
+              <strong>BitByte AI is typing...</strong>
+              <i aria-hidden="true" />
+              <i aria-hidden="true" />
+              <i aria-hidden="true" />
             </div>
           </div>
         )}
       </div>
-      <QuickActions actions={actions} onSelect={onQuickAction} />
+      {!typing && <QuickActions actions={actions} onSelect={onQuickAction} />}
       <form className="bb-chat-input" onSubmit={handleSubmit}>
         <input
           aria-label="Ask BitByte AI Assistant"
           autoComplete="off"
+          disabled={typing}
           placeholder="Ask about services, pricing, contact..."
           type="text"
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
         />
-        <button type="submit">Send</button>
+        <button type="submit" disabled={typing}>
+          Send
+        </button>
       </form>
     </section>
   )

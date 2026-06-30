@@ -36,6 +36,24 @@ function waitForElement(id, attempts = 20) {
   })
 }
 
+async function getAiReply(message) {
+  const response = await fetch('/api/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ message }),
+  })
+
+  const data = await response.json().catch(() => ({}))
+
+  if (!response.ok) {
+    throw new Error(data.error || 'Unable to reach BitByte AI')
+  }
+
+  return data.reply || config.fallbackMessage
+}
+
 async function scrollToSection(target) {
   if (!target) return
 
@@ -59,32 +77,6 @@ async function scrollToSection(target) {
   if (window.history?.replaceState) {
     window.history.replaceState(null, '', `#${targetId}`)
   }
-}
-
-function detectIntent(text) {
-  const normalized = text.toLowerCase()
-
-  if (/(service|web|mobile|hrms|erp|saas|cloud|marketing|analytics)/.test(normalized)) {
-    return 'services'
-  }
-
-  if (/(showcase|portfolio|project|work|case)/.test(normalized)) {
-    return 'showcase'
-  }
-
-  if (/(price|pricing|cost|plan|budget|quote)/.test(normalized)) {
-    return 'pricing'
-  }
-
-  if (/(contact|email|phone|call|whatsapp|team)/.test(normalized)) {
-    return 'contact'
-  }
-
-  if (/(book|consult|meeting|schedule|start|demo)/.test(normalized)) {
-    return 'consultation'
-  }
-
-  return 'fallback'
 }
 
 export default function ChatBot() {
@@ -125,11 +117,26 @@ export default function ChatBot() {
     addBotReply(intent)
   }, [addBotReply])
 
-  const handleSubmitQuestion = useCallback((question) => {
-    const intent = detectIntent(question)
+  const handleSubmitQuestion = useCallback(async (question) => {
+    window.clearTimeout(replyTimeoutRef.current)
     setMessages((current) => [...current, makeMessage('user', question)])
-    addBotReply(intent)
-  }, [addBotReply])
+    setTyping(true)
+
+    try {
+      const reply = await getAiReply(question)
+      setMessages((current) => [...current, makeMessage('bot', reply)])
+    } catch {
+      setMessages((current) => [
+        ...current,
+        makeMessage(
+          'bot',
+          'I am having trouble connecting right now. Please use the buttons below for pricing, showcases, or booking a consultation.',
+        ),
+      ])
+    } finally {
+      setTyping(false)
+    }
+  }, [])
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
