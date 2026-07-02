@@ -72,13 +72,18 @@
     <!-- End Meta Pixel Code -->
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18194250314"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=AW-18194250314"
+    ></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-      gtag('config', 'AW-18194250314');
+      gtag("config", "AW-18194250314");
     </script>
 
     <!-- Event snippet for BB_Home Page view_GAds conversion page -->
@@ -94,94 +99,16 @@
     <script>
       function gtag_report_conversion(url) {
         var callback = function () {
-          if (typeof(url) != 'undefined') {
+          if (typeof url != "undefined") {
             window.location = url;
           }
         };
-        gtag('event', 'conversion', {
-            'send_to': 'AW-18194250314/bO6KCN7Y7bgcEMr02OND',
-            'event_callback': callback
+        gtag("event", "conversion", {
+          send_to: "AW-18194250314/bO6KCN7Y7bgcEMr02OND",
+          event_callback: callback,
         });
         return false;
       }
-    </script>
-
-    <!-- Security Script: Disable DevTools and Text Copying/Right-click -->
-    <script>
-      (function() {
-        // Disable Right Click
-        document.addEventListener('contextmenu', function(e) {
-          e.preventDefault();
-        });
-
-        // Disable keyboard shortcuts
-        document.addEventListener('keydown', function(e) {
-          // Disable F12
-          if (e.keyCode === 123 || e.key === 'F12') {
-            e.preventDefault();
-            return false;
-          }
-          // Disable Ctrl+Shift+I (Inspect), Ctrl+Shift+J (Console), Ctrl+Shift+C (Inspect Element)
-          if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-            return false;
-          }
-          // Disable Cmd+Opt+I / J / C on Mac
-          if (e.metaKey && e.altKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c')) {
-            e.preventDefault();
-            return false;
-          }
-          // Disable Ctrl+U (View Source)
-          if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-            return false;
-          }
-          // Disable Cmd+Opt+U on Mac
-          if (e.metaKey && e.altKey && (e.key === 'U' || e.key === 'u')) {
-            e.preventDefault();
-            return false;
-          }
-          // Disable Ctrl+S (Save page)
-          if (e.ctrlKey && (e.key === 'S' || e.key === 's')) {
-            e.preventDefault();
-            return false;
-          }
-          // Disable Ctrl+A (Select all) except in inputs/textareas
-          const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-          if (e.ctrlKey && (e.key === 'A' || e.key === 'a') && activeTag !== 'input' && activeTag !== 'textarea') {
-            e.preventDefault();
-            return false;
-          }
-          if (e.metaKey && (e.key === 'A' || e.key === 'a') && activeTag !== 'input' && activeTag !== 'textarea') {
-            e.preventDefault();
-            return false;
-          }
-        });
-
-        // Disable dragging of elements (images, text selections)
-        document.addEventListener('dragstart', function(e) {
-          e.preventDefault();
-        });
-
-        // Prevent copying text using keyboard copy event
-        document.addEventListener('copy', function(e) {
-          const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
-          if (activeTag !== 'input' && activeTag !== 'textarea') {
-            e.preventDefault();
-          }
-        });
-
-        // DevTools detection loop - debugger statement runs repeatedly,
-        // pausing the interface if DevTools is open.
-        setInterval(function() {
-          const startTime = +new Date();
-          debugger;
-          const endTime = +new Date();
-          if (endTime - startTime > 100) {
-            // Optional: execute action if devtools is open
-          }
-        }, 100);
-      })();
     </script>
   </head>
   <body>
