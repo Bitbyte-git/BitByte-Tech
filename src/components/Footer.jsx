@@ -1,6 +1,7 @@
 import { services, socialIcons } from "../constants";
 import { useTranslation } from "../i18n";
 import Logo from "./Logo";
+import VisitorCounter from "./VisitorCounter";
 
 export default function Footer({ rootLinks = false }) {
   const { t } = useTranslation();
@@ -86,6 +87,9 @@ export default function Footer({ rootLinks = false }) {
                 <i className={icon} aria-hidden="true" />
               </a>
             ))}
+          </div>
+          <div style={{ marginTop: 16 }}>
+            <VisitorCounter />
           </div>
         </div>
         {footerColumns.map(([title, links]) => (

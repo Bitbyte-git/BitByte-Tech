@@ -68,9 +68,34 @@ function bitbyteLocalChatApi() {
   }
 }
 
+function visitorCounterDevProxy(mode) {
+  const env = loadEnv(mode, process.cwd(), '')
+  const visitorCounterApi = env.VITE_VISITOR_COUNTER_API
+
+  if (!visitorCounterApi) return undefined
+
+  try {
+    const apiUrl = new URL(visitorCounterApi)
+
+    return {
+      '/__visitor-counter': {
+        target: apiUrl.origin,
+        changeOrigin: true,
+        secure: true,
+        rewrite: () => `${apiUrl.pathname}${apiUrl.search}`,
+      },
+    }
+  } catch {
+    return undefined
+  }
+}
+
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react(), bitbyteLocalChatApi()],
+  server: {
+    proxy: visitorCounterDevProxy(mode),
+  },
   optimizeDeps: {
     include: ['react', 'react-dom'],
   },
@@ -100,4 +125,4 @@ export default defineConfig({
       },
     },
   },
-})
+}))
