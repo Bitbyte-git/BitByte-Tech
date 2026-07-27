@@ -6,8 +6,8 @@ function Logo({ height = 44, loading = "eager", fetchPriority = "auto" }) {
       className="logo-img"
       src="/assets/optimized/logo-mark-tight.png"
       alt=""
-      width="512"
-      height="361"
+      width="256"
+      height="180"
       loading={loading}
       decoding="async"
       fetchpriority={fetchPriority}

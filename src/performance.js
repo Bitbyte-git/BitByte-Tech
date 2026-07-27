@@ -29,6 +29,88 @@ const loadScript = (src, id, onload) => {
   document.head.appendChild(script)
 }
 
+const loadGoogleTagManager = () => {
+  if (document.getElementById('google-tag-manager')) return
+
+  window.dataLayer = window.dataLayer || []
+  window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
+
+  loadScript(
+    'https://www.googletagmanager.com/gtm.js?id=GTM-MF6FFG6C',
+    'google-tag-manager',
+  )
+}
+
+const loadMetaPixel = () => {
+  if (window.fbq?.loaded) return
+
+  window.fbq = function fbq() {
+    window.fbq.callMethod
+      ? window.fbq.callMethod.apply(window.fbq, arguments)
+      : window.fbq.queue.push(arguments)
+  }
+  if (!window._fbq) window._fbq = window.fbq
+  window.fbq.push = window.fbq
+  window.fbq.loaded = true
+  window.fbq.version = '2.0'
+  window.fbq.queue = []
+
+  loadScript(
+    'https://connect.facebook.net/en_US/fbevents.js',
+    'meta-pixel',
+    () => {
+      window.fbq('init', '1533780781440843')
+      window.fbq('track', 'PageView')
+    },
+  )
+}
+
+const loadGoogleMeasurement = () => {
+  window.dataLayer = window.dataLayer || []
+  window.gtag =
+    window.gtag ||
+    function gtag() {
+      window.dataLayer.push(arguments)
+    }
+
+  loadScript(
+    'https://www.googletagmanager.com/gtag/js?id=AW-18194250314',
+    'google-measurement',
+    () => {
+      window.gtag('js', new Date())
+      window.gtag('config', 'AW-18194250314')
+      window.gtag('config', 'G-33BLH7DR40')
+      window.gtag('event', 'conversion', {
+        send_to: 'AW-18194250314/i5ETCMLg37QcEMr02OND',
+        value: 1.0,
+        currency: 'INR',
+      })
+    },
+  )
+}
+
+const runAfterFirstInteraction = (task) => {
+  let completed = false
+
+  const cleanup = () => {
+    window.removeEventListener('pointerdown', run)
+    window.removeEventListener('keydown', run)
+    window.removeEventListener('scroll', run)
+  }
+
+  const run = () => {
+    if (completed) return
+    completed = true
+    cleanup()
+    runWhenIdle(task)
+  }
+
+  window.addEventListener('pointerdown', run, { once: true, passive: true })
+  window.addEventListener('keydown', run, { once: true })
+  window.addEventListener('scroll', run, { once: true, passive: true })
+  window.setTimeout(run, 4500)
+}
+
 export function bootNonCriticalAssets() {
   const start = () => {
     runWhenIdle(() => {
@@ -41,20 +123,12 @@ export function bootNonCriticalAssets() {
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css',
         'font-awesome-css',
       )
+    })
 
-      window.dataLayer = window.dataLayer || []
-      window.gtag = function gtag() {
-        window.dataLayer.push(arguments)
-      }
-
-      loadScript(
-        'https://www.googletagmanager.com/gtag/js?id=G-33BLH7DR40',
-        'google-analytics',
-        () => {
-          window.gtag('js', new Date())
-          window.gtag('config', 'G-33BLH7DR40')
-        },
-      )
+    runAfterFirstInteraction(() => {
+      loadGoogleTagManager()
+      loadGoogleMeasurement()
+      loadMetaPixel()
     })
   }
 

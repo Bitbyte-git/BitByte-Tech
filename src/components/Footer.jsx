@@ -25,7 +25,7 @@ export default function Footer({ rootLinks = false }) {
         "+91 99437 43136 (Only Whatsapp) ",
         "BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "Privacy Policy",
-        "Terms of Service",
+        "Terms & Conditions",
       ],
     ],
   ];
@@ -51,6 +51,8 @@ export default function Footer({ rootLinks = false }) {
         "/services/business-analytics/data-driven-business-analytics-solutions",
       "imagination-to-reality": "/services/imagination-to-reality",
       "real-time-sales-data": "/services/real-time-sales-data",
+      "Privacy Policy": "/privacy-policy",
+      "Terms & Conditions": "/terms-and-conditions",
     };
     const href = map[item] || "#contact";
     if (href.startsWith("/")) return href;

@@ -11,6 +11,7 @@ function MobileMenu({
   rootLinks = false,
   onHRMSClick,
   onBillingClick,
+  onShowcaseClick,
 }) {
   const { t } = useTranslation();
   const [workspaceOpen, setWorkspaceOpen] = useState(false);
@@ -37,6 +38,11 @@ function MobileMenu({
 
   const handleBillingClick = () => {
     onBillingClick?.();
+    onClose();
+  };
+
+  const handleShowcaseClick = () => {
+    onShowcaseClick?.();
     onClose();
   };
 
@@ -101,22 +107,26 @@ function MobileMenu({
             borderRadius: 8,
             border: "1px solid rgba(0, 180, 216, 0.1)"
           }}>
-            <a
-              href={hrefFor("/showcase?from=navbar")}
-              onClick={onClose}
+            <button
+              type="button"
+              onClick={handleShowcaseClick}
               style={{
+                background: "transparent",
+                border: "none",
                 fontFamily: "var(--f-body)",
                 fontSize: "15px",
                 color: "var(--white80)",
-                textDecoration: "none",
+                textAlign: "left",
+                padding: 0,
                 display: "flex",
                 alignItems: "center",
-                gap: 10
+                gap: 10,
+                cursor: "pointer"
               }}
             >
               <i className="fa-solid fa-briefcase" style={{ color: "var(--teal)" }} aria-hidden="true" />
               Showcase
-            </a>
+            </button>
             <button
               type="button"
               onClick={handleHRMSClick}

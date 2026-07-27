@@ -18,6 +18,8 @@ export default function HRMSAccessPopup({
   redirectUrl = DEFAULT_REDIRECT_URL,
   title = 'Secure Employee Access',
   subtitle = 'Authorized Employees Only',
+  correctKey = CORRECT_KEY,
+  openInNewTab = true,
 }) {
   const [accessKey, setAccessKey] = useState('');
   const [status, setStatus] = useState('idle'); // idle, verifying, success, denied, blocked
@@ -41,10 +43,17 @@ export default function HRMSAccessPopup({
     setStatus('verifying');
 
     setTimeout(() => {
-      if (accessKey === CORRECT_KEY) {
+      if (accessKey === correctKey) {
         setStatus('success');
         setTimeout(() => {
-          window.open(normalizeRedirectUrl(redirectUrl), '_blank', 'noopener,noreferrer');
+          const destination = normalizeRedirectUrl(redirectUrl);
+
+          if (openInNewTab) {
+            window.open(destination, '_blank', 'noopener,noreferrer');
+          } else {
+            window.location.href = destination;
+          }
+
           onClose();
         }, 2000);
       } else {

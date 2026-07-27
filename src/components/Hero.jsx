@@ -4,7 +4,7 @@ import { getSavedGoogleTranslateLanguage } from '../googleTranslate'
 
 const HERO_POSTER_SRC = '/assets/optimized/hero-bg-poster.png'
 const HERO_GIF_SRC = '/assets/optimized/hero-bg-480.gif'
-const HERO_GIF_DELAY = 5000
+const HERO_GIF_DELAY = 9000
 const STATS_REPLAY_INTERVAL = 5000
 const STATS_COUNT_DURATION = 1200
 
@@ -142,11 +142,45 @@ function Hero({ planetRef }) {
       ]
 
   useEffect(() => {
-    const timerId = window.setTimeout(() => {
-      setHeroMediaSrc(HERO_GIF_SRC)
-    }, HERO_GIF_DELAY)
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+    const saveData = Boolean(navigator.connection?.saveData)
 
-    return () => window.clearTimeout(timerId)
+    if (prefersReducedMotion || saveData) return undefined
+
+    let timerId = 0
+    let loaded = false
+
+    const cleanup = () => {
+      window.removeEventListener('pointerdown', loadGif)
+      window.removeEventListener('scroll', loadGif)
+      window.clearTimeout(timerId)
+    }
+
+    const loadGif = () => {
+      if (loaded) return
+      loaded = true
+      cleanup()
+      setHeroMediaSrc(HERO_GIF_SRC)
+    }
+
+    const schedule = () => {
+      timerId = window.setTimeout(loadGif, HERO_GIF_DELAY)
+      window.addEventListener('pointerdown', loadGif, { once: true, passive: true })
+      window.addEventListener('scroll', loadGif, { once: true, passive: true })
+    }
+
+    if (document.readyState === 'complete') {
+      schedule()
+    } else {
+      window.addEventListener('load', schedule, { once: true })
+    }
+
+    return () => {
+      window.removeEventListener('load', schedule)
+      cleanup()
+    }
   }, [])
 
   useEffect(() => {

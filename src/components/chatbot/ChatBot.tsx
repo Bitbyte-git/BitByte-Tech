@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { Suspense, lazy, useCallback, useMemo, useRef, useState } from 'react'
 import BotAvatar from './BotAvatar'
-import ChatWindow from './ChatWindow'
 import config from './chatbotConfig.json'
 import './ChatBot.css'
 
+const ChatWindow = lazy(() => import('./ChatWindow'))
 const rootPath = '/'
 
 function makeMessage(sender, text, extras = {}) {
@@ -144,16 +144,18 @@ export default function ChatBot() {
   return (
     <div className="bb-chatbot">
       {open ? (
-        <ChatWindow
-          actions={actions}
-          messages={messages}
-          onActionClick={scrollToSection}
-          onClose={handleClose}
-          onMinimize={handleClose}
-          onQuickAction={handleQuickAction}
-          onSubmitQuestion={handleSubmitQuestion}
-          typing={typing}
-        />
+        <Suspense fallback={null}>
+          <ChatWindow
+            actions={actions}
+            messages={messages}
+            onActionClick={scrollToSection}
+            onClose={handleClose}
+            onMinimize={handleClose}
+            onQuickAction={handleQuickAction}
+            onSubmitQuestion={handleSubmitQuestion}
+            typing={typing}
+          />
+        </Suspense>
       ) : (
         <button
           className="bb-chat-launcher"

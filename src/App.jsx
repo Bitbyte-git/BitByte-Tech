@@ -40,11 +40,11 @@ const WebDevelopmentSubService = lazy(
   () => import("./components/WebDevelopmentSubService"),
 );
 const CareersPage = lazy(() => import("./components/CareersPage"));
-const ShowcasePage = lazy(() => import("./components/ShowcasePage"));
 const ImaginationToReality = lazy(
   () => import("./components/ImaginationToReality"),
 );
 const RealTimeSales = lazy(() => import("./components/RealTimeSales"));
+const LegalPage = lazy(() => import("./components/LegalPage"));
 
 const SectionFallback = () => null;
 const WORKSPACE_ACCESS_APPS = {
@@ -59,6 +59,13 @@ const WORKSPACE_ACCESS_APPS = {
     redirectUrl: "https://bit-byte-billing-client.vercel.app",
     title: "Secure Billing Access",
     subtitle: "Authorized Finance Access Only",
+  },
+  showcase: {
+    appName: "Showcase",
+    redirectUrl: "https://bitbyte-showcase-web.vercel.app/",
+    title: "Secure Showcase Access",
+    subtitle: "Enter the secret code to view BitByte Showcase",
+    openInNewTab: true,
   },
 };
 
@@ -93,7 +100,8 @@ export default function App() {
     pathname ===
     "/services/business-analytics/data-driven-business-analytics-solutions";
   const isCareersPage = pathname === "/careers";
-  const isShowcasePage = pathname === "/showcase";
+  const isPrivacyPolicyPage = pathname === "/privacy-policy";
+  const isTermsConditionsPage = pathname === "/terms-and-conditions";
   const isImaginationToRealityPage =
     pathname === "/services/imagination-to-reality";
   const isRealTimeSalesPage = pathname === "/services/real-time-sales-data";
@@ -109,14 +117,13 @@ export default function App() {
     isImaginationToRealityPage ||
     isRealTimeSalesPage ||
     isPersonalBrandingPage;
-  const isRoutedPage = isServiceDetailPage || isShowcasePage;
+  const isLegalPage = isPrivacyPolicyPage || isTermsConditionsPage;
+  const isRoutedPage = isServiceDetailPage || isLegalPage;
   const navActiveSection = isCareersPage
     ? "careers"
-    : isShowcasePage
-      ? "showcase"
-      : isServiceDetailPage
-        ? "services"
-        : activeSection;
+    : isServiceDetailPage
+      ? "services"
+      : activeSection;
 
   useLandingEffects({ canvasRef, cursorRef, ringRef, planetRef, setNavStuck });
 
@@ -271,6 +278,7 @@ export default function App() {
         rootLinks={isRoutedPage}
         onHRMSClick={() => openWorkspaceAccess("hrms")}
         onBillingClick={() => openWorkspaceAccess("billing")}
+        onShowcaseClick={() => openWorkspaceAccess("showcase")}
       />
       <Navbar
         activeSection={navActiveSection}
@@ -282,6 +290,7 @@ export default function App() {
         stuck={navStuck}
         onHRMSClick={() => openWorkspaceAccess("hrms")}
         onBillingClick={() => openWorkspaceAccess("billing")}
+        onShowcaseClick={() => openWorkspaceAccess("showcase")}
       />
       <HRMSAccessPopup
         isOpen={Boolean(workspaceAccessApp)}
@@ -316,10 +325,6 @@ export default function App() {
         <Suspense fallback={<SectionFallback />}>
           <CareersPage />
         </Suspense>
-      ) : isShowcasePage ? (
-        <Suspense fallback={<SectionFallback />}>
-          <ShowcasePage />
-        </Suspense>
       ) : isImaginationToRealityPage ? (
         <Suspense fallback={<SectionFallback />}>
           <ImaginationToReality />
@@ -331,6 +336,10 @@ export default function App() {
       ) : isPersonalBrandingPage ? (
         <Suspense fallback={<SectionFallback />}>
           <PersonalBranding />
+        </Suspense>
+      ) : isLegalPage ? (
+        <Suspense fallback={<SectionFallback />}>
+          <LegalPage type={isPrivacyPolicyPage ? "privacy" : "terms"} />
         </Suspense>
       ) : (
         <>

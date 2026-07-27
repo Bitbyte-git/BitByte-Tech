@@ -1,4 +1,0 @@
-- [ ] Inspect current error source (Vite normalizeUrl)
-- [x] Identify likely problematic URL usage in ShowcasePage.jsx
-- [x] Update Canva embed URL construction using `new URL()` for safer normalization
-- [x] Run `npm run dev` (and/or `npm run build`) to verify the error is resolved
