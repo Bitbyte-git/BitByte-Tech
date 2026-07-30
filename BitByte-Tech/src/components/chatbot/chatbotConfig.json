@@ -1,0 +1,70 @@
+{
+  "welcomeMessage": "Hi 👋 Welcome to BitByte Technologies.\n\nI can help you explore our services, portfolio, pricing, and contact information.",
+  "fallbackMessage": "I can help with services, showcase, pricing, contact details, or booking a free consultation. Choose one of the quick actions below.",
+  "quickActions": [
+    {
+      "id": "services",
+      "label": "🚀 Our Services",
+      "userText": "Our Services"
+    },
+    {
+      "id": "showcase",
+      "label": "💼 View Showcase",
+      "userText": "View Showcase"
+    },
+    {
+      "id": "pricing",
+      "label": "💰 Pricing Plans",
+      "userText": "Pricing Plans"
+    },
+    {
+      "id": "contact",
+      "label": "📞 Contact Team",
+      "userText": "Contact Team"
+    },
+    {
+      "id": "consultation",
+      "label": "📅 Book Consultation",
+      "userText": "Book Consultation"
+    }
+  ],
+  "responses": {
+    "services": {
+      "text": "We provide:\n\n• Web Application Development\n• Mobile App Development\n• HRMS Solutions\n• ERP Solutions\n• SaaS Platforms\n• Cloud Solutions\n• Digital Marketing\n• Business Analytics",
+      "cta": {
+        "label": "Explore Services",
+        "target": "services"
+      }
+    },
+    "showcase": {
+      "text": "Explore some of our successful projects and business solutions.",
+      "cta": {
+        "label": "Open Showcase",
+        "target": "showcase"
+      }
+    },
+    "pricing": {
+      "text": "We offer flexible pricing based on your project requirements.",
+      "cta": {
+        "label": "View Pricing",
+        "target": "pricing"
+      }
+    },
+    "contact": {
+      "text": "Connect directly with our experts.",
+      "email": "reachus@bitbytetech.org",
+      "phone": "+91 99437 43136 (WhatsApp Only)",
+      "cta": {
+        "label": "Contact Us",
+        "target": "contact"
+      }
+    },
+    "consultation": {
+      "text": "Schedule a free consultation with our team.",
+      "cta": {
+        "label": "Get Started",
+        "target": "contact-form"
+      }
+    }
+  }
+}
