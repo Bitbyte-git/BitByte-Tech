@@ -14,6 +14,7 @@ function Navbar({
   rootLinks = false,
   onHRMSClick,
   onBillingClick,
+  onShowcaseClick,
 }) {
   const { t } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -38,7 +39,7 @@ function Navbar({
           </div>
         </a>
         <ul className="nav-links">
-          {navLinks.map(({ href, key, label }) => (
+          {navLinks.filter((link) => link.key !== "showcase").map(({ href, key, label }) => (
             <li key={href}>
               <a
                 href={hrefFor(href)}
@@ -86,6 +87,16 @@ function Navbar({
               <i className="fa-solid fa-chevron-down dropdown-arrow" aria-hidden="true" />
             </button>
             <div className="workspace-dropdown-menu">
+              <button
+                type="button"
+                onClick={(e) => {
+                  setDropdownOpen(false);
+                  onShowcaseClick?.(e);
+                }}
+              >
+                <i className="fa-solid fa-briefcase" aria-hidden="true" />
+                <span>Showcase</span>
+              </button>
               <button 
                 type="button" 
                 onClick={(e) => {

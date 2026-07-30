@@ -291,6 +291,7 @@ export default function App() {
             rootLinks={isRoutedPage}
             onHRMSClick={() => openWorkspaceAccess("hrms")}
             onBillingClick={() => openWorkspaceAccess("billing")}
+            onShowcaseClick={() => openWorkspaceAccess("showcase")}
           />
           <Navbar
             activeSection={navActiveSection}
@@ -302,6 +303,7 @@ export default function App() {
             stuck={navStuck}
             onHRMSClick={() => openWorkspaceAccess("hrms")}
             onBillingClick={() => openWorkspaceAccess("billing")}
+            onShowcaseClick={() => openWorkspaceAccess("showcase")}
           />
           <HRMSAccessPopup
             isOpen={Boolean(workspaceAccessApp)}

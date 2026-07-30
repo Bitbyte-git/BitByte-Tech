@@ -11,6 +11,7 @@ function MobileMenu({
   rootLinks = false,
   onHRMSClick,
   onBillingClick,
+  onShowcaseClick,
 }) {
   const { t } = useTranslation();
   const [workspaceOpen, setWorkspaceOpen] = useState(false);
@@ -40,6 +41,11 @@ function MobileMenu({
     onClose();
   };
 
+  const handleShowcaseClick = () => {
+    onShowcaseClick?.();
+    onClose();
+  };
+
   return (
     <div className={`mob-menu ${open ? "open" : ""}`} id="mobMenu">
       <button
@@ -50,7 +56,7 @@ function MobileMenu({
       >
         <i className="fas fa-times" aria-hidden="true" />
       </button>
-      {navLinks.map(({ href, key, label }) => (
+      {navLinks.filter((link) => link.key !== "showcase").map(({ href, key, label }) => (
         <div className="mob-link-group" key={href}>
           <a
             href={hrefFor(href)}
@@ -101,6 +107,26 @@ function MobileMenu({
             borderRadius: 8,
             border: "1px solid rgba(0, 180, 216, 0.1)"
           }}>
+            <button
+              type="button"
+              onClick={handleShowcaseClick}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontFamily: "var(--f-body)",
+                fontSize: "15px",
+                color: "var(--white80)",
+                textAlign: "left",
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                cursor: "pointer"
+              }}
+            >
+              <i className="fa-solid fa-briefcase" style={{ color: "var(--teal)" }} aria-hidden="true" />
+              Showcase
+            </button>
             <button
               type="button"
               onClick={handleHRMSClick}
