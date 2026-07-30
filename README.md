@@ -1,5 +1,3 @@
 # Bitbyte Landing page
 
-lavender traditional outfit worn by girl character with white scarf and matching shoes
-
-final commit
+this commit from Web Applicaation Team
