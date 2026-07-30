@@ -4,6 +4,7 @@ const VISIT_COUNTED_KEY = "website-visit-counted";
 const VISIT_COUNTED_VALUE = "counted";
 const VISIT_LOCK_PREFIX = "pending:";
 const VISIT_LOCK_TTL_MS = 15_000;
+const VISITOR_COUNTER_API_PATH = "/api/visitor-counter";
 const DEV_VISITOR_COUNTER_PROXY_PATH = "/__visitor-counter";
 
 let visitorCounterRequest = null;
@@ -31,11 +32,15 @@ function EyeIcon() {
 function getVisitorApiUrl() {
   const apiUrl = (import.meta.env.VITE_VISITOR_COUNTER_API || "").trim();
 
+  if (import.meta.env.PROD) {
+    return VISITOR_COUNTER_API_PATH;
+  }
+
   if (import.meta.env.DEV && /^https?:\/\//i.test(apiUrl)) {
     return DEV_VISITOR_COUNTER_PROXY_PATH;
   }
 
-  return apiUrl;
+  return apiUrl || VISITOR_COUNTER_API_PATH;
 }
 
 function getVisitStatus() {
@@ -91,14 +96,16 @@ function clearVisitLock() {
 function parseVisitorResponse(payload) {
   const responsePayload =
     typeof payload?.body === "string" ? JSON.parse(payload.body) : payload;
-  const count =
-    typeof responsePayload?.count === "string"
-      ? Number(responsePayload.count)
-      : responsePayload?.count;
+  const rawCount =
+    responsePayload?.count ??
+    responsePayload?.value ??
+    responsePayload?.visits ??
+    responsePayload?.views ??
+    responsePayload?.total;
+  const count = typeof rawCount === "string" ? Number(rawCount) : rawCount;
 
   if (
     !responsePayload ||
-    responsePayload.success !== true ||
     typeof count !== "number" ||
     !Number.isFinite(count)
   ) {
