@@ -29,18 +29,18 @@ function EyeIcon() {
   );
 }
 
-function getVisitorApiUrl() {
+function getVisitorApiUrls() {
   const apiUrl = (import.meta.env.VITE_VISITOR_COUNTER_API || "").trim();
 
   if (import.meta.env.PROD) {
-    return VISITOR_COUNTER_API_PATH;
+    return [VISITOR_COUNTER_API_PATH, apiUrl].filter(Boolean);
   }
 
   if (import.meta.env.DEV && /^https?:\/\//i.test(apiUrl)) {
-    return DEV_VISITOR_COUNTER_PROXY_PATH;
+    return [DEV_VISITOR_COUNTER_PROXY_PATH];
   }
 
-  return apiUrl || VISITOR_COUNTER_API_PATH;
+  return [apiUrl || VISITOR_COUNTER_API_PATH];
 }
 
 function getVisitStatus() {
@@ -115,34 +115,47 @@ function parseVisitorResponse(payload) {
   return count;
 }
 
-async function requestVisitorCount(apiUrl) {
+async function requestVisitorCount(apiUrls) {
   const visitStatus = getVisitStatus();
   const shouldIncrement = visitStatus === "new";
+  const urls = Array.isArray(apiUrls) ? apiUrls : [apiUrls];
 
   if (shouldIncrement) {
     setVisitLock();
   }
 
   try {
-    const response = await fetch(apiUrl, {
-      method: shouldIncrement ? "POST" : "GET",
-      cache: "no-store",
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    let lastError = null;
 
-    if (!response.ok) {
-      throw new Error(`Visitor counter request failed: ${response.status}`);
+    for (const apiUrl of urls) {
+      if (!apiUrl) continue;
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: shouldIncrement ? "POST" : "GET",
+          cache: "no-store",
+          headers: {
+            Accept: "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Visitor counter request failed: ${response.status}`);
+        }
+
+        const count = parseVisitorResponse(await response.json());
+
+        if (shouldIncrement) {
+          markVisitCounted();
+        }
+
+        return count;
+      } catch (error) {
+        lastError = error;
+      }
     }
 
-    const count = parseVisitorResponse(await response.json());
-
-    if (shouldIncrement) {
-      markVisitCounted();
-    }
-
-    return count;
+    throw lastError || new Error("Visitor counter URL is not configured");
   } catch (error) {
     if (shouldIncrement) {
       clearVisitLock();
@@ -152,9 +165,9 @@ async function requestVisitorCount(apiUrl) {
   }
 }
 
-function loadVisitorCount(apiUrl) {
+function loadVisitorCount(apiUrls) {
   if (!visitorCounterRequest) {
-    visitorCounterRequest = requestVisitorCount(apiUrl).finally(() => {
+    visitorCounterRequest = requestVisitorCount(apiUrls).finally(() => {
       visitorCounterRequest = null;
     });
   }
@@ -191,17 +204,17 @@ export default function VisitorCounter() {
   useEffect(() => {
     if (!visible) return undefined;
 
-    const apiUrl = getVisitorApiUrl();
+    const apiUrls = getVisitorApiUrls();
     let isMounted = true;
 
-    if (!apiUrl) {
+    if (apiUrls.length === 0) {
       setStatus("error");
       return undefined;
     }
 
     setStatus("loading");
 
-    loadVisitorCount(apiUrl)
+    loadVisitorCount(apiUrls)
       .then((nextCount) => {
         if (!isMounted) return;
         setCount(nextCount);
@@ -221,7 +234,7 @@ export default function VisitorCounter() {
   const displayText =
     status === "success" && typeof count === "number"
       ? count.toLocaleString()
-      : "Unavailable";
+      : "Restricted";
 
   return (
     <div
