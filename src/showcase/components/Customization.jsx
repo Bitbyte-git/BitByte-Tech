@@ -61,7 +61,7 @@ export default function Customization() {
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-400 to-cyan-400 text-navy-950 font-bold rounded-xl hover:scale-105 transition-transform duration-200 shadow-lg"
-              >
+               title="Go to contact">
                 Start Customizing
                 <span>→</span>
               </a>

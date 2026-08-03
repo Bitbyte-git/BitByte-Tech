@@ -61,6 +61,7 @@ function MobileMenu({
           <a
             href={hrefFor(href)}
             className={activeSection === key ? "active" : ""}
+            title={label}
             onClick={(event) => handleLinkClick(event, href, key)}
           >
             {t(`nav.${key}`, label)}
@@ -71,6 +72,7 @@ function MobileMenu({
                 <a
                   href={hrefFor(service.route)}
                   key={service.id}
+                  title={service.title}
                   onClick={(event) => {
                     if (!service.route.startsWith("/")) {
                       handleServiceClick(event, service.id);
@@ -175,3 +177,4 @@ function MobileMenu({
 }
 
 export default memo(MobileMenu);
+

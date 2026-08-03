@@ -100,7 +100,7 @@ export default function Footer({ rootLinks = false }) {
             <ul className="footer-links">
               {links.map((link) => (
                 <li key={link}>
-                  <a href={hrefFor(link)}>
+                  <a href={hrefFor(link)} title="Open link">
                     {services.some((service) => service.id === link)
                       ? t(`services.cards.${link}.title`)
                       : link}
@@ -121,7 +121,7 @@ export default function Footer({ rootLinks = false }) {
             href="https://www.linkedin.com/in/selvaperumal-g-9656b32a1?utm_source=share_via&utm_content=profile&utm_medium=member_android"
             target="_blank"
             rel="noopener noreferrer"
-          >
+           title="Open linkedin.com">
              Selvaperumal G &{" "}
            
           </a>
@@ -130,7 +130,7 @@ export default function Footer({ rootLinks = false }) {
             href="https://www.linkedin.com/in/roshini-govindaraj-233941331?utm_source=share_via&utm_content=profile&utm_medium=member_android"
             target="_blank"
             rel="noopener noreferrer"
-          >
+           title="Open linkedin.com">
             Roshini G 
           </a>
         </div>

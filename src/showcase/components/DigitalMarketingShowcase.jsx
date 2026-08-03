@@ -368,7 +368,7 @@ export default function DigitalMarketingShowcase() {
                   target="_blank"
                   rel="noreferrer"
                   className="ml-2 inline-flex items-center gap-1 text-cyan-400 hover:text-cyan-300"
-                >
+                 title="Open link">
                   Open Canva presentation <ExternalLink size={12} />
                 </a>
               </div>

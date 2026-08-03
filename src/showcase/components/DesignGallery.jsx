@@ -28,7 +28,8 @@ function DesignCard({ design, accent, index, onChoose }) {
             href={design.previewUrl}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={e => e.stopPropagation()}
+            title={`Open ${design.name} preview`}
+            onClick={(e) => e.stopPropagation()}
             className="flex-shrink-0 text-[9px] text-blue-500 hover:text-blue-700 font-semibold"
           >
             visit ↗
@@ -93,7 +94,7 @@ function DesignCard({ design, accent, index, onChoose }) {
             target="_blank"
             rel="noopener noreferrer"
             className={`flex-1 py-2.5 text-center text-sm font-semibold text-white bg-gradient-to-r ${accent} rounded-xl hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-md`}
-          >
+           title="Open link">
             Live Preview ↗
           </a>
           <button
@@ -138,7 +139,7 @@ function ChosenModal({ design, category, accent, onClose }) {
             href="/showcase/#contact"
             onClick={onClose}
             className={`flex-1 py-3 text-center text-white font-bold rounded-xl bg-gradient-to-r ${accent} hover:opacity-90 transition-opacity text-sm shadow-lg`}
-          >
+           title="Go to showcase">
             Contact Us →
           </a>
         </div>
@@ -195,7 +196,7 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
             href="/showcase/#contact"
             onClick={onBack}
             className={`hidden sm:flex items-center gap-1.5 px-5 py-2 text-sm font-bold text-white rounded-xl bg-gradient-to-r ${data.accent} hover:opacity-90 transition-opacity shadow-md`}
-          >
+           title="Go to showcase">
             Get Quote →
           </a>
         </div>
@@ -270,5 +271,6 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
     </div>
   );
 }
+
 
 

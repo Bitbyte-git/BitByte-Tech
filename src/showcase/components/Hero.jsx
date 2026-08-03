@@ -213,6 +213,7 @@ export default function Hero() {
               <a
                 href="/showcase/website-showcase"
                 className="group px-5 py-3 text-sm bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all duration-300 text-center"
+                title="Go to website showcase"
                 onClick={(e) => { e.preventDefault(); import('../utils/navigate').then(m => m.navigate('/showcase/website-showcase')); }}
               >
                 View Designs
@@ -221,7 +222,7 @@ export default function Hero() {
               <a
                 href="/showcase/#contact"
                 className="px-5 py-3 text-sm bg-white/5 border border-white/15 text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/30 transition-all duration-300 text-center backdrop-blur-sm"
-              >
+               title="Go to showcase">
                 Get Free Quote
               </a>
             </div>
@@ -250,5 +251,6 @@ export default function Hero() {
     </section>
   )
 }
+
 
 

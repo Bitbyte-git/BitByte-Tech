@@ -74,7 +74,7 @@ export default function Navbar() {
         }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
-        <a href="/" className="flex items-center gap-2 group">
+        <a href="/" className="flex items-center gap-2 group" title="Go to home">
           <img
             src="/showcase-assets/BB-Logo.png"
             alt="BitByte Logo"
@@ -123,6 +123,7 @@ export default function Navbar() {
                           key={item.label}
                           href={item.href}
                           className="block rounded-xl px-3 py-2.5 text-sm text-gray-200 hover:bg-white/10 hover:text-white"
+                          title={item.label}
                           onClick={(e) => {
                             e.preventDefault();
                             if (item.action === 'officeTour') {
@@ -144,7 +145,7 @@ export default function Navbar() {
                 <a
                   href={link.href}
                   className="px-4 py-2 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200"
-                >
+                 title="Open link">
                   {link.label}
                 </a>
               )}
@@ -163,6 +164,7 @@ export default function Navbar() {
           <a
             href="/showcase/website-showcase"
             className="px-5 py-2 text-sm font-semibold text-black bg-gradient-to-r from-blue-400 to-green-400 rounded-xl hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-lg shadow-blue-500/20"
+            title="Go to website showcase"
             onClick={(e) => { e.preventDefault(); navigate('/showcase/website-showcase'); }}
           >
             View Designs
@@ -200,7 +202,8 @@ export default function Navbar() {
                         key={item.label}
                         href={item.href}
                         className="block rounded-xl px-3 py-2 text-sm text-gray-400 hover:text-white"
-                        onClick={(e) => {
+                        title={item.label}
+                          onClick={(e) => {
                           e.preventDefault();
                           if (item.action === 'officeTour') {
                             openOfficeTour();
@@ -221,6 +224,7 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 className="block py-3 text-gray-300 hover:text-white font-medium border-b border-white/5"
+                title={link.label}
                 onClick={() => setMenuOpen(false)}
               >
                 {link.label}
@@ -237,6 +241,7 @@ export default function Navbar() {
             <a
               href="/showcase/website-showcase"
               className="block mt-4 text-center py-3 font-bold text-black bg-gradient-to-r from-blue-400 to-green-400 rounded-xl"
+              title="Go to website showcase"
               onClick={(e) => { e.preventDefault(); navigate('/showcase/website-showcase'); setMenuOpen(false); }}
             >
               View Designs {'->'}
@@ -275,6 +280,7 @@ export default function Navbar() {
     </header>
   );
 }
+
 
 
 

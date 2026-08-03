@@ -283,11 +283,11 @@ export default function CustomWebApplications() {
     <main className="webapp-page wrap">
       <section className="webapp-hero">
         <div className="webapp-breadcrumb reveal">
-          <a href="/#hero">Home</a>
+          <a href="/#hero" title="Go to home">Home</a>
           <span>›</span>
-          <a href="/#services">Services</a>
+          <a href="/#services" title="Go to home">Services</a>
           <span>›</span>
-          <a href="/services/web-development">Web App Development</a>
+          <a href="/services/web-development" title="Go to services web development">Web App Development</a>
           <span>›</span>
           <strong>Custom Web Applications</strong>
         </div>
@@ -322,10 +322,10 @@ export default function CustomWebApplications() {
               </div>
             </div>
             <div className="webapp-actions reveal reveal-delay-5">
-              <a href="/#contact" className="btn-primary">
+              <a href="/#contact" className="btn-primary" title="Go to home">
                 Start a Project <span className="arr">→</span>
               </a>
-              <a href="/#contact" className="btn-ghost">
+              <a href="/#contact" className="btn-ghost" title="Go to home">
                 Discuss Your Project
               </a>
             </div>
@@ -458,7 +458,7 @@ export default function CustomWebApplications() {
           <h2>Ready to Build Your Custom Web Application?</h2>
           <p>Share your idea with us and we will turn it into a powerful web application that drives results and grows your business.</p>
         </div>
-        <a href="/#contact" className="btn-primary">
+        <a href="/#contact" className="btn-primary" title="Go to home">
           Get a Free Consultation <span className="arr">→</span>
         </a>
       </section>

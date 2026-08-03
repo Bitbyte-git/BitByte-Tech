@@ -34,7 +34,7 @@ export default function CTA() {
               <a
                 href="mailto:reachus@bitbytetech.org"
                 className="group px-5 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-400 to-cyan-400 text-navy-950 font-bold rounded-2xl hover:scale-105 transition-all duration-300 shadow-xl shadow-blue-400/30 text-center"
-              >
+               title="Email reachus@bitbytetech.org">
                 Contact Us
                 <span className="ml-2 group-hover:translate-x-1 inline-block transition-transform duration-200">→</span>
               </a>
@@ -43,7 +43,7 @@ export default function CTA() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 sm:px-8 py-3 sm:py-4 border border-white/20 text-white font-bold rounded-2xl hover:bg-white/10 hover:border-white/40 transition-all duration-300 text-center backdrop-blur-sm"
-              >
+               title="Open bitbytetech.org">
                 📅 Schedule a Meeting
               </a>
             </div>

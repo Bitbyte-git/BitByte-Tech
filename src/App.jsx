@@ -13,7 +13,6 @@ import HRMSAccessPopup from "./components/HRMSAccessPopup";
 import Hero from "./components/Hero";
 import MobileMenu from "./components/MobileMenu";
 import Navbar from "./components/Navbar";
-import ChatBot from "./components/chatbot/ChatBot";
 import useLandingEffects from "./components/useLandingEffects";
 
 const Services = lazy(() => import("./components/Services"));
@@ -46,6 +45,7 @@ const ImaginationToReality = lazy(
 const RealTimeSales = lazy(() => import("./components/RealTimeSales"));
 const LegalPage = lazy(() => import("./components/LegalPage"));
 const ShowcaseApp = lazy(() => import("./showcase/App"));
+const ChatBot = lazy(() => import("./components/chatbot/ChatBot"));
 
 const SectionFallback = () => null;
 const WORKSPACE_ACCESS_APPS = {
@@ -383,7 +383,9 @@ export default function App() {
       )}
       {!isShowcasePage && (
         <>
-          <ChatBot />
+          <Suspense fallback={null}>
+            <ChatBot />
+          </Suspense>
           <Footer rootLinks={isRoutedPage} />
         </>
       )}

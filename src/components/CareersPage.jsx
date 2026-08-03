@@ -101,7 +101,7 @@ export default function CareersPage() {
             We are always looking for passionate, curious, and driven people who
             love building digital experiences that make an impact.
           </p>
-          <a href="#open-positions" className="career-action">
+          <a href="#open-positions" className="career-action" title="Go to open positions">
             Explore Open Positions
             <i className="fa-solid fa-chevron-right" aria-hidden="true" />
           </a>
@@ -150,7 +150,7 @@ export default function CareersPage() {
             <span>Open Positions</span>
             <h2>Find the Right Opportunity for You</h2>
           </div>
-          <a href="#open-positions" className="career-outline-link">
+          <a href="#open-positions" className="career-outline-link" title="Go to open positions">
             View All Positions
             <i className="fa-solid fa-chevron-right" aria-hidden="true" />
           </a>
@@ -171,7 +171,7 @@ export default function CareersPage() {
                 </div>
               </div>
               <p className="career-job-desc">{description}</p>
-              <a href="/#contact" className="career-apply">
+              <a href="/#contact" className="career-apply" title="Go to home">
                 Apply Now
               </a>
             </article>
@@ -206,7 +206,7 @@ export default function CareersPage() {
           <h2>Don&apos;t see the right role?</h2>
           <p>We are always open to connecting with great talent.</p>
         </div>
-        <a href="/#contact" className="career-resume-button">
+        <a href="/#contact" className="career-resume-button" title="Go to home">
           Send Us Your Resume
         </a>
       </section>

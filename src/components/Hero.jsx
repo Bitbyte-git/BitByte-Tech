@@ -219,13 +219,13 @@ function Hero({ planetRef }) {
           />
         </div>
         <img
-          src="/assets/optimized/planet-640.png"
-          srcSet="/assets/optimized/planet-320.png 320w, /assets/optimized/planet-640.png 640w"
-          sizes="(max-width: 900px) 88vw, 600px"
+          src="/assets/optimized/planet-246.png"
+          srcSet="/assets/optimized/planet-160.png 160w, /assets/optimized/planet-240.png 240w, /assets/optimized/planet-246.png 246w"
+          sizes="(max-width: 560px) 160px, (max-width: 900px) 240px, 246px"
           alt=""
           className="hero-planet"
-          width="640"
-          height="640"
+          width="246"
+          height="246"
           loading="eager"
           decoding="async"
           fetchpriority="high"
@@ -287,7 +287,7 @@ function Hero({ planetRef }) {
           >
             {t('hero.primary')} <span className="arr">→</span>
           </button>
-          <a href="#contact" className="btn-ghost">
+          <a href="#contact" className="btn-ghost" title="Go to contact">
             {t('hero.secondary')} <span className="arr">→</span>
           </a>
         </div>

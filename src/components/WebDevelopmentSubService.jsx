@@ -471,11 +471,11 @@ export default function WebDevelopmentSubService({ type }) {
     <main className="webapp-page wd-sub-page wrap">
       <section className="webapp-hero">
         <div className="webapp-breadcrumb reveal">
-          <a href="/#hero">Home</a>
+          <a href="/#hero" title="Go to home">Home</a>
           <span>›</span>
-          <a href="/#services">Services</a>
+          <a href="/#services" title="Go to home">Services</a>
           <span>›</span>
-          <a href="/services/web-development">Web App Development</a>
+          <a href="/services/web-development" title="Go to services web development">Web App Development</a>
           <span>›</span>
           <strong>{page.label}</strong>
         </div>
@@ -488,10 +488,10 @@ export default function WebDevelopmentSubService({ type }) {
             <h2 className="webapp-kicker reveal reveal-delay-2">{page.subtitle}</h2>
             <p className="webapp-lead reveal reveal-delay-3">{page.description}</p>
             <div className="webapp-actions reveal reveal-delay-4">
-              <a href="/#contact" className="btn-primary">
+              <a href="/#contact" className="btn-primary" title="Go to home">
                 Start a Project <span className="arr">→</span>
               </a>
-              <a href="/services/web-development" className="btn-ghost">
+              <a href="/services/web-development" className="btn-ghost" title="Go to services web development">
                 Back to Web App Development
               </a>
             </div>
@@ -525,7 +525,7 @@ export default function WebDevelopmentSubService({ type }) {
           <h2>Ready to Build {page.label}?</h2>
           <p>Share your requirements with us and we will shape them into a fast, secure, scalable digital solution.</p>
         </div>
-        <a href="/#contact" className="btn-primary">
+        <a href="/#contact" className="btn-primary" title="Go to home">
           Get a Free Consultation <span className="arr">→</span>
         </a>
       </section>

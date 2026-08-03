@@ -1166,9 +1166,9 @@ export default function PersonalBranding() {
 
       <section className="pb-hero">
         <div className="pb-breadcrumb reveal">
-          <a href="/#hero">Home</a>
+          <a href="/#hero" title="Go to home">Home</a>
           <span>&gt;</span>
-          <a href="/#services">Services</a>
+          <a href="/#services" title="Go to home">Services</a>
           <span>&gt;</span>
           <strong>Personal Branding</strong>
         </div>
@@ -1194,8 +1194,8 @@ export default function PersonalBranding() {
             </div>
 
             <div className="pb-actions reveal reveal-delay-4">
-              <a className="btn-primary" href="/#contact">Let's Build Your Brand</a>
-              <a className="btn-ghost" href="/#services">Explore All Services</a>
+              <a className="btn-primary" href="/#contact" title="Go to home">Let's Build Your Brand</a>
+              <a className="btn-ghost" href="/#services" title="Go to home">Explore All Services</a>
             </div>
           </div>
 
@@ -1270,7 +1270,7 @@ export default function PersonalBranding() {
           <h2>Ready to Build Your <span>Personal Brand?</span></h2>
           <p>Let's craft a personal brand that reflects your identity, builds trust, and creates lasting impact.</p>
         </div>
-        <a className="btn-primary" href="/#contact">Get a Free Consultation &rarr;</a>
+        <a className="btn-primary" href="/#contact" title="Go to home">Get a Free Consultation &rarr;</a>
       </section>
     </main>
   )

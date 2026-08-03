@@ -68,7 +68,7 @@ export default function Footer() {
                     <a
                       href="#"
                       className="text-sm hover:text-white transition-colors duration-200"
-                    >
+                     title="Open link">
                       {item}
                     </a>
                   </li>
@@ -84,9 +84,9 @@ export default function Footer() {
             © {year} BitByte. All rights reserved.
           </p>
           <div className="flex gap-6 text-xs">
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-white transition-colors">Cookie Policy</a>
+            <a href="#" className="hover:text-white transition-colors" title="Open link">Privacy Policy</a>
+            <a href="#" className="hover:text-white transition-colors" title="Open link">Terms of Service</a>
+            <a href="#" className="hover:text-white transition-colors" title="Open link">Cookie Policy</a>
           </div>
           <div className="text-xs text-gray-600">
             Made with <span className="text-red-400">♥</span> for great businesses

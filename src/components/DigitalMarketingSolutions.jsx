@@ -386,9 +386,9 @@ export default function DigitalMarketingSolutions() {
     <main className="webapp-page dm-page wrap">
       <section className="dm-hero">
         <div className="webapp-breadcrumb reveal">
-          <a href="/#hero">Home</a>
+          <a href="/#hero" title="Go to home">Home</a>
           <span>›</span>
-          <a href="/#services">Services</a>
+          <a href="/#services" title="Go to home">Services</a>
           <span>›</span>
           <strong>Digital Marketing</strong>
         </div>
@@ -411,10 +411,10 @@ export default function DigitalMarketingSolutions() {
               across search engines, social media, and <MarketingTerm term="AI" />-powered platforms.
             </p>
             <div className="webapp-actions reveal reveal-delay-4">
-              <a href="/#contact" className="btn-primary">
+              <a href="/#contact" className="btn-primary" title="Go to home">
                 Get Free Consultation <span className="arr">→</span>
               </a>
-              <a href="#dm-services" className="btn-ghost">
+              <a href="#dm-services" className="btn-ghost" title="Go to dm services">
                 Explore Services
               </a>
             </div>
@@ -519,7 +519,7 @@ export default function DigitalMarketingSolutions() {
             modern search experiences.
           </p>
         </div>
-        <a href="/#contact" className="btn-primary">
+        <a href="/#contact" className="btn-primary" title="Go to home">
           Start Your Digital Growth Extravaganza <span className="arr">→</span>
         </a>
       </section>

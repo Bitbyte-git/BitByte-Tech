@@ -402,7 +402,7 @@ export default function WhatsAppEnquiryForm() {
           href={fallbackUrl}
           target="_blank"
           rel="noreferrer"
-        >
+         title="Open link">
           Open WhatsApp Directly
         </a>
       )}

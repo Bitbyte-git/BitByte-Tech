@@ -44,6 +44,7 @@ function Navbar({
               <a
                 href={hrefFor(href)}
                 className={`${activeSection === key ? "active" : ""} ${key === "services" && activeServiceId ? "service-pulsing" : ""}`}
+                title={label}
                 onClick={(event) => onNavClick?.(event, href, key)}
               >
                 {t(`nav.${key}`, label)}
@@ -55,7 +56,8 @@ function Navbar({
                       href={hrefFor(service.route)}
                       className={activeServiceId === service.id ? "active" : ""}
                       key={service.id}
-                      onClick={(event) => {
+                      title={service.title}
+                  onClick={(event) => {
                         if (service.route.startsWith("#")) {
                           onServiceSelect?.(event, service.id);
                         }
@@ -140,3 +142,4 @@ function Navbar({
 }
 
 export default memo(Navbar);
+

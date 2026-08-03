@@ -1031,9 +1031,9 @@ export default function ImaginationToReality() {
 
       <section className="ir-hero">
         <div className="ir-breadcrumb reveal">
-          <a href="/#hero">Home</a>
+          <a href="/#hero" title="Go to home">Home</a>
           <span>&gt;</span>
-          <a href="/#services">Services</a>
+          <a href="/#services" title="Go to home">Services</a>
           <span>&gt;</span>
           <strong>Imagination to Reality</strong>
         </div>
@@ -1059,8 +1059,8 @@ export default function ImaginationToReality() {
             </div>
 
             <div className="ir-actions reveal reveal-delay-4">
-              <a className="btn-primary" href="/#contact">Let's Build Your Idea <span className="arr">&#8599;</span></a>
-              <a className="btn-ghost" href="#ir-work">View Our Work</a>
+              <a className="btn-primary" href="/#contact" title="Go to home">Let's Build Your Idea <span className="arr">&#8599;</span></a>
+              <a className="btn-ghost" href="#ir-work" title="Go to ir work">View Our Work</a>
             </div>
           </div>
 
@@ -1134,7 +1134,7 @@ export default function ImaginationToReality() {
           <p>Share your idea with us and let our R&D experts build something amazing together.</p>
         </div>
         <div className="ir-cta-actions">
-          <a className="btn-primary" href="/#contact">Get a Free Consultation <span className="arr">&#8594;</span></a>
+          <a className="btn-primary" href="/#contact" title="Go to home">Get a Free Consultation <span className="arr">&#8594;</span></a>
           <p><i className="fa-brands fa-whatsapp" aria-hidden="true" /> No obligation. Just a conversation.</p>
         </div>
       </section>

@@ -1,8 +1,12 @@
-import { useEffect, useState } from 'react';
-import HomePage from './pages/HomePage';
-import WebsiteShowcasePage from './pages/WebsiteShowcasePage';
-import DigitalMarketingPage from './pages/DigitalMarketingPage';
-import ProposalGeneratorPage from './pages/ProposalGeneratorPage';
+import { Suspense, lazy, useEffect, useState } from 'react';
+import './index.css';
+
+const HomePage = lazy(() => import('./pages/HomePage'));
+const WebsiteShowcasePage = lazy(() => import('./pages/WebsiteShowcasePage'));
+const DigitalMarketingPage = lazy(() => import('./pages/DigitalMarketingPage'));
+const ProposalGeneratorPage = lazy(() => import('./pages/ProposalGeneratorPage'));
+
+const PageFallback = () => null;
 
 export default function App() {
   const [path, setPath] = useState(() => window.location.pathname);
@@ -27,13 +31,20 @@ export default function App() {
     }
   }, [showcasePath]);
 
-  if (showcasePath === '/website-showcase') return <WebsiteShowcasePage />;
-  if (showcasePath === '/digital-market-showcase') return <DigitalMarketingPage />;
-  if (showcasePath.startsWith('/proposal-generator') || showcasePath.startsWith('/quotation-generator')) {
-    return <ProposalGeneratorPage path={showcasePath} />;
-  }
-
-  return <HomePage />;
+  return (
+    <Suspense fallback={<PageFallback />}>
+      {showcasePath === '/website-showcase' ? (
+        <WebsiteShowcasePage />
+      ) : showcasePath === '/digital-market-showcase' ? (
+        <DigitalMarketingPage />
+      ) : showcasePath.startsWith('/proposal-generator') ||
+        showcasePath.startsWith('/quotation-generator') ? (
+        <ProposalGeneratorPage path={showcasePath} />
+      ) : (
+        <HomePage />
+      )}
+    </Suspense>
+  );
 }
 
 
