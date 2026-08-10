@@ -25,7 +25,7 @@ const processSteps = [
 
 const deliverables = [
   ['fa-solid fa-chart-pie', 'Market Research', 'In-depth market insights and competitor analysis to ensure your idea is positioned for success.'],
-  ['fa-regular fa-clipboard', 'Feasibility Study', 'Technical, operational, and financial feasibility to reduce risks and ensure a strong foundation.'],
+  ['fa-solid fa-clipboard', 'Feasibility Study', 'Technical, operational, and financial feasibility to reduce risks and ensure a strong foundation.'],
   ['fa-solid fa-bullseye', 'Product Strategy', 'We define the right product strategy, features, and roadmap aligned with your business goals.'],
   ['fa-solid fa-cube', 'Prototyping', 'Interactive prototypes to visualize, test, and validate your idea before full-scale development.'],
   ['fa-solid fa-code', 'Development', 'High-quality, scalable, and secure development using the latest technologies.'],
@@ -40,7 +40,7 @@ const trustItems = [
 ]
 
 const industries = [
-  ['fa-regular fa-heart', 'Healthcare'],
+  ['fa-solid fa-heart', 'Healthcare'],
   ['fa-solid fa-chart-line', 'Fintech'],
   ['fa-solid fa-cart-shopping', 'E-Commerce'],
   ['fa-solid fa-graduation-cap', 'Education'],

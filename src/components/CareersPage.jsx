@@ -26,8 +26,8 @@ const careerValues = [
 const heroOrbitItems = [
   ["fa-solid fa-people-group", "Great People", "orb-people"],
   ["fa-solid fa-chart-column", "Growth Opportunities", "orb-growth"],
-  ["fa-regular fa-heart", "Supportive Culture", "orb-culture"],
-  ["fa-regular fa-star", "Make an Impact", "orb-impact"],
+  ["fa-solid fa-heart", "Supportive Culture", "orb-culture"],
+  ["fa-solid fa-star", "Make an Impact", "orb-impact"],
 ];
 
 const openPositions = [

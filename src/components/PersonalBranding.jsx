@@ -12,14 +12,14 @@ const pbIndustries = [
 ];
 
 const brandServices = [
-  ['fa-regular fa-user', 'Profile Optimization', 'We optimize your social media profiles to reflect your expertise and create a strong first impression.'],
-  ['fa-regular fa-newspaper', 'Content Strategy', 'We create a content strategy that showcases your knowledge, story, and value.'],
+  ['fa-solid fa-user', 'Profile Optimization', 'We optimize your social media profiles to reflect your expertise and create a strong first impression.'],
+  ['fa-solid fa-newspaper', 'Content Strategy', 'We create a content strategy that showcases your knowledge, story, and value.'],
   ['fa-solid fa-palette', 'Visual Branding', 'From professional graphics to branded templates, we design a visual identity that you.'],
   ['fa-solid fa-chart-line', 'Growth & Engagement', 'We help you grow your audience and engage meaningfully across the right platforms.'],
 ]
 
 const heroBenefits = [
-  ['fa-regular fa-user', 'Build Credibility', 'Position yourself as a trusted expert'],
+  ['fa-solid fa-user', 'Build Credibility', 'Position yourself as a trusted expert'],
   ['fa-solid fa-bullhorn', 'Increase Visibility', 'Reach the right audience across platforms'],
   ['fa-solid fa-users', 'Grow Influence', 'Engage, connect & build a loyal community'],
   ['fa-solid fa-chart-line', 'Drive Opportunities', 'Attract new clients, partnerships & growth'],
@@ -34,7 +34,7 @@ const processSteps = [
 ]
 
 const impactCards = [
-  ['fa-regular fa-eye', '10X', 'More Visibility', 'Get noticed by the right people and opportunities.'],
+  ['fa-solid fa-eye', '10X', 'More Visibility', 'Get noticed by the right people and opportunities.'],
   ['fa-solid fa-shield-halved', '', 'Build Trust', 'Establish credibility and become a go-to expert.'],
   ['fa-solid fa-users', '', 'Grow Your Network', 'Connect with industry leaders, clients & collaborators.'],
   ['fa-solid fa-trophy', '', 'Career & Business Growth', 'Unlock new opportunities for success and growth.'],

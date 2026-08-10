@@ -12,7 +12,7 @@ const buildItems = [
 
 const processSteps = [
   ['fa-solid fa-magnifying-glass', '01', 'Requirement Gathering', 'We understand your requirements and goals.'],
-  ['fa-regular fa-calendar-days', '02', 'Planning', 'We create a roadmap and project plan.'],
+  ['fa-solid fa-calendar-days', '02', 'Planning', 'We create a roadmap and project plan.'],
   ['fa-solid fa-pen-nib', '03', 'Design', 'UI/UX design focused on user experience.'],
   ['fa-solid fa-code', '04', 'Development', 'We build with clean, scalable code.'],
   ['fa-solid fa-bug-slash', '05', 'Testing', 'Rigorous testing for bug-free performance.'],

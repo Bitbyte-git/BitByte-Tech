@@ -14,7 +14,7 @@ export default function BotAvatar({ size = 'normal' }) {
         height={imageSize}
         loading="lazy"
         decoding="async"
-        fetchPriority="low"
+        fetchpriority="low"
       />
     </span>
   )

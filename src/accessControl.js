@@ -1,7 +1,7 @@
 export const ACCESS_CODES = {
-  showcase: "SHOWCASE_SECRET",
-  hrms: "HRMS_SECRET",
-  billing: "BILLING_SECRET",
+  showcase: "Bitbyte@1",
+  hrms: "Bitbyte@1",
+  billing: "Bitbyte@1",
 };
 
 export const PROTECTED_DESTINATIONS = {

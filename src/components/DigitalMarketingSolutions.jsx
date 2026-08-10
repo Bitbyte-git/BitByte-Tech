@@ -118,16 +118,16 @@ const whyFeatures = [
 
 const industries = [
   ["fa-solid fa-cart-shopping", "Ecommerce"],
-  ["fa-regular fa-gem", "Jewellery"],
+  ["fa-solid fa-gem", "Jewellery"],
   ["fa-solid fa-building-columns", "Real Estate"],
-  ["fa-regular fa-heart", "Healthcare"],
+  ["fa-solid fa-heart", "Healthcare"],
   ["fa-solid fa-book", "Education"],
   ["fa-solid fa-rocket", "Startups"],
   ["fa-solid fa-plane", "Travel"],
   ["fa-solid fa-spa", "Lifestyle"],
   ["fa-solid fa-shop", "Local Business"],
   ["fa-solid fa-seedling", "Agriculture"],
-  ["fa-regular fa-building", "Enterprise"],
+  ["fa-solid fa-building", "Enterprise"],
 ];
 
 const digitalMarketingFaqs = [
