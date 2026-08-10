@@ -14,6 +14,14 @@ import Hero from "./components/Hero";
 import MobileMenu from "./components/MobileMenu";
 import Navbar from "./components/Navbar";
 import useLandingEffects from "./components/useLandingEffects";
+import {
+  destinationForPath,
+  getProtectedDestination,
+  grantAccess,
+  hasAccess,
+  revokeAccess,
+  revokeAllAccess,
+} from "./accessControl";
 
 const Services = lazy(() => import("./components/Services"));
 const Founder = lazy(() => import("./components/Founder"));
@@ -48,27 +56,87 @@ const ShowcaseApp = lazy(() => import("./showcase/App"));
 const ChatBot = lazy(() => import("./components/chatbot/ChatBot"));
 
 const SectionFallback = () => null;
-const WORKSPACE_ACCESS_APPS = {
-  hrms: {
-    appName: "HRMS",
-    redirectUrl: "https://bitbyte-lemon.vercel.app/login",
-    title: "Secure Employee Access",
-    subtitle: "Authorized Employees Only",
-  },
-  billing: {
-    appName: "Billing",
-    redirectUrl: "https://bit-byte-billing-client.vercel.app",
-    title: "Secure Billing Access",
-    subtitle: "Authorized Finance Access Only",
-  },
-  showcase: {
-    appName: "Showcase",
-    redirectUrl: "/showcase",
-    title: "Secure Showcase Access",
-    subtitle: "Authorized Showcase Access Only",
-    openInNewTab: false,
-  },
+const redirectToWorkspaceDestination = (destination) => {
+  const config = getProtectedDestination(destination);
+  if (!config) return;
+  window.location.href = config.redirectUrl || config.route;
 };
+
+function ProtectedRoute({ destination, children }) {
+  const config = getProtectedDestination(destination);
+  const [authorized, setAuthorized] = useState(() => hasAccess(destination));
+
+  useEffect(() => {
+    const currentAuthorized = hasAccess(destination);
+    setAuthorized(currentAuthorized);
+
+    if (currentAuthorized && (destination === "hrms" || destination === "billing")) {
+      redirectToWorkspaceDestination(destination);
+    }
+  }, [destination]);
+
+  if (!config) return null;
+
+  if (!authorized) {
+    return (
+      <HRMSAccessPopup
+        destination={destination}
+        embedded
+        isOpen
+        onSuccess={() => {
+          grantAccess(destination);
+          setAuthorized(true);
+        }}
+      />
+    );
+  }
+
+  if (destination === "hrms" || destination === "billing") {
+    return (
+      <div className="hrms-access-page">
+        <div className="hrms-popup-content">
+          <div className="hrms-popup-state hrms-popup-success">
+            <div className="hrms-status-icon success-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <h3>Access Verified</h3>
+            <h2 className="success-text">Redirecting...</h2>
+            <p>Opening {config.name} destination...</p>
+            <div className="hrms-spinner" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {children}
+      <div className="protected-route-controls" aria-label={`${config.name} access controls`}>
+        <button
+          type="button"
+          onClick={() => {
+            revokeAccess(destination);
+            window.location.href = config.route;
+          }}
+        >
+          Lock {config.name}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            revokeAllAccess();
+            window.location.href = config.route;
+          }}
+        >
+          Lock All
+        </button>
+      </div>
+    </>
+  );
+}
 
 export default function App() {
   const canvasRef = useRef(null);
@@ -84,9 +152,18 @@ export default function App() {
   const openMobileMenu = useCallback(() => setMobileOpen(true), []);
   const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
   const openWorkspaceAccess = useCallback((appKey) => {
-    setWorkspaceAccessApp(WORKSPACE_ACCESS_APPS[appKey] || null);
+    const config = getProtectedDestination(appKey);
+    if (!config) return;
+
+    if (hasAccess(appKey)) {
+      redirectToWorkspaceDestination(appKey);
+      return;
+    }
+
+    setWorkspaceAccessApp(appKey);
   }, []);
   const pathname = window.location.pathname.replace(/\/$/, "") || "/";
+  const protectedDestination = destinationForPath(pathname);
   const isWebDevelopmentPage = pathname === "/services/web-development";
   const isCustomWebAppPage =
     pathname === "/services/web-development/custom-web-applications";
@@ -105,6 +182,8 @@ export default function App() {
   const isTermsConditionsPage = pathname === "/terms-and-conditions";
   const isShowcasePage =
     pathname === "/showcase" || pathname.startsWith("/showcase/");
+  const isHRMSPage = pathname === "/hrms";
+  const isBillingPage = pathname === "/billing";
   const isImaginationToRealityPage =
     pathname === "/services/imagination-to-reality";
   const isRealTimeSalesPage = pathname === "/services/real-time-sales-data";
@@ -121,7 +200,8 @@ export default function App() {
     isRealTimeSalesPage ||
     isPersonalBrandingPage;
   const isLegalPage = isPrivacyPolicyPage || isTermsConditionsPage;
-  const isRoutedPage = isServiceDetailPage || isLegalPage || isShowcasePage;
+  const isRoutedPage =
+    isServiceDetailPage || isLegalPage || isShowcasePage || isHRMSPage || isBillingPage;
   const navActiveSection = isCareersPage
     ? "careers"
     : isShowcasePage
@@ -308,11 +388,18 @@ export default function App() {
           <HRMSAccessPopup
             isOpen={Boolean(workspaceAccessApp)}
             onClose={() => setWorkspaceAccessApp(null)}
-            {...(workspaceAccessApp || {})}
+            destination={workspaceAccessApp || "hrms"}
+            onSuccess={(destination) => {
+              grantAccess(destination);
+            }}
           />
         </>
       )}
-      {isWebDevelopmentPage ? (
+      {isHRMSPage ? (
+        <ProtectedRoute destination="hrms" />
+      ) : isBillingPage ? (
+        <ProtectedRoute destination="billing" />
+      ) : isWebDevelopmentPage ? (
         <Suspense fallback={<SectionFallback />}>
           <WebDevelopmentOverview />
         </Suspense>
@@ -357,9 +444,11 @@ export default function App() {
           <LegalPage type={isPrivacyPolicyPage ? "privacy" : "terms"} />
         </Suspense>
       ) : isShowcasePage ? (
-        <Suspense fallback={<SectionFallback />}>
-          <ShowcaseApp />
-        </Suspense>
+        <ProtectedRoute destination={protectedDestination || "showcase"}>
+          <Suspense fallback={<SectionFallback />}>
+            <ShowcaseApp />
+          </Suspense>
+        </ProtectedRoute>
       ) : (
         <>
           <Hero planetRef={planetRef} />

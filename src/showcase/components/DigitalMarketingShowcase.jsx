@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { FileText, Sparkles, X, Lock, ShieldAlert, ExternalLink } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { ACCESS_CODES } from '../../accessControl';
 
 const CANVA_SHOWCASE_URL = 'https://www.canva.com/design/DAHMKgej5XA/87Dvn3r-OGEWya7Uw8iiHg/view/';
 
@@ -128,7 +129,7 @@ export default function DigitalMarketingShowcase() {
       return;
     }
 
-    if (accessKey === 'BITBYTE123') {
+    if (accessKey === ACCESS_CODES.showcase) {
       setStage('verifying');
       setTimeout(() => setStage('dashboard'), 1500);
     } else if (accessKey === 'UNKNOWN123') {

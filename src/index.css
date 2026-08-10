@@ -8302,23 +8302,39 @@ select,
 .career-benefits {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0;
+  gap: 14px;
   margin-top: 24px;
 }
 
 .career-benefit {
-  padding: 16px 28px 12px;
+  min-height: 206px;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 12px;
+  padding: 24px 22px 22px;
+  border: 1px solid rgba(0, 180, 216, 0.14);
+  border-radius: 8px;
   text-align: center;
+  background:
+    linear-gradient(145deg, rgba(8, 31, 61, 0.42), rgba(2, 15, 30, 0.5)),
+    rgba(2, 8, 18, 0.22);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 }
 
-.career-benefit:not(:last-child) {
-  border-right: 1px solid rgba(0, 180, 216, 0.16);
+.career-benefit:hover {
+  border-color: rgba(154, 247, 90, 0.34);
+  box-shadow: 0 18px 42px rgba(0, 180, 216, 0.12);
+  transform: translateY(-4px);
 }
 
 .career-benefit i {
   display: block;
-  min-height: 48px;
-  margin-bottom: 16px;
+  min-height: 44px;
+  margin-bottom: 2px;
   color: #9af75a;
   font-size: 34px;
 }
@@ -8337,17 +8353,19 @@ select,
 }
 
 .career-benefit h3 {
-  margin-bottom: 9px;
   color: #f7fbff;
   font-family: var(--f-display);
   font-size: 16px;
+  line-height: 1.25;
   letter-spacing: 0;
 }
 
 .career-benefit p {
+  max-width: 230px;
   color: rgba(232, 248, 255, 0.75);
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.6;
+  text-align: center;
 }
 
 .career-resume-cta {
@@ -8394,6 +8412,214 @@ select,
   color: #031019;
   background: linear-gradient(90deg, #9af75a 0%, #00d5ff 58%, #2874ff 100%);
   box-shadow: 0 0 38px rgba(0, 180, 216, 0.2);
+}
+
+.career-apply {
+  cursor: pointer;
+}
+
+.career-modal-open {
+  overflow: hidden;
+}
+
+.career-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: grid;
+  align-items: start;
+  justify-items: center;
+  padding: clamp(92px, 10vh, 118px) 22px 22px;
+  background: rgba(1, 6, 14, 0.78);
+  backdrop-filter: blur(18px);
+}
+
+.career-modal {
+  position: relative;
+  width: min(1120px, calc(100vw - 44px));
+  max-height: calc(100dvh - clamp(118px, 13vh, 150px));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid rgba(0, 180, 216, 0.22);
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at 82% 0%, rgba(0, 213, 255, 0.14), transparent 34%),
+    radial-gradient(circle at 10% 14%, rgba(154, 247, 90, 0.1), transparent 30%),
+    linear-gradient(145deg, rgba(8, 31, 61, 0.96), rgba(2, 11, 24, 0.98));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 30px 110px rgba(0, 0, 0, 0.45);
+}
+
+.career-modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 180, 216, 0.24);
+  border-radius: 8px;
+  color: #f7fbff;
+  background: rgba(2, 12, 26, 0.7);
+  cursor: pointer;
+}
+
+.career-modal-head {
+  display: grid;
+  grid-template-columns: 68px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 24px 76px 22px 30px;
+  border-bottom: 1px solid rgba(0, 180, 216, 0.14);
+}
+
+.career-modal-head p {
+  margin-bottom: 8px;
+  color: #9af75a;
+  font-family: var(--f-label);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+}
+
+.career-modal-head h2 {
+  max-width: 880px;
+  color: #f7fbff;
+  font-family: var(--f-display);
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.career-modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.career-modal-meta span,
+.career-skill-cloud span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 7px 12px;
+  border: 1px solid rgba(0, 180, 216, 0.18);
+  border-radius: 8px;
+  color: rgba(232, 248, 255, 0.86);
+  font-size: 12px;
+  font-weight: 800;
+  background: rgba(0, 180, 216, 0.06);
+}
+
+.career-modal-body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 24px 30px 12px;
+  scrollbar-color: #00d5ff rgba(0, 180, 216, 0.1);
+}
+
+.career-modal-section {
+  padding: 0;
+}
+
+.career-modal-section:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 180, 216, 0.12);
+}
+
+.career-modal-section summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 58px;
+  padding: 0;
+  color: #9af75a;
+  font-family: var(--f-display);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.career-modal-section summary::-webkit-details-marker {
+  display: none;
+}
+
+.career-modal-section summary i {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 180, 216, 0.2);
+  border-radius: 8px;
+  color: #84f6ff;
+  font-size: 12px;
+  background: rgba(0, 180, 216, 0.06);
+  transition: transform 0.22s ease, border-color 0.22s ease;
+}
+
+.career-modal-section[open] summary i {
+  border-color: rgba(154, 247, 90, 0.36);
+  transform: rotate(180deg);
+}
+
+.career-modal-section-content {
+  padding: 0 0 20px;
+}
+
+.career-modal-section-content p,
+.career-modal-list {
+  color: rgba(232, 248, 255, 0.82);
+  font-size: 14px;
+  line-height: 1.68;
+}
+
+.career-modal-list {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.career-modal-list li::marker {
+  color: #9af75a;
+}
+
+.career-modal-list--compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 28px;
+}
+
+.career-skill-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.career-modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  padding: 18px 30px 22px;
+  border-top: 1px solid rgba(0, 180, 216, 0.14);
+  background: rgba(2, 11, 24, 0.86);
+}
+
+.career-modal-actions .career-resume-button,
+.career-modal-actions .career-outline-link {
+  min-width: 160px;
+  min-height: 46px;
 }
 
 @media (max-width: 1120px) {
@@ -8553,6 +8779,36 @@ select,
   .career-resume-cta {
     justify-items: start;
     padding: 24px 20px;
+  }
+
+  .career-modal-overlay {
+    padding: 86px 12px 12px;
+    align-items: start;
+  }
+
+  .career-modal {
+    width: calc(100vw - 24px);
+    max-height: calc(100dvh - 98px);
+  }
+
+  .career-modal-head {
+    grid-template-columns: 1fr;
+    padding: 24px 60px 20px 20px;
+  }
+
+  .career-modal-body {
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .career-modal-list--compact {
+    grid-template-columns: 1fr;
+  }
+
+  .career-modal-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    padding: 18px 20px 22px;
   }
 }
 

@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const careerValues = [
   [
     "fa-solid fa-rocket",
@@ -29,34 +31,279 @@ const heroOrbitItems = [
 ];
 
 const openPositions = [
-  [
-    "fa-solid fa-code",
-    "Frontend Developer",
-    "Full Time",
-    "Remote",
-    "Build responsive and interactive user interfaces.",
-  ],
-  [
-    "fa-solid fa-server",
-    "Backend Developer",
-    "Full Time",
-    "Remote",
-    "Develop scalable and secure server-side applications.",
-  ],
-  [
-    "fa-solid fa-pen-nib",
-    "Full Stack Developer",
-    "Full Time",
-    "Hybrid",
-    "Design intuitive and engaging experiences for our products.",
-  ],
-  [
-    "fa-solid fa-chart-simple",
-    "Digital Marketing Specialist",
-    "Full Time",
-    "Remote",
-    "Plan and execute marketing strategies that drive growth.",
-  ],
+  {
+    icon: "fa-solid fa-mobile-screen-button",
+    title:
+      "Mobile Application Development Intern / Associate - Flutter, Dart & Cross-Platform App Developer",
+    type: "Full-Time / Internship / Graduate Trainee",
+    mode: "On-site",
+    description:
+      "Design, develop, test, and maintain cross-platform mobile apps using Flutter and Dart for Android and iOS.",
+    experience: "0-2 Years",
+    salary:
+      "Stipend for interns as per company policy. Associate salary is competitive and based on skills and experience.",
+    suitableFor: [
+      "Fresh Graduates",
+      "Final Year Students",
+      "Internship Candidates",
+      "Entry-Level Mobile Application Developers",
+    ],
+    eligibility: [
+      "Bachelor's degree, or pursuing final year, in Computer Science, Information Technology, or a related field.",
+      "Freshers, interns, or candidates with 0-2 years of experience are welcome.",
+      "Strong problem-solving and logical thinking skills.",
+      "Passion for learning modern mobile technologies and software development.",
+      "Ability to work independently and collaboratively in a team environment.",
+      "Good communication and time management skills.",
+    ],
+    responsibilities: [
+      "Develop responsive, scalable, and user-friendly cross-platform mobile applications.",
+      "Build reusable Flutter widgets and maintain consistent UI components.",
+      "Integrate REST APIs, local storage, Firebase services, and third-party SDKs.",
+      "Write clean, null-safe, maintainable, and well-documented Dart code.",
+      "Implement authentication, notifications, device permissions, camera, and location features.",
+      "Debug, test, optimize, and improve application performance across devices.",
+      "Collaborate with UI/UX designers, backend developers, and QA teams.",
+      "Participate in code reviews and Agile development processes.",
+      "Prepare Android and iOS builds and stay updated with mobile development best practices.",
+    ],
+    preferredExperience: [
+      "Academic or personal mobile application projects.",
+      "Internship experience in Flutter, Android, iOS, or cross-platform development.",
+      "GitHub portfolio, demo builds, or published mobile applications.",
+      "Participation in hackathons or mobile coding competitions is preferred but not mandatory.",
+    ],
+    skills: [
+      "Dart",
+      "Flutter",
+      "Provider / BLoC / Riverpod / GetX",
+      "Responsive & Adaptive UI",
+      "Material Design & Cupertino Widgets",
+      "Animations",
+      "REST APIs",
+      "JWT / OAuth",
+      "HTTP / Dio Networking",
+      "Firebase Services",
+      "Shared Preferences",
+      "SQLite / sqflite",
+      "Git & GitHub",
+      "Flutter DevTools",
+      "Postman",
+      "Android APK / AAB",
+      "Firebase App Distribution",
+      "Clean Architecture / MVC / MVVM",
+      "OOP",
+      "Agile / Scrum",
+    ],
+  },
+  {
+    icon: "fa-brands fa-java",
+    title: "Java Full Stack Intern",
+    type: "Internship",
+    mode: "On-site",
+    description:
+      "Support the team in building Java-based applications while learning enterprise development workflows.",
+    experience: "0 Years",
+    salary: "Stipend as per company policy.",
+    suitableFor: ["Fresh Graduates", "Final Year Students", "Internship Candidates"],
+    eligibility: [
+      "Bachelor's degree, or pursuing final year, in Computer Science, Information Technology, or a related field.",
+      "Freshers, interns, or candidates with 0 years of experience are welcome.",
+      "Strong problem-solving and logical thinking skills.",
+      "Passion for learning Java and enterprise application development.",
+      "Ability to work independently and collaboratively in a team environment.",
+      "Good communication and time management skills.",
+    ],
+    responsibilities: [
+      "Support the development team in building and maintaining Java-based applications under senior guidance.",
+      "Contribute to writing clean, efficient, and testable code following established coding standards.",
+      "Assist in database queries and basic schema operations.",
+      "Participate in code reviews, sprint discussions, and debugging sessions.",
+      "Gain exposure to Spring Boot, Hibernate, and RESTful API development.",
+      "Collaborate with the frontend team on HTML5, CSS3, JavaScript, and React integration workflows.",
+      "Assist in unit testing, bug fixing, and technical documentation.",
+      "Work with cross-functional teams to understand requirements and delivery timelines.",
+    ],
+    preferredExperience: [
+      "Academic or personal Java projects.",
+      "GitHub portfolio or basic deployed applications.",
+      "Participation in hackathons or coding competitions is preferred but not mandatory.",
+    ],
+    skills: [
+      "Core Java",
+      "OOP Concepts",
+      "Collections Framework",
+      "Exception Handling",
+      "MySQL",
+      "PostgreSQL",
+      "JDBC",
+      "HTML5",
+      "CSS3",
+      "JavaScript",
+      "TypeScript",
+      "React basics",
+      "Tailwind CSS",
+      "Bootstrap",
+      "Git & GitHub",
+      "Eclipse",
+      "VS Code",
+      "IntelliJ",
+      "Maven basics",
+      "Docker basics",
+      "REST API basics",
+      "Postman",
+      "Spring Boot basics",
+      "MVC Architecture",
+      "Hibernate",
+      "JSP",
+      "Vercel",
+      "Netlify",
+      "AWS basics",
+      ".env basics",
+    ],
+  },
+  {
+    icon: "fa-solid fa-layer-group",
+    title: "Java Full Stack Developer",
+    type: "Full-Time",
+    mode: "On-site",
+    description:
+      "Build Java, Spring Boot, REST API, database, and modern frontend solutions for real products.",
+    experience: "0-3 Years",
+    salary: "Competitive, based on skills and experience.",
+    suitableFor: [
+      "Fresh Graduates with strong fundamentals",
+      "Entry-Level Java Developers",
+      "Associate Software Engineers",
+    ],
+    eligibility: [
+      "Bachelor's degree in Computer Science, Information Technology, or a related field.",
+      "0-3 years of relevant development experience.",
+      "Strong problem-solving and communication skills.",
+      "Good understanding of software development fundamentals.",
+      "Freshers with strong Java Full Stack projects are encouraged to apply.",
+    ],
+    responsibilities: [
+      "Develop and maintain Java-based backend applications.",
+      "Build and integrate REST APIs.",
+      "Develop responsive frontend applications using React or Angular.",
+      "Design and work with relational databases.",
+      "Implement authentication and authorization.",
+      "Write clean, maintainable, and reusable code.",
+      "Debug and resolve application issues.",
+      "Write unit tests and participate in code reviews.",
+      "Collaborate with developers, testers, and other teams.",
+      "Follow Agile development practices.",
+    ],
+    preferredExperience: [
+      "Hands-on experience with Java, Spring Boot, REST APIs, SQL, React or Angular, Git, and real-world projects.",
+      "GitHub portfolio or deployed applications.",
+    ],
+    skills: [
+      "Core Java & OOP Concepts",
+      "Java 8+ Features",
+      "Streams & Lambda Expressions",
+      "Multithreading",
+      "DSA",
+      "Spring Boot",
+      "Spring MVC",
+      "Spring Data JPA",
+      "Hibernate",
+      "Spring Security & JWT",
+      "React.js / Angular",
+      "Tailwind CSS",
+      "RESTful Web Services",
+      "Postman",
+      "JWT / OAuth",
+      "MySQL / PostgreSQL",
+      "Git & GitHub",
+      "Maven",
+      "Docker",
+      "Linux",
+      "AWS / Azure",
+      "Microservices",
+      "JUnit & Mockito",
+      "CI/CD",
+      "Design Patterns",
+      "SOLID Principles",
+      "System Design",
+    ],
+  },
+  {
+    icon: "fa-solid fa-code-branch",
+    title: "Full Stack Intern / Associate - MERN, PERN & Modern JavaScript Stacks",
+    type: "Full-Time / Internship / Graduate Trainee",
+    mode: "On-site",
+    description:
+      "Create modern web applications using MERN, PERN, and related JavaScript technologies.",
+    experience: "0-2 Years",
+    salary:
+      "Stipend for interns as per company policy. Associate salary is competitive and based on skills and experience.",
+    suitableFor: [
+      "Fresh Graduates",
+      "Final Year Students",
+      "Internship Candidates",
+      "Entry-Level Software Developers",
+    ],
+    eligibility: [
+      "Bachelor's degree, or pursuing final year, in Computer Science, Information Technology, or a related field.",
+      "Freshers, interns, or candidates with 0-2 years of experience are welcome.",
+      "Strong problem-solving and logical thinking skills.",
+      "Passion for learning modern web technologies and software development.",
+      "Ability to work independently and collaboratively in a team environment.",
+      "Good communication and time management skills.",
+    ],
+    responsibilities: [
+      "Develop responsive and scalable web applications.",
+      "Build reusable frontend components and backend APIs.",
+      "Integrate databases and third-party services.",
+      "Write clean, maintainable, and well-documented code.",
+      "Debug, optimize, and improve application performance.",
+      "Collaborate with UI/UX designers and development teams.",
+      "Participate in code reviews and Agile development processes.",
+      "Deploy and maintain applications on cloud platforms.",
+      "Stay updated with emerging technologies and best practices.",
+    ],
+    preferredExperience: [
+      "Academic or personal full-stack projects.",
+      "Internship experience in web development.",
+      "GitHub portfolio or live deployed applications.",
+      "Participation in hackathons or coding competitions is preferred but not mandatory.",
+    ],
+    skills: [
+      "HTML5",
+      "CSS3",
+      "JavaScript ES6+",
+      "TypeScript",
+      "React.js",
+      "Next.js",
+      "Redux / Context API",
+      "Tailwind CSS",
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "JWT / OAuth",
+      "WebSockets basics",
+      "MongoDB",
+      "PostgreSQL",
+      "MySQL basics",
+      "Git & GitHub",
+      "VS Code",
+      "Postman",
+      "npm / Yarn",
+      "Docker",
+      "Vercel",
+      "Netlify",
+      "Render",
+      "Railway",
+      "AWS basics",
+      "MVC Architecture",
+      "OOP",
+      "DSA basics",
+      "Agile / Scrum",
+      "Clean Code Principles",
+    ],
+  },
 ];
 
 const benefits = [
@@ -76,7 +323,7 @@ const benefits = [
     "Access to courses, workshops and more.",
   ],
   [
-    "fa-regular fa-clock",
+    "fa-solid fa-clock",
     "Flexible Work",
     "Flexible hours and remote work options.",
   ],
@@ -88,6 +335,24 @@ const benefits = [
 ];
 
 export default function CareersPage() {
+  const [selectedRole, setSelectedRole] = useState(null);
+
+  useEffect(() => {
+    if (!selectedRole) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") setSelectedRole(null);
+    };
+
+    document.body.classList.add("career-modal-open");
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.body.classList.remove("career-modal-open");
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedRole]);
+
   return (
     <main className="careers-showcase wrap">
       <section className="career-hero-panel">
@@ -157,23 +422,27 @@ export default function CareersPage() {
         </div>
 
         <div className="career-job-list reveal reveal-delay-1">
-          {openPositions.map(([icon, title, type, mode, description]) => (
-            <article className="career-job-row" key={title}>
+          {openPositions.map((role) => (
+            <article className="career-job-row" key={role.title}>
               <div className="career-job-main">
                 <span className="career-job-icon">
-                  <i className={icon} aria-hidden="true" />
+                  <i className={role.icon} aria-hidden="true" />
                 </span>
                 <div>
-                  <h3>{title}</h3>
+                  <h3>{role.title}</h3>
                   <p>
-                    {type} <span>•</span> {mode}
+                    {role.type} <span>|</span> {role.mode}
                   </p>
                 </div>
               </div>
-              <p className="career-job-desc">{description}</p>
-              <a href="/#contact" className="career-apply" title="Go to home">
-                Apply Now
-              </a>
+              <p className="career-job-desc">{role.description}</p>
+              <button
+                type="button"
+                className="career-apply"
+                onClick={() => setSelectedRole(role)}
+              >
+                View Details
+              </button>
             </article>
           ))}
         </div>
@@ -200,7 +469,7 @@ export default function CareersPage() {
 
       <section className="career-resume-cta reveal">
         <div className="career-resume-icon">
-          <i className="fa-regular fa-envelope" aria-hidden="true" />
+          <i className="fa-solid fa-envelope" aria-hidden="true" />
         </div>
         <div>
           <h2>Don&apos;t see the right role?</h2>
@@ -210,6 +479,107 @@ export default function CareersPage() {
           Send Us Your Resume
         </a>
       </section>
+
+      {selectedRole && (
+        <CareerDetailsModal
+          role={selectedRole}
+          onClose={() => setSelectedRole(null)}
+        />
+      )}
     </main>
+  );
+}
+
+function CareerDetailsModal({ role, onClose }) {
+  return (
+    <div className="career-modal-overlay" role="presentation" onMouseDown={onClose}>
+      <section
+        className="career-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="career-modal-title"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          className="career-modal-close"
+          onClick={onClose}
+          aria-label="Close career details"
+        >
+          <i className="fa-solid fa-xmark" aria-hidden="true" />
+        </button>
+
+        <div className="career-modal-head">
+          <span className="career-job-icon">
+            <i className={role.icon} aria-hidden="true" />
+          </span>
+          <div>
+            <p>Career Opportunity</p>
+            <h2 id="career-modal-title">{role.title}</h2>
+            <div className="career-modal-meta">
+              <span>{role.type}</span>
+              <span>{role.mode}</span>
+              <span>{role.experience}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="career-modal-body">
+          <CareerDetailSection title="Job Description" open>
+            <p>{role.description}</p>
+          </CareerDetailSection>
+
+          <CareerList title="Eligibility" items={role.eligibility} />
+          <CareerList title="Key Responsibilities" items={role.responsibilities} />
+          <CareerList title="Suitable For" items={role.suitableFor} compact />
+          <CareerList title="Preferred Experience" items={role.preferredExperience} />
+
+          <CareerDetailSection title="Technical Skills">
+            <div className="career-skill-cloud">
+              {role.skills.map((skill) => (
+                <span key={skill}>{skill}</span>
+              ))}
+            </div>
+          </CareerDetailSection>
+
+          <CareerDetailSection title="Salary" open>
+            <p>{role.salary}</p>
+          </CareerDetailSection>
+        </div>
+
+        <div className="career-modal-actions">
+          <a href="/#contact" className="career-resume-button" title="Go to contact">
+            Apply Now
+          </a>
+          <button type="button" className="career-outline-link" onClick={onClose}>
+            Close
+          </button>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function CareerList({ title, items, compact = false }) {
+  return (
+    <CareerDetailSection title={title}>
+      <ul className={compact ? "career-modal-list career-modal-list--compact" : "career-modal-list"}>
+        {items.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+    </CareerDetailSection>
+  );
+}
+
+function CareerDetailSection({ title, children, open = false }) {
+  return (
+    <details className="career-modal-section" open={open}>
+      <summary>
+        <span>{title}</span>
+        <i className="fa-solid fa-chevron-down" aria-hidden="true" />
+      </summary>
+      <div className="career-modal-section-content">{children}</div>
+    </details>
   );
 }

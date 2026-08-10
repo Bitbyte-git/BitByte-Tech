@@ -6,8 +6,10 @@ export default function Contact() {
   const { t } = useTranslation();
   const hrefs = {
     LinkedIn: "https://www.linkedin.com/in/bit-byte-technologies-4aa820406/",
-    Twitter: "https://x.com/BitbyteReachus",
+    X: "https://x.com/BitbyteReachus",
     Instagram: "https://www.instagram.com/bit_byte.technologies/",
+    Facebook: "https://www.facebook.com/",
+    YouTube: "https://www.youtube.com/",
   };
   const contactDetails = [
     ["📧", "Email", "reachus@bitbytetech.org"],

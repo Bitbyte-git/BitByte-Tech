@@ -209,7 +209,7 @@ function Hero({ planetRef }) {
             className="hero-gif"
             loading="eager"
             decoding="async"
-            fetchpriority={heroMediaSrc === HERO_POSTER_SRC ? 'high' : 'low'}
+            fetchPriority={heroMediaSrc === HERO_POSTER_SRC ? 'high' : 'low'}
             style={{
               position: 'absolute',
               inset: 0,
@@ -228,7 +228,7 @@ function Hero({ planetRef }) {
           height="246"
           loading="eager"
           decoding="async"
-          fetchpriority="high"
+          fetchPriority="high"
         />
       </div>
 

@@ -17,13 +17,13 @@ export default function Footer({ rootLinks = false }) {
         "real-time-sales-data",
       ],
     ],
-    ["Company", ["About Us", "Careers", "Contact"]],
+    ["Company", ["About Us", "Careers", "Contact Us"]],
     [
       "Contact",
       [
+        "BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "reachus@bitbytetech.org",
         "+91 99437 43136 (Only Whatsapp) ",
-        "BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "Privacy Policy",
         "Terms & Conditions",
       ],
@@ -32,8 +32,10 @@ export default function Footer({ rootLinks = false }) {
 
   const hrefs = {
     LinkedIn: "https://www.linkedin.com/in/bit-byte-technologies-4aa820406/",
-    Twitter: "https://x.com/BitbyteReachus",
+    X: "https://x.com/BitbyteReachus",
     Instagram: "https://www.instagram.com/bit_byte.technologies/",
+    Facebook: "https://www.facebook.com/profile.php?id=61588964114749",
+    YouTube: "https://www.youtube.com/@BitByteTechnologies",
   };
 
   const hrefFor = (item) => {
@@ -77,7 +79,7 @@ export default function Footer({ rootLinks = false }) {
           </a>
           <p data-magnify="true">{t("footer.brand")}</p>
           <div className="social-row" style={{ marginTop: 20 }}>
-            {socialIcons.slice(0, 4).map(([label, icon]) => (
+            {socialIcons.map(([label, icon]) => (
               <a
                 href={hrefs[label] || "#"}
                 className="soc-btn"
@@ -116,22 +118,23 @@ export default function Footer({ rootLinks = false }) {
           © {new Date().getFullYear()} <span> Bit Byte Technologies </span>All
           rights reserved. Designed, Developed and Maintained by Bit Byte
           Technologies. Core Developers : {" "}
+            <a
+            style={{ color: "#a4ec70" }}
+            href="https://www.linkedin.com/in/roshini-govindaraj-233941331?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            target="_blank"
+            rel="noopener noreferrer"
+           title="Open linkedin.com">
+            Roshini G & {" "}
+          </a>
+
           <a
             style={{ color: "#a4ec70" }}
             href="https://www.linkedin.com/in/selvaperumal-g-9656b32a1?utm_source=share_via&utm_content=profile&utm_medium=member_android"
             target="_blank"
             rel="noopener noreferrer"
            title="Open linkedin.com">
-             Selvaperumal G &{" "}
+              Selvaperumal G 
            
-          </a>
-          <a
-            style={{ color: "#a4ec70" }}
-            href="https://www.linkedin.com/in/roshini-govindaraj-233941331?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-            target="_blank"
-            rel="noopener noreferrer"
-           title="Open linkedin.com">
-            Roshini G 
           </a>
         </div>
       </div>
