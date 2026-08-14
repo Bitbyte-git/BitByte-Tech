@@ -21,9 +21,11 @@ export default function Footer({ rootLinks = false }) {
     [
       "Contact",
       [
+        "UDYAM-TN-20-0234773",
+        "GST No : 33BLNPN5359J1ZL",
+        "2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "reachus@bitbytetech.org",
         "+91 99437 43136 (Only Whatsapp) ",
-        "BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "Privacy Policy",
         "Terms & Conditions",
       ],
@@ -32,8 +34,10 @@ export default function Footer({ rootLinks = false }) {
 
   const hrefs = {
     LinkedIn: "https://www.linkedin.com/in/bit-byte-technologies-4aa820406/",
-    Twitter: "https://x.com/BitbyteReachus",
+    X: "https://x.com/BitbyteReachus",
     Instagram: "https://www.instagram.com/bit_byte.technologies/",
+    Facebook: "https://www.facebook.com/profile.php?id=61590062057662",
+    YouTube: "https://www.youtube.com/@BitByteTechnologies",
   };
 
   const hrefFor = (item) => {
@@ -59,6 +63,9 @@ export default function Footer({ rootLinks = false }) {
     return rootLinks ? `/${href}` : href;
   };
 
+  const isLegalRegistration = (item) =>
+    item.startsWith("UDYAM-") || item.startsWith("GST No");
+
   return (
     <footer className="wrap">
       <div className="footer-top">
@@ -77,7 +84,7 @@ export default function Footer({ rootLinks = false }) {
           </a>
           <p data-magnify="true">{t("footer.brand")}</p>
           <div className="social-row" style={{ marginTop: 20 }}>
-            {socialIcons.slice(0, 4).map(([label, icon]) => (
+            {socialIcons.map(([label, icon]) => (
               <a
                 href={hrefs[label] || "#"}
                 className="soc-btn"
@@ -100,11 +107,15 @@ export default function Footer({ rootLinks = false }) {
             <ul className="footer-links">
               {links.map((link) => (
                 <li key={link}>
-                  <a href={hrefFor(link)}>
-                    {services.some((service) => service.id === link)
-                      ? t(`services.cards.${link}.title`)
-                      : link}
-                  </a>
+                  {isLegalRegistration(link) ? (
+                    <span className="footer-legal-registration">{link}</span>
+                  ) : (
+                    <a href={hrefFor(link)}>
+                      {services.some((service) => service.id === link)
+                        ? t(`services.cards.${link}.title`)
+                        : link}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

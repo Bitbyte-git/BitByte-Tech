@@ -9,12 +9,19 @@ import {
 import BackgroundCanvas from "./components/BackgroundCanvas";
 import Cursor from "./components/Cursor";
 import Footer from "./components/Footer";
-import HRMSAccessPopup from "./components/HRMSAccessPopup";
 import Hero from "./components/Hero";
 import MobileMenu from "./components/MobileMenu";
 import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute";
+import WorkspaceAccessScreen from "./components/WorkspaceAccessScreen";
 import ChatBot from "./components/chatbot/ChatBot";
 import useLandingEffects from "./components/useLandingEffects";
+import {
+  PROTECTED_DESTINATIONS,
+  getDestinationByAccessRoute,
+  getDestinationByRoute,
+  hasAccess,
+} from "./components/workspaceAccess";
 
 const Services = lazy(() => import("./components/Services"));
 const Founder = lazy(() => import("./components/Founder"));
@@ -45,29 +52,11 @@ const ImaginationToReality = lazy(
 );
 const RealTimeSales = lazy(() => import("./components/RealTimeSales"));
 const LegalPage = lazy(() => import("./components/LegalPage"));
+const ShowcasePage = lazy(() => import("./components/ShowcasePage"));
 
 const SectionFallback = () => null;
-const WORKSPACE_ACCESS_APPS = {
-  hrms: {
-    appName: "HRMS",
-    redirectUrl: "https://bitbyte-lemon.vercel.app/login",
-    title: "Secure Employee Access",
-    subtitle: "Authorized Employees Only",
-  },
-  billing: {
-    appName: "Billing",
-    redirectUrl: "https://bit-byte-billing-client.vercel.app",
-    title: "Secure Billing Access",
-    subtitle: "Authorized Finance Access Only",
-  },
-  showcase: {
-    appName: "Showcase",
-    redirectUrl: "https://bitbyte-showcase-web.vercel.app/",
-    title: "Secure Showcase Access",
-    subtitle: "Enter the secret code to view BitByte Showcase",
-    openInNewTab: true,
-  },
-};
+
+const getCurrentPath = () => window.location.pathname.replace(/\/$/, "") || "/";
 
 export default function App() {
   const canvasRef = useRef(null);
@@ -76,16 +65,40 @@ export default function App() {
   const planetRef = useRef(null);
   const serviceHighlightTimeoutRef = useRef(0);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [workspaceAccessApp, setWorkspaceAccessApp] = useState(null);
   const [navStuck, setNavStuck] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [activeServiceId, setActiveServiceId] = useState(null);
+  const [currentPath, setCurrentPath] = useState(getCurrentPath);
   const openMobileMenu = useCallback(() => setMobileOpen(true), []);
   const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
-  const openWorkspaceAccess = useCallback((appKey) => {
-    setWorkspaceAccessApp(WORKSPACE_ACCESS_APPS[appKey] || null);
+
+  const navigateTo = useCallback((path) => {
+    if (window.location.pathname !== path) {
+      window.history.pushState(null, "", path);
+    }
+    setCurrentPath(getCurrentPath());
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
-  const pathname = window.location.pathname.replace(/\/$/, "") || "/";
+
+  const replaceWith = useCallback((path) => {
+    if (window.location.pathname !== path) {
+      window.history.replaceState(null, "", path);
+    }
+    setCurrentPath(getCurrentPath());
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, []);
+
+  const openWorkspaceAccess = useCallback(
+    (destination) => {
+      const config = PROTECTED_DESTINATIONS[destination];
+      if (!config) return;
+
+      navigateTo(hasAccess(destination) ? config.route : config.accessRoute);
+    },
+    [navigateTo],
+  );
+
+  const pathname = currentPath;
   const isWebDevelopmentPage = pathname === "/services/web-development";
   const isCustomWebAppPage =
     pathname === "/services/web-development/custom-web-applications";
@@ -106,6 +119,11 @@ export default function App() {
     pathname === "/services/imagination-to-reality";
   const isRealTimeSalesPage = pathname === "/services/real-time-sales-data";
   const isPersonalBrandingPage = pathname === "/services/personal-branding";
+  const protectedDestination = getDestinationByRoute(pathname);
+  const accessDestination = getDestinationByAccessRoute(pathname);
+  const isWorkspacePage = Boolean(protectedDestination || accessDestination);
+  const isAuthorizedShowcasePage =
+    protectedDestination === "showcase" && hasAccess("showcase");
   const isServiceDetailPage =
     isWebDevelopmentPage ||
     isCustomWebAppPage ||
@@ -118,7 +136,7 @@ export default function App() {
     isRealTimeSalesPage ||
     isPersonalBrandingPage;
   const isLegalPage = isPrivacyPolicyPage || isTermsConditionsPage;
-  const isRoutedPage = isServiceDetailPage || isLegalPage;
+  const isRoutedPage = isServiceDetailPage || isLegalPage || isWorkspacePage;
   const navActiveSection = isCareersPage
     ? "careers"
     : isServiceDetailPage
@@ -126,6 +144,12 @@ export default function App() {
       : activeSection;
 
   useLandingEffects({ canvasRef, cursorRef, ringRef, planetRef, setNavStuck });
+
+  useEffect(() => {
+    const handleRouteChange = () => setCurrentPath(getCurrentPath());
+    window.addEventListener("popstate", handleRouteChange);
+    return () => window.removeEventListener("popstate", handleRouteChange);
+  }, []);
 
   const focusService = useCallback((serviceId = "all") => {
     window.clearTimeout(serviceHighlightTimeoutRef.current);
@@ -267,37 +291,57 @@ export default function App() {
 
   return (
     <>
-      <Cursor cursorRef={cursorRef} ringRef={ringRef} />
-      <BackgroundCanvas canvasRef={canvasRef} />
-      <MobileMenu
-        activeSection={navActiveSection}
-        onClose={closeMobileMenu}
-        onNavClick={handleNavClick}
-        onServiceSelect={handleServiceSelect}
-        open={mobileOpen}
-        rootLinks={isRoutedPage}
-        onHRMSClick={() => openWorkspaceAccess("hrms")}
-        onBillingClick={() => openWorkspaceAccess("billing")}
-        onShowcaseClick={() => openWorkspaceAccess("showcase")}
-      />
-      <Navbar
-        activeSection={navActiveSection}
-        activeServiceId={activeServiceId}
-        onMenuOpen={openMobileMenu}
-        onNavClick={handleNavClick}
-        onServiceSelect={handleServiceSelect}
-        rootLinks={isRoutedPage}
-        stuck={navStuck}
-        onHRMSClick={() => openWorkspaceAccess("hrms")}
-        onBillingClick={() => openWorkspaceAccess("billing")}
-        onShowcaseClick={() => openWorkspaceAccess("showcase")}
-      />
-      <HRMSAccessPopup
-        isOpen={Boolean(workspaceAccessApp)}
-        onClose={() => setWorkspaceAccessApp(null)}
-        {...(workspaceAccessApp || {})}
-      />
-      {isWebDevelopmentPage ? (
+      {!isAuthorizedShowcasePage ? (
+        <>
+          <Cursor cursorRef={cursorRef} ringRef={ringRef} />
+          <BackgroundCanvas canvasRef={canvasRef} />
+          <MobileMenu
+            activeSection={navActiveSection}
+            onClose={closeMobileMenu}
+            onNavClick={handleNavClick}
+            onServiceSelect={handleServiceSelect}
+            open={mobileOpen}
+            rootLinks={isRoutedPage}
+            onHRMSClick={() => openWorkspaceAccess("hrms")}
+            onBillingClick={() => openWorkspaceAccess("billing")}
+            onShowcaseClick={() => openWorkspaceAccess("showcase")}
+          />
+          <Navbar
+            activeSection={navActiveSection}
+            activeServiceId={activeServiceId}
+            onMenuOpen={openMobileMenu}
+            onNavClick={handleNavClick}
+            onServiceSelect={handleServiceSelect}
+            rootLinks={isRoutedPage}
+            stuck={navStuck}
+            onHRMSClick={() => openWorkspaceAccess("hrms")}
+            onBillingClick={() => openWorkspaceAccess("billing")}
+            onShowcaseClick={() => openWorkspaceAccess("showcase")}
+          />
+        </>
+      ) : null}
+      {accessDestination ? (
+        <WorkspaceAccessScreen
+          destination={accessDestination}
+          onAuthorized={openWorkspaceAccess}
+          onNavigateHome={() => navigateTo("/")}
+        />
+      ) : protectedDestination ? (
+        <ProtectedRoute
+          destination={protectedDestination}
+          onRequireAccess={(destination) => {
+            const config = PROTECTED_DESTINATIONS[destination];
+            if (config) replaceWith(config.accessRoute);
+          }}
+          onNavigateHome={() => navigateTo("/")}
+        >
+          {protectedDestination === "showcase" ? (
+            <Suspense fallback={<SectionFallback />}>
+              <ShowcasePage />
+            </Suspense>
+          ) : null}
+        </ProtectedRoute>
+      ) : isWebDevelopmentPage ? (
         <Suspense fallback={<SectionFallback />}>
           <WebDevelopmentOverview />
         </Suspense>
@@ -362,8 +406,12 @@ export default function App() {
           </Suspense>
         </>
       )}
-      <ChatBot />
-      <Footer rootLinks={isRoutedPage} />
+      {!isAuthorizedShowcasePage ? (
+        <>
+          <ChatBot />
+          <Footer rootLinks={isRoutedPage} />
+        </>
+      ) : null}
     </>
   );
 }
