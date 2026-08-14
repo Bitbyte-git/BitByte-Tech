@@ -2,6 +2,40 @@ import { useEffect } from "react";
 
 const policySections = [
   {
+    key: "PT",
+    title: "Project Terms & Conditions",
+    start: 1,
+    items: [
+      "Third-party subscription charges are excluded from development cost.",
+      "Any additional features outside the agreed scope will be charged separately.",
+      "Source code, Documentation, Configuration Workbook, and Test case documents will be delivered after final payment clearance.",
+      "30 days free support is included post-deployment.",
+      "Extended PRD along with configuration workbook will be developed once the Initial Quotation is accepted for further rounds of talks.",
+      "All credentials (AWS Cloud Server, MS Mail Server, Admin Level Credentials) will be handed over to the client on final payment clearance.",
+    ],
+  },
+  {
+    key: "PP",
+    title: "Payment & Pricing Terms",
+    start: 1,
+    items: [
+      "Payment Terms: 50% Advance, 25% at Development Milestones, and 25% on Final Delivery.",
+      "Estimated Delivery Timeline: 4–5 Weeks.",
+      "Negotiation Terms: Open for negotiation on mutual terms.",
+      "Monthly charges are due on or before the 5th date of every month as a single payment.",
+      "Payment is due within the period specified on the invoice. Delayed payments may attract applicable charges.",
+      "All prices are exclusive of applicable taxes unless otherwise stated.",
+      "Services and deliverables provided are limited to the scope agreed upon in the proposal, quotation, or contract.",
+      "Any additional work, revisions, or change requests beyond the agreed scope may be billed separately.",
+      "Ownership of deliverables and intellectual property shall transfer only upon receipt of full payment, unless otherwise agreed in writing.",
+      "Advance payments, milestone payments, and completed services are non-refundable unless specified otherwise.",
+      "The client shall verify invoice details and report any discrepancies within 7 days of the invoice date.",
+      "The company shall not be liable for delays or interruptions caused by third-party service providers, hosting providers, internet outages, or force majeure events.",
+      "All disputes arising from this invoice shall be subject to the jurisdiction of the courts located at Salem, Tamil Nadu, India.",
+      "Payment of an invoice constitutes acceptance of the services, pricing, and terms stated therein.",
+    ],
+  },
+  {
     key: "A",
     title: "Client Confidentiality & Information Protection",
     start: 1,

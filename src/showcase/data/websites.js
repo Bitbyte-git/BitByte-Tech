@@ -6,7 +6,7 @@ export const websites = [
     badge: "Tailored", badgeColor: "bg-emerald-100 text-emerald-700",
     accent: "from-emerald-400 to-teal-500", previewBg: "from-emerald-50 to-teal-50",
     icon: "🧵", tags: ["Fabric", "Collections", "Lookbook"], color: "bg-emerald-500",
-    coverImage: "assets/web-tex-1.png",
+    coverImage: "/showcase-assets/web-tex-1.png",
   },
   {
     id: 1, slug: "photoshop", category: "Photoshop Website",
@@ -14,7 +14,7 @@ export const websites = [
     badge: "Creative", badgeColor: "bg-violet-100 text-violet-700",
     accent: "from-violet-400 to-fuchsia-500", previewBg: "from-violet-50 to-fuchsia-50",
     icon: "🎨", tags: ["Mockups", "Portfolio", "Branding"], color: "bg-violet-500",
-    coverImage: "assets/photo-cover.png",
+    coverImage: "/showcase-assets/photo-cover.png",
   },
   {
     id: 2, slug: "furniture", category: "Furniture Website",
@@ -22,7 +22,7 @@ export const websites = [
     badge: "Popular", badgeColor: "bg-amber-100 text-amber-700",
     accent: "from-amber-400 to-orange-500", previewBg: "from-amber-50 to-orange-50",
     icon: "🛋️", tags: ["E-Commerce", "Product Gallery", "Modern"], color: "bg-amber-500",
-    coverImage: "assets/fur-out.png",
+    coverImage: "/showcase-assets/fur-out.png",
   },
   {
     id: 3, slug: "billing", category: "Billing Software Website",
@@ -30,7 +30,7 @@ export const websites = [
     badge: "Business", badgeColor: "bg-sky-100 text-sky-700",
     accent: "from-sky-400 to-blue-500", previewBg: "from-sky-50 to-blue-50",
     icon: "🧾", tags: ["Invoices", "Payments", "Reports"], color: "bg-sky-500",
-    coverImage: "assets/test11.png",
+    coverImage: "/showcase-assets/test11.png",
   },
   {
     id: 4, slug: "hrms", category: "HRMS Website",
@@ -38,7 +38,7 @@ export const websites = [
     badge: "Productive", badgeColor: "bg-indigo-100 text-indigo-700",
     accent: "from-indigo-400 to-cyan-500", previewBg: "from-indigo-50 to-cyan-50",
     icon: "👥", tags: ["Payroll", "Attendance", "Employees"], color: "bg-indigo-500",
-    coverImage: "assets/test10.png",
+    coverImage: "/showcase-assets/test10.png",
   },
   {
     id: 5, slug: "restaurant", category: "Restaurant Website",
@@ -46,7 +46,7 @@ export const websites = [
     badge: "Trending", badgeColor: "bg-red-100 text-red-700",
     accent: "from-red-400 to-rose-500", previewBg: "from-red-50 to-rose-50",
     icon: "🍽️", tags: ["Menu", "Reservations", "Food"], color: "bg-red-500",
-    coverImage: "assets/rest-out.png",
+    coverImage: "/showcase-assets/rest-out.png",
   },
   {
     id: 6, slug: "gym", category: "Gym & Fitness Website",
@@ -54,7 +54,7 @@ export const websites = [
     badge: "New", badgeColor: "bg-green-100 text-green-700",
     accent: "from-green-400 to-emerald-500", previewBg: "from-green-50 to-emerald-50",
     icon: "💪", tags: ["Fitness", "Classes", "Membership"], color: "bg-green-500",
-    coverImage: "assets/test-img.png",
+    coverImage: "/showcase-assets/test-img.png",
   },
   {
     id: 7, slug: "realestate", category: "Real Estate Website",
@@ -62,7 +62,7 @@ export const websites = [
     badge: "Premium", badgeColor: "bg-blue-100 text-blue-700",
     accent: "from-blue-400 to-indigo-500", previewBg: "from-blue-50 to-indigo-50",
     icon: "🏠", tags: ["Listings", "Map Search", "Virtual Tour"], color: "bg-blue-500",
-    coverImage: "assets/test-img1.png",
+    coverImage: "/showcase-assets/test-img1.png",
   },
   {
     id: 8, slug: "interior", category: "Interior Design Website",
@@ -70,7 +70,7 @@ export const websites = [
     badge: "Creative", badgeColor: "bg-purple-100 text-purple-700",
     accent: "from-purple-400 to-violet-500", previewBg: "from-purple-50 to-violet-50",
     icon: "🎨", tags: ["Portfolio", "Gallery", "Luxury"], color: "bg-purple-500",
-    coverImage: "assets/test-img3.png",
+    coverImage: "/showcase-assets/test-img3.png",
   },
   {
     id: 9, slug: "medical", category: "Medical & Clinic Website",
@@ -78,7 +78,7 @@ export const websites = [
     badge: "Trusted", badgeColor: "bg-cyan-100 text-cyan-700",
     accent: "from-cyan-400 to-teal-500", previewBg: "from-cyan-50 to-teal-50",
     icon: "🏥", tags: ["Appointments", "Doctors", "Healthcare"], color: "bg-cyan-500",
-    coverImage: "assets/test8.png",
+    coverImage: "/showcase-assets/test8.png",
   },
   {
     id: 10, slug: "ecommerce", category: "E-Commerce Store",
@@ -86,7 +86,7 @@ export const websites = [
     badge: "Best Seller", badgeColor: "bg-pink-100 text-pink-700",
     accent: "from-pink-400 to-rose-500", previewBg: "from-pink-50 to-rose-50",
     icon: "🛒", tags: ["Shopping", "Cart", "Payments"], color: "bg-pink-500",
-    coverImage: "assets/fur-out.png",
+    coverImage: "/showcase-assets/fur-out.png",
   },
 ];
 
@@ -101,13 +101,13 @@ export const categoryDesigns = {
     accent: "from-emerald-400 to-teal-500", color: "text-emerald-600",
     bg: "from-emerald-50 to-teal-50", icon: "🧵",
     designs: [
-      { id:1, name:"Weave Atelier",     style:"Luxury Fabric Showcase",  image:"assets/web-tex-1.png", desc:"Premium layout for textile brands featuring curated collections, material highlights, and elegant lookbooks.",              previewUrl:"https://saree-2.vercel.app/",         tags:["Luxury","Lookbook","Collections"],  badge:"Most Popular", badgeColor:"bg-emerald-100 text-emerald-700" },
-      { id:2, name:"Fabric Finder",     style:"Catalog & Filters",       image:"assets/text-2.png", desc:"Advanced filter-driven browsing for fabrics with color swatches, composition tags, and quick quote CTAs.",               previewUrl:"https://bb-textile-site2.vercel.app/", tags:["Filters","Swatches","B2B"],         badge:"Trending",     badgeColor:"bg-teal-100 text-teal-700" },
-      { id:3, name:"Sew & Sell",        style:"E-Commerce Ready",        image:"assets/site-3.png", desc:"Store-first textile theme with product gallery, cart flow, and wholesale request options.",                              previewUrl:"https://bb-textile-site3.vercel.app/",  tags:["Shop","Wholesale","Cart"],          badge:"Best Seller",  badgeColor:"bg-green-100 text-green-700" },
-      { id:4, name:"Pattern Studio",    style:"Artistic Patterns",       image:"assets/site-4.png", desc:"Bold typographic system and pattern-inspired sections perfect for print designers and apparel studios.",               previewUrl:"https://textile-4-w1e4.vercel.app/",                  tags:["Patterns","Creative","Studio"],    badge:"Creative",     badgeColor:"bg-emerald-100 text-emerald-700" },
-      { id:5, name:"Eco Textile",       style:"Sustainable Materials",   image:"assets/site-5.png", desc:"Biophilic color palette and impact-first layout for eco-friendly fabrics, certifications, and sourcing stories.",       previewUrl:"https://bb-textile-site5.vercel.app/",   tags:["Eco","Sustainability","Impact"],   badge:"Eco",          badgeColor:"bg-teal-100 text-teal-700" },
-      { id:6, name:"Boutique Lookbook", style:"Editorial + Gallery",     image:"assets/site-6.png", desc:"Magazine-style lookbook with full-bleed visuals, project stories, and style editorial components.",                   previewUrl:"https://bb-textile-site6.vercel.app/",         tags:["Editorial","Gallery","Brand"],     badge:"Premium",      badgeColor:"bg-emerald-100 text-emerald-700" },
-      { id:7, name:"Bulk Quote",        style:"B2B Quote Flow",          image:"assets/site-web7.jpeg", desc:"Quote request UI with sampling flow, bulk ordering pages, and fast lead capture sections for B2B clients.",           previewUrl:"https://arulmathi-silks.vercel.app/",   tags:["B2B","Quotes","Bulk"],             badge:"Trusted",      badgeColor:"bg-cyan-100 text-cyan-700" },
+      { id:1, name:"Weave Atelier",     style:"Luxury Fabric Showcase",  image:"/showcase-assets/web-tex-1.png", desc:"Premium layout for textile brands featuring curated collections, material highlights, and elegant lookbooks.",              previewUrl:"https://saree-2.vercel.app/",         tags:["Luxury","Lookbook","Collections"],  badge:"Most Popular", badgeColor:"bg-emerald-100 text-emerald-700" },
+      { id:2, name:"Fabric Finder",     style:"Catalog & Filters",       image:"/showcase-assets/text-2.png", desc:"Advanced filter-driven browsing for fabrics with color swatches, composition tags, and quick quote CTAs.",               previewUrl:"https://bb-textile-site2.vercel.app/", tags:["Filters","Swatches","B2B"],         badge:"Trending",     badgeColor:"bg-teal-100 text-teal-700" },
+      { id:3, name:"Sew & Sell",        style:"E-Commerce Ready",        image:"/showcase-assets/site-3.png", desc:"Store-first textile theme with product gallery, cart flow, and wholesale request options.",                              previewUrl:"https://bb-textile-site3.vercel.app/",  tags:["Shop","Wholesale","Cart"],          badge:"Best Seller",  badgeColor:"bg-green-100 text-green-700" },
+      { id:4, name:"Pattern Studio",    style:"Artistic Patterns",       image:"/showcase-assets/site-4.png", desc:"Bold typographic system and pattern-inspired sections perfect for print designers and apparel studios.",               previewUrl:"https://textile-4-w1e4.vercel.app/",                  tags:["Patterns","Creative","Studio"],    badge:"Creative",     badgeColor:"bg-emerald-100 text-emerald-700" },
+      { id:5, name:"Eco Textile",       style:"Sustainable Materials",   image:"/showcase-assets/site-5.png", desc:"Biophilic color palette and impact-first layout for eco-friendly fabrics, certifications, and sourcing stories.",       previewUrl:"https://bb-textile-site5.vercel.app/",   tags:["Eco","Sustainability","Impact"],   badge:"Eco",          badgeColor:"bg-teal-100 text-teal-700" },
+      { id:6, name:"Boutique Lookbook", style:"Editorial + Gallery",     image:"/showcase-assets/site-6.png", desc:"Magazine-style lookbook with full-bleed visuals, project stories, and style editorial components.",                   previewUrl:"https://bb-textile-site6.vercel.app/",         tags:["Editorial","Gallery","Brand"],     badge:"Premium",      badgeColor:"bg-emerald-100 text-emerald-700" },
+      { id:7, name:"Bulk Quote",        style:"B2B Quote Flow",          image:"/showcase-assets/site-web7.jpeg", desc:"Quote request UI with sampling flow, bulk ordering pages, and fast lead capture sections for B2B clients.",           previewUrl:"https://arulmathi-silks.vercel.app/",   tags:["B2B","Quotes","Bulk"],             badge:"Trusted",      badgeColor:"bg-cyan-100 text-cyan-700" },
     ],
   },
 
@@ -116,7 +116,7 @@ export const categoryDesigns = {
     accent: "from-violet-400 to-fuchsia-500", color: "text-violet-600",
     bg: "from-violet-50 to-fuchsia-50", icon: "🎨",
     designs: [
-      { id:1, name:"Studio Canvas",      style:"Portfolio Showcase",    image:"assets/photo-web.png", desc:"Modern portfolio layout for creative studios with hero mockups, case studies, and client galleries.", previewUrl:"https://photoshop-web-eta.vercel.app/", tags:["Portfolio","Mockups","Branding"], badge:"Creative", badgeColor:"bg-violet-100 text-violet-700" },
+      { id:1, name:"Studio Canvas",      style:"Portfolio Showcase",    image:"/showcase-assets/photo-web.png", desc:"Modern portfolio layout for creative studios with hero mockups, case studies, and client galleries.", previewUrl:"https://photoshop-web-eta.vercel.app/", tags:["Portfolio","Mockups","Branding"], badge:"Creative", badgeColor:"bg-violet-100 text-violet-700" },
       { id:2, name:"Mockup Lab",        style:"Design Presentation",   image:"https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80", desc:"Clean presentation site for designers to share brand assets, mockups, and creative workflows.", previewUrl:"https://preview.themeforest.net/item/werkstatt-portfolio-theme/full_screen_preview/22809857", tags:["Mockups","Studio","Creative"], badge:"Trend", badgeColor:"bg-pink-100 text-pink-700" },
       { id:3, name:"Brand Studio",      style:"Visual Identity",      image:"https://images.unsplash.com/photo-1496317899792-9d7dbcd928a1?w=600&q=80", desc:"Visual identity-focused design with case study sections, service highlights, and branding showcases.", previewUrl:"https://preview.themeforest.net/item/salient-responsive-multipurpose-theme/full_screen_preview/4363266", tags:["Branding","Identity","Case Study"], badge:"Premium", badgeColor:"bg-violet-100 text-violet-700" },
       { id:4, name:"Creative Deck",     style:"Agency Pitch",         image:"https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80", desc:"Pitch-ready layout for agencies with service decks, pricing tables, and client testimonial sections.", previewUrl:"https://preview.themeforest.net/item/thegem-creative-multipurpose-theme/full_screen_preview/16061685", tags:["Agency","Pitch","Presentation"], badge:"Popular", badgeColor:"bg-fuchsia-100 text-fuchsia-700" },
@@ -131,8 +131,7 @@ export const categoryDesigns = {
     accent: "from-amber-400 to-orange-500", color: "text-amber-600",
     bg: "from-amber-50 to-orange-50", icon: "🛋️",
     designs: [
-      { id:1, name:"Luxe Living",    style:"Minimalist Luxury",    image:"assets/fur-web.png", desc:"Clean white space, large product imagery, and subtle gold accents perfect for premium furniture brands.", previewUrl:"https://furniture-web-dev-cenk.vercel.app/", tags:["Minimalist","Luxury","E-Shop"],        badge:"Most Popular", badgeColor:"bg-amber-100 text-amber-700" },
-      { id:1, name:"Luxe Living",    style:"Minimalist Luxury",    image:"assets/furniture- img1.png", desc:"Clean white space, large product imagery, and subtle gold accents perfect for premium furniture brands.", previewUrl:"https://furniture-web-dev-cenk.vercel.app/", tags:["Minimalist","Luxury","E-Shop"],        badge:"Most Popular", badgeColor:"bg-amber-100 text-amber-700" },
+      { id:1, name:"Luxe Living",    style:"Minimalist Luxury",    image:"/showcase-assets/fur-web.png", desc:"Clean white space, large product imagery, and subtle gold accents perfect for premium furniture brands.", previewUrl:"https://furniture-web-dev-cenk.vercel.app/", tags:["Minimalist","Luxury","E-Shop"],        badge:"Most Popular", badgeColor:"bg-amber-100 text-amber-700" },
       { id:2, name:"Nordic Home",    style:"Scandinavian Style",   image:"https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=600&q=80", desc:"Warm neutrals, clean grid layouts, and a cozy Scandinavian aesthetic for modern home brands.",           previewUrl:"https://preview.themeforest.net/item/homestyle-furniture-store-html-template/full_screen_preview/24130933", tags:["Nordic","Warm","Lifestyle"],          badge:"Trending",    badgeColor:"bg-orange-100 text-orange-700" },
       { id:3, name:"Urban Loft",     style:"Industrial Modern",    image:"https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=600&q=80", desc:"Dark backgrounds, bold typography, and industrial textures for urban furniture collections.",              previewUrl:"https://preview.themeforest.net/item/woodmart-woocommerce-wordpress-theme/full_screen_preview/20264492", tags:["Dark Theme","Bold","Urban"],           badge:"New",         badgeColor:"bg-gray-100 text-gray-700" },
       { id:4, name:"Casa Bella",     style:"Italian Elegance",     image:"https://images.unsplash.com/photo-1567016376408-0226e4d0c1ea?w=600&q=80", desc:"Sophisticated serif typography, rich earth tones, and editorial-style photography layouts.",               previewUrl:"https://preview.themeforest.net/item/glamo-furniture-store-html-template/full_screen_preview/26556523", tags:["Elegant","Editorial","Premium"],      badge:"Premium",     badgeColor:"bg-amber-100 text-amber-700" },
@@ -148,7 +147,7 @@ export const categoryDesigns = {
     accent: "from-sky-400 to-blue-500", color: "text-sky-600",
     bg: "from-sky-50 to-blue-50", icon: "🧾",
     designs: [
-      { id:1, name:"Invoice Flow", style:"Smart Billing Dashboard", image:"assets/test10.png", desc:"Clean billing platform layout with invoice creation, payment status, tax summary, and client ledgers.", previewUrl:"https://bit-byte-billing-client.vercel.app/login", tags:["Invoices","GST","Ledger"], badge:"Most Popular", badgeColor:"bg-sky-100 text-sky-700" },
+      { id:1, name:"Invoice Flow", style:"Smart Billing Dashboard", image:"/showcase-assets/test10.png", desc:"Clean billing platform layout with invoice creation, payment status, tax summary, and client ledgers.", previewUrl:"https://bit-byte-billing-client.vercel.app/login", tags:["Invoices","GST","Ledger"], badge:"Most Popular", badgeColor:"bg-sky-100 text-sky-700" },
       { id:2, name:"Retail POS", style:"Point of Sale", image:"https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=600&q=80", desc:"Fast retail billing interface with product lookup, barcode-ready checkout, receipts, and daily sales reports.", previewUrl:"https://preview.themeforest.net/item/vuexy-vuejs-html-laravel-admin-dashboard-template/full_screen_preview/23328599", tags:["POS","Receipts","Retail"], badge:"Trending", badgeColor:"bg-blue-100 text-blue-700" },
       { id:3, name:"Finance Desk", style:"Accounts & Reports", image:"https://images.unsplash.com/photo-1554224154-26032ffc0d07?w=600&q=80", desc:"Report-first design for accountants with cash flow widgets, outstanding balances, and exportable statements.", previewUrl:"https://preview.themeforest.net/item/skote-html-laravel-admin-dashboard-template/full_screen_preview/25548061", tags:["Reports","Accounts","Exports"], badge:"Premium", badgeColor:"bg-indigo-100 text-indigo-700" },
       { id:4, name:"Subscription Bill", style:"Recurring Payments", image:"https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&q=80", desc:"SaaS billing layout with recurring plans, renewal reminders, usage charges, and payment history.", previewUrl:"https://preview.themeforest.net/item/midone-jquery-tailwindcss-html-admin-template/full_screen_preview/26366820", tags:["Recurring","Plans","History"], badge:"SaaS", badgeColor:"bg-cyan-100 text-cyan-700" },
@@ -163,7 +162,7 @@ export const categoryDesigns = {
     accent: "from-indigo-400 to-cyan-500", color: "text-indigo-600",
     bg: "from-indigo-50 to-cyan-50", icon: "👥",
     designs: [
-      { id:1, name:"HRMS", style:"Complete Employee Management", image:"assets/test10.png", desc:"A modern enterprise HR platform for employee records,role-based access, onboarding, attendance tracking,leave requests, payroll management, and organizational workflows.", previewUrl:"https://hrms-bit-byte.vercel.app/login", tags:["Employees","Payroll","Attendance"], badge:"Most Popular", badgeColor:"bg-indigo-100 text-indigo-700" },
+      { id:1, name:"HRMS", style:"Complete Employee Management", image:"/showcase-assets/test10.png", desc:"A modern enterprise HR platform for employee records,role-based access, onboarding, attendance tracking,leave requests, payroll management, and organizational workflows.", previewUrl:"https://hrms-bit-byte.vercel.app/login", tags:["Employees","Payroll","Attendance"], badge:"Most Popular", badgeColor:"bg-indigo-100 text-indigo-700" },
       { id:2, name:"Payroll Pro", style:"Payroll Dashboard", image:"https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&q=80", desc:"Payroll-focused interface with salary slips, deductions, bonuses, reimbursement tracking, and monthly exports.", previewUrl:"https://preview.themeforest.net/item/hrm-human-resource-management-admin-template/full_screen_preview/28734456", tags:["Payroll","Salary","Exports"], badge:"Payroll", badgeColor:"bg-cyan-100 text-cyan-700" },
       { id:3, name:"Attendly", style:"Attendance & Leave", image:"https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80", desc:"Attendance-first HRMS with check-ins, shift rosters, leave approvals, holiday calendars, and team availability.", previewUrl:"https://preview.themeforest.net/item/adminto-responsive-admin-dashboard-template/full_screen_preview/15025393", tags:["Attendance","Leave","Shifts"], badge:"Trending", badgeColor:"bg-blue-100 text-blue-700" },
       { id:4, name:"Recruit Suite", style:"Hiring Pipeline", image:"https://images.unsplash.com/photo-1521791136064-7986c2920216?w=600&q=80", desc:"Recruitment module design with job posts, candidate stages, interview schedules, and offer workflows.", previewUrl:"https://preview.themeforest.net/item/jobick-job-admin-dashboard-bootstrap-template/full_screen_preview/32720853", tags:["Hiring","Candidates","Interviews"], badge:"Recruiting", badgeColor:"bg-violet-100 text-violet-700" },

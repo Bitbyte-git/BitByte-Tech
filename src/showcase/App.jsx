@@ -23,7 +23,7 @@ export default function App() {
     };
   }, []);
 
-  const showcasePath = path.replace(/^\/showcase/, '') || '/';
+  const showcasePath = path.replace(/^\/showcase/, '').split('?')[0] || '/';
 
   useEffect(() => {
     if (showcasePath === '/') {
