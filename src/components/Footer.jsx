@@ -17,13 +17,11 @@ export default function Footer({ rootLinks = false }) {
         "real-time-sales-data",
       ],
     ],
-    ["Company", ["About Us", "Careers", "Contact"]],
+    ["Company", ["About Us", "Careers", "Contact Us"]],
     [
       "Contact",
       [
-        "UDYAM-TN-20-0234773",
-        "GST No : 33BLNPN5359J1ZL",
-        "2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
+        "BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "reachus@bitbytetech.org",
         "+91 99437 43136 (Only Whatsapp) ",
         "Privacy Policy",
@@ -36,7 +34,7 @@ export default function Footer({ rootLinks = false }) {
     LinkedIn: "https://www.linkedin.com/in/bit-byte-technologies-4aa820406/",
     X: "https://x.com/BitbyteReachus",
     Instagram: "https://www.instagram.com/bit_byte.technologies/",
-    Facebook: "https://www.facebook.com/profile.php?id=61590062057662",
+    Facebook: "https://www.facebook.com/profile.php?id=61588964114749",
     YouTube: "https://www.youtube.com/@BitByteTechnologies",
   };
 
@@ -62,9 +60,6 @@ export default function Footer({ rootLinks = false }) {
     if (href.startsWith("/")) return href;
     return rootLinks ? `/${href}` : href;
   };
-
-  const isLegalRegistration = (item) =>
-    item.startsWith("UDYAM-") || item.startsWith("GST No");
 
   return (
     <footer className="wrap">
@@ -107,15 +102,11 @@ export default function Footer({ rootLinks = false }) {
             <ul className="footer-links">
               {links.map((link) => (
                 <li key={link}>
-                  {isLegalRegistration(link) ? (
-                    <span className="footer-legal-registration">{link}</span>
-                  ) : (
-                    <a href={hrefFor(link)}>
-                      {services.some((service) => service.id === link)
-                        ? t(`services.cards.${link}.title`)
-                        : link}
-                    </a>
-                  )}
+                  <a href={hrefFor(link)} title="Open link">
+                    {services.some((service) => service.id === link)
+                      ? t(`services.cards.${link}.title`)
+                      : link}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -127,22 +118,23 @@ export default function Footer({ rootLinks = false }) {
           © {new Date().getFullYear()} <span> Bit Byte Technologies </span>All
           rights reserved. Designed, Developed and Maintained by Bit Byte
           Technologies. Core Developers : {" "}
+            <a
+            style={{ color: "#a4ec70" }}
+            href="https://www.linkedin.com/in/roshini-govindaraj-233941331?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+            target="_blank"
+            rel="noopener noreferrer"
+           title="Open linkedin.com">
+            Roshini G & {" "}
+          </a>
+
           <a
             style={{ color: "#a4ec70" }}
             href="https://www.linkedin.com/in/selvaperumal-g-9656b32a1?utm_source=share_via&utm_content=profile&utm_medium=member_android"
             target="_blank"
             rel="noopener noreferrer"
-          >
-             Selvaperumal G &{" "}
+           title="Open linkedin.com">
+              Selvaperumal G 
            
-          </a>
-          <a
-            style={{ color: "#a4ec70" }}
-            href="https://www.linkedin.com/in/roshini-govindaraj-233941331?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Roshini G 
           </a>
         </div>
       </div>

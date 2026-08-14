@@ -21,10 +21,10 @@ export default function CTA() {
           {t('cta.body')}
         </p>
         <div className="cta-btns">
-          <a href="#services" className="btn-primary">
+          <a href="#services" className="btn-primary" title="Go to services">
             {t('cta.primary')} <span className="arr">→</span>
           </a>
-          <a href="#contact" className="btn-ghost">
+          <a href="#contact" className="btn-ghost" title="Go to contact">
             {t('cta.secondary')} <span className="arr">→</span>
           </a>
         </div>

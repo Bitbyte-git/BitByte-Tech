@@ -4,7 +4,6 @@ const VISIT_COUNTED_KEY = "website-visit-counted";
 const VISIT_COUNTED_VALUE = "counted";
 const VISIT_LOCK_PREFIX = "pending:";
 const VISIT_LOCK_TTL_MS = 15_000;
-const VISITOR_COUNTER_API_PATH = "/api/visitor-counter";
 const DEV_VISITOR_COUNTER_PROXY_PATH = "/__visitor-counter";
 
 let visitorCounterRequest = null;
@@ -29,18 +28,19 @@ function EyeIcon() {
   );
 }
 
-function getVisitorApiUrls() {
-  const apiUrl = (import.meta.env.VITE_VISITOR_COUNTER_API || "").trim();
-
-  if (import.meta.env.PROD) {
-    return [VISITOR_COUNTER_API_PATH, apiUrl].filter(Boolean);
-  }
+function getVisitorApiUrl() {
+  const apiUrl =
+    (import.meta.env.VITE_VISITOR_COUNTER_API || "/api/visitor-counter").trim();
 
   if (import.meta.env.DEV && /^https?:\/\//i.test(apiUrl)) {
-    return [DEV_VISITOR_COUNTER_PROXY_PATH];
+    return DEV_VISITOR_COUNTER_PROXY_PATH;
   }
 
-  return [apiUrl || VISITOR_COUNTER_API_PATH];
+  if (/^https?:\/\//i.test(apiUrl)) {
+    return "/api/visitor-counter";
+  }
+
+  return apiUrl;
 }
 
 function getVisitStatus() {
@@ -96,16 +96,14 @@ function clearVisitLock() {
 function parseVisitorResponse(payload) {
   const responsePayload =
     typeof payload?.body === "string" ? JSON.parse(payload.body) : payload;
-  const rawCount =
-    responsePayload?.count ??
-    responsePayload?.value ??
-    responsePayload?.visits ??
-    responsePayload?.views ??
-    responsePayload?.total;
-  const count = typeof rawCount === "string" ? Number(rawCount) : rawCount;
+  const count =
+    typeof responsePayload?.count === "string"
+      ? Number(responsePayload.count)
+      : responsePayload?.count;
 
   if (
     !responsePayload ||
+    responsePayload.success !== true ||
     typeof count !== "number" ||
     !Number.isFinite(count)
   ) {
@@ -115,47 +113,34 @@ function parseVisitorResponse(payload) {
   return count;
 }
 
-async function requestVisitorCount(apiUrls) {
+async function requestVisitorCount(apiUrl) {
   const visitStatus = getVisitStatus();
   const shouldIncrement = visitStatus === "new";
-  const urls = Array.isArray(apiUrls) ? apiUrls : [apiUrls];
 
   if (shouldIncrement) {
     setVisitLock();
   }
 
   try {
-    let lastError = null;
+    const response = await fetch(apiUrl, {
+      method: shouldIncrement ? "POST" : "GET",
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+      },
+    });
 
-    for (const apiUrl of urls) {
-      if (!apiUrl) continue;
-
-      try {
-        const response = await fetch(apiUrl, {
-          method: shouldIncrement ? "POST" : "GET",
-          cache: "no-store",
-          headers: {
-            Accept: "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Visitor counter request failed: ${response.status}`);
-        }
-
-        const count = parseVisitorResponse(await response.json());
-
-        if (shouldIncrement) {
-          markVisitCounted();
-        }
-
-        return count;
-      } catch (error) {
-        lastError = error;
-      }
+    if (!response.ok) {
+      throw new Error(`Visitor counter request failed: ${response.status}`);
     }
 
-    throw lastError || new Error("Visitor counter URL is not configured");
+    const count = parseVisitorResponse(await response.json());
+
+    if (shouldIncrement) {
+      markVisitCounted();
+    }
+
+    return count;
   } catch (error) {
     if (shouldIncrement) {
       clearVisitLock();
@@ -165,9 +150,9 @@ async function requestVisitorCount(apiUrls) {
   }
 }
 
-function loadVisitorCount(apiUrls) {
+function loadVisitorCount(apiUrl) {
   if (!visitorCounterRequest) {
-    visitorCounterRequest = requestVisitorCount(apiUrls).finally(() => {
+    visitorCounterRequest = requestVisitorCount(apiUrl).finally(() => {
       visitorCounterRequest = null;
     });
   }
@@ -204,17 +189,17 @@ export default function VisitorCounter() {
   useEffect(() => {
     if (!visible) return undefined;
 
-    const apiUrls = getVisitorApiUrls();
+    const apiUrl = getVisitorApiUrl();
     let isMounted = true;
 
-    if (apiUrls.length === 0) {
+    if (!apiUrl) {
       setStatus("error");
       return undefined;
     }
 
     setStatus("loading");
 
-    loadVisitorCount(apiUrls)
+    loadVisitorCount(apiUrl)
       .then((nextCount) => {
         if (!isMounted) return;
         setCount(nextCount);
@@ -234,7 +219,7 @@ export default function VisitorCounter() {
   const displayText =
     status === "success" && typeof count === "number"
       ? count.toLocaleString()
-      : "Restricted";
+      : "Unavailable";
 
   return (
     <div

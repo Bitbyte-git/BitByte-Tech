@@ -39,11 +39,12 @@ function Navbar({
           </div>
         </a>
         <ul className="nav-links">
-          {navLinks.filter(link => link.key !== "showcase").map(({ href, key, label }) => (
+          {navLinks.filter((link) => link.key !== "showcase").map(({ href, key, label }) => (
             <li key={href}>
               <a
                 href={hrefFor(href)}
                 className={`${activeSection === key ? "active" : ""} ${key === "services" && activeServiceId ? "service-pulsing" : ""}`}
+                title={label}
                 onClick={(event) => onNavClick?.(event, href, key)}
               >
                 {t(`nav.${key}`, label)}
@@ -55,7 +56,8 @@ function Navbar({
                       href={hrefFor(service.route)}
                       className={activeServiceId === service.id ? "active" : ""}
                       key={service.id}
-                      onClick={(event) => {
+                      title={service.title}
+                  onClick={(event) => {
                         if (service.route.startsWith("#")) {
                           onServiceSelect?.(event, service.id);
                         }
@@ -140,3 +142,4 @@ function Navbar({
 }
 
 export default memo(Navbar);
+

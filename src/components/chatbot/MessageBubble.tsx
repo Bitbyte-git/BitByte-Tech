@@ -11,7 +11,7 @@ export default function MessageBubble({ message, onAction }) {
         {message.email && (
           <div className="bb-chat-contact">
             <span>Email:</span>
-            <a href={`mailto:${message.email}`}>{message.email}</a>
+            <a href={`mailto:${message.email}`} title="Open link">{message.email}</a>
           </div>
         )}
         {message.phone && (
@@ -22,11 +22,11 @@ export default function MessageBubble({ message, onAction }) {
                 href={`https://wa.me/${message.phone.replace(/[^0-9]/g, '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-              >
+               title="Open link">
                 {message.phone}
               </a>
             ) : (
-              <a href={`tel:${message.phone.replace(/[^+\d]/g, '')}`}>{message.phone}</a>
+              <a href={`tel:${message.phone.replace(/[^+\d]/g, '')}`} title="Open link">{message.phone}</a>
             )}
           </div>
         )}

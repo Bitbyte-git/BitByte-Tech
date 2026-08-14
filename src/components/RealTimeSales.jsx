@@ -8,11 +8,11 @@ const heroPillars = [
 ]
 
 const matters = [
-  ['fa-regular fa-eye', 'Monitor'],
+  ['fa-solid fa-eye', 'Monitor'],
   ['fa-solid fa-arrow-trend-up', 'Performance'],
   ['fa-solid fa-cart-shopping', 'Products'],
-  ['fa-regular fa-user', 'Customer'],
-  ['fa-regular fa-building', 'Compare Branch'],
+  ['fa-solid fa-user', 'Customer'],
+  ['fa-solid fa-building', 'Compare Branch'],
   ['fa-solid fa-arrow-trend-up', 'Forecast'],
   ['fa-solid fa-rocket', 'Act Faster'],
 ]
@@ -256,9 +256,9 @@ export default function RealTimeSales() {
     <main className="sales-page wrap">
       <section className="sales-hero">
         <div className="sales-breadcrumb reveal">
-          <a href="/#hero">Home</a>
+          <a href="/#hero" title="Go to home">Home</a>
           <span>&gt;</span>
-          <a href="/#services">Services</a>
+          <a href="/#services" title="Go to home">Services</a>
           <span>&gt;</span>
           <strong>Real Time Sales Data Driven Solution</strong>
         </div>
@@ -289,10 +289,10 @@ export default function RealTimeSales() {
             </div>
 
             <div className="sales-actions reveal reveal-delay-4">
-              <a className="btn-primary" href="#sales-dashboard-demo">
+              <a className="btn-primary" href="#sales-dashboard-demo" title="Go to sales dashboard demo">
                 Explore Dashboard Demo <span className="arr">&rarr;</span>
               </a>
-              <a className="btn-ghost" href="/#contact">Talk to Our Experts</a>
+              <a className="btn-ghost" href="/#contact" title="Go to home">Talk to Our Experts</a>
             </div>
           </div>
 
@@ -336,7 +336,7 @@ export default function RealTimeSales() {
           <h2>Key Metrics <span>We Track</span></h2>
           <div className="sales-two-col-list">
             {metrics.map((item) => (
-              <div key={item}><i className="fa-regular fa-circle-check" aria-hidden="true" /> {item}</div>
+              <div key={item}><i className="fa-solid fa-circle-check" aria-hidden="true" /> {item}</div>
             ))}
           </div>
         </article>
@@ -397,8 +397,8 @@ export default function RealTimeSales() {
 
         <article className="sales-consult-card">
           <h2>Ready to Get Real-Time Business Insights?</h2>
-          <a className="btn-primary" href="/#contact">Book a Free Consultation <span className="arr">&rarr;</span></a>
-          <p><i className="fa-regular fa-circle-check" aria-hidden="true" /> No obligation. Just better insights.</p>
+          <a className="btn-primary" href="/#contact" title="Go to home">Book a Free Consultation <span className="arr">&rarr;</span></a>
+          <p><i className="fa-solid fa-circle-check" aria-hidden="true" /> No obligation. Just better insights.</p>
         </article>
       </section>
     </main>

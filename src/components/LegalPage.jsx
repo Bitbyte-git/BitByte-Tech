@@ -173,41 +173,6 @@ const policySections = [
   },
 ];
 
-const invoiceTermsSections = [
-  {
-    key: "Invoice",
-    title: "Project Terms and Conditions",
-    items: [
-      "Third-party subscription charges are excluded from development cost.",
-      "Any additional features outside the agreed scope will be charged separately.",
-      "Source code, documentation, configuration workbook, and test case documents will be delivered after final payment clearance.",
-      "30 days of free support is included post-deployment.",
-      "An extended PRD along with the configuration workbook will be developed once the initial quotation is accepted for further rounds of talks.",
-      "All credentials, including AWS cloud server, MS mail server, and admin-level credentials, will be handed over to the client on final payment clearance.",
-    ],
-  },
-  {
-    key: "Payment",
-    title: "Payment and Pricing Terms",
-    items: [
-      "Payment terms: 50% advance, 25% during development stages on every milestone, and 25% on final delivery.",
-      "Estimated delivery timeline is 4-5 weeks unless otherwise agreed in writing.",
-      "Negotiation terms are open for negotiation on mutual terms.",
-      "Monthly charges are due on or before the 5th date of every month as a single payment.",
-      "Payment is due within the period specified on the invoice. Delayed payments may attract applicable charges.",
-      "All prices are exclusive of applicable taxes unless otherwise stated.",
-      "Services and deliverables provided are limited to the scope agreed upon in the proposal, quotation, or contract.",
-      "Any additional work, revisions, or change requests beyond the agreed scope may be billed separately.",
-      "Ownership of deliverables and intellectual property shall transfer only upon receipt of full payment, unless otherwise agreed in writing.",
-      "Advance payments, milestone payments, and completed services are non-refundable unless specified otherwise.",
-      "The client shall verify invoice details and report any discrepancies within 7 days of the invoice date.",
-      "The company shall not be liable for delays or interruptions caused by third-party service providers, hosting providers, internet outages, or force majeure events.",
-      "All disputes arising from an invoice shall be subject to the jurisdiction of the courts located at Salem, Tamil Nadu, India.",
-      "Payment of an invoice constitutes acceptance of the services, pricing, and terms stated therein.",
-    ],
-  },
-];
-
 const declaration =
   "Bit Byte Technologies is committed to protecting client interests, intellectual property, business confidentiality, data privacy, and technology assets while maintaining transparency, ethical practices, and industry-standard delivery processes across web application development, software engineering, cloud services, digital marketing, consulting, maintenance, and support engagements.";
 
@@ -238,39 +203,6 @@ export default function LegalPage({ type = "privacy" }) {
             sections.
           </p>
         </div>
-
-        {type === "terms" ? (
-          <div className="mb-6 grid gap-5">
-            {invoiceTermsSections.map((section) => (
-              <article
-                className="rounded-lg border border-[#a4ec70]/18 bg-[#a4ec70]/[0.055] p-5 shadow-[0_20px_60px_rgba(0,0,0,0.18)] md:p-6"
-                key={section.key}
-              >
-                <div className="mb-5 flex items-start gap-4">
-                  <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#a4ec70]/25 bg-[#a4ec70]/10 font-[var(--f-label)] text-xs font-extrabold text-[#a4ec70]">
-                    {section.key === "Invoice" ? "IT" : "PT"}
-                  </span>
-                  <h2 className="font-[var(--f-display)] text-xl font-bold leading-tight text-white md:text-2xl">
-                    {section.title}
-                  </h2>
-                </div>
-                <ol className="grid gap-3">
-                  {section.items.map((item, index) => (
-                    <li
-                      className="grid grid-cols-[32px_1fr] gap-3 text-sm leading-7 text-white/62"
-                      key={item}
-                    >
-                      <span className="font-[var(--f-label)] text-xs font-bold text-[#a4ec70]">
-                        {index + 1}
-                      </span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ol>
-              </article>
-            ))}
-          </div>
-        ) : null}
 
         <div className="grid gap-5">
           {policySections.map((section) => (

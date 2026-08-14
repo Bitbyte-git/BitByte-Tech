@@ -116,11 +116,22 @@ export default defineConfig(({ mode }) => ({
         chunkFileNames: "assets/[name]-[hash].js",
         entryFileNames: "assets/[name]-[hash].js",
         manualChunks(id) {
+          if (id.includes("vite/preload-helper")) return "preload-helper";
           if (
             id.includes("/src/i18n") ||
             id.includes("/src/defaultTranslations")
           )
             return "translations";
+          if (id.includes("pdfmake")) return "pdfmake";
+          if (id.includes("@splinetool")) return "spline";
+          if (id.includes("framer-motion")) return "motion";
+          if (id.includes("lucide-react")) return "icons";
+          if (
+            id.includes("node_modules/react") ||
+            id.includes("node_modules/react-dom") ||
+            id.includes("node_modules/scheduler")
+          )
+            return "react-vendor";
           if (id.includes("node_modules")) return "vendor";
           if (
             id.includes("/src/components/WebDevelopment") ||

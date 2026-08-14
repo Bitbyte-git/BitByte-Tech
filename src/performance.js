@@ -108,19 +108,26 @@ const runAfterFirstInteraction = (task) => {
   window.addEventListener('pointerdown', run, { once: true, passive: true })
   window.addEventListener('keydown', run, { once: true })
   window.addEventListener('scroll', run, { once: true, passive: true })
-  window.setTimeout(run, 4500)
+  window.setTimeout(run, 9000)
+}
+
+const runAfterPageSettles = (task) => {
+  const schedule = () => runWhenIdle(task)
+
+  if (document.readyState === 'complete') {
+    window.setTimeout(schedule, 12000)
+  } else {
+    window.addEventListener('load', () => window.setTimeout(schedule, 12000), {
+      once: true,
+    })
+  }
 }
 
 export function bootNonCriticalAssets() {
   const start = () => {
-    runWhenIdle(() => {
+    runAfterPageSettles(() => {
       loadStylesheet(
-        'https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Space+Grotesk:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap',
-        'google-fonts-css',
-      )
-
-      loadStylesheet(
-        'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css',
+        '/assets/vendor/fontawesome/css/all.min.css',
         'font-awesome-css',
       )
     })

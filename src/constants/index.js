@@ -75,7 +75,7 @@ export const whyItems = [
 
 export const socialIcons = [
   ['LinkedIn', 'fab fa-linkedin-in'],
-  ['X', 'fab fa-x-twitter'],
+  ['X', 'fa-brands fa-x-twitter'],
   ['Instagram', 'fab fa-instagram'],
   ['Facebook', 'fab fa-facebook-f'],
   ['YouTube', 'fab fa-youtube'],

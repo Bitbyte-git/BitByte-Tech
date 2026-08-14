@@ -1,74 +1,44 @@
-const VISITOR_COUNTER_ENV_KEYS = [
-  "VISITOR_COUNTER_API",
-  "VITE_VISITOR_COUNTER_API",
-];
+const DEFAULT_VISITOR_COUNTER_API =
+  "https://3xfbvykhe2.execute-api.ap-south-1.amazonaws.com/visitor";
 
 function getVisitorCounterApiUrl() {
-  return VISITOR_COUNTER_ENV_KEYS
-    .map((key) => process.env[key])
-    .find((value) => typeof value === "string" && value.trim())
-    ?.trim();
-}
-
-function parseCount(payload) {
-  const bodyPayload =
-    typeof payload?.body === "string" ? JSON.parse(payload.body) : payload;
-  const rawCount =
-    bodyPayload?.count ??
-    bodyPayload?.value ??
-    bodyPayload?.visits ??
-    bodyPayload?.views ??
-    bodyPayload?.total;
-  const count = typeof rawCount === "string" ? Number(rawCount) : rawCount;
-
-  if (!Number.isFinite(count)) {
-    throw new Error("Visitor counter response did not include a count");
-  }
-
-  return count;
+  return (
+    process.env.VISITOR_COUNTER_API ||
+    process.env.VITE_VISITOR_COUNTER_API ||
+    DEFAULT_VISITOR_COUNTER_API
+  );
 }
 
 export default async function handler(req, res) {
   if (req.method !== "GET" && req.method !== "POST") {
     res.setHeader("Allow", "GET, POST");
-    return res.status(405).json({ success: false, error: "Method not allowed" });
-  }
-
-  const apiUrl = getVisitorCounterApiUrl();
-
-  if (!apiUrl) {
-    return res.status(500).json({
-      success: false,
-      error: "Visitor counter API URL is not configured",
-    });
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const response = await fetch(apiUrl, {
+    const response = await fetch(getVisitorCounterApiUrl(), {
       method: req.method,
-      cache: "no-store",
       headers: {
         Accept: "application/json",
       },
     });
 
-    const payload = await response.json().catch(() => ({}));
+    const text = await response.text();
+    let payload;
 
-    if (!response.ok) {
-      return res.status(response.status).json({
-        success: false,
-        error: "Visitor counter upstream request failed",
-      });
+    try {
+      payload = text ? JSON.parse(text) : {};
+    } catch {
+      payload = { success: false, error: "Invalid visitor counter response" };
     }
 
-    return res.status(200).json({
-      success: true,
-      count: parseCount(payload),
-    });
+    res.setHeader("Cache-Control", "no-store");
+    return res.status(response.status).json(payload);
   } catch (error) {
+    console.error("Visitor counter proxy error:", error);
     return res.status(502).json({
       success: false,
-      error: error.message || "Visitor counter request failed",
+      error: "Visitor counter service unavailable",
     });
   }
 }

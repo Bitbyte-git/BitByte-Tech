@@ -257,7 +257,7 @@ export default function WebDevelopmentOverview() {
       const link = document.createElement('link')
       link.id = 'font-awesome-css'
       link.rel = 'stylesheet'
-      link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css'
+      link.href = '/assets/vendor/fontawesome/css/all.min.css'
       link.crossOrigin = 'anonymous'
       document.head.appendChild(link)
     }
@@ -1473,9 +1473,9 @@ export default function WebDevelopmentOverview() {
       <main className="webapp-page wd-page wrap">
         <section className="webapp-hero">
           <div className="webapp-breadcrumb reveal">
-            <a href="/#hero">Home</a>
+            <a href="/#hero" title="Go to home">Home</a>
             <span>›</span>
-            <a href="/#services">Services</a>
+            <a href="/#services" title="Go to home">Services</a>
             <span>›</span>
             <strong>Web App Development</strong>
           </div>
@@ -1509,10 +1509,10 @@ export default function WebDevelopmentOverview() {
                 </div>
               </div>
               <div className="webapp-actions reveal reveal-delay-5">
-                <a href="/#contact" className="btn-primary">
+                <a href="/#contact" className="btn-primary" title="Go to home">
                   Let&apos;s Build Your Website <span className="arr">→</span>
                 </a>
-                <a href="#wd-services" className="btn-ghost">
+                <a href="#wd-services" className="btn-ghost" title="Go to wd services">
                   View Our Services
                 </a>
               </div>
@@ -1529,7 +1529,7 @@ export default function WebDevelopmentOverview() {
           <p className="wd-section-sub reveal reveal-delay-2">End-to-end web solutions tailored to your business goals.</p>
           <div className="wd-service-grid">
             {developmentServices.map(([icon, title, text, href, color], index) => (
-              <a className={`wd-service-card reveal reveal-delay-${index + 1}`} href={href} key={title}>
+              <a className={`wd-service-card reveal reveal-delay-${index + 1}`} href={href} key={title} title="Open link">
                 <i className={icon} style={{ color }} aria-hidden="true" />
                 <div>
                   <h3>{title}</h3>
@@ -1599,7 +1599,7 @@ export default function WebDevelopmentOverview() {
             <h2>Ready to Build Your Next Web Application?</h2>
             <p>Let&apos;s turn your ideas into powerful digital solutions that drive growth and deliver measurable results.</p>
           </div>
-          <a href="/#contact" className="btn-primary">
+          <a href="/#contact" className="btn-primary" title="Go to home">
             Get a Free Consultation <span className="arr">→</span>
           </a>
         </section>

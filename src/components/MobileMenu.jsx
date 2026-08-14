@@ -56,11 +56,12 @@ function MobileMenu({
       >
         <i className="fas fa-times" aria-hidden="true" />
       </button>
-      {navLinks.filter(link => link.key !== "showcase").map(({ href, key, label }) => (
+      {navLinks.filter((link) => link.key !== "showcase").map(({ href, key, label }) => (
         <div className="mob-link-group" key={href}>
           <a
             href={hrefFor(href)}
             className={activeSection === key ? "active" : ""}
+            title={label}
             onClick={(event) => handleLinkClick(event, href, key)}
           >
             {t(`nav.${key}`, label)}
@@ -71,6 +72,7 @@ function MobileMenu({
                 <a
                   href={hrefFor(service.route)}
                   key={service.id}
+                  title={service.title}
                   onClick={(event) => {
                     if (!service.route.startsWith("/")) {
                       handleServiceClick(event, service.id);
@@ -175,3 +177,4 @@ function MobileMenu({
 }
 
 export default memo(MobileMenu);
+
