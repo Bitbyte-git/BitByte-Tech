@@ -57,7 +57,11 @@ function bitbyteLocalChatApi() {
           const reply = await createChatReply(
             message,
             process.env.GROQ_API_KEY || env.GROQ_API_KEY,
-            process.env.GROQ_MODEL || env.GROQ_MODEL || DEFAULT_GROQ_MODEL,
+            process.env.VITE_GROQ_MODEL ||
+              env.VITE_GROQ_MODEL ||
+              process.env.GROQ_MODEL ||
+              env.GROQ_MODEL ||
+              DEFAULT_GROQ_MODEL,
           );
           sendJson(res, 200, { reply });
         } catch (error) {
@@ -94,11 +98,40 @@ function visitorCounterDevProxy(mode) {
   }
 }
 
+function groqChatDevProxy(mode) {
+  const env = loadEnv(mode, process.cwd(), "");
+  const groqChatApi = env.VITE_GROQ_API_URL || env.VITE_CHAT_API_URL;
+
+  if (!groqChatApi) return undefined;
+
+  try {
+    const apiUrl = new URL(groqChatApi);
+
+    return {
+      "/__groq-chat": {
+        target: apiUrl.origin,
+        changeOrigin: true,
+        secure: true,
+        rewrite: () => `${apiUrl.pathname}${apiUrl.search}`,
+      },
+    };
+  } catch {
+    return undefined;
+  }
+}
+
+function buildDevProxy(mode) {
+  return {
+    ...visitorCounterDevProxy(mode),
+    ...groqChatDevProxy(mode),
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react(), bitbyteLocalChatApi()],
   server: {
-    proxy: visitorCounterDevProxy(mode),
+    proxy: buildDevProxy(mode),
   },
   optimizeDeps: {
     include: ["react", "react-dom"],

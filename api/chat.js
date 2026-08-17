@@ -35,7 +35,9 @@ export default async function handler(req, res) {
     const reply = await createChatReply(
       message,
       process.env.GROQ_API_KEY,
-      process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL,
+      process.env.VITE_GROQ_MODEL ||
+        process.env.GROQ_MODEL ||
+        DEFAULT_GROQ_MODEL,
     );
     return res.status(200).json({ reply });
   } catch (error) {

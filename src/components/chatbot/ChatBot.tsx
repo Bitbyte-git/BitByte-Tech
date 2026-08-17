@@ -5,6 +5,7 @@ import './ChatBot.css'
 
 const ChatWindow = lazy(() => import('./ChatWindow'))
 const rootPath = '/'
+const DEV_GROQ_CHAT_PROXY_PATH = '/__groq-chat'
 
 function makeMessage(sender, text, extras = {}) {
   return {
@@ -36,8 +37,22 @@ function waitForElement(id, attempts = 20) {
   })
 }
 
+function getChatApiUrl() {
+  const apiUrl = (
+    import.meta.env.VITE_GROQ_API_URL ||
+    import.meta.env.VITE_CHAT_API_URL ||
+    '/api/chat'
+  ).trim()
+
+  if (import.meta.env.DEV && /^https?:\/\//i.test(apiUrl)) {
+    return DEV_GROQ_CHAT_PROXY_PATH
+  }
+
+  return apiUrl
+}
+
 async function getAiReply(message) {
-  const response = await fetch('/api/chat', {
+  const response = await fetch(getChatApiUrl(), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
