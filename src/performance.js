@@ -7,17 +7,6 @@ const runWhenIdle = (task) => {
   window.setTimeout(task, 1200)
 }
 
-const loadStylesheet = (href, id) => {
-  if (document.getElementById(id)) return
-
-  const link = document.createElement('link')
-  link.id = id
-  link.rel = 'stylesheet'
-  link.href = href
-  link.crossOrigin = 'anonymous'
-  document.head.appendChild(link)
-}
-
 const loadScript = (src, id, onload) => {
   if (document.getElementById(id)) return
 
@@ -111,27 +100,8 @@ const runAfterFirstInteraction = (task) => {
   window.setTimeout(run, 9000)
 }
 
-const runAfterPageSettles = (task) => {
-  const schedule = () => runWhenIdle(task)
-
-  if (document.readyState === 'complete') {
-    window.setTimeout(schedule, 12000)
-  } else {
-    window.addEventListener('load', () => window.setTimeout(schedule, 12000), {
-      once: true,
-    })
-  }
-}
-
 export function bootNonCriticalAssets() {
   const start = () => {
-    runAfterPageSettles(() => {
-      loadStylesheet(
-        '/assets/vendor/fontawesome/css/all.min.css',
-        'font-awesome-css',
-      )
-    })
-
     runAfterFirstInteraction(() => {
       loadGoogleTagManager()
       loadGoogleMeasurement()

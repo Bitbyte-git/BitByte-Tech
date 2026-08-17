@@ -1,6 +1,6 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
-import { createChatReply } from "./server/chatCore.js";
+import { DEFAULT_GROQ_MODEL, createChatReply } from "./server/chatCore.js";
 
 function readRequestBody(req) {
   return new Promise((resolve, reject) => {
@@ -57,6 +57,7 @@ function bitbyteLocalChatApi() {
           const reply = await createChatReply(
             message,
             process.env.GROQ_API_KEY || env.GROQ_API_KEY,
+            process.env.GROQ_MODEL || env.GROQ_MODEL || DEFAULT_GROQ_MODEL,
           );
           sendJson(res, 200, { reply });
         } catch (error) {

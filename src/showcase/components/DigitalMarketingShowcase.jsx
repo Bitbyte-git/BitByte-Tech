@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { FileText, Sparkles, X, Lock, ShieldAlert, ExternalLink } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { ACCESS_CODES } from '../../accessControl';
+import { ACCESS_CODES, grantAccess, hasAccess } from '../../accessControl';
 
 const CANVA_SHOWCASE_URL = 'https://www.canva.com/design/DAHMKgej5XA/87Dvn3r-OGEWya7Uw8iiHg/view/';
 
@@ -10,6 +10,7 @@ export default function DigitalMarketingShowcase() {
   const [isProtected, setIsProtected] = useState(false);
   const [stage, setStage] = useState(() => {
     if (typeof window === 'undefined') return 'blocked';
+    if (hasAccess('showcase')) return 'dashboard';
     const params = new URLSearchParams(window.location.search);
     return params.get('from') === 'navbar' ? 'login' : 'blocked';
   });
@@ -18,6 +19,11 @@ export default function DigitalMarketingShowcase() {
 
   useEffect(() => {
     const syncStageFromUrl = () => {
+      if (hasAccess('showcase')) {
+        setStage('dashboard');
+        return;
+      }
+
       const params = new URLSearchParams(window.location.search);
       if (params.get('from') === 'navbar') {
         setAccessKey('');
@@ -129,25 +135,13 @@ export default function DigitalMarketingShowcase() {
       return;
     }
 
-    if (accessKey === ACCESS_CODES.showcase) {
+    if (accessKey.trim() === ACCESS_CODES.showcase) {
+      grantAccess('showcase');
       setStage('verifying');
       setTimeout(() => setStage('dashboard'), 1500);
-    } else if (accessKey === 'UNKNOWN123') {
-      setStage('verifying');
-      setTimeout(() => setStage('access_denied'), 1500);
     } else {
-      setErrorMsg('Invalid Access Key! Please try again.');
+      setErrorMsg('Invalid secret code. Please try again.');
     }
-  };
-
-  const handleLogout = () => {
-    setAccessKey('');
-    setErrorMsg('');
-    setStage('login');
-  };
-
-  const handleGoHome = () => {
-    window.location.href = '/showcase';
   };
 
   const handleOpenShowcase = () => {
@@ -205,8 +199,16 @@ export default function DigitalMarketingShowcase() {
             className="showcase-access-card relative z-10 w-full max-w-md"
           >
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-black text-white mb-2">Secure Employee Access</h2>
-              <p className="text-sm" style={{ color: 'rgba(232,248,255,0.5)' }}>Authorized Employees Only</p>
+              <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 text-cyan-200 shadow-[0_0_34px_rgba(34,211,238,0.24)]">
+                <Lock size={34} className="animate-pulse" />
+              </div>
+              <span className="mb-3 inline-flex items-center rounded-full border border-emerald-300/25 bg-emerald-300/10 px-4 py-2 text-[0.7rem] font-black uppercase tracking-[0.22em] text-emerald-200">
+                Protected Showcase
+              </span>
+              <h2 className="text-2xl font-black text-white mb-2">Digital Marketing Access</h2>
+              <p className="text-sm leading-6" style={{ color: 'rgba(232,248,255,0.62)' }}>
+                Enter the secret code to unlock this showcase section.
+              </p>
             </div>
 
             <form onSubmit={handleLoginSubmit}>
@@ -226,13 +228,13 @@ export default function DigitalMarketingShowcase() {
               )}
 
               <p className="text-center text-sm font-medium mb-6" style={{ color: '#fff', lineHeight: 1.6 }}>
-                Please enter your access key<br />to continue
+                Please enter your secret code<br />to continue
               </p>
 
               <div className="showcase-access-input-wrap mb-4">
                 <input
                   type="password"
-                  placeholder="Enter Access Key"
+                  placeholder="Enter secret code"
                   value={accessKey}
                   onChange={(e) => setAccessKey(e.target.value)}
                   className="showcase-access-input"
@@ -246,7 +248,7 @@ export default function DigitalMarketingShowcase() {
             </form>
 
             <div className="mt-6 text-center text-xs font-medium" style={{ color: '#e63946', opacity: 0.85 }}>
-              Unauthorized access is<br />strictly prohibited.
+              Frontend-only access prevents accidental entry.
             </div>
           </motion.div>
         )}
@@ -264,32 +266,6 @@ export default function DigitalMarketingShowcase() {
             </div>
             <h2 className="mb-2 text-2xl font-black text-white tracking-wide">Verifying...</h2>
             <p className="text-slate-400 text-sm">Please wait while we authenticate your credentials</p>
-          </motion.div>
-        )}
-
-        {stage === 'access_denied' && (
-          <motion.div
-            key="access_denied"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="showcase-card relative z-10 w-full max-w-md p-8 text-center"
-          >
-            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-red-500/10 border border-red-500/30 text-red-400 shadow-[0_0_20px_rgba(239,68,68,0.2)]">
-              <ShieldAlert size={36} />
-            </div>
-            <h2 className="mb-2 text-2xl font-black text-white tracking-wide">Access Denied</h2>
-            <p className="mb-8 text-slate-400 text-sm leading-relaxed">
-              You are not authorized to access this page. <br />
-              Please contact your administrator.
-            </p>
-            <button
-              type="button"
-              onClick={handleGoHome}
-              className="showcase-btn-primary w-full py-4 text-sm font-bold uppercase tracking-wider"
-            >
-              Go to Home Page
-            </button>
           </motion.div>
         )}
 
@@ -389,5 +365,4 @@ export default function DigitalMarketingShowcase() {
     </div>
   );
 }
-
 

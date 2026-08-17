@@ -13,11 +13,11 @@ export default function Contact() {
   };
   const contactDetails = [
     ["📧", "Email", "reachus@bitbytetech.org"],
-    ["📞", "Phone", "+91 99437 43136 (Only Whatsapp)"],
+    ["📞", "Phone", "+91 99437 43136 (Whatsapp Only)"],
     [
       "📍",
       "Address",
-      "BitByte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
+      "Bit Byte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
     ],
     ["🏛️", "GST No", "33BLNPN5359J1ZL"],
     ["🏭", "Udyam No", "UDYAM-TN-20-0234773"],
@@ -46,19 +46,6 @@ export default function Contact() {
             </div>
           </div>
         ))}
-        <div className="social-row reveal reveal-delay-4">
-          {socialIcons.map(([label, sIcon]) => (
-            <a
-              href={hrefs[label] || "#"}
-              className="soc-btn"
-              title={label}
-              aria-label={label}
-              key={label}
-            >
-              <i className={sIcon} aria-hidden="true" />
-            </a>
-          ))}
-        </div>
         <div className="map-box reveal reveal-delay-5">
           <iframe
             title="Bit Byte Technologies location map"

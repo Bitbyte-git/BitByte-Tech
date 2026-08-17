@@ -1,4 +1,4 @@
-import { createChatReply } from "../server/chatCore.js";
+import { DEFAULT_GROQ_MODEL, createChatReply } from "../server/chatCore.js";
 
 function getRequestBody(req) {
   if (!req.body) return {};
@@ -32,7 +32,11 @@ export default async function handler(req, res) {
   }
 
   try {
-    const reply = await createChatReply(message, process.env.GROQ_API_KEY);
+    const reply = await createChatReply(
+      message,
+      process.env.GROQ_API_KEY,
+      process.env.GROQ_MODEL || DEFAULT_GROQ_MODEL,
+    );
     return res.status(200).json({ reply });
   } catch (error) {
     console.error("Groq chat error:", error);
