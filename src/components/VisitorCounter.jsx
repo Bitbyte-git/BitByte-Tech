@@ -30,14 +30,14 @@ function EyeIcon() {
 
 function getVisitorApiUrl() {
   const apiUrl =
-    (import.meta.env.VITE_VISITOR_COUNTER_API || "/api/visitor-counter").trim();
+    (
+      import.meta.env.VITE_COUNTER_API_URL ||
+      import.meta.env.VITE_VISITOR_COUNTER_API ||
+      "/api/visitor-counter"
+    ).trim();
 
   if (import.meta.env.DEV && /^https?:\/\//i.test(apiUrl)) {
     return DEV_VISITOR_COUNTER_PROXY_PATH;
-  }
-
-  if (/^https?:\/\//i.test(apiUrl)) {
-    return "/api/visitor-counter";
   }
 
   return apiUrl;

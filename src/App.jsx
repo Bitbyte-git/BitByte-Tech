@@ -461,13 +461,13 @@ export default function App() {
           <Suspense fallback={<SectionFallback />}>
             <WhyUs />
           </Suspense>
-
           <Suspense fallback={<SectionFallback />}>
             <Contact />
           </Suspense>
           <Suspense fallback={<SectionFallback />}>
             <CTA />
           </Suspense>
+          
         </>
       )}
       {!isShowcasePage && (

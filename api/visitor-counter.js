@@ -3,7 +3,9 @@ const DEFAULT_VISITOR_COUNTER_API =
 
 function getVisitorCounterApiUrl() {
   return (
+    process.env.COUNTER_API_URL ||
     process.env.VISITOR_COUNTER_API ||
+    process.env.VITE_COUNTER_API_URL ||
     process.env.VITE_VISITOR_COUNTER_API ||
     DEFAULT_VISITOR_COUNTER_API
   );

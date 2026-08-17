@@ -73,7 +73,8 @@ function bitbyteLocalChatApi() {
 
 function visitorCounterDevProxy(mode) {
   const env = loadEnv(mode, process.cwd(), "");
-  const visitorCounterApi = env.VITE_VISITOR_COUNTER_API;
+  const visitorCounterApi =
+    env.VITE_COUNTER_API_URL || env.VITE_VISITOR_COUNTER_API;
 
   if (!visitorCounterApi) return undefined;
 
