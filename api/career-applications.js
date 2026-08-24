@@ -8,14 +8,43 @@ let mongoClientPromise;
 
 function getMongoClient() {
   if (!process.env.MONGODB_URI) {
-    throw new Error("MONGODB_URI is not configured");
+    const error = new Error("MONGODB_URI is not configured");
+    error.code = "MISSING_MONGODB_URI";
+    throw error;
   }
 
   if (!mongoClientPromise) {
-    mongoClientPromise = new MongoClient(process.env.MONGODB_URI).connect();
+    mongoClientPromise = new MongoClient(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 8000,
+    }).connect();
   }
 
   return mongoClientPromise;
+}
+
+function getMongoErrorResponse(error) {
+  if (error.code === "MISSING_MONGODB_URI") {
+    return {
+      statusCode: 503,
+      message: "MongoDB connection is not configured in the hosting environment.",
+    };
+  }
+
+  if (
+    error.name === "MongoServerSelectionError" ||
+    /querySrv|ENOTFOUND|ETIMEOUT|ECONNREFUSED|server selection/i.test(error.message)
+  ) {
+    return {
+      statusCode: 503,
+      message:
+        "MongoDB is unreachable from the hosting environment. Check Atlas network access and the MongoDB URI.",
+    };
+  }
+
+  return {
+    statusCode: 500,
+    message: "Unable to load applications.",
+  };
 }
 
 function setCorsHeaders(req, res) {
@@ -126,10 +155,15 @@ export default async function handler(req, res) {
       applications: applications.map(serializeApplication),
     });
   } catch (error) {
-    console.error("Career admin applications API error:", error.message);
-    sendJson(req, res, 500, {
+    const mongoError = getMongoErrorResponse(error);
+    console.error("Career admin applications API error:", {
+      code: error.code,
+      name: error.name,
+      message: error.message,
+    });
+    sendJson(req, res, mongoError.statusCode, {
       success: false,
-      message: "Unable to load applications.",
+      message: mongoError.message,
     });
   }
 }

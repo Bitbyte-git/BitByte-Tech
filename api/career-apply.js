@@ -58,14 +58,43 @@ function sendJson(res, statusCode, payload) {
 
 function getMongoClient() {
   if (!process.env.MONGODB_URI) {
-    throw new Error("MONGODB_URI is not configured");
+    const error = new Error("MONGODB_URI is not configured");
+    error.code = "MISSING_MONGODB_URI";
+    throw error;
   }
 
   if (!mongoClientPromise) {
-    mongoClientPromise = new MongoClient(process.env.MONGODB_URI).connect();
+    mongoClientPromise = new MongoClient(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 8000,
+    }).connect();
   }
 
   return mongoClientPromise;
+}
+
+function getMongoErrorResponse(error) {
+  if (error.code === "MISSING_MONGODB_URI") {
+    return {
+      statusCode: 503,
+      message: "MongoDB connection is not configured in the hosting environment.",
+    };
+  }
+
+  if (
+    error.name === "MongoServerSelectionError" ||
+    /querySrv|ENOTFOUND|ETIMEOUT|ECONNREFUSED|server selection/i.test(error.message)
+  ) {
+    return {
+      statusCode: 503,
+      message:
+        "MongoDB is unreachable from the hosting environment. Check Atlas network access and the MongoDB URI.",
+    };
+  }
+
+  return {
+    statusCode: 500,
+    message: "Unable to submit application. Please try again.",
+  };
 }
 
 function cleanText(value) {
@@ -259,10 +288,15 @@ export default async function handler(req, res) {
       message: "Application submitted successfully.",
     });
   } catch (error) {
-    console.error("Career application API error:", error.message);
-    sendJson(res, 500, {
+    const mongoError = getMongoErrorResponse(error);
+    console.error("Career application API error:", {
+      code: error.code,
+      name: error.name,
+      message: error.message,
+    });
+    sendJson(res, mongoError.statusCode, {
       success: false,
-      message: "Unable to submit application. Please try again.",
+      message: mongoError.message,
     });
   }
 }
