@@ -1,9 +1,16 @@
+import { useState } from "react";
 import { socialIcons } from "../constants";
 import { useTranslation } from "../i18n";
 import WhatsAppEnquiryForm from "./WhatsAppEnquiryForm.jsx";
 
+const MAP_EMBED_SRC =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.1139518978525!2d78.1178335758675!3d11.686335888523226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1fe74e97585%3A0x2f223655340fd0b7!2sBit%20Byte%20Technologies!5e0!3m2!1sen!2sin!4v1782970071985!5m2!1sen!2sin";
+const MAP_LINK =
+  "https://www.google.com/maps/search/?api=1&query=Bit%20Byte%20Technologies%20Salem";
+
 export default function Contact() {
   const { t } = useTranslation();
+  const [mapLoaded, setMapLoaded] = useState(false);
   const hrefs = {
     LinkedIn: "https://www.linkedin.com/in/bit-byte-technologies-4aa820406/",
     X: "https://x.com/BitbyteReachus",
@@ -47,16 +54,33 @@ export default function Contact() {
           </div>
         ))}
         <div className="map-box reveal reveal-delay-5">
-          <iframe
-            title="Bit Byte Technologies location map"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3907.1139518978525!2d78.1178335758675!3d11.686335888523226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3babf1fe74e97585%3A0x2f223655340fd0b7!2sBit%20Byte%20Technologies!5e0!3m2!1sen!2sin!4v1782970071985!5m2!1sen!2sin"
-            width="600"
-            height="450"
-            style={{ border: 0 }}
-            allowFullScreen
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          ></iframe>
+          {mapLoaded ? (
+            <iframe
+              title="Bit Byte Technologies location map"
+              src={MAP_EMBED_SRC}
+              width="600"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
+          ) : (
+            <div className="map-placeholder" role="group" aria-label="Bit Byte Technologies map">
+              <div>
+                <strong>Bit Byte Technologies</strong>
+                <span>Salem, Tamil Nadu, India</span>
+              </div>
+              <div className="map-placeholder-actions">
+                <button type="button" onClick={() => setMapLoaded(true)}>
+                  Load Map
+                </button>
+                <a href={MAP_LINK} target="_blank" rel="noopener noreferrer">
+                  Open in Google Maps
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

@@ -18,6 +18,16 @@ const loadScript = (src, id, onload) => {
   document.head.appendChild(script)
 }
 
+const loadStylesheet = (href, id) => {
+  if (document.getElementById(id)) return
+
+  const link = document.createElement('link')
+  link.id = id
+  link.rel = 'stylesheet'
+  link.href = href
+  document.head.appendChild(link)
+}
+
 const loadGoogleTagManager = () => {
   if (document.getElementById('google-tag-manager')) return
 
@@ -102,6 +112,10 @@ const runAfterFirstInteraction = (task) => {
 
 export function bootNonCriticalAssets() {
   const start = () => {
+    runWhenIdle(() => {
+      loadStylesheet('/assets/vendor/fontawesome/css/all.min.css', 'font-awesome-css')
+    })
+
     runAfterFirstInteraction(() => {
       loadGoogleTagManager()
       loadGoogleMeasurement()

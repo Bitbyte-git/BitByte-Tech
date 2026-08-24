@@ -1,12 +1,24 @@
 import { memo, useEffect, useState } from 'react'
 import { useTranslation } from '../i18n'
-import { getSavedGoogleTranslateLanguage } from '../googleTranslate'
 
 const HERO_POSTER_SRC = '/assets/optimized/hero-bg-poster.png'
 const HERO_GIF_SRC = '/assets/optimized/hero-bg-480.gif'
 const HERO_GIF_DELAY = 5000
 const STATS_REPLAY_INTERVAL = 5000
 const STATS_COUNT_DURATION = 1200
+const PAGE_LANGUAGE = 'en'
+const LANGUAGE_STORAGE_KEY = 'bitbyte.googleTranslateLanguage'
+const SUPPORTED_LANGUAGE_CODES = new Set(['en', 'ta', 'hi', 'te', 'kn'])
+
+function getSavedLanguage() {
+  const params = new URLSearchParams(window.location.search)
+  const requestedLanguage = params.get('lng') || params.get('lang')
+
+  if (SUPPORTED_LANGUAGE_CODES.has(requestedLanguage)) return requestedLanguage
+
+  const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY)
+  return SUPPORTED_LANGUAGE_CODES.has(storedLanguage) ? storedLanguage : PAGE_LANGUAGE
+}
 
 const parseStatValue = (value) => {
   const match = String(value).trim().match(/^(\d+)(.*)$/)
@@ -64,10 +76,10 @@ function AnimatedStatNumber({ value, cycle }) {
 function Hero({ planetRef }) {
   const { t } = useTranslation()
   const fullText = t('hero.badge')
-  const [heroMediaSrc, setHeroMediaSrc] = useState(HERO_POSTER_SRC)
+  const [heroGifReady, setHeroGifReady] = useState(false)
   const [displayText, setDisplayText] = useState('')
   const [statsCycle, setStatsCycle] = useState(0)
-  const [currentLang, setCurrentLang] = useState(getSavedGoogleTranslateLanguage)
+  const [currentLang, setCurrentLang] = useState(getSavedLanguage)
 
   useEffect(() => {
     const handleLangChange = (e) => {
@@ -156,7 +168,7 @@ function Hero({ planetRef }) {
       if (loaded) return
       loaded = true
       window.clearTimeout(timerId)
-      setHeroMediaSrc(HERO_GIF_SRC)
+      setHeroGifReady(true)
     }
 
     const schedule = () => {
@@ -196,12 +208,12 @@ function Hero({ planetRef }) {
       >
         <div className="hero-gif-wrap" style={{ position: 'relative', width: 'calc(100% + 150px)', height: 'calc(100% + 150px)' }}>
           <img
-            src={heroMediaSrc}
+            src={HERO_POSTER_SRC}
             alt=""
-            className="hero-gif"
+            className={`hero-gif hero-gif-poster ${heroGifReady ? 'is-dimmed' : ''}`}
             loading="eager"
             decoding="async"
-            fetchpriority={heroMediaSrc === HERO_POSTER_SRC ? 'high' : 'low'}
+            fetchpriority="high"
             style={{
               position: 'absolute',
               inset: 0,
@@ -209,6 +221,13 @@ function Hero({ planetRef }) {
               height: '100%'
             }}
           />
+          {heroGifReady && (
+            <div
+              className="hero-gif-anim"
+              style={{ backgroundImage: `url(${HERO_GIF_SRC})` }}
+              aria-hidden="true"
+            />
+          )}
         </div>
         <img
           src="/assets/optimized/planet-246.png"

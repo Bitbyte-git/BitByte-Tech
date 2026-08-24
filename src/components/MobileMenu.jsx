@@ -12,6 +12,7 @@ function MobileMenu({
   onHRMSClick,
   onBillingClick,
   onShowcaseClick,
+  onCareerAdminClick,
 }) {
   const { t } = useTranslation();
   const [workspaceOpen, setWorkspaceOpen] = useState(false);
@@ -43,6 +44,11 @@ function MobileMenu({
 
   const handleShowcaseClick = () => {
     onShowcaseClick?.();
+    onClose();
+  };
+
+  const handleCareerAdminClick = () => {
+    onCareerAdminClick?.();
     onClose();
   };
 
@@ -169,6 +175,26 @@ function MobileMenu({
               <i className="fa-solid fa-file-invoice-dollar" style={{ color: "var(--teal)" }} aria-hidden="true" />
               Billing
             </button>
+            <button
+              type="button"
+              onClick={handleCareerAdminClick}
+              style={{
+                background: "transparent",
+                border: "none",
+                fontFamily: "var(--f-body)",
+                fontSize: "15px",
+                color: "var(--white80)",
+                textAlign: "left",
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
+                cursor: "pointer"
+              }}
+            >
+              <i className="fa-solid fa-user-shield" style={{ color: "var(--teal)" }} aria-hidden="true" />
+              Career Admin
+            </button>
           </div>
         )}
       </div>
@@ -177,4 +203,3 @@ function MobileMenu({
 }
 
 export default memo(MobileMenu);
-

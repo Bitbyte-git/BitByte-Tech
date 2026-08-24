@@ -15,6 +15,7 @@ function Navbar({
   onHRMSClick,
   onBillingClick,
   onShowcaseClick,
+  onCareerAdminClick,
 }) {
   const { t } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -86,7 +87,7 @@ function Navbar({
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
               <span>BB Workspace</span>
-              <i className="fa-solid fa-chevron-down dropdown-arrow" aria-hidden="true" />
+              <span className="dropdown-arrow" aria-hidden="true">⌄</span>
             </button>
             <div className="workspace-dropdown-menu">
               <button
@@ -96,7 +97,7 @@ function Navbar({
                   onShowcaseClick?.(e);
                 }}
               >
-                <i className="fa-solid fa-briefcase" aria-hidden="true" />
+                <span className="workspace-menu-icon" aria-hidden="true">SC</span>
                 <span>Showcase</span>
               </button>
               <button 
@@ -106,7 +107,7 @@ function Navbar({
                   onHRMSClick?.(e);
                 }}
               >
-                <i className="fa-solid fa-lock" aria-hidden="true" />
+                <span className="workspace-menu-icon" aria-hidden="true">LK</span>
                 <span>HRMS Login</span>
               </button>
               <button
@@ -116,8 +117,18 @@ function Navbar({
                   onBillingClick?.(e);
                 }}
               >
-                <i className="fa-solid fa-file-invoice-dollar" aria-hidden="true" />
+                <span className="workspace-menu-icon" aria-hidden="true">IN</span>
                 <span>Billing</span>
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  setDropdownOpen(false);
+                  onCareerAdminClick?.(e);
+                }}
+              >
+                <span className="workspace-menu-icon" aria-hidden="true">AD</span>
+                <span>Career Admin</span>
               </button>
             </div>
           </div>
@@ -142,4 +153,3 @@ function Navbar({
 }
 
 export default memo(Navbar);
-

@@ -40,12 +40,17 @@ export default function BitByteHero() {
     let time = 0;
     let lastFrameTime = 0;
     let frameId = 0;
+    let resizeFrameId = 0;
     let isActive = false;
+    const heroBounds = {
+      left: 0,
+      top: 0,
+    };
 
-    const resize = () => {
+    const resize = (nextWidth, nextHeight) => {
       const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
-      width = el.clientWidth;
-      height = el.clientHeight;
+      width = Math.max(1, Math.round(nextWidth));
+      height = Math.max(1, Math.round(nextHeight));
       centerX = width / 2;
       centerY = height / 2;
       orbitCenterY = centerY;
@@ -61,15 +66,36 @@ export default function BitByteHero() {
       });
     };
 
-    resize();
-    const resizeObserver = new ResizeObserver(resize);
+    const scheduleResize = (nextWidth, nextHeight) => {
+      if (resizeFrameId) cancelAnimationFrame(resizeFrameId);
+      resizeFrameId = requestAnimationFrame(() => {
+        resizeFrameId = 0;
+        resize(nextWidth, nextHeight);
+      });
+    };
+
+    const resizeObserver = new ResizeObserver(([entry]) => {
+      const boxSize = Array.isArray(entry.contentBoxSize)
+        ? entry.contentBoxSize[0]
+        : entry.contentBoxSize;
+      const nextWidth = boxSize?.inlineSize || entry.contentRect.width;
+      const nextHeight = boxSize?.blockSize || entry.contentRect.height;
+      heroBounds.left = entry.contentRect.left || heroBounds.left;
+      heroBounds.top = entry.contentRect.top || heroBounds.top;
+      scheduleResize(nextWidth, nextHeight);
+    });
     resizeObserver.observe(el);
 
-    const onMove = (event) => {
+    const refreshHeroBounds = () => {
       const rect = el.getBoundingClientRect();
+      heroBounds.left = rect.left;
+      heroBounds.top = rect.top;
+    };
+
+    const onMove = (event) => {
       mouse.current = {
-        x: event.clientX - rect.left,
-        y: event.clientY - rect.top,
+        x: event.clientX - heroBounds.left,
+        y: event.clientY - heroBounds.top,
       };
     };
 
@@ -78,6 +104,7 @@ export default function BitByteHero() {
     };
 
     if (!coarsePointer) {
+      el.addEventListener("mouseenter", refreshHeroBounds, { passive: true });
       el.addEventListener("mousemove", onMove, { passive: true });
       el.addEventListener("mouseleave", onLeave);
     }
@@ -375,9 +402,11 @@ export default function BitByteHero() {
 
     return () => {
       cancelAnimationFrame(frameId);
+      cancelAnimationFrame(resizeFrameId);
       resizeObserver.disconnect();
       viewportObserver.disconnect();
       if (!coarsePointer) {
+        el.removeEventListener("mouseenter", refreshHeroBounds);
         el.removeEventListener("mousemove", onMove);
         el.removeEventListener("mouseleave", onLeave);
       }

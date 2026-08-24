@@ -6,12 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
-import BackgroundCanvas from "./components/BackgroundCanvas";
-import Cursor from "./components/Cursor";
-import Footer from "./components/Footer";
-import HRMSAccessPopup from "./components/HRMSAccessPopup";
 import Hero from "./components/Hero";
-import MobileMenu from "./components/MobileMenu";
 import Navbar from "./components/Navbar";
 import useLandingEffects from "./components/useLandingEffects";
 import {
@@ -24,11 +19,13 @@ import {
 } from "./accessControl";
 
 const Services = lazy(() => import("./components/Services"));
+const MobileMenu = lazy(() => import("./components/MobileMenu"));
 const Founder = lazy(() => import("./components/Founder"));
 const WhyUs = lazy(() => import("./components/WhyUs"));
-
 const Contact = lazy(() => import("./components/Contact"));
 const CTA = lazy(() => import("./components/CTA"));
+const Footer = lazy(() => import("./components/Footer"));
+const HRMSAccessPopup = lazy(() => import("./components/HRMSAccessPopup"));
 const CustomWebApplications = lazy(
   () => import("./components/CustomWebApplications"),
 );
@@ -47,6 +44,8 @@ const WebDevelopmentSubService = lazy(
   () => import("./components/WebDevelopmentSubService"),
 );
 const CareersPage = lazy(() => import("./components/CareersPage"));
+const CareerAdminPage = lazy(() => import("./components/CareerAdminPage"));
+const CareerApplyPage = lazy(() => import("./components/CareerApplyPage"));
 const ImaginationToReality = lazy(
   () => import("./components/ImaginationToReality"),
 );
@@ -56,6 +55,101 @@ const ShowcaseApp = lazy(() => import("./showcase/App"));
 const ChatBot = lazy(() => import("./components/chatbot/ChatBot"));
 
 const SectionFallback = () => null;
+
+function useDelayedReady(delay = 12000) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (ready) return undefined;
+
+    let timeoutId = 0;
+    let idleId = 0;
+    const markReady = () => setReady(true);
+
+    const schedule = () => {
+      timeoutId = window.setTimeout(() => {
+        if ("requestIdleCallback" in window) {
+          idleId = window.requestIdleCallback(markReady, { timeout: 2500 });
+        } else {
+          markReady();
+        }
+      }, delay);
+    };
+
+    const runSoonAfterIntent = () => {
+      window.clearTimeout(timeoutId);
+      timeoutId = window.setTimeout(markReady, 1200);
+    };
+
+    schedule();
+    window.addEventListener("pointerdown", runSoonAfterIntent, { once: true, passive: true });
+    window.addEventListener("keydown", runSoonAfterIntent, { once: true });
+
+    return () => {
+      window.clearTimeout(timeoutId);
+      if (idleId && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      window.removeEventListener("pointerdown", runSoonAfterIntent);
+      window.removeEventListener("keydown", runSoonAfterIntent);
+    };
+  }, [delay, ready]);
+
+  return ready;
+}
+
+function DeferredSection({
+  anchorIds = [],
+  children,
+  className = "section wrap",
+  minHeight = 360,
+  rootMargin = "320px 0px",
+  sectionId,
+}) {
+  const ref = useRef(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    if (ready) return undefined;
+
+    const element = ref.current;
+    if (!element) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setReady(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin, threshold: 0.01 },
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [ready]);
+
+  if (ready) return children;
+
+  return (
+    <section
+      ref={ref}
+      id={sectionId}
+      className={className}
+      style={{ minHeight }}
+      aria-hidden="true"
+    >
+      {anchorIds.map((id) => (
+        <span
+          id={id}
+          key={id}
+          style={{ position: "relative", top: "-90px", display: "block" }}
+        />
+      ))}
+    </section>
+  );
+}
+
 const redirectToWorkspaceDestination = (destination) => {
   const config = getProtectedDestination(destination);
   if (!config) return;
@@ -79,15 +173,17 @@ function ProtectedRoute({ destination, children }) {
 
   if (!authorized) {
     return (
-      <HRMSAccessPopup
-        destination={destination}
-        embedded
-        isOpen
-        onSuccess={() => {
-          grantAccess(destination);
-          setAuthorized(true);
-        }}
-      />
+      <Suspense fallback={<SectionFallback />}>
+        <HRMSAccessPopup
+          destination={destination}
+          embedded
+          isOpen
+          onSuccess={() => {
+            grantAccess(destination);
+            setAuthorized(true);
+          }}
+        />
+      </Suspense>
     );
   }
 
@@ -139,9 +235,6 @@ function ProtectedRoute({ destination, children }) {
 }
 
 export default function App() {
-  const canvasRef = useRef(null);
-  const cursorRef = useRef(null);
-  const ringRef = useRef(null);
   const planetRef = useRef(null);
   const serviceHighlightTimeoutRef = useRef(0);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -149,6 +242,7 @@ export default function App() {
   const [navStuck, setNavStuck] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [activeServiceId, setActiveServiceId] = useState(null);
+  const delayedReady = useDelayedReady(12000);
   const openMobileMenu = useCallback(() => setMobileOpen(true), []);
   const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
   const openWorkspaceAccess = useCallback((appKey) => {
@@ -178,6 +272,8 @@ export default function App() {
     pathname ===
     "/services/business-analytics/data-driven-business-analytics-solutions";
   const isCareersPage = pathname === "/careers";
+  const isCareerAdminPage = pathname === "/careers/admin";
+  const isCareerApplyPage = pathname === "/careers/apply";
   const isPrivacyPolicyPage = pathname === "/privacy-policy";
   const isTermsConditionsPage = pathname === "/terms-and-conditions";
   const isShowcasePage =
@@ -196,13 +292,16 @@ export default function App() {
     isDigitalMarketingPage ||
     isBusinessAnalyticsPage ||
     isCareersPage ||
+    isCareerAdminPage ||
+    isCareerApplyPage ||
     isImaginationToRealityPage ||
     isRealTimeSalesPage ||
     isPersonalBrandingPage;
   const isLegalPage = isPrivacyPolicyPage || isTermsConditionsPage;
   const isRoutedPage =
     isServiceDetailPage || isLegalPage || isShowcasePage || isHRMSPage || isBillingPage;
-  const navActiveSection = isCareersPage
+  const navActiveSection = isCareersPage || isCareerApplyPage
+    || isCareerAdminPage
     ? "careers"
     : isShowcasePage
       ? "showcase"
@@ -210,7 +309,7 @@ export default function App() {
       ? "services"
       : activeSection;
 
-  useLandingEffects({ canvasRef, cursorRef, ringRef, planetRef, setNavStuck });
+  useLandingEffects({ setNavStuck });
 
   const focusService = useCallback((serviceId = "all") => {
     window.clearTimeout(serviceHighlightTimeoutRef.current);
@@ -360,19 +459,24 @@ export default function App() {
     <>
       {!isShowcasePage && (
         <>
-          <Cursor cursorRef={cursorRef} ringRef={ringRef} />
-          <BackgroundCanvas canvasRef={canvasRef} />
-          <MobileMenu
-            activeSection={navActiveSection}
-            onClose={closeMobileMenu}
-            onNavClick={handleNavClick}
-            onServiceSelect={handleServiceSelect}
-            open={mobileOpen}
-            rootLinks={isRoutedPage}
-            onHRMSClick={() => openWorkspaceAccess("hrms")}
-            onBillingClick={() => openWorkspaceAccess("billing")}
-            onShowcaseClick={() => openWorkspaceAccess("showcase")}
-          />
+          {mobileOpen && (
+            <Suspense fallback={null}>
+              <MobileMenu
+                activeSection={navActiveSection}
+                onClose={closeMobileMenu}
+                onNavClick={handleNavClick}
+                onServiceSelect={handleServiceSelect}
+                open
+                rootLinks={isRoutedPage}
+                onHRMSClick={() => openWorkspaceAccess("hrms")}
+                onBillingClick={() => openWorkspaceAccess("billing")}
+                onShowcaseClick={() => openWorkspaceAccess("showcase")}
+                onCareerAdminClick={() => {
+                  window.location.href = "/careers/admin";
+                }}
+              />
+            </Suspense>
+          )}
           <Navbar
             activeSection={navActiveSection}
             activeServiceId={activeServiceId}
@@ -384,15 +488,22 @@ export default function App() {
             onHRMSClick={() => openWorkspaceAccess("hrms")}
             onBillingClick={() => openWorkspaceAccess("billing")}
             onShowcaseClick={() => openWorkspaceAccess("showcase")}
-          />
-          <HRMSAccessPopup
-            isOpen={Boolean(workspaceAccessApp)}
-            onClose={() => setWorkspaceAccessApp(null)}
-            destination={workspaceAccessApp || "hrms"}
-            onSuccess={(destination) => {
-              grantAccess(destination);
+            onCareerAdminClick={() => {
+              window.location.href = "/careers/admin";
             }}
           />
+          {workspaceAccessApp && (
+            <Suspense fallback={null}>
+              <HRMSAccessPopup
+                isOpen
+                onClose={() => setWorkspaceAccessApp(null)}
+                destination={workspaceAccessApp}
+                onSuccess={(destination) => {
+                  grantAccess(destination);
+                }}
+              />
+            </Suspense>
+          )}
         </>
       )}
       {isHRMSPage ? (
@@ -427,6 +538,14 @@ export default function App() {
         <Suspense fallback={<SectionFallback />}>
           <CareersPage />
         </Suspense>
+      ) : isCareerAdminPage ? (
+        <Suspense fallback={<SectionFallback />}>
+          <CareerAdminPage />
+        </Suspense>
+      ) : isCareerApplyPage ? (
+        <Suspense fallback={<SectionFallback />}>
+          <CareerApplyPage />
+        </Suspense>
       ) : isImaginationToRealityPage ? (
         <Suspense fallback={<SectionFallback />}>
           <ImaginationToReality />
@@ -452,30 +571,56 @@ export default function App() {
       ) : (
         <>
           <Hero planetRef={planetRef} />
-          <Suspense fallback={<SectionFallback />}>
-            <Services activeServiceId={activeServiceId} />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
-            <Founder />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
-            <WhyUs />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
-            <Contact />
-          </Suspense>
-          <Suspense fallback={<SectionFallback />}>
-            <CTA />
-          </Suspense>
+          <DeferredSection
+            sectionId="services"
+            className="section wrap center services-section"
+            minHeight={560}
+            rootMargin="-1px 0px"
+          >
+            <Suspense fallback={<SectionFallback />}>
+              <Services activeServiceId={activeServiceId} />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection sectionId="founder" className="section wrap bg-tint-1" minHeight={720}>
+            <Suspense fallback={<SectionFallback />}>
+              <Founder />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection
+            sectionId="why"
+            anchorIds={["showcase", "pricing"]}
+            className="section wrap center"
+            minHeight={620}
+          >
+            <Suspense fallback={<SectionFallback />}>
+              <WhyUs />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection sectionId="contact" className="section wrap" minHeight={820}>
+            <Suspense fallback={<SectionFallback />}>
+              <Contact />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection sectionId="cta" className="wrap" minHeight={420}>
+            <Suspense fallback={<SectionFallback />}>
+              <CTA />
+            </Suspense>
+          </DeferredSection>
           
         </>
       )}
       {!isShowcasePage && (
         <>
-          <Suspense fallback={null}>
-            <ChatBot />
-          </Suspense>
-          <Footer rootLinks={isRoutedPage} />
+          {delayedReady && (
+            <Suspense fallback={null}>
+              <ChatBot />
+            </Suspense>
+          )}
+          <DeferredSection className="wrap" minHeight={360}>
+            <Suspense fallback={null}>
+              <Footer rootLinks={isRoutedPage} />
+            </Suspense>
+          </DeferredSection>
         </>
       )}
     </>

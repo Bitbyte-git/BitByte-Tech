@@ -30,7 +30,7 @@ const heroOrbitItems = [
   ["fa-solid fa-star", "Make an Impact", "orb-impact"],
 ];
 
-const openPositions = [
+export const openPositions = [
   {
     icon: "fa-solid fa-mobile-screen-button",
     title:
@@ -546,7 +546,7 @@ export default function CareersPage() {
           <h2>Don&apos;t see the right role?</h2>
           <p>We are always open to connecting with great talent.</p>
         </div>
-        <a href="/#contact" className="career-resume-button" title="Go to home">
+        <a href="/careers/apply" className="career-resume-button" title="Open application form">
           Send Us Your Resume
         </a>
       </section>
@@ -619,7 +619,11 @@ function CareerDetailsModal({ role, onClose }) {
         </div>
 
         <div className="career-modal-actions">
-          <a href="/#contact" className="career-resume-button" title="Go to contact">
+          <a
+            href={`/careers/apply?position=${encodeURIComponent(role.title)}`}
+            className="career-resume-button"
+            title="Apply for this role"
+          >
             Apply Now
           </a>
           <button type="button" className="career-outline-link" onClick={onClose}>

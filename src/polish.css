@@ -502,7 +502,8 @@ footer,
 }
 
 .hero-gif-wrap,
-.hero-gif {
+.hero-gif,
+.hero-gif-anim {
   width: 100%;
   height: 100%;
 }
@@ -892,8 +893,8 @@ footer {
     gap: 0;
   }
 
-  #navbar .mobile-nav-actions .language-trigger span,
-  #navbar .mobile-nav-actions .language-trigger .fa-chevron-down {
+  #navbar .mobile-nav-actions .language-trigger span:not(.language-glyph),
+  #navbar .mobile-nav-actions .language-trigger .language-chevron {
     display: none;
   }
 

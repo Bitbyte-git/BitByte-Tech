@@ -1,5 +1,8 @@
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
+import careerApplyHandler from "./api/career-apply.js";
+import careerApplicationsHandler from "./api/career-applications.js";
+import careerResumeHandler from "./api/career-resume.js";
 import { DEFAULT_GROQ_MODEL, createChatReply } from "./server/chatCore.js";
 
 function readRequestBody(req) {
@@ -22,6 +25,33 @@ function sendJson(res, statusCode, payload) {
   res.statusCode = statusCode;
   res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(payload));
+}
+
+function applyServerEnv(env, names) {
+  names.forEach((name) => {
+    if (process.env[name] === undefined && env[name] !== undefined) {
+      process.env[name] = env[name];
+    }
+  });
+}
+
+function attachApiHelpers(req, res) {
+  const requestUrl = new URL(req.url || "/", "http://localhost");
+  req.query = Object.fromEntries(requestUrl.searchParams.entries());
+  res.req = req;
+
+  res.status = (statusCode) => {
+    res.statusCode = statusCode;
+    return res;
+  };
+
+  res.json = (payload) => {
+    if (!res.headersSent) {
+      res.setHeader("Content-Type", "application/json");
+    }
+    res.end(JSON.stringify(payload));
+    return res;
+  };
 }
 
 function bitbyteLocalChatApi() {
@@ -70,6 +100,38 @@ function bitbyteLocalChatApi() {
             error: "Unable to generate a response right now",
           });
         }
+      });
+    },
+  };
+}
+
+function bitbyteLocalCareerApi() {
+  return {
+    name: "bitbyte-local-career-api",
+    configureServer(server) {
+      const env = loadEnv(server.config.mode, process.cwd(), "");
+      applyServerEnv(env, [
+        "MONGODB_URI",
+        "MONGODB_DB_NAME",
+        "CAREER_ADMIN_SECRET",
+        "CAREER_ADMIN_ALLOWED_ORIGIN",
+        "CAREER_RESUME_DOWNLOAD_TOKEN",
+        "CAREER_APPLY_ALLOWED_ORIGIN",
+      ]);
+
+      server.middlewares.use("/api/career-applications", async (req, res) => {
+        attachApiHelpers(req, res);
+        await careerApplicationsHandler(req, res);
+      });
+
+      server.middlewares.use("/api/career-apply", async (req, res) => {
+        attachApiHelpers(req, res);
+        await careerApplyHandler(req, res);
+      });
+
+      server.middlewares.use("/api/career-resume", async (req, res) => {
+        attachApiHelpers(req, res);
+        await careerResumeHandler(req, res);
       });
     },
   };
@@ -129,7 +191,7 @@ function buildDevProxy(mode) {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  plugins: [react(), bitbyteLocalChatApi()],
+  plugins: [react(), bitbyteLocalChatApi(), bitbyteLocalCareerApi()],
   server: {
     proxy: buildDevProxy(mode),
   },
