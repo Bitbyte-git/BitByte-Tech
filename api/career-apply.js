@@ -21,6 +21,7 @@ const VALID_POSITIONS = new Set([
   "Java Full Stack Intern",
   "Java Full Stack Developer",
   "Full Stack Intern / Associate - MERN, PERN & Modern JavaScript Stacks",
+  "Prompt Engineering Intern",
   "Prompt Engineer - AI, NLP & Generative AI",
 ]);
 const DUPLICATE_WINDOW_MS = 24 * 60 * 60 * 1000;
