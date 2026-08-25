@@ -26,7 +26,7 @@ function CategoryCard({ site, index, onViewDesigns }) {
         {/* Cover image */}
         <img
           src={site.coverImage}
-          alt={site.category}
+          alt={`${site.category} website design preview`}
           className="absolute inset-0 w-full h-full object-cover object-center"
           style={{ marginTop: 28 }}
           loading="lazy"
@@ -159,6 +159,5 @@ export default function Showcase({ onViewDesigns }) {
     </section>
   );
 }
-
 
 

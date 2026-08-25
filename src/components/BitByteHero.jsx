@@ -422,7 +422,7 @@ export default function BitByteHero() {
       <img
         ref={planetRef}
         src="/assets/optimized/planet-640.png"
-        alt=""
+        alt="Bit Byte Technologies digital planet illustration"
         className="bitbyte-center-planet"
         width="640"
         height="640"

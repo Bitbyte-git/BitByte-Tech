@@ -9,7 +9,7 @@ function Logo({ height = 44, loading = "eager", fetchPriority = "auto" }) {
       src="/assets/optimized/logo-mark-tight-80.png"
       srcSet="/assets/optimized/logo-mark-tight-80.png 80w, /assets/optimized/logo-mark-tight-96.png 96w, /assets/optimized/logo-mark-tight-112.png 112w"
       sizes={`${renderedWidth}px`}
-      alt=""
+      alt="Bit Byte Technologies logo"
       width="256"
       height="180"
       loading={loading}

@@ -19,7 +19,7 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <img
                 src="/showcase-assets/BB-Logo.png"
-                alt="BitByte Logo"
+                alt="Bit Byte Technologies logo"
                 className="h-[80px] w-auto object-contain drop-shadow-lg"
                 onError={(e) => { e.target.style.display = 'none'; }}
               />
@@ -96,5 +96,4 @@ export default function Footer() {
     </footer>
   );
 }
-
 

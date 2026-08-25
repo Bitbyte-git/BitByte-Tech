@@ -39,7 +39,7 @@ function DesignCard({ design, accent, index, onChoose }) {
         {/* Actual screenshot image */}
         <img
           src={design.image}
-          alt={design.name}
+          alt={`${design.name} website design preview`}
           className="absolute inset-0 w-full h-full object-cover object-top"
           style={{ marginTop: 28 }}
           loading="lazy"
@@ -271,6 +271,5 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
     </div>
   );
 }
-
 
 

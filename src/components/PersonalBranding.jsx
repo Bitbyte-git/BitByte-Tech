@@ -130,7 +130,7 @@ function InteractiveBrandingMockup() {
               <button type="button" style={{ marginTop: '24px', background: `linear-gradient(135deg, ${current.theme}, #00d5ff)`, transition: 'all 0.3s' }}>Get Started</button>
             </div>
             <div className="pb-portrait">
-              <img src={current.img} alt="" key={`img-${activeProfile}`} style={{ animation: 'hReveal 0.6s ease forwards' }} />
+              <img src={current.img} alt={`${current.name} personal branding profile preview`} key={`img-${activeProfile}`} style={{ animation: 'hReveal 0.6s ease forwards' }} />
             </div>
           </div>
         </div>

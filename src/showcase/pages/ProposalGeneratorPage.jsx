@@ -1316,7 +1316,7 @@ function ClientStep({ client, updateClient, fieldError, onContinue }) {
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
       <div className="mb-5 flex items-center gap-3 border-b border-white/10 pb-4">
-        <img src="/showcase-assets/BB-Logo.png" alt="Bit Byte Technologies" className="h-12 w-auto object-contain" />
+        <img src="/showcase-assets/BB-Logo.png" alt="Bit Byte Technologies logo" className="h-12 w-auto object-contain" />
         <div>
           <p className="text-sm font-black text-green-300">Bit Byte</p>
           <p className="text-xs font-bold uppercase tracking-widest">Technologies</p>
@@ -1478,7 +1478,7 @@ function ReviewStep({ client, billingType, setBillingType, groupedItems, totals,
       <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
           <div className="flex items-center gap-3">
-            <img src="/showcase-assets/BB-Logo.png" alt="Bit Byte Technologies" className="h-12 w-auto" />
+            <img src="/showcase-assets/BB-Logo.png" alt="Bit Byte Technologies logo" className="h-12 w-auto" />
             <div>
               <h3 className="text-sm font-black">BIT BYTE TECHNOLOGY</h3>
               <p className="flex items-center gap-2 text-xs text-slate-300"><Phone className="h-3 w-3 text-emerald-300" /> 99651 94331</p>
@@ -1638,7 +1638,7 @@ function PrintableQuotation({ client, billingType, groupedItems, totals, discoun
       <div className="quotation-page">
         <header className="quotation-header">
           <div className="quotation-brand">
-            <img src="/showcase-assets/BB-Logo.png" alt="Bit Byte Technologies" />
+            <img src="/showcase-assets/BB-Logo.png" alt="Bit Byte Technologies logo" />
             <div>
               <h1>Bit Byte Technologies</h1>
               <p>Corporate Office</p>

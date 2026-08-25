@@ -9,7 +9,7 @@ export default function BotAvatar({ size = 'normal' }) {
         src="/assets/optimized/AI-avatar-enhanced-64.png"
         srcSet="/assets/optimized/AI-avatar-enhanced-52.png 52w, /assets/optimized/AI-avatar-enhanced-64.png 64w, /assets/optimized/AI-avatar-enhanced-96.png 96w"
         sizes={size === 'small' ? '30px' : '(max-width: 520px) 52px, 64px'}
-        alt=""
+        alt="BitByte AI Assistant avatar"
         width={imageSize}
         height={imageSize}
         loading="lazy"

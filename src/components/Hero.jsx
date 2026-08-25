@@ -209,7 +209,7 @@ function Hero({ planetRef }) {
         <div className="hero-gif-wrap" style={{ position: 'relative', width: 'calc(100% + 150px)', height: 'calc(100% + 150px)' }}>
           <img
             src={HERO_POSTER_SRC}
-            alt=""
+            alt="Bit Byte Technologies digital hero background"
             className={`hero-gif hero-gif-poster ${heroGifReady ? 'is-dimmed' : ''}`}
             loading="eager"
             decoding="async"
@@ -233,7 +233,7 @@ function Hero({ planetRef }) {
           src="/assets/optimized/planet-246.png"
           srcSet="/assets/optimized/planet-160.png 160w, /assets/optimized/planet-240.png 240w, /assets/optimized/planet-246.png 246w"
           sizes="(max-width: 560px) 160px, (max-width: 900px) 240px, 246px"
-          alt=""
+          alt="Bit Byte Technologies digital planet graphic"
           className="hero-planet"
           width="246"
           height="246"

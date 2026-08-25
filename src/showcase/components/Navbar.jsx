@@ -77,7 +77,7 @@ export default function Navbar() {
         <a href="/" className="flex items-center gap-2 group" title="Go to home">
           <img
             src="/showcase-assets/BB-Logo.png"
-            alt="BitByte Logo"
+            alt="Bit Byte Technologies logo"
             className="h-11 w-auto object-contain group-hover:scale-105 transition-transform duration-200 drop-shadow-lg sm:h-16"
             onError={(e) => {
               e.target.style.display = 'none';
@@ -280,7 +280,6 @@ export default function Navbar() {
     </header>
   );
 }
-
 
 
 
