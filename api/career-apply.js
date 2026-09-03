@@ -27,7 +27,16 @@ const VALID_POSITIONS = new Set([
 const DUPLICATE_WINDOW_MS = 24 * 60 * 60 * 1000;
 const DATABASE_NAME = process.env.MONGODB_DB_NAME || "bitbyte_technologies";
 const COLLECTION_NAME = "career_applications";
+const TRACKING_COUNTER_COLLECTION_NAME = "career_tracking_counters";
 const RESUME_BUCKET_NAME = "career_resumes";
+const POSITION_CODES = {
+  "Mobile Application Development Intern / Associate - Flutter, Dart & Cross-Platform App Developer": "MOB",
+  "Java Full Stack Intern": "JFSI",
+  "Java Full Stack Developer": "JFSD",
+  "Full Stack Intern / Associate - MERN, PERN & Modern JavaScript Stacks": "FSM",
+  "Prompt Engineering Intern": "PEI",
+  "Prompt Engineer - AI, NLP & Generative AI": "PE",
+};
 
 let mongoClientPromise;
 
@@ -129,6 +138,54 @@ function safeFileName(fileName) {
   return `${baseName || "resume"}${extension}`;
 }
 
+function getTrackingDateStamp(date) {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Kolkata",
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
+  }).formatToParts(date);
+  const valueByType = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+
+  return `${valueByType.day}${valueByType.month}${valueByType.year}`;
+}
+
+async function createTrackingId(db, position, submittedAt) {
+  const positionCode = POSITION_CODES[position];
+
+  if (!positionCode) {
+    throw new Error("Tracking code is not configured for this position");
+  }
+
+  const dateStamp = getTrackingDateStamp(submittedAt);
+  const counterId = `${positionCode}-${dateStamp}`;
+  const result = await db.collection(TRACKING_COUNTER_COLLECTION_NAME).findOneAndUpdate(
+    { _id: counterId },
+    {
+      $inc: { sequence: 1 },
+      $set: { updatedAt: submittedAt },
+      $setOnInsert: {
+        position,
+        positionCode,
+        dateStamp,
+        createdAt: submittedAt,
+      },
+    },
+    {
+      upsert: true,
+      returnDocument: "after",
+    },
+  );
+  const counterDocument = result?.value || result;
+  const sequence = Number(counterDocument?.sequence);
+
+  if (!Number.isFinite(sequence) || sequence < 1) {
+    throw new Error("Unable to create career tracking sequence");
+  }
+
+  return `BBT-${positionCode}-${dateStamp}-${String(sequence).padStart(4, "0")}`;
+}
+
 function uploadResumeToGridFS(db, resume, application, submittedAt) {
   return new Promise((resolve, reject) => {
     const bucket = new GridFSBucket(db, { bucketName: RESUME_BUCKET_NAME });
@@ -138,6 +195,7 @@ function uploadResumeToGridFS(db, resume, application, submittedAt) {
         originalFileName: resume.fileName,
         applicantEmail: application.email,
         position: application.position,
+        trackingId: application.trackingId,
         submittedAt,
       },
     });
@@ -268,15 +326,20 @@ export default async function handler(req, res) {
     }
 
     const submittedAt = new Date();
+    const trackingId = await createTrackingId(db, application.position, submittedAt);
+    const trackedApplication = {
+      ...application,
+      trackingId,
+    };
     const resumeFileId = await uploadResumeToGridFS(
       db,
       resume,
-      application,
+      trackedApplication,
       submittedAt,
     );
 
     await collection.insertOne({
-      ...application,
+      ...trackedApplication,
       resumeFileId,
       resumeFileName: resume.fileName,
       resumeMimeType: resume.mimeType,
@@ -287,6 +350,7 @@ export default async function handler(req, res) {
     sendJson(res, 201, {
       success: true,
       message: "Application submitted successfully.",
+      trackingId,
     });
   } catch (error) {
     const mongoError = getMongoErrorResponse(error);

@@ -265,6 +265,9 @@ export default function CareerAdminPage() {
               <article className="career-admin-card" key={application.id}>
                 <div className="career-admin-card-head">
                   <div>
+                    <span className="career-admin-tracking-id">
+                      {application.trackingId || application.id}
+                    </span>
                     <h2>{application.name}</h2>
                     <span>{application.position}</span>
                   </div>

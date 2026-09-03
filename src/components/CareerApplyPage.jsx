@@ -51,6 +51,7 @@ export default function CareerApplyPage() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle");
   const [statusMessage, setStatusMessage] = useState("");
+  const [trackingId, setTrackingId] = useState("");
   const selectedRole = useMemo(
     () => openPositions.find((role) => role.title === position),
     [position],
@@ -143,6 +144,7 @@ export default function CareerApplyPage() {
       setErrors({});
       setStatus("success");
       setStatusMessage("Application submitted successfully.");
+      setTrackingId(payload.trackingId || "");
     } catch {
       setStatus("error");
       setStatusMessage(
@@ -164,9 +166,17 @@ export default function CareerApplyPage() {
             been successfully received. Our team will review your profile and
             contact you if your application is shortlisted.
           </p>
-          <a href="/careers" className="career-resume-button" title="Back to careers">
-            Back to Careers
-          </a>
+          <div className="career-apply-success-actions">
+            {trackingId && (
+              <div className="career-tracking-success" aria-label="Application tracking ID">
+                <span>Tracking ID</span>
+                <strong>{trackingId}</strong>
+              </div>
+            )}
+            <a href="/careers" className="career-resume-button" title="Back to careers">
+              Back to Careers
+            </a>
+          </div>
         </section>
       </main>
     );

@@ -8836,6 +8836,56 @@ select,
   line-height: 1.75;
 }
 
+.career-apply-success-actions {
+  display: grid;
+  grid-template-columns: minmax(280px, max-content) minmax(220px, 310px);
+  gap: 16px;
+  align-items: stretch;
+  justify-content: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.career-tracking-success {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 7px;
+  min-height: 56px;
+  margin: 0;
+  padding: 14px 20px;
+  border: 1px solid rgba(164, 236, 112, 0.22);
+  border-radius: 16px;
+  background: rgba(6, 214, 160, 0.06);
+  box-shadow: 0 0 28px rgba(164, 236, 112, 0.08);
+  justify-content: center;
+  text-align: center;
+}
+
+.career-apply-success-actions .career-resume-button {
+  min-width: 0;
+  width: 100%;
+  align-self: stretch;
+}
+
+.career-tracking-success span,
+.career-admin-tracking-id {
+  color: var(--green);
+  font-family: var(--f-label);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.career-tracking-success strong {
+  color: var(--white);
+  font-family: var(--f-display);
+  font-size: clamp(18px, 2vw, 24px);
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
 .career-admin-page {
   min-height: 100vh;
   padding-top: 150px;
@@ -8952,11 +9002,22 @@ select,
 }
 
 .career-admin-card h2 {
-  margin: 0 0 8px;
+  margin: 8px 0 8px;
   color: var(--white);
   font-family: var(--f-display);
   font-size: clamp(22px, 2vw, 30px);
   letter-spacing: 0;
+}
+
+.career-admin-tracking-id {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 12px;
+  border: 1px solid rgba(164, 236, 112, 0.22);
+  border-radius: 999px;
+  background: rgba(6, 214, 160, 0.06);
+  color: var(--green) !important;
 }
 
 .career-admin-card-head span,
@@ -9128,6 +9189,20 @@ select,
 @media (max-width: 760px) {
   .careers-showcase {
     padding: 96px 18px 28px;
+  }
+
+  .career-apply-success {
+    padding: 34px 20px;
+  }
+
+  .career-apply-success-actions {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .career-tracking-success strong {
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   .career-hero-copy h1 {

@@ -94,6 +94,7 @@ function isAuthorized(req) {
 function serializeApplication(application) {
   return {
     id: application._id?.toString() || "",
+    trackingId: application.trackingId || application._id?.toString() || "",
     name: application.name || "",
     email: application.email || "",
     phone: application.phone || "",
