@@ -172,7 +172,7 @@ export default function Hero() {
           <div className="w-full lg:w-[45%] flex-shrink-0 flex flex-col justify-center py-6 sm:py-8 lg:pr-6 text-center lg:text-left items-center lg:items-start">
             {/* Badge — fixed-size pill, only inner text loops */}
             <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-medium mb-4 animate-fade-in overflow-hidden"
-              style={{ width: 'min(260px, 100%)', minHeight: '34px' }}>
+              style={{ width: 'fit-content', maxWidth: '100%', minHeight: '34px' }}>
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
               <span className="bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent font-bold ml-1 whitespace-nowrap">
                 {typedText}

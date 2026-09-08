@@ -247,7 +247,6 @@ function Hero({ planetRef }) {
         <div className="hero-badge" data-magnify="true">
           <div className="badge-dot" />
           <div className="badge-txt">
-            <span className="badge-measure grad" aria-hidden="true">{fullText}</span>
             <span className="badge-live">
               <span className="grad">{displayText}</span>
               <span className="badge-cursor" aria-hidden="true" />

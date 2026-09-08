@@ -91,8 +91,10 @@ function LanguageSwitcher({ compact = false }) {
         aria-expanded={open}
         onClick={() => setOpen((current) => !current)}
       >
-        <span className="language-glyph" aria-hidden="true">A</span>
-        <span>{activeLanguage.nativeName}</span>
+        <span className="language-glyph" aria-hidden="true">
+          <i className="fa-solid fa-globe" />
+        </span>
+        <span className="language-name">{activeLanguage.nativeName}</span>
         <span className="language-chevron" aria-hidden="true">⌄</span>
       </button>
       <div className={`language-menu ${open ? 'open' : ''}`} role="listbox" aria-label="Language">

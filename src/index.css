@@ -6282,14 +6282,17 @@ footer {
   }
 
   .hero-badge {
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
     border-radius: 24px;
     gap: 6px;
-    padding: 6px 12px;
+    padding: 6px 14px;
   }
 
   .badge-txt {
-    font-size: 8.5px;
-    letter-spacing: 0.5px;
+    font-size: clamp(10px, 2.8vw, 12px);
+    letter-spacing: 0.8px;
     line-height: 1.45;
   }
 
@@ -6406,8 +6409,8 @@ footer {
 
 @media (max-width: 380px) {
   .hero-badge .badge-txt {
-    font-size: 7px;
-    letter-spacing: 0.18px;
+    font-size: clamp(9.5px, 2.8vw, 11px);
+    letter-spacing: 0.5px;
   }
 
   .mob-menu {
@@ -6584,19 +6587,21 @@ select,
   }
 
   .hero-badge {
-    width: min(100%, calc(100vw - 36px));
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
     justify-content: center;
     overflow: visible;
-    padding-inline: 10px;
+    padding-inline: 14px;
   }
 
   .hero-badge .badge-txt {
     max-width: 100%;
-    width: 100% !important;
+    width: auto !important;
     justify-content: center;
     overflow: visible;
-    font-size: clamp(7px, 2.05vw, 8px);
-    letter-spacing: 0.28px;
+    font-size: clamp(10px, 2.8vw, 12px);
+    letter-spacing: 0.8px;
     white-space: nowrap;
   }
 
@@ -9936,16 +9941,17 @@ select,
   }
 
   .hero-badge {
-    width: 100%;
+    width: fit-content;
     max-width: 100%;
+    margin-inline: auto;
     overflow: hidden;
-    padding-inline: 8px;
+    padding-inline: 12px;
   }
 
   .hero-badge .badge-txt {
     min-width: 0;
-    font-size: 6px;
-    letter-spacing: 0.16px;
+    font-size: clamp(9.5px, 2.8vw, 11px);
+    letter-spacing: 0.5px;
   }
 
   .hero-h1 {

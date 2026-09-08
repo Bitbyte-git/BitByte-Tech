@@ -1,6 +1,7 @@
 import { memo, useState } from "react";
 import { navLinks, services } from "../constants";
 import { useTranslation } from "../i18n";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function MobileMenu({
   activeSection = "home",
@@ -62,6 +63,9 @@ function MobileMenu({
       >
         <i className="fas fa-times" aria-hidden="true" />
       </button>
+      <div className="mob-lang-bar" style={{ marginBottom: 16, width: "100%" }}>
+        <LanguageSwitcher />
+      </div>
       {navLinks.filter((link) => link.key !== "showcase").map(({ href, key, label }) => (
         <div className="mob-link-group" key={href}>
           <a
