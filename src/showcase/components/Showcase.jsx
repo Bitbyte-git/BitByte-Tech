@@ -102,7 +102,6 @@ export default function Showcase({ onViewDesigns }) {
       id="showcase"
       className="relative overflow-hidden bg-[linear-gradient(135deg,#071225_0%,#0e2a47_42%,#0b6b7d_100%)] py-28 sm:py-32 lg:py-36"
     >
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:56px_56px] opacity-60" />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_38%,rgba(5,12,24,0.28)_100%)]" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section header */}

@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { categoryDesigns } from '../data/websites';
 
 // ─── Individual design variant card ──────────────────────────────────────────
-function DesignCard({ design, accent, index, onChoose }) {
+function DesignCard({ design, accent, index, onChoose, onPreview }) {
   return (
     <div
       className="group bg-white rounded-2xl sm:rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-fade-in-up"
@@ -12,7 +12,16 @@ function DesignCard({ design, accent, index, onChoose }) {
       <div className={`h-1 w-full bg-gradient-to-r ${accent}`}></div>
 
       {/* Preview image with browser chrome */}
-      <div className="relative h-44 overflow-hidden border-b border-gray-100 bg-gray-100 sm:h-48">
+      <div
+        className="relative h-44 overflow-hidden border-b border-gray-100 bg-gray-100 sm:h-48 cursor-zoom-in"
+        onClick={() => onPreview(design)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') onPreview(design);
+        }}
+        role="button"
+        tabIndex={0}
+        aria-label={`View ${design.name} design image`}
+      >
 
         {/* Browser top bar */}
         <div className="absolute top-0 left-0 right-0 z-10 bg-white/90 backdrop-blur-sm border-b border-gray-100 px-3 py-2 flex items-center gap-1.5">
@@ -24,16 +33,17 @@ function DesignCard({ design, accent, index, onChoose }) {
               demo/{design.name.toLowerCase().replace(/ /g, '-')}
             </span>
           </div>
-          <a
-            href={design.previewUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
             title={`Open ${design.name} preview`}
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.stopPropagation();
+              onPreview(design);
+            }}
             className="flex-shrink-0 text-[9px] text-blue-500 hover:text-blue-700 font-semibold"
           >
-            visit ↗
-          </a>
+            view ↗
+          </button>
         </div>
 
         {/* Actual screenshot image */}
@@ -59,7 +69,7 @@ function DesignCard({ design, accent, index, onChoose }) {
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3 z-20">
           <span className="text-white text-xs font-semibold bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full">
-            Click Live Preview to open demo ↗
+            Click to view the full design ↗
           </span>
         </div>
       </div>
@@ -89,14 +99,13 @@ function DesignCard({ design, accent, index, onChoose }) {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-2">
-          <a
-            href={design.previewUrl}
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
+            onClick={() => onPreview(design)}
             className={`flex-1 py-2.5 text-center text-sm font-semibold text-white bg-gradient-to-r ${accent} rounded-xl hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-md`}
-           title="Open link">
+            title="View full design">
             Live Preview ↗
-          </a>
+          </button>
           <button
             onClick={() => onChoose(design)}
             className="flex-1 py-2.5 text-center text-sm font-semibold text-gray-700 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-all duration-200"
@@ -110,6 +119,56 @@ function DesignCard({ design, accent, index, onChoose }) {
 }
 
 // ─── "Chosen" confirmation modal ──────────────────────────────────────────────
+function PreviewModal({ design, onClose }) {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] overflow-hidden bg-black/90 p-3 sm:p-6"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${design.name} full design preview`}
+    >
+      <div className="mx-auto flex h-full max-w-7xl flex-col" onClick={(e) => e.stopPropagation()}>
+        <div className="z-10 mb-3 flex flex-shrink-0 items-center justify-between gap-3 rounded-2xl bg-gray-950/90 px-4 py-3 text-white shadow-xl backdrop-blur-md">
+          <div className="min-w-0">
+            <p className="truncate text-sm font-bold sm:text-base">{design.name}</p>
+            <p className="truncate text-xs text-gray-400">{design.style}</p>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-white/10 text-2xl leading-none hover:bg-white/20"
+            aria-label="Close design preview"
+          >
+            ×
+          </button>
+        </div>
+        <div className="flex min-h-0 flex-1 items-center justify-center">
+          <img
+            src={design.image}
+            alt={`${design.name} full website design`}
+            className="block max-h-full max-w-full rounded-xl bg-white object-contain shadow-2xl"
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ChosenModal({ design, category, accent, onClose }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
@@ -151,6 +210,7 @@ function ChosenModal({ design, category, accent, onClose }) {
 // ─── Main Design Gallery Page ─────────────────────────────────────────────────
 export default function DesignGallery({ slug, categoryName, onBack }) {
   const [chosenDesign, setChosenDesign] = useState(null);
+  const [previewDesign, setPreviewDesign] = useState(null);
   const data = categoryDesigns[slug];
 
   if (!data) {
@@ -217,7 +277,7 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
           </h1>
           <p className="text-gray-400 text-sm sm:text-lg max-w-xl mx-auto">
             Browse all 7 design styles below. Click <strong className="text-white">Live Preview</strong> to
-            open the real demo, then <strong className="text-white">Choose This</strong> when you find the one.
+            view the full design, then <strong className="text-white">Choose This</strong> when you find the one.
           </p>
         </div>
       </div>
@@ -231,7 +291,7 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
           </p>
           <div className="flex w-full items-start gap-2 bg-amber-50 border border-amber-100 rounded-xl px-4 py-2.5 text-xs text-amber-700 font-medium sm:w-auto">
             <span>💡</span>
-            All designs open in a new tab · 100% customizable for your brand
+            Click any image to see the full design · 100% customizable for your brand
           </div>
         </div>
 
@@ -243,6 +303,7 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
               accent={data.accent}
               index={i}
               onChoose={setChosenDesign}
+              onPreview={setPreviewDesign}
             />
           ))}
         </div>
@@ -266,6 +327,13 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
           category={categoryName}
           accent={data.accent}
           onClose={() => setChosenDesign(null)}
+        />
+      )}
+
+      {previewDesign && (
+        <PreviewModal
+          design={previewDesign}
+          onClose={() => setPreviewDesign(null)}
         />
       )}
     </div>
