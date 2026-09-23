@@ -2,7 +2,20 @@ import { useEffect, useState } from 'react';
 import { categoryDesigns } from '../data/websites';
 
 // ─── Individual design variant card ──────────────────────────────────────────
-function DesignCard({ design, accent, index, onChoose, onPreview }) {
+function DesignCard({ design, accent, index, onChoose, onPreview, openWebsiteFromImage = false }) {
+  const imageIsInteractive = Boolean(onPreview || openWebsiteFromImage);
+
+  const handleImageClick = () => {
+    if (onPreview) {
+      onPreview(design);
+      return;
+    }
+
+    if (openWebsiteFromImage) {
+      window.open(design.previewUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <div
       className="group bg-white rounded-2xl sm:rounded-3xl border border-gray-100 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 overflow-hidden animate-fade-in-up"
@@ -13,14 +26,17 @@ function DesignCard({ design, accent, index, onChoose, onPreview }) {
 
       {/* Preview image with browser chrome */}
       <div
-        className="relative h-44 overflow-hidden border-b border-gray-100 bg-gray-100 sm:h-48 cursor-zoom-in"
-        onClick={() => onPreview(design)}
+        className={`relative h-44 overflow-hidden border-b border-gray-100 bg-gray-100 sm:h-48 ${imageIsInteractive ? 'cursor-pointer' : ''}`}
+        onClick={handleImageClick}
         onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') onPreview(design);
+          if (imageIsInteractive && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+            handleImageClick();
+          }
         }}
-        role="button"
-        tabIndex={0}
-        aria-label={`View ${design.name} design image`}
+        role={imageIsInteractive ? 'button' : undefined}
+        tabIndex={imageIsInteractive ? 0 : undefined}
+        aria-label={imageIsInteractive ? `${onPreview ? 'View' : 'Open'} ${design.name} ${onPreview ? 'design image' : 'website'}` : undefined}
       >
 
         {/* Browser top bar */}
@@ -33,17 +49,30 @@ function DesignCard({ design, accent, index, onChoose, onPreview }) {
               demo/{design.name.toLowerCase().replace(/ /g, '-')}
             </span>
           </div>
-          <button
-            type="button"
-            title={`Open ${design.name} preview`}
-            onClick={(e) => {
-              e.stopPropagation();
-              onPreview(design);
-            }}
-            className="flex-shrink-0 text-[9px] text-blue-500 hover:text-blue-700 font-semibold"
-          >
-            view ↗
-          </button>
+          {onPreview ? (
+            <button
+              type="button"
+              title={`View ${design.name} design image`}
+              onClick={(e) => {
+                e.stopPropagation();
+                onPreview(design);
+              }}
+              className="flex-shrink-0 text-[9px] text-blue-500 hover:text-blue-700 font-semibold"
+            >
+              view ↗
+            </button>
+          ) : (
+            <a
+              href={design.previewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              title={`Open ${design.name} website`}
+              onClick={(e) => e.stopPropagation()}
+              className="flex-shrink-0 text-[9px] text-blue-500 hover:text-blue-700 font-semibold"
+            >
+              visit ↗
+            </a>
+          )}
         </div>
 
         {/* Actual screenshot image */}
@@ -69,7 +98,11 @@ function DesignCard({ design, accent, index, onChoose, onPreview }) {
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-3 z-20">
           <span className="text-white text-xs font-semibold bg-black/50 backdrop-blur-sm px-3 py-1.5 rounded-full">
-            Click to view the full design ↗
+            {onPreview
+              ? 'Click to view the full design ↗'
+              : openWebsiteFromImage
+                ? 'Click to open website ↗'
+                : 'Click Live Preview to open demo ↗'}
           </span>
         </div>
       </div>
@@ -99,13 +132,26 @@ function DesignCard({ design, accent, index, onChoose, onPreview }) {
 
         {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-2">
-          <button
-            type="button"
-            onClick={() => onPreview(design)}
-            className={`flex-1 py-2.5 text-center text-sm font-semibold text-white bg-gradient-to-r ${accent} rounded-xl hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-md`}
-            title="View full design">
-            Live Preview ↗
-          </button>
+          {onPreview ? (
+            <button
+              type="button"
+              onClick={() => onPreview(design)}
+              className={`flex-1 py-2.5 text-center text-sm font-semibold text-white bg-gradient-to-r ${accent} rounded-xl hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-md`}
+              title="View full design"
+            >
+              Live Preview ↗
+            </button>
+          ) : (
+            <a
+              href={design.previewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex-1 py-2.5 text-center text-sm font-semibold text-white bg-gradient-to-r ${accent} rounded-xl hover:opacity-90 hover:scale-105 transition-all duration-200 shadow-md`}
+              title="Open website"
+            >
+              Live Preview ↗
+            </a>
+          )}
           <button
             onClick={() => onChoose(design)}
             className="flex-1 py-2.5 text-center text-sm font-semibold text-gray-700 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 transition-all duration-200"
@@ -212,6 +258,7 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
   const [chosenDesign, setChosenDesign] = useState(null);
   const [previewDesign, setPreviewDesign] = useState(null);
   const data = categoryDesigns[slug];
+  const usesImagePreview = slug === 'gym' || slug === 'medical';
 
   if (!data) {
     return (
@@ -277,7 +324,8 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
           </h1>
           <p className="text-gray-400 text-sm sm:text-lg max-w-xl mx-auto">
             Browse all 7 design styles below. Click <strong className="text-white">Live Preview</strong> to
-            view the full design, then <strong className="text-white">Choose This</strong> when you find the one.
+            {usesImagePreview ? ' view the full design' : ' open the real website'}, then{' '}
+            <strong className="text-white">Choose This</strong> when you find the one.
           </p>
         </div>
       </div>
@@ -291,7 +339,9 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
           </p>
           <div className="flex w-full items-start gap-2 bg-amber-50 border border-amber-100 rounded-xl px-4 py-2.5 text-xs text-amber-700 font-medium sm:w-auto">
             <span>💡</span>
-            Click any image to see the full design · 100% customizable for your brand
+            {usesImagePreview
+              ? 'Click any image to see the full design · 100% customizable for your brand'
+              : 'All designs open in a new tab · 100% customizable for your brand'}
           </div>
         </div>
 
@@ -303,7 +353,8 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
               accent={data.accent}
               index={i}
               onChoose={setChosenDesign}
-              onPreview={setPreviewDesign}
+              onPreview={usesImagePreview ? setPreviewDesign : null}
+              openWebsiteFromImage={slug === 'textile' || slug === 'photoshop' || slug === 'furniture' || slug === 'billing' || slug === 'hrms'}
             />
           ))}
         </div>
