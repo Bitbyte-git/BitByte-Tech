@@ -166,9 +166,27 @@ function DesignCard({ design, accent, index, onChoose, onPreview, openWebsiteFro
 
 // ─── "Chosen" confirmation modal ──────────────────────────────────────────────
 function PreviewModal({ design, onClose }) {
+  const images = design.galleryImages?.length ? design.galleryImages : [design.image];
+  const [activeImage, setActiveImage] = useState(0);
+  const hasMultipleImages = images.length > 1;
+
+  const showPrevious = () => {
+    setActiveImage((current) => (current - 1 + images.length) % images.length);
+  };
+
+  const showNext = () => {
+    setActiveImage((current) => (current + 1) % images.length);
+  };
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') onClose();
+      if (hasMultipleImages && event.key === 'ArrowLeft') {
+        setActiveImage((current) => (current - 1 + images.length) % images.length);
+      }
+      if (hasMultipleImages && event.key === 'ArrowRight') {
+        setActiveImage((current) => (current + 1) % images.length);
+      }
     };
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
@@ -178,7 +196,7 @@ function PreviewModal({ design, onClose }) {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [hasMultipleImages, images.length, onClose]);
 
   return (
     <div
@@ -192,7 +210,9 @@ function PreviewModal({ design, onClose }) {
         <div className="z-10 mb-3 flex flex-shrink-0 items-center justify-between gap-3 rounded-2xl bg-gray-950/90 px-4 py-3 text-white shadow-xl backdrop-blur-md">
           <div className="min-w-0">
             <p className="truncate text-sm font-bold sm:text-base">{design.name}</p>
-            <p className="truncate text-xs text-gray-400">{design.style}</p>
+            <p className="truncate text-xs text-gray-400">
+              {design.style}{hasMultipleImages ? ` · ${activeImage + 1} of ${images.length}` : ''}
+            </p>
           </div>
           <button
             type="button"
@@ -203,12 +223,44 @@ function PreviewModal({ design, onClose }) {
             ×
           </button>
         </div>
-        <div className="flex min-h-0 flex-1 items-center justify-center">
+        <div className="relative flex min-h-0 flex-1 items-center justify-center">
           <img
-            src={design.image}
-            alt={`${design.name} full website design`}
+            src={images[activeImage]}
+            alt={`${design.name} full website design ${activeImage + 1} of ${images.length}`}
             className="block max-h-full max-w-full rounded-xl bg-white object-contain shadow-2xl"
           />
+          {hasMultipleImages && (
+            <>
+              <button
+                type="button"
+                onClick={showPrevious}
+                className="absolute left-2 flex h-11 w-11 items-center justify-center rounded-full bg-black/65 text-2xl text-white shadow-lg transition hover:bg-black/85 sm:left-4"
+                aria-label="View previous design image"
+              >
+                &#8249;
+              </button>
+              <button
+                type="button"
+                onClick={showNext}
+                className="absolute right-2 flex h-11 w-11 items-center justify-center rounded-full bg-black/65 text-2xl text-white shadow-lg transition hover:bg-black/85 sm:right-4"
+                aria-label="View next design image"
+              >
+                &#8250;
+              </button>
+              <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-black/65 px-3 py-2 backdrop-blur-sm">
+                {images.map((image, index) => (
+                  <button
+                    key={image}
+                    type="button"
+                    onClick={() => setActiveImage(index)}
+                    className={`h-2.5 w-2.5 rounded-full transition ${index === activeImage ? 'bg-white scale-125' : 'bg-white/45 hover:bg-white/75'}`}
+                    aria-label={`View design image ${index + 1}`}
+                    aria-current={index === activeImage ? 'true' : undefined}
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
