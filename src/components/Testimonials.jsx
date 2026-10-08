@@ -3,11 +3,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 
 const testimonials = [
-  { id: 1, stat: "Smarter customer conversations", quote: "The solution made customer communication quicker, clearer, and much easier for our team to manage.", author: "WhatsApp Automation", role: "Automation Solutions", address: "India, Tamil Nadu, Salem", image: "/assets/OurClients/WhatsappAutomation.jpeg" },
-  { id: 2, stat: "Ideas transformed into impact", quote: "Bit Byte understood our vision and shaped it into a polished digital experience built for growth.", author: "INFISQ Innovations", role: "Inspire · Ignite · Innovate", address: "India, Tamil Nadu, Salem", image: "/assets/OurClients/Infisq.jpeg" },
-  { id: 3, stat: "A smoother journey for every customer", quote: "Our digital presence now feels trustworthy, professional, and simple for customers to navigate.", author: "Dream Country Visas", role: "Visa & Immigration Services", address: "India, New Delhi, Delhi", image: "/assets/OurClients/DC.jpeg" },
-  { id: 4, stat: "Tradition presented beautifully online", quote: "The team gave our brand a digital experience that preserves its character while making it feel modern.", author: "Arulmathi Pattu Selaigal", role: "Silks & Traditional Fashion", address: "India, Tamil Nadu, Salem", image: "/assets/OurClients/ArulmathiSilks.jpeg" },
-  { id: 5, stat: "Gold shopping, reimagined online", quote: "Bit Byte created a premium e-commerce experience that makes discovering and purchasing our gold collections simple, elegant, and trustworthy.", author: "Athirai", role: "Gold Jewellery E-Commerce", address: "India, Tamil Nadu, Salem", image: "/assets/OurClients/Athirai.jpeg" },
+  { id: 1, stat: "Smarter customer conversations", quote: "The solution made customer communication quicker, clearer, and much easier for our team to manage.", author: "WhatsApp Automation", role: "Automation Solutions", address: "Salem,TN,India", image: "/assets/OurClients/WhatsappAutomation.jpeg" },
+  { id: 2, stat: "Ideas transformed into impact", quote: "Bit Byte understood our vision and shaped it into a polished digital experience built for growth.", author: "INFISQ Innovations", role: "Inspire · Ignite · Innovate", address: "Salem,TN,India", image: "/assets/OurClients/Infisq.jpeg" },
+  { id: 3, stat: "A smoother journey for every customer", quote: "Our digital presence now feels trustworthy, professional, and simple for customers to navigate.", author: "Dream Country Visas", role: "Visa & Immigration Services", address: "New Delhi,India", image: "/assets/OurClients/DC.jpeg" },
+  { id: 4, stat: "Tradition presented beautifully online", quote: "The team gave our brand a digital experience that preserves its character while making it feel modern.", author: "Arulmathi Pattu Selaigal", role: "Silks & Traditional Fashion", address: "Salem,TN,India", image: "/assets/OurClients/ArulmathiSilks.jpeg" },
+  { id: 5, stat: "Gold shopping, reimagined online", quote: "Bit Byte created a premium e-commerce experience that makes discovering and purchasing our gold collections simple, elegant, and trustworthy.", author: "Athirai", role: "Gold Jewellery E-Commerce", address: "Salem,TN,India", image: "/assets/OurClients/Athirai.jpeg" },
 ];
 
 const wrapIndex = (value, length) => ((value % length) + length) % length;
