@@ -22,6 +22,7 @@ const Services = lazy(() => import("./components/Services"));
 const MobileMenu = lazy(() => import("./components/MobileMenu"));
 const Founder = lazy(() => import("./components/Founder"));
 const WhyUs = lazy(() => import("./components/WhyUs"));
+const Testimonials = lazy(() => import("./components/Testimonials"));
 const Contact = lazy(() => import("./components/Contact"));
 const CTA = lazy(() => import("./components/CTA"));
 const Footer = lazy(() => import("./components/Footer"));
@@ -207,6 +208,10 @@ function ProtectedRoute({ destination, children }) {
     );
   }
 
+  if (destination === "showcase") {
+    return children;
+  }
+
   return (
     <>
       {children}
@@ -243,6 +248,7 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [activeServiceId, setActiveServiceId] = useState(null);
   const delayedReady = useDelayedReady(12000);
+
   const openMobileMenu = useCallback(() => setMobileOpen(true), []);
   const closeMobileMenu = useCallback(() => setMobileOpen(false), []);
   const openWorkspaceAccess = useCallback((appKey) => {
@@ -594,6 +600,11 @@ export default function App() {
           >
             <Suspense fallback={<SectionFallback />}>
               <WhyUs />
+            </Suspense>
+          </DeferredSection>
+          <DeferredSection sectionId="testimonials" className="section wrap" minHeight={690}>
+            <Suspense fallback={<SectionFallback />}>
+              <Testimonials />
             </Suspense>
           </DeferredSection>
           <DeferredSection sectionId="contact" className="section wrap" minHeight={820}>

@@ -10,7 +10,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-navy-950 text-gray-400">
+    <footer className="showcase-footer bg-navy-950 text-gray-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-8">
         {/* Top grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 mb-10 sm:mb-12">

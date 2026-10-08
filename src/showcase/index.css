@@ -2,6 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Keep the Showcase CTA independent from the landing page's #contact grid. */
+#contact.showcase-contact-section {
+  display: block;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  padding: 6rem 0;
+}
+
+#contact.showcase-contact-section > .max-w-5xl {
+  width: min(100%, 64rem);
+  margin-inline: auto;
+}
+
+#contact.showcase-contact-section .text-8xl.select-none,
+#contact.showcase-contact-section .text-6xl.select-none {
+  display: none;
+}
+
+footer.showcase-footer {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+@media (max-width: 1023px) {
+  #contact.showcase-contact-section { padding-block: 5rem; }
+}
+
+@media (max-width: 639px) {
+  #contact.showcase-contact-section { padding-block: 4rem; }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;

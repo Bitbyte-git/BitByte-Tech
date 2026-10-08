@@ -1,6 +1,6 @@
 export default function CTA() {
   return (
-    <section id="contact" className="py-16 sm:py-20 lg:py-24 bg-white">
+    <section id="contact" className="showcase-contact-section py-16 sm:py-20 lg:py-24 bg-white">
       <div className="max-w-5xl mx-auto px-4 sm:px-6">
         {/* Main CTA block */}
         <div className="relative bg-gradient-to-br from-navy-950 via-navy-900 to-indigo-950 rounded-2xl sm:rounded-3xl p-5 sm:p-10 lg:p-16 text-center overflow-hidden shadow-2xl">
