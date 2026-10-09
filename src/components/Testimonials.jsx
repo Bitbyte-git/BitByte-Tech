@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 
@@ -14,6 +14,7 @@ const wrapIndex = (value, length) => ((value % length) + length) % length;
 
 export default function Testimonials() {
   const [page, setPage] = useState(0);
+  const isPointerInside = useRef(false);
   const total = testimonials.length;
 
   const move = useCallback((direction) => {
@@ -22,13 +23,21 @@ export default function Testimonials() {
 
   useEffect(() => {
     const autoScroll = window.setInterval(() => {
-      setPage((current) => current + 1);
+      if (!isPointerInside.current) {
+        setPage((current) => current + 1);
+      }
     }, 4500);
     return () => window.clearInterval(autoScroll);
   }, []);
 
   return (
-    <section id="testimonials" className="testimonials" aria-labelledby="testimonials-title">
+    <section
+      id="testimonials"
+      className="testimonials"
+      aria-labelledby="testimonials-title"
+      onMouseEnter={() => { isPointerInside.current = true; }}
+      onMouseLeave={() => { isPointerInside.current = false; }}
+    >
       <div className="testimonials-heading">
         <div>
           <div className="eyebrow reveal">Testimonials</div>

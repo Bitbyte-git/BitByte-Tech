@@ -310,7 +310,7 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
   const [chosenDesign, setChosenDesign] = useState(null);
   const [previewDesign, setPreviewDesign] = useState(null);
   const data = categoryDesigns[slug];
-  const usesImagePreview = slug === 'gym' || slug === 'medical';
+  const usesImagePreview = slug === 'gym' || slug === 'medical' || slug === 'digitalcard';
 
   if (!data) {
     return (
@@ -398,17 +398,21 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
-          {data.designs.map((design, i) => (
-            <DesignCard
-              key={design.id}
-              design={design}
-              accent={data.accent}
-              index={i}
-              onChoose={setChosenDesign}
-              onPreview={usesImagePreview ? setPreviewDesign : null}
-              openWebsiteFromImage={slug === 'textile' || slug === 'photoshop' || slug === 'furniture' || slug === 'billing' || slug === 'hrms'}
-            />
-          ))}
+          {data.designs.map((design, i) => {
+            const opensDigitalCardWebsite = slug === 'digitalcard' && (design.id === 1 || design.id === 2);
+
+            return (
+              <DesignCard
+                key={design.id}
+                design={design}
+                accent={data.accent}
+                index={i}
+                onChoose={setChosenDesign}
+                onPreview={usesImagePreview && !opensDigitalCardWebsite ? setPreviewDesign : null}
+                openWebsiteFromImage={opensDigitalCardWebsite || slug === 'visa' || slug === 'textile' || slug === 'photoshop' || slug === 'furniture' || slug === 'billing' || slug === 'hrms' || slug === 'ecommerce'}
+              />
+            );
+          })}
         </div>
 
         {/* Back to all categories */}
