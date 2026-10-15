@@ -296,13 +296,11 @@ export default function CustomWebApplications() {
           <div className="webapp-hero-copy">
             <div className="webapp-pill reveal">Web App Development</div>
             <h1 className="webapp-title reveal reveal-delay-1">
-              
-              <span>Custom Web Applications</span>
+              Custom Web Application <span>Development</span>
             </h1>
             <h2 className="webapp-kicker reveal reveal-delay-2">Tailored Web Solutions Built for Your Business</h2>
             <p className="webapp-lead reveal reveal-delay-3">
-              We build custom web applications that are fast, secure, scalable, and designed to streamline your operations
-              and accelerate growth.
+              We build secure, scalable and business-focused web applications designed around your workflows, users and growth goals. From internal dashboards and customer portals to SaaS platforms and custom business systems, Bit Byte Technologies develops web applications for businesses in Salem and across Tamil Nadu.
             </p>
             <div className="webapp-benefits reveal reveal-delay-4">
               <div>

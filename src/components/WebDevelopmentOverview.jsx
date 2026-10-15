@@ -1487,9 +1487,7 @@ export default function WebDevelopmentOverview() {
               </h1>
               <h2 className="webapp-kicker reveal reveal-delay-2">Conversion-Focused Websites</h2>
               <p className="webapp-lead reveal reveal-delay-3">
-                We build modern, responsive websites that combine exceptional design with powerful functionality. Every website
-                is optimized for speed, security, and user experience to help your business attract visitors and convert them
-                into customers.
+                Bit Byte Technologies builds fast, secure and scalable websites and web applications for businesses in Salem and across Tamil Nadu. From business websites and eCommerce platforms to custom web applications and APIs, our development team creates digital solutions designed around your business goals.
               </p>
               <div className="webapp-benefits reveal reveal-delay-4">
                 <div>

@@ -9,6 +9,9 @@ import {
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import useLandingEffects from "./components/useLandingEffects";
+import Seo from "./seo";
+import { SEO_BY_PATH } from "./seo";
+import ServiceFaq from "./components/ServiceFaq";
 import {
   destinationForPath,
   getProtectedDestination,
@@ -214,6 +217,7 @@ function ProtectedRoute({ destination, children }) {
 
   return (
     <>
+      <Seo pathname={pathname} />
       {children}
       <div className="protected-route-controls" aria-label={`${config.name} access controls`}>
         <button
@@ -290,6 +294,8 @@ export default function App() {
     pathname === "/services/imagination-to-reality";
   const isRealTimeSalesPage = pathname === "/services/real-time-sales-data";
   const isPersonalBrandingPage = pathname === "/services/personal-branding";
+  const needsSeoFaq = pathname === "/" || isPersonalBrandingPage
+    || isImaginationToRealityPage || isRealTimeSalesPage;
   const isServiceDetailPage =
     isWebDevelopmentPage ||
     isCustomWebAppPage ||
@@ -620,6 +626,11 @@ export default function App() {
           
         </>
       )}
+      {needsSeoFaq && SEO_BY_PATH[pathname]?.faqs?.length ? (
+        <main className="wrap">
+          <ServiceFaq items={SEO_BY_PATH[pathname].faqs} />
+        </main>
+      ) : null}
       {!isShowcasePage && (
         <>
           {delayedReady && (

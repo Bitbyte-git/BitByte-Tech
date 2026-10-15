@@ -5,11 +5,11 @@ const pages = {
   ecommerce: {
     label: 'E-Commerce Solutions',
     eyebrow: 'Web App Development',
-    title: 'E-Commerce',
-    highlight: 'Solutions',
+    title: 'Ecommerce',
+    highlight: 'Development',
     subtitle: 'Secure Online Stores Built to Sell More',
     description:
-      'We build powerful e-commerce platforms with fast product Requirement Gathering, smooth checkout experiences, secure payments, inventory workflows, and scalable architecture designed to grow with your business.',
+      'We build fast, secure and conversion-focused ecommerce websites for businesses in Salem and across Tamil Nadu. From product catalogs and secure checkout to payment integration, inventory management and order tracking, Bit Byte Technologies creates ecommerce solutions designed to help businesses sell online and grow.',
     icon: 'fa-solid fa-cart-shopping',
     color: '#f59e0b',
     features: [
@@ -30,11 +30,11 @@ const pages = {
   portals: {
     label: 'Web Portals & Dashboards',
     eyebrow: 'Web App Development',
-    title: 'Web Portals &',
-    highlight: 'Dashboards',
+    title: 'Web Portal',
+    highlight: 'Development',
     subtitle: 'Centralized Platforms for Teams, Clients, and Data',
     description:
-      'We design and develop secure portals and interactive dashboards that simplify workflows, centralize information, visualize business data, and help teams make faster decisions.',
+      'Bit Byte Technologies develops custom web portals and business dashboards for organizations in Salem and across Tamil Nadu. From customer and employee portals to vendor management systems, admin panels and real-time dashboards, we build secure digital platforms around your business workflows.',
     icon: 'fa-solid fa-chart-simple',
     color: '#8b5cf6',
     features: [

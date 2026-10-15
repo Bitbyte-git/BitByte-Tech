@@ -2,14 +2,12 @@ User-agent: *
 Allow: /
 
 # Disallow non-SEO pages
-
 Disallow: /careers
 Disallow: /careers/apply
 Disallow: /privacy-policy
 Disallow: /terms-and-conditions
 
 # OpenAI / ChatGPT
-
 User-agent: OAI-SearchBot
 Allow: /
 
@@ -17,20 +15,16 @@ User-agent: GPTBot
 Allow: /
 
 # Google AI / Gemini
-
 User-agent: Google-Extended
 Allow: /
 
 # Anthropic / Claude
-
 User-agent: ClaudeBot
 Allow: /
 
 # Common AI crawler
-
 User-agent: PerplexityBot
 Allow: /
 
 # Sitemap
-
 Sitemap: https://bitbytetech.org/sitemap.xml
