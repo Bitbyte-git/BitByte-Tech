@@ -16,9 +16,9 @@ const defaultTranslations = {
   },
   hero: {
     badge: "Welcome to Bit Byte Technologies",
-    title1: "Web Development &",
-    title2: "Digital Marketing Company",
-    title3: "in Salem",
+    title1: "Transforming",
+    title2: "Imagination into",
+    title3: "Digital Reality",
     body: "We engineer cutting-edge MERN products, brand systems, and data-driven growth engines for ambitious companies ready to scale.",
     primary: "Explore Services",
     secondary: "Contact Us",

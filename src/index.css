@@ -1422,6 +1422,12 @@ body {
   margin-bottom: 30px;
   animation: hReveal 1s 0.3s both;
 }
+.hero-title-line {
+  display: block;
+  line-height: 1.06;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
 .grad {
   background: var(--grad-text);
   background-size: 200% auto;

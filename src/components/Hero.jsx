@@ -254,12 +254,9 @@ function Hero({ planetRef }) {
           </div>
         </div>
         <h1 className="hero-h1" data-magnify="true">
-          <span className="grad">{t('hero.title1')}</span> 
-          <br />
-          {t('hero.title2')}
-          <br />
-          <span className="grad">{t('hero.title3')}</span>
-          
+          <span className="hero-title-line grad">{t('hero.title1')}</span>
+          <span className="hero-title-line">{t('hero.title2')}</span>
+          <span className="hero-title-line grad">{t('hero.title3')}</span>
         </h1>
         <p className="hero-p" data-magnify="true">
           We engineer cutting-edge Web App Development and data-driven digital marketing solutions, crafted for brands that dare to reach
