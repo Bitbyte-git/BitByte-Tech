@@ -15,7 +15,7 @@ export const SEO_BY_PATH = {
     "Bit Byte Technologies is a web development company in Salem offering website development, web apps, SEO and digital marketing solutions for growing businesses.",
     "Web Development Company in Salem,Website Development Company in Salem, Digital Marketing Agency in Salem",
     {
-      h1: "Web Development & Digital Marketing Company in Salem",
+      h1: "Transforming Imagination into Digital Reality",
       faqs: [
         ["What services does a web development company in Salem provide?", "Bit Byte Technologies is a web development and digital solutions company in Salem providing website development, ecommerce development, custom web applications, web portals, dashboards and related digital solutions. Depending on business requirements, Bit Byte Technologies can help with website design and development, integrations, maintenance, SEO and digital marketing solutions."],
         ["Do you provide SEO services in Salem?", "Yes. Bit Byte Technologies provides digital marketing and SEO-focused solutions designed to improve a business's online visibility. SEO can include keyword research, technical SEO, on-page optimization, content strategy, local SEO and performance analysis, depending on the requirements of the business and its target audience."],
