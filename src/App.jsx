@@ -217,7 +217,6 @@ function ProtectedRoute({ destination, children }) {
 
   return (
     <>
-      <Seo pathname={pathname} />
       {children}
       <div className="protected-route-controls" aria-label={`${config.name} access controls`}>
         <button
@@ -469,6 +468,7 @@ export default function App() {
 
   return (
     <>
+      <Seo pathname={pathname} />
       {!isShowcasePage && (
         <>
           {mobileOpen && (
