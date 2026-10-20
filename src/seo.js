@@ -218,6 +218,14 @@ const localBusinessSchema = {
   areaServed: { "@type": "City", name: "Salem" },
 };
 
+export const getSeoSchemas = (pathname, config = SEO_BY_PATH[pathname]) => {
+  if (!config) return [];
+  const schemas = [];
+  if (pathname === "/") schemas.push(localBusinessSchema);
+  if (config.faqs?.length) schemas.push(faqSchema(config.faqs));
+  return schemas;
+};
+
 export default function Seo({ pathname }) {
   useEffect(() => {
     const normalizedPath = pathname.replace(/\/$/, "") || "/";
@@ -231,10 +239,7 @@ export default function Seo({ pathname }) {
     upsertCanonical(`${SITE_URL}${normalizedPath === "/" ? "/" : normalizedPath}`);
 
     document.querySelectorAll('script[data-seo-schema="true"]').forEach((node) => node.remove());
-    const schemas = [];
-    if (normalizedPath === "/") schemas.push(localBusinessSchema);
-    if (config.faqs?.length) schemas.push(faqSchema(config.faqs));
-    schemas.forEach((schema) => {
+    getSeoSchemas(normalizedPath, config).forEach((schema) => {
       const script = document.createElement("script");
       script.type = "application/ld+json";
       script.dataset.seoSchema = "true";
