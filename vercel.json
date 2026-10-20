@@ -68,7 +68,7 @@
   "rewrites": [
     { "source": "/services/web-development", "destination": "/services/web-development/index.html" },
     { "source": "/services/web-development/custom-web-applications", "destination": "/services/web-development/custom-web-applications/index.html" },
-    { "source": "/services/web-development/e-commerce-solutions", "destination": "/services/web-development/e-commerce-solutions/index.html" },
+    { "source": "/services/web-development/ecommerce-solutions", "destination": "/services/web-development/ecommerce-solutions/index.html" },
     { "source": "/services/web-development/web-portals-dashboards", "destination": "/services/web-development/web-portals-dashboards/index.html" },
     { "source": "/services/personal-branding", "destination": "/services/personal-branding/index.html" },
     { "source": "/services/digital-marketing/ai-powered-digital-marketing-solutions", "destination": "/services/digital-marketing/ai-powered-digital-marketing-solutions/index.html" },

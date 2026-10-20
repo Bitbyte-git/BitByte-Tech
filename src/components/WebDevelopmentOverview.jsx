@@ -13,7 +13,7 @@ const developmentServices = [
     'fa-solid fa-cart-shopping',
     'E-Commerce Solutions',
     'Powerful and secure e-commerce platforms that help you sell more, manage easily, and deliver great user experiences.',
-    '/services/web-development/e-commerce-solutions',
+    '/services/web-development/ecommerce-solutions',
     '#f59e0b'
   ],
   [

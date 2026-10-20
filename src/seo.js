@@ -62,7 +62,7 @@ export const SEO_BY_PATH = {
       ],
     },
   ),
-  "/services/web-development/e-commerce-solutions": page(
+  "/services/web-development/ecommerce-solutions": page(
     "Ecommerce Website Development in Salem",
     "Bit Byte Technologies provides ecommerce development in Salem, building fast, secure and scalable online stores with payments, product catalogs, inventory and order management.",
     "Ecommerce Development Company in Salem,Ecommerce Website Development in Salem, Ecommerce Website Development Company in Salem",

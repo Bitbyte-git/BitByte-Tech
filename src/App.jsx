@@ -271,7 +271,7 @@ export default function App() {
   const isCustomWebAppPage =
     pathname === "/services/web-development/custom-web-applications";
   const isEcommercePage =
-    pathname === "/services/web-development/e-commerce-solutions";
+    pathname === "/services/web-development/ecommerce-solutions";
   const isPortalsPage =
     pathname === "/services/web-development/web-portals-dashboards";
   const isDigitalMarketingPage =

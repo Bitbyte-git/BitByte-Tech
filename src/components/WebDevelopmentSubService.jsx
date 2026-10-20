@@ -186,34 +186,9 @@ function EcommerceFloatingMockup() {
         .card-4 { transform: rotateX(calc(var(--tilt-y) * 1.3)) rotateY(calc(var(--tilt-x) * 1.3)) translateZ(30px); }
         .card-5 { transform: rotateX(calc(var(--tilt-y) * 1.6)) rotateY(calc(var(--tilt-x) * 1.6)) translateZ(45px); }
 
-        .ecom-pulse-dot {
-          position: absolute;
-          top: 49%;
-          left: 22%;
-          width: 12px;
-          height: 12px;
-          background: #22c55e;
-          border-radius: 50%;
-          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-          animation: pulse-green 2s infinite;
-          z-index: 1;
-        }
-        .ecom-pulse-dot::before {
-          content: "";
-          position: absolute;
-          inset: -8px;
-          border: 1px solid rgba(34, 197, 94, 0.4);
-          border-radius: 50%;
-        }
-
         @keyframes float1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes float2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         @keyframes float3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        @keyframes pulse-green {
-          0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
-          70% { box-shadow: 0 0 0 15px rgba(34, 197, 94, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
-        }
         
         @media (max-width: 1180px) {
           .wrapper-2 { right: -5%; }
@@ -276,8 +251,6 @@ function EcommerceFloatingMockup() {
           <span>Sales<br/>Analytics</span>
         </div>
       </div>
-
-      <div className="ecom-pulse-dot" />
     </div>
   )
 }

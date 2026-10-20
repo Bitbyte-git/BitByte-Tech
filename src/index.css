@@ -7710,12 +7710,14 @@ select,
 
 .sales-info-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.9fr 1.02fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 8px;
   margin-top: 8px;
 }
 
 .sales-info-panel {
+  width: min(100%, 880px);
+  justify-self: center;
   border-radius: 10px;
   padding: 28px 32px;
 }
