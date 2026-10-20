@@ -11,7 +11,7 @@ const page = (title, description, keywords, extra = {}) => ({
 
 export const SEO_BY_PATH = {
   "/": page(
-    "Bit Byte Technologies",
+    "Bit Byte Technologies in Salem",
     "Bit Byte Technologies is a web development company in Salem offering website development, web apps, SEO and digital marketing solutions for growing businesses.",
     "Web Development Company in Salem,Website Development Company in Salem, Digital Marketing Agency in Salem",
     {
