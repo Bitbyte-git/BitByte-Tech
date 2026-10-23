@@ -608,7 +608,7 @@ export default function App() {
               <WhyUs />
             </Suspense>
           </DeferredSection>
-          <DeferredSection sectionId="testimonials" className="section wrap" minHeight={690}>
+          <DeferredSection sectionId="testimonials" className="section wrap" minHeight={500}>
             <Suspense fallback={<SectionFallback />}>
               <Testimonials />
             </Suspense>

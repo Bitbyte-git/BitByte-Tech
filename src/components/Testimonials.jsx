@@ -1,13 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { MapPin } from "lucide-react";
+import { ExternalLink, MapPin } from "lucide-react";
 
 const testimonials = [
-  { id: 1, stat: "Smarter customer conversations", quote: "The solution made customer communication quicker, clearer, and much easier for our team to manage.", author: "WhatsApp Automation", role: "Automation Solutions", address: "Salem,TN,India", image: "/assets/OurClients/WhatsappAutomation.jpeg" },
-  { id: 2, stat: "Ideas transformed into impact", quote: "Bit Byte understood our vision and shaped it into a polished digital experience built for growth.", author: "INFISQ Innovations", role: "Inspire · Ignite · Innovate", address: "Salem,TN,India", image: "/assets/OurClients/Infisq.jpeg" },
-  { id: 3, stat: "A smoother journey for every customer", quote: "Our digital presence now feels trustworthy, professional, and simple for customers to navigate.", author: "Dream Country Visas", role: "Visa & Immigration Services", address: "New Delhi,India", image: "/assets/OurClients/DC.jpeg" },
-  { id: 4, stat: "Tradition presented beautifully online", quote: "The team gave our brand a digital experience that preserves its character while making it feel modern.", author: "Arulmathi Pattu Selaigal", role: "Silks & Traditional Fashion", address: "Salem,TN,India", image: "/assets/OurClients/ArulmathiSilks.jpeg" },
-  { id: 5, stat: "Gold shopping, reimagined online", quote: "Bit Byte created a premium e-commerce experience that makes discovering and purchasing our gold collections simple, elegant, and trustworthy.", author: "Athirai", role: "Gold Jewellery E-Commerce", address: "Salem,TN,India", image: "/assets/OurClients/Athirai.jpeg" },
+  { id: 2, stat: "Ideas transformed into impact", author: "INFISQ Innovations", role: "Inspire · Ignite · Innovate", address: "Salem, TN, India", image: "/assets/OurClients/Infisq.jpeg", website: "https://infisq-landing-page.vercel.app/" },
+  { id: 3, stat: "A smoother journey for every customer", author: "Dream Country Visas", role: "Visa & Immigration Services", address: "New Delhi, India", image: "/assets/OurClients/DC.jpeg", website: "https://dreamcountryvisas.com/" },
+  { id: 4, stat: "Tradition presented beautifully online", author: "Arulmathi Pattu Selaigal", role: "Silks & Traditional Fashion", address: "Salem, TN, India", image: "/assets/OurClients/ArulmathiSilks.jpeg", website: "https://arulmathisilks.com/" },
+  { id: 5, stat: "Gold shopping, reimagined online", author: "Athirai", role: "Gold Jewellery E-Commerce", address: "Salem, TN, India", image: "/assets/OurClients/Athirai-logo.png", website: "https://www.infisq.com/" },
+  { id: 1, stat: "Smarter customer conversations", author: "WhatsApp AI Agent", role: "Automation Solutions", address: "Salem, TN, India", image: "/assets/OurClients/WhatsappAutomation.jpeg", website: "https://whatsappaiagent.in/" },
+  { id: 6, stat: "Technology empowering future engineers", author: "Excel Engineering College", role: "Technical Collaborator", address: "Komarapalayam, Namakkal, India", image: "/assets/OurClients/ExcelCollege.png", website: "https://excelinstitutions.com/excel_engg/" },
+  { id: 7, stat: "Innovation through academic collaboration", author: "Gnanamani College of Technology", role: "Technical Collaborator", address: "Pachal, Namakkal, India", image: "/assets/OurClients/GnanamaniCollege.png", website: "https://www.gct.org.in/" },
 ];
 
 const wrapIndex = (value, length) => ((value % length) + length) % length;
@@ -49,7 +51,7 @@ export default function Testimonials() {
       <div className="testimonial-stage" role="region" aria-roledescription="carousel" aria-label="Customer stories"
         onKeyDown={(event) => { if (event.key === "ArrowLeft") move(-1); if (event.key === "ArrowRight") move(1); }} tabIndex="0">
         <AnimatePresence initial={false} mode="popLayout">
-        {[-1, 0, 1].map((offset) => {
+        {[-2, -1, 0, 1, 2].map((offset) => {
           const item = testimonials[wrapIndex(page + offset, total)];
           const isActive = offset === 0;
           return (
@@ -64,7 +66,6 @@ export default function Testimonials() {
                 <>
                   <div className="testimonial-copy">
                     <h3>{item.stat}</h3>
-                    <blockquote>“{item.quote}”</blockquote>
                     <div className="testimonial-person">
                       <strong>{item.author}</strong>
                       <span>{item.role}</span>
@@ -72,6 +73,12 @@ export default function Testimonials() {
                         <MapPin aria-hidden="true" />
                         <span>{item.address}</span>
                       </div>
+                      {item.website && (
+                        <a className="testimonial-website" href={item.website} target="_blank" rel="noreferrer">
+                          Visit website
+                          <ExternalLink aria-hidden="true" />
+                        </a>
+                      )}
                     </div>
                   </div>
                   <motion.div className="testimonial-logo-wrap"

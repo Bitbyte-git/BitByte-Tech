@@ -2,7 +2,6 @@ import { memo, useState } from "react";
 import { navLinks, services } from "../constants";
 import { useTranslation } from "../i18n";
 import LanguageSwitcher from "./LanguageSwitcher";
-import Logo from "./Logo";
 
 function Navbar({
   activeSection = "home",
@@ -33,11 +32,16 @@ function Navbar({
           className="logo-wrap"
           aria-label="Bit Byte Technologies home"
         >
-          <Logo fetchPriority="high" height={80} />
-          <div className="logo-txt">
-            <em>Bit Byte</em>
-            <p>Technologies</p>
-          </div>
+          <img
+            className="navbar-brand-logo"
+            src="/assets/optimized/BITBYTE-LOGO-BG.png"
+            alt="BitByte Technologies"
+            width="1271"
+            height="703"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+          />
         </a>
         <ul className="nav-links">
           {navLinks.filter((link) => link.key !== "showcase").map(({ href, key, label }) => (
