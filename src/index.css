@@ -5784,12 +5784,41 @@ select,
   border-top: 1px solid rgba(0, 180, 216, 0.09);
   padding-top: 24px;
 }
+.home-faq-section .service-faq {
+  max-width: 1040px;
+  margin-bottom: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.service-faq-title {
+  margin: 4px auto 10px;
+  color: transparent;
+  background: var(--grad-text);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font: 800 clamp(30px, 4vw, 46px)/1.08 var(--f-display);
+  letter-spacing: -.035em;
+}
+.service-faq-intro {
+  width: min(100%, 650px);
+  margin: 0 auto 28px;
+  color: var(--white60);
+  font-size: 14px;
+  line-height: 1.65;
+}
 .service-faq-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   text-align: left;
   align-items: start;
+}
+.service-faq-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
 }
 .service-faq-item {
   border: 1px solid rgba(0, 180, 216, 0.14);
@@ -5804,7 +5833,7 @@ select,
   justify-content: space-between;
   gap: 16px;
   padding: 17px 20px;
-  cursor: none;
+  cursor: pointer;
   color: #fff;
   font-family: var(--f-display);
   font-size: 12.5px;
@@ -6301,16 +6330,49 @@ footer {
 
 #navbar .navbar-brand-logo {
   display: block;
-  width: 142px;
+  width: 96px;
   height: 64px;
+  flex: 0 0 96px;
   object-fit: contain;
   object-position: center;
 }
 
+#navbar .navbar-brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+#navbar .navbar-brand-text strong {
+  color: transparent;
+  background: linear-gradient(90deg, #168ee6 0%, #12b9d3 52%, #8bdd45 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-size: 25px;
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.03em;
+}
+
+#navbar .navbar-brand-text small {
+  margin-top: 2px;
+  color: #f5f8fb;
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: .98;
+  letter-spacing: -.025em;
+}
+
 .logo-wrap {
   min-width: 0;
+  height: 58px;
   flex: 0 0 auto;
-  gap: 34px;
+  gap: 18px;
   grid-column: 1;
 }
 
@@ -6435,12 +6497,17 @@ footer {
   }
 
   #navbar .navbar-brand-logo {
-    width: 116px;
-    height: 52px;
+    width: 84px;
+    height: 56px;
+    flex-basis: 84px;
   }
 
+  #navbar .navbar-brand-text strong { font-size: 22px; }
+  #navbar .navbar-brand-text small { font-size: 15px; }
+
   .logo-wrap {
-    gap: 30px;
+    height: 48px;
+    gap: 14px;
   }
 
   .logo-txt {
@@ -6578,8 +6645,17 @@ footer {
   }
 
   #navbar .navbar-brand-logo {
-    width: 104px;
-    height: 46px;
+    width: 72px;
+    height: 48px;
+    flex-basis: 72px;
+  }
+
+  #navbar .navbar-brand-text strong { font-size: 19px; }
+  #navbar .navbar-brand-text small { margin-top: 2px; font-size: 13px; }
+
+  .logo-wrap {
+    height: 42px;
+    gap: 10px;
   }
 
   .logo-txt {
@@ -10667,4 +10743,82 @@ footer {
   font-size: 8px;
   font-weight: 900;
   letter-spacing: 0;
+}
+
+/* Floating navbar with a rotating neon gradient border */
+@property --navbar-border-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+#navbar {
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  width: auto;
+  max-width: none;
+  border: 0;
+  border-radius: 38px;
+  background: linear-gradient(145deg, rgba(3, 18, 32, .94), rgba(1, 9, 19, .96));
+  box-shadow: 0 18px 50px rgba(0, 0, 0, .42), inset 0 1px rgba(255, 255, 255, .035);
+  isolation: isolate;
+}
+
+#navbar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--navbar-border-angle),
+    #195cff,
+    #04e7ff,
+    #65ff9a,
+    #18d9c1,
+    #603cff,
+    #04e7ff,
+    #195cff
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  filter: drop-shadow(0 0 7px rgba(0, 225, 255, .8)) drop-shadow(0 0 15px rgba(68, 255, 159, .35));
+  pointer-events: none;
+  animation: navbar-border-rotate 5s linear infinite;
+}
+
+#navbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+#navbar.stuck {
+  top: 10px;
+  border-bottom-color: transparent;
+  background: linear-gradient(145deg, rgba(3, 18, 32, .97), rgba(1, 9, 19, .98));
+  box-shadow: 0 16px 45px rgba(0, 0, 0, .48), inset 0 1px rgba(255, 255, 255, .04);
+}
+
+@keyframes navbar-border-rotate {
+  to { --navbar-border-angle: 360deg; }
+}
+
+@media (max-width: 900px) {
+  #navbar,
+  #navbar.stuck {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    width: auto;
+    border-radius: 28px;
+  }
+
+  #navbar::before { padding: 1px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #navbar::before { animation: none; }
 }

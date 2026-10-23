@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import ServiceFaq from './ServiceFaq'
+import { SEO_BY_PATH } from '../seo'
 
 const heroPillars = [
   ['fa-solid fa-chart-line', 'Live Monitoring', 'Track sales as they happen'],
@@ -376,6 +378,13 @@ export default function RealTimeSales() {
           ))}
         </div>
       </section>
+
+      <ServiceFaq
+        items={SEO_BY_PATH['/services/real-time-sales-data'].faqs}
+        eyebrow="FAQ"
+        title="Real-Time Sales Analytics FAQs"
+        intro="Answers about live sales dashboards, custom reporting, CRM and ERP integration, performance tracking, forecasting, and solutions for small businesses."
+      />
 
       <section className="sales-bottom-grid reveal">
         <article className="sales-growth-card">

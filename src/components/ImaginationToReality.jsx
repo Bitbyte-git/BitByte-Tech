@@ -1,4 +1,6 @@
 import { useEffect } from 'react'
+import ServiceFaq from './ServiceFaq'
+import { SEO_BY_PATH } from '../seo'
 
 const heroCards = [
   ['fa-solid fa-lightbulb', '01', 'CONCEPT'],
@@ -1124,6 +1126,13 @@ export default function ImaginationToReality() {
           ))}
         </div>
       </section>
+
+      <ServiceFaq
+        items={SEO_BY_PATH['/services/imagination-to-reality'].faqs}
+        eyebrow="FAQ"
+        title="Software Product Development FAQs"
+        intro="Answers about product discovery, MVP development, SaaS products, project timelines, existing-product improvements, and post-launch support."
+      />
 
       <section className="ir-cta reveal">
         <div className="ir-rocket-art" aria-hidden="true">

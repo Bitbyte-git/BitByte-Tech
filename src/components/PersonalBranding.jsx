@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import ServiceFaq from './ServiceFaq'
+import { SEO_BY_PATH } from '../seo'
 
 const pbIndustries = [
   ["fa-solid fa-cart-shopping", "Ecommerce & Retail"],
@@ -1263,6 +1265,13 @@ export default function PersonalBranding() {
           ))}
         </div>
       </section>
+
+      <ServiceFaq
+        items={SEO_BY_PATH['/services/personal-branding'].faqs}
+        eyebrow="FAQ"
+        title="Personal Branding FAQs"
+        intro="Answers about personal brand strategy, professional positioning, LinkedIn optimization, content creation, industry authority, and expected timelines."
+      />
 
       <section className="pb-cta reveal">
         <div className="pb-cta-icon"><i className="fa-solid fa-rocket" aria-hidden="true" /></div>

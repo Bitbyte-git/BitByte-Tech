@@ -34,14 +34,18 @@ function Navbar({
         >
           <img
             className="navbar-brand-logo"
-            src="/assets/optimized/BITBYTE-LOGO-BG.png"
-            alt="BitByte Technologies"
-            width="1271"
-            height="703"
+            src="/showcase-assets/BB-Logo.png"
+            alt=""
+            width="488"
+            height="335"
             loading="eager"
             decoding="async"
             fetchPriority="high"
           />
+          <span className="navbar-brand-text" aria-hidden="true">
+            <strong>Bit Byte</strong>
+            <small>Technologies</small>
+          </span>
         </a>
         <ul className="nav-links">
           {navLinks.filter((link) => link.key !== "showcase").map(({ href, key, label }) => (

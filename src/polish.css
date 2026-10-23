@@ -1266,3 +1266,34 @@ footer {
   white-space: nowrap;
   overflow: hidden;
 }
+
+/* Keep routed page content clear of the floating navbar.
+   These overrides intentionally come last because a few service pages include
+   their own component-level responsive styles. */
+.webapp-page,
+.sales-page,
+.ir-page,
+.pb-page,
+.careers-page {
+  padding-top: 132px !important;
+}
+
+@media (max-width: 900px) {
+  .webapp-page,
+  .sales-page,
+  .ir-page,
+  .pb-page,
+  .careers-page {
+    padding-top: 112px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .webapp-page,
+  .sales-page,
+  .ir-page,
+  .pb-page,
+  .careers-page {
+    padding-top: 100px !important;
+  }
+}

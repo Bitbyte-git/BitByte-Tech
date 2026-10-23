@@ -293,8 +293,7 @@ export default function App() {
     pathname === "/services/imagination-to-reality";
   const isRealTimeSalesPage = pathname === "/services/real-time-sales-data";
   const isPersonalBrandingPage = pathname === "/services/personal-branding";
-  const needsSeoFaq = pathname === "/" || isPersonalBrandingPage
-    || isImaginationToRealityPage || isRealTimeSalesPage;
+  const needsSeoFaq = pathname === "/" || isWebDevelopmentPage;
   const isServiceDetailPage =
     isWebDevelopmentPage ||
     isCustomWebAppPage ||
@@ -321,6 +320,28 @@ export default function App() {
       : activeSection;
 
   useLandingEffects({ setNavStuck });
+
+  // Prevent the browser from reopening routed pages at a scroll position
+  // retained from the previously visited page. Hash links are left alone so
+  // links such as /#services can still scroll to their intended section.
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    if (window.location.hash) return undefined;
+
+    const resetScroll = () => window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    resetScroll();
+
+    const frameId = window.requestAnimationFrame(resetScroll);
+    const timeoutId = window.setTimeout(resetScroll, 100);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.clearTimeout(timeoutId);
+    };
+  }, [pathname]);
 
   const focusService = useCallback((serviceId = "all") => {
     window.clearTimeout(serviceHighlightTimeoutRef.current);
@@ -613,6 +634,14 @@ export default function App() {
               <Testimonials />
             </Suspense>
           </DeferredSection>
+          <DeferredSection sectionId="faq" className="section wrap home-faq-section" minHeight={500}>
+            <ServiceFaq
+              items={SEO_BY_PATH["/"].faqs}
+              eyebrow="FAQ"
+              title="Frequently Asked Questions"
+              intro="Quick answers about our web development, custom applications, SEO, and project collaboration services."
+            />
+          </DeferredSection>
           <DeferredSection sectionId="contact" className="section wrap" minHeight={820}>
             <Suspense fallback={<SectionFallback />}>
               <Contact />
@@ -626,10 +655,23 @@ export default function App() {
           
         </>
       )}
-      {needsSeoFaq && SEO_BY_PATH[pathname]?.faqs?.length ? (
-        <main className="wrap">
-          <ServiceFaq items={SEO_BY_PATH[pathname].faqs} />
-        </main>
+      {pathname !== "/" && needsSeoFaq && SEO_BY_PATH[pathname]?.faqs?.length ? (
+        <div className="wrap">
+          <ServiceFaq
+            items={SEO_BY_PATH[pathname].faqs}
+            eyebrow={isWebDevelopmentPage || isPersonalBrandingPage ? "FAQ" : undefined}
+            title={isWebDevelopmentPage
+              ? "Web Development FAQs"
+              : isPersonalBrandingPage
+                ? "Personal Branding FAQs"
+                : undefined}
+            intro={isWebDevelopmentPage
+              ? "Answers about our website development process, pricing, timelines, custom applications, eCommerce, redesigns, and ongoing support."
+              : isPersonalBrandingPage
+                ? "Answers about personal brand strategy, professional positioning, LinkedIn optimization, content creation, industry authority, and expected timelines."
+                : undefined}
+          />
+        </div>
       ) : null}
       {!isShowcasePage && (
         <>
