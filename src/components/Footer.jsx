@@ -1,6 +1,5 @@
 import { services, socialIcons } from "../constants";
 import { useTranslation } from "../i18n";
-import Logo from "./Logo";
 import VisitorCounter from "./VisitorCounter";
 
 export default function Footer({ rootLinks = false }) {
@@ -74,7 +73,15 @@ export default function Footer({ rootLinks = false }) {
             style={{ display: "inline-flex" }}
             aria-label="Bit Byte Technologies home"
           >
-            <Logo height={64} loading="lazy" fetchPriority="low" />
+            <img
+              className="logo-img"
+              src="/assets/optimized/BITBYTE-LOGO-BG.png"
+              alt=""
+              width="488"
+              height="335"
+              loading="lazy"
+              decoding="async"
+            />
             <div className="footer-logo-txt">
               <em>Bit Byte</em>
               <p>Technologies</p>

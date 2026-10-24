@@ -34,7 +34,7 @@ function Navbar({
         >
           <img
             className="navbar-brand-logo"
-            src="/showcase-assets/BB-Logo.png"
+            src="/assets/optimized/BITBYTE-LOGO-BG.png"
             alt=""
             width="488"
             height="335"
