@@ -20,7 +20,10 @@ export default function Contact() {
     [
       "📍",
       "Address",
-      "Bit Byte Technologies 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
+      [
+        "Bit Byte Technologies",
+        "2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
+      ],
     ],
     ["🏛️", "GST No", "33BLNPN5359J1ZL"],
     ["🏭", "MSME Udhyam No:", "UDYAM-TN-20-0234773"],
@@ -45,7 +48,13 @@ export default function Contact() {
             <div className="cinfo-icon">{cIcon}</div>
             <div className="cinfo-copy">
               <div className="cinfo-lbl">{label}</div>
-              <div className="cinfo-val">{value}</div>
+              <div className="cinfo-val">
+                {Array.isArray(value)
+                  ? value.map((line) => (
+                      <span className="cinfo-val-line" key={line}>{line}</span>
+                    ))
+                  : value}
+              </div>
             </div>
           </div>
         ))}

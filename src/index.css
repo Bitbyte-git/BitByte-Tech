@@ -2690,6 +2690,12 @@ body {
   color: var(--white60);
   margin-top: 3px;
 }
+.cinfo-val-line {
+  display: block;
+}
+.cinfo-val-line + .cinfo-val-line {
+  margin-top: 6px;
+}
 .social-row {
   display: flex;
   gap: 12px;
