@@ -171,7 +171,7 @@ export default function CareerAdminPage() {
           <div className="career-admin-badge">
             <i className="fa-solid fa-user-shield" aria-hidden="true" />
           </div>
-          <span className="career-pill">BB Workspace</span>
+          <span className="career-pill">Bit Byte Internal</span>
           <h1>Career Admin</h1>
           <p>Enter the admin secret key to view career applications and resumes.</p>
 

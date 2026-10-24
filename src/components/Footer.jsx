@@ -24,7 +24,7 @@ export default function Footer({ rootLinks = false }) {
         "Bit Byte Technologies",
         " 2nd Floor, Raja Complex West Wing, Opp: Sago Serve, Omalur Main Road, Salem-636302, Tamil Nadu, India.",
         "GST No: 33BLNPN5359J1ZL",
-        "Udyam No: UDYAM-TN-20-0234773",
+        "MSME Udhyam No: UDYAM-TN-20-0234773",
         "reachus@bitbytetech.org",
         "+91 99437 43136 (Only Whatsapp) ",
         "Privacy Policy",

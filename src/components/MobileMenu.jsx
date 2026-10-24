@@ -105,7 +105,7 @@ function MobileMenu({
           style={{ width: "100%", display: "flex", justifyContent: "space-between", alignItems: "center" }}
           onClick={() => setWorkspaceOpen(!workspaceOpen)}
         >
-          <span>BB Workspace</span>
+          <span>Bit Byte Internal</span>
           <i className={`fa-solid fa-chevron-${workspaceOpen ? "up" : "down"}`} aria-hidden="true" />
         </button>
         {workspaceOpen && (
@@ -137,7 +137,7 @@ function MobileMenu({
               }}
             >
               <i className="fa-solid fa-briefcase" style={{ color: "var(--teal)" }} aria-hidden="true" />
-              Showcase
+              Bit Byte Web Showcase
             </button>
             <button
               type="button"
@@ -157,7 +157,7 @@ function MobileMenu({
               }}
             >
               <i className="fa-solid fa-lock" style={{ color: "var(--teal)" }} aria-hidden="true" />
-              HRMS Login
+              Bit Byte HRMS Login
             </button>
             <button
               type="button"
@@ -177,7 +177,7 @@ function MobileMenu({
               }}
             >
               <i className="fa-solid fa-file-invoice-dollar" style={{ color: "var(--teal)" }} aria-hidden="true" />
-              Billing
+              Bit Byte Billing
             </button>
             <button
               type="button"
@@ -197,7 +197,7 @@ function MobileMenu({
               }}
             >
               <i className="fa-solid fa-user-shield" style={{ color: "var(--teal)" }} aria-hidden="true" />
-              Career Admin
+              Bit Byte Career Admin
             </button>
           </div>
         )}

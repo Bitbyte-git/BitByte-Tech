@@ -338,20 +338,22 @@ input, textarea, select {
   .testimonial-stage {
     width: 100%;
     max-width: 100%;
-    height: 355px;
+    height: 395px;
   }
   .testimonial-card.active {
     width: calc(100% - 20px);
     max-width: calc(100% - 20px);
-    height: 340px;
+    height: 375px;
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) 115px;
+    grid-template-rows: 120px minmax(0, 1fr);
     border-radius: 20px;
   }
   .testimonial-copy {
+    grid-row: 2;
     justify-content: flex-start;
     gap: 12px;
-    padding: 18px 20px 12px;
+    padding: 16px 20px 18px;
+    overflow: visible;
   }
   .testimonial-copy h3 {
     font-size: clamp(23px, 6.5vw, 27px);
@@ -376,10 +378,11 @@ input, textarea, select {
     white-space: normal;
   }
   .testimonial-logo-wrap {
+    grid-row: 1;
     width: auto;
     min-width: 0;
     min-height: 0;
-    margin: 4px 10px 10px;
+    margin: 10px 10px 4px;
     border-radius: 15px;
     transform: none !important;
     background: #fff;
@@ -411,14 +414,20 @@ input, textarea, select {
   .testimonials-heading p {
     font-size: 12px;
   }
-  .testimonial-stage { height: 345px; }
+  .testimonial-stage { height: 370px; }
   .testimonial-card.active {
     width: calc(100% - 12px);
     max-width: calc(100% - 12px);
-    height: 330px;
-    grid-template-rows: minmax(0, 1fr) 110px;
+    height: 350px;
+    grid-template-rows: 105px minmax(0, 1fr);
   }
-  .testimonial-copy { padding: 20px 17px 12px; gap: 10px; }
+  .testimonial-copy { padding: 14px 17px 16px; gap: 8px; }
+  .testimonial-copy h3 {
+    font-size: clamp(21px, 6.2vw, 25px);
+  }
+  .testimonial-person {
+    margin-top: 6px;
+  }
 }
 
 html[lang="ta"],

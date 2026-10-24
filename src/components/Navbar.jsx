@@ -94,7 +94,7 @@ function Navbar({
               className="btn-workspace-trigger"
               onClick={() => setDropdownOpen(!dropdownOpen)}
             >
-              <span>BB Workspace</span>
+              <span>Bit Byte Internal</span>
               <span className="dropdown-arrow" aria-hidden="true">⌄</span>
             </button>
             <div className="workspace-dropdown-menu">
@@ -106,7 +106,7 @@ function Navbar({
                 }}
               >
                 <span className="workspace-menu-icon" aria-hidden="true">SC</span>
-                <span>Showcase</span>
+                <span>Bit Byte Web Showcase</span>
               </button>
               <button 
                 type="button" 
@@ -116,7 +116,7 @@ function Navbar({
                 }}
               >
                 <span className="workspace-menu-icon" aria-hidden="true">LK</span>
-                <span>HRMS Login</span>
+                <span>Bit Byte HRMS Login</span>
               </button>
               <button
                 type="button"
@@ -126,7 +126,7 @@ function Navbar({
                 }}
               >
                 <span className="workspace-menu-icon" aria-hidden="true">IN</span>
-                <span>Billing</span>
+                <span>Bit Byte Billing</span>
               </button>
               <button
                 type="button"
@@ -136,7 +136,7 @@ function Navbar({
                 }}
               >
                 <span className="workspace-menu-icon" aria-hidden="true">AD</span>
-                <span>Career Admin</span>
+                <span>Bit Byte Career Admin</span>
               </button>
             </div>
           </div>
