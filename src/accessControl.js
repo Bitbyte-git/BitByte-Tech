@@ -30,7 +30,7 @@ export const PROTECTED_DESTINATIONS = {
     name: "Billing",
     storageKey: "billingAccess",
     route: "/billing",
-    redirectUrl: "https://bit-byte-billing-client.vercel.app",
+    redirectUrl: "https://billing.bitbytetech.org",
     title: "Secure Billing Access",
     subtitle: "Authorized Finance Access Only",
     code: ACCESS_CODES.billing,
