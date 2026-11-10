@@ -11,11 +11,6 @@ const LANGUAGE_STORAGE_KEY = 'bitbyte.googleTranslateLanguage'
 const SUPPORTED_LANGUAGE_CODES = new Set(['en', 'ta', 'hi', 'te', 'kn'])
 
 function getSavedLanguage() {
-  const params = new URLSearchParams(window.location.search)
-  const requestedLanguage = params.get('lng') || params.get('lang')
-
-  if (SUPPORTED_LANGUAGE_CODES.has(requestedLanguage)) return requestedLanguage
-
   const storedLanguage = window.localStorage.getItem(LANGUAGE_STORAGE_KEY)
   return SUPPORTED_LANGUAGE_CODES.has(storedLanguage) ? storedLanguage : PAGE_LANGUAGE
 }
@@ -294,7 +289,7 @@ function Hero({ planetRef }) {
           >
             {t('hero.primary')} <span className="arr">→</span>
           </button>
-          <a href="#contact" className="btn-ghost" title="Go to contact">
+          <a href="/contact" className="btn-ghost" title="Go to contact">
             {t('hero.secondary')} <span className="arr">→</span>
           </a>
         </div>

@@ -12,11 +12,6 @@ const googleTranslateLanguages = [
 const supportedCodes = new Set(googleTranslateLanguages.map((language) => language.code))
 
 function getSavedGoogleTranslateLanguage() {
-  const params = new URLSearchParams(window.location.search)
-  const requestedLanguage = params.get('lng') || params.get('lang')
-
-  if (supportedCodes.has(requestedLanguage)) return requestedLanguage
-
   const storedLanguage = window.localStorage.getItem(STORAGE_KEY)
   return supportedCodes.has(storedLanguage) ? storedLanguage : PAGE_LANGUAGE
 }

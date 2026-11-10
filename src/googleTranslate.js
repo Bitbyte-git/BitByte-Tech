@@ -60,11 +60,22 @@ function writeTranslateCookie(code) {
   })
 }
 
-function clearTranslateCookie() {
-  getCookieDomains().forEach((domain) => {
+export function clearTranslateCookie() {
+  const domains = [null, window.location.hostname, `.${window.location.hostname}`]
+  domains.forEach((domain) => {
     const domainPart = domain ? `; domain=${domain}` : ''
     document.cookie = `${TRANSLATE_COOKIE}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT${domainPart}`
+    document.cookie = `${TRANSLATE_COOKIE}=; expires=Thu, 01 Jan 1970 00:00:00 GMT${domainPart}`
   })
+}
+
+export function resetToEnglish() {
+  if (typeof window === 'undefined') return
+  window.localStorage.removeItem(STORAGE_KEY)
+  window.localStorage.setItem(STORAGE_KEY, PAGE_LANGUAGE)
+  document.documentElement.lang = PAGE_LANGUAGE
+  clearTranslateCookie()
+  dispatchLanguageChange(PAGE_LANGUAGE)
 }
 
 function persistLanguage(code) {
@@ -142,13 +153,6 @@ function initializeGoogleTranslate() {
 
 export function getSavedGoogleTranslateLanguage() {
   if (typeof window === 'undefined') return PAGE_LANGUAGE
-
-  const params = new URLSearchParams(window.location.search)
-  const requestedLanguage = params.get('lng') || params.get('lang')
-
-  if (supportedCodes.has(requestedLanguage)) {
-    return requestedLanguage
-  }
 
   return normalizeLanguage(window.localStorage.getItem(STORAGE_KEY))
 }

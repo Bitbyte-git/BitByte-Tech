@@ -1,5 +1,6 @@
 {
   "version": 2,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/assets/(.*)",
@@ -63,6 +64,38 @@
           "value": "nosniff"
         }
       ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/fsd.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/fsd",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/fsd-html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/fds-html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/fds.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/fds",
+      "destination": "/",
+      "permanent": true
     }
   ],
   "rewrites": [

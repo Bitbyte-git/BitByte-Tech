@@ -42,7 +42,7 @@ export default function Footer({ rootLinks = false }) {
 
   const hrefFor = (item) => {
     const map = {
-      "About Us": "#founder",
+      "About Us": "#about",
 
       Careers: "/careers",
 

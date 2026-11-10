@@ -258,9 +258,9 @@ export default function RealTimeSales() {
     <main className="sales-page wrap">
       <section className="sales-hero">
         <div className="sales-breadcrumb reveal">
-          <a href="/#hero" title="Go to home">Home</a>
+          <a href="/" title="Go to home">Home</a>
           <span>&gt;</span>
-          <a href="/#services" title="Go to home">Services</a>
+          <a href="/services" title="Go to home">Services</a>
           <span>&gt;</span>
           <strong>Real Time Sales Data Driven Solution</strong>
         </div>
@@ -294,7 +294,7 @@ export default function RealTimeSales() {
               <a className="btn-primary" href="#sales-dashboard-demo" title="Go to sales dashboard demo">
                 Explore Dashboard Demo <span className="arr">&rarr;</span>
               </a>
-              <a className="btn-ghost" href="/#contact" title="Go to home">Talk to Our Experts</a>
+              <a className="btn-ghost" href="/contact" title="Go to home">Talk to Our Experts</a>
             </div>
           </div>
 
@@ -406,7 +406,7 @@ export default function RealTimeSales() {
 
         <article className="sales-consult-card">
           <h2>Ready to Get Real-Time Business Insights?</h2>
-          <a className="btn-primary" href="/#contact" title="Go to home">Book a Free Consultation <span className="arr">&rarr;</span></a>
+          <a className="btn-primary" href="/contact" title="Go to home">Book a Free Consultation <span className="arr">&rarr;</span></a>
           <p><i className="fa-solid fa-circle-check" aria-hidden="true" /> No obligation. Just better insights.</p>
         </article>
       </section>

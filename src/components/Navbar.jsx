@@ -28,9 +28,10 @@ function Navbar({
     <>
       <nav id="navbar" className={stuck ? "stuck" : ""}>
         <a
-          href={hrefFor("#hero")}
+          href="/"
           className="logo-wrap"
           aria-label="Bit Byte Technologies home"
+          onClick={(event) => onNavClick?.(event, "/", "home")}
         >
           <img
             className="navbar-brand-logo"
@@ -40,7 +41,7 @@ function Navbar({
             height="335"
             loading="eager"
             decoding="async"
-            fetchPriority="high"
+            fetchpriority="high"
           />
           <span className="navbar-brand-text" aria-hidden="true">
             <strong>Bit Byte</strong>

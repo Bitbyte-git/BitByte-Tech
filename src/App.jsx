@@ -265,7 +265,14 @@ export default function App() {
 
     setWorkspaceAccessApp(appKey);
   }, []);
-  const pathname = window.location.pathname.replace(/\/$/, "") || "/";
+  const SECTION_BY_PATH = {
+    "/": "home",
+    "/services": "services",
+    "/about": "about",
+    "/contact": "contact",
+  };
+
+  const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
   const protectedDestination = destinationForPath(pathname);
   const isWebDevelopmentPage = pathname === "/services/web-development";
   const isCustomWebAppPage =
@@ -317,19 +324,75 @@ export default function App() {
       ? "showcase"
     : isServiceDetailPage
       ? "services"
-      : activeSection;
+      : SECTION_BY_PATH[pathname] || activeSection;
 
   useLandingEffects({ setNavStuck });
 
+  // Strip trailing slashes on all completed routes (e.g., /contact/ -> /contact)
+  useEffect(() => {
+    if (window.location.pathname.length > 1 && window.location.pathname.endsWith("/")) {
+      const cleanPath = window.location.pathname.replace(/\/+$/, "");
+      window.history.replaceState(null, "", cleanPath + window.location.search);
+    }
+  }, []);
+
+  // Strip and disable ?lng= and ?lang= URL parameters, and clean lingering auto-translation
+  useEffect(() => {
+    const hasLangParam = window.location.search.includes("lng=") || window.location.search.includes("lang=");
+    const storedLang = window.localStorage.getItem("bitbyte.googleTranslateLanguage");
+
+    if (hasLangParam || storedLang === "kn") {
+      window.localStorage.removeItem("bitbyte.googleTranslateLanguage");
+      window.localStorage.setItem("bitbyte.googleTranslateLanguage", "en");
+
+      [null, window.location.hostname, `.${window.location.hostname}`].forEach((domain) => {
+        const domainPart = domain ? `; domain=${domain}` : "";
+        document.cookie = `googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT${domainPart}`;
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT${domainPart}`;
+      });
+
+      document.documentElement.lang = "en";
+      window.dispatchEvent(new CustomEvent("bitbyte:languagechange", { detail: { code: "en" } }));
+
+      if (hasLangParam) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("lng");
+        url.searchParams.delete("lang");
+        const cleanSearch = url.searchParams.toString() ? `?${url.searchParams.toString()}` : "";
+        window.history.replaceState(null, "", url.pathname + cleanSearch);
+      }
+
+      if (document.documentElement.classList.contains("translated-ltr")) {
+        window.location.reload();
+      }
+    }
+  }, []);
+
+  // Disable legacy/invalid routes like /fds-html, /fsd.html and redirect immediately to home
+  useEffect(() => {
+    const disabledRoutes = new Set([
+      "/fds-html",
+      "/fsd-html",
+      "/fsd.html",
+      "/fds.html",
+      "/fsd",
+      "/fds",
+    ]);
+    const rawPath = window.location.pathname.replace(/\/+$/, "") || "/";
+    if (disabledRoutes.has(rawPath)) {
+      window.history.replaceState(null, "", "/");
+      window.location.replace("/");
+    }
+  }, []);
+
   // Prevent the browser from reopening routed pages at a scroll position
-  // retained from the previously visited page. Hash links are left alone so
-  // links such as /#services can still scroll to their intended section.
+  // retained from the previously visited page.
   useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
 
-    if (window.location.hash) return undefined;
+    if (window.location.hash || SECTION_BY_PATH[pathname]) return undefined;
 
     const resetScroll = () => window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     resetScroll();
@@ -355,7 +418,11 @@ export default function App() {
   }, []);
 
   const scrollToHash = useCallback((hash) => {
-    const target = document.getElementById(hash.replace("#", ""));
+    const rawId = hash.replace("#", "");
+    const target =
+      document.getElementById(rawId) ||
+      (rawId === "about" ? document.getElementById("founder") : null) ||
+      (rawId === "founder" ? document.getElementById("about") : null);
     if (!target) return;
 
     const prefersReducedMotion = window.matchMedia(
@@ -375,14 +442,44 @@ export default function App() {
         return;
       }
 
-      if (!href.startsWith("#") || isRoutedPage) return;
+      const cleanHref = href.replace(/\/+$/, "") || "/";
+      const targetSection = SECTION_BY_PATH[cleanHref];
 
-      event.preventDefault();
-      setActiveSection(key);
-      scrollToHash(href);
+      if (targetSection && !isRoutedPage) {
+        event.preventDefault();
+        setActiveSection(targetSection);
 
-      if (key === "services") {
-        focusService("all");
+        if (window.location.pathname !== cleanHref) {
+          window.history.pushState(null, "", cleanHref);
+        }
+
+        if (targetSection === "home") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          const target =
+            document.getElementById(targetSection) ||
+            (targetSection === "about" ? document.getElementById("founder") : null);
+          if (target) {
+            const prefersReducedMotion = window.matchMedia(
+              "(prefers-reduced-motion: reduce)",
+            ).matches;
+            target.scrollIntoView({
+              behavior: prefersReducedMotion ? "auto" : "smooth",
+              block: "start",
+            });
+          }
+          if (targetSection === "services") {
+            focusService("all");
+          }
+        }
+        return;
+      }
+
+      if (href.startsWith("#") && !isRoutedPage) {
+        event.preventDefault();
+        setActiveSection(key);
+        scrollToHash(href);
+        return;
       }
     },
     [focusService, isRoutedPage, openWorkspaceAccess, scrollToHash],
@@ -409,19 +506,21 @@ export default function App() {
     [],
   );
 
-  // When arriving at the home page from a service-page link like /#services,
-  // the target section may not yet be in the DOM (lazy Suspense). Poll until
-  // it appears, then scroll to it exactly once per page load.
+  // When arriving at the home page or directly visiting /services, /about, /contact,
+  // scroll to the target section once it appears in the DOM.
   useEffect(() => {
-    if (isRoutedPage) return;
+    if (isRoutedPage) return undefined;
+
     const hash = window.location.hash;
-    if (!hash) return;
+    const targetKey = SECTION_BY_PATH[pathname] || (hash ? hash.replace("#", "") : null);
+    if (!targetKey || targetKey === "home") return undefined;
 
-    const id = hash.replace("#", "");
     let attempts = 0;
-
     const interval = setInterval(() => {
-      const el = document.getElementById(id);
+      const el =
+        document.getElementById(targetKey) ||
+        (targetKey === "about" ? document.getElementById("founder") : null) ||
+        (targetKey === "founder" ? document.getElementById("about") : null);
       if (el) {
         clearInterval(interval);
         const prefersReducedMotion = window.matchMedia(
@@ -436,16 +535,94 @@ export default function App() {
     }, 120);
 
     return () => clearInterval(interval);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // intentionally run only once on mount
+  }, [pathname, isRoutedPage]);
+
+  // Support browser Back/Forward buttons across section routes (/ , /services, /about, /contact)
+  useEffect(() => {
+    if (isRoutedPage) return undefined;
+
+    const handlePopState = () => {
+      const currentPath = window.location.pathname.replace(/\/+$/, "") || "/";
+      const targetKey = SECTION_BY_PATH[currentPath];
+      if (targetKey) {
+        setActiveSection(targetKey);
+        if (targetKey === "home") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          const target =
+            document.getElementById(targetKey) ||
+            (targetKey === "about" ? document.getElementById("founder") : null);
+          if (target) {
+            const prefersReducedMotion = window.matchMedia(
+              "(prefers-reduced-motion: reduce)",
+            ).matches;
+            target.scrollIntoView({
+              behavior: prefersReducedMotion ? "auto" : "smooth",
+              block: "start",
+            });
+          }
+        }
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [isRoutedPage]);
 
   useEffect(() => {
     if (isRoutedPage) return undefined;
 
-    const sectionIds = ["hero", "services", "founder", "contact"];
+    const handleAnchorClick = (e) => {
+      const anchor = e.target.closest(
+        'a[href^="/contact"], a[href^="/about"], a[href^="/services"], a[href^="#"]',
+      );
+      if (!anchor) return;
+      const rawHref = anchor.getAttribute("href");
+      if (!rawHref) return;
+
+      const cleanHref = rawHref.replace(/\/+$/, "") || "/";
+      const targetSection =
+        SECTION_BY_PATH[cleanHref] ||
+        (cleanHref.startsWith("#") ? cleanHref.replace("#", "") : null);
+
+      if (targetSection) {
+        const dest = targetSection === "founder" ? "about" : targetSection;
+        const target =
+          document.getElementById(dest) ||
+          (dest === "about" ? document.getElementById("founder") : null);
+
+        if (target) {
+          e.preventDefault();
+          setActiveSection(dest);
+
+          const newPath = SECTION_BY_PATH[cleanHref] ? cleanHref : `/${dest}`;
+          if (window.location.pathname !== newPath) {
+            window.history.pushState(null, "", newPath);
+          }
+
+          const prefersReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+          ).matches;
+          target.scrollIntoView({
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+            block: "start",
+          });
+        }
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+    return () => document.removeEventListener("click", handleAnchorClick);
+  }, [isRoutedPage]);
+
+  useEffect(() => {
+    if (isRoutedPage) return undefined;
+
+    const sectionIds = ["hero", "services", "about", "founder", "contact"];
     const keyById = {
       hero: "home",
       services: "services",
+      about: "about",
       founder: "about",
       contact: "contact",
     };
