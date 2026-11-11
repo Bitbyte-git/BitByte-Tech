@@ -8,6 +8,8 @@ import {
 } from "react";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
+import Services from "./components/Services";
+import Founder from "./components/Founder";
 import useLandingEffects from "./components/useLandingEffects";
 import Seo from "./seo";
 import { SEO_BY_PATH } from "./seo";
@@ -21,9 +23,7 @@ import {
   revokeAllAccess,
 } from "./accessControl";
 
-const Services = lazy(() => import("./components/Services"));
 const MobileMenu = lazy(() => import("./components/MobileMenu"));
-const Founder = lazy(() => import("./components/Founder"));
 const WhyUs = lazy(() => import("./components/WhyUs"));
 const Testimonials = lazy(() => import("./components/Testimonials"));
 const Contact = lazy(() => import("./components/Contact"));
@@ -248,7 +248,15 @@ export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [workspaceAccessApp, setWorkspaceAccessApp] = useState(null);
   const [navStuck, setNavStuck] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const SECTION_BY_PATH = {
+    "/": "home",
+    "/services": "services",
+    "/about": "about",
+    "/contact": "contact",
+  };
+
+  const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
+  const [activeSection, setActiveSection] = useState(() => SECTION_BY_PATH[pathname] || "home");
   const [activeServiceId, setActiveServiceId] = useState(null);
   const delayedReady = useDelayedReady(12000);
 
@@ -265,14 +273,6 @@ export default function App() {
 
     setWorkspaceAccessApp(appKey);
   }, []);
-  const SECTION_BY_PATH = {
-    "/": "home",
-    "/services": "services",
-    "/about": "about",
-    "/contact": "contact",
-  };
-
-  const pathname = window.location.pathname.replace(/\/+$/, "") || "/";
   const protectedDestination = destinationForPath(pathname);
   const isWebDevelopmentPage = pathname === "/services/web-development";
   const isCustomWebAppPage =
@@ -324,16 +324,50 @@ export default function App() {
       ? "showcase"
     : isServiceDetailPage
       ? "services"
-      : SECTION_BY_PATH[pathname] || activeSection;
+      : activeSection;
 
   useLandingEffects({ setNavStuck });
 
-  // Strip trailing slashes on all completed routes (e.g., /contact/ -> /contact)
+  // Strip trailing slashes on all completed routes (e.g., /services/web-development/ -> /services/web-development, /careers/ -> /careers)
+  // and convert legacy hash routes (#hero -> /, #founder/#about -> /about, #services -> /services, #contact -> /contact)
   useEffect(() => {
+    const HASH_TO_PATH = {
+      "#hero": "/",
+      "#services": "/services",
+      "#about": "/about",
+      "#founder": "/about",
+      "#contact": "/contact",
+    };
+
+    const handleHash = () => {
+      const currentHash = window.location.hash;
+      if (HASH_TO_PATH[currentHash]) {
+        const targetPath = HASH_TO_PATH[currentHash];
+        const targetId = currentHash === "#founder" || currentHash === "#about" ? "founder" : currentHash.replace("#", "");
+        window.history.replaceState(null, "", targetPath + window.location.search);
+        const targetElement = document.getElementById(targetId) || (targetId === "founder" ? document.getElementById("about") : null);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else if (currentHash && currentHash.length > 1 && !currentHash.startsWith("#/")) {
+        const clean = currentHash.replace("#", "").replace(/\/+$/, "");
+        if (clean === "contact" || clean === "about" || clean === "services" || clean === "careers") {
+          window.history.replaceState(null, "", `/${clean}` + window.location.search);
+          const el = document.getElementById(clean) || (clean === "about" ? document.getElementById("founder") : null);
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    };
+
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+
     if (window.location.pathname.length > 1 && window.location.pathname.endsWith("/")) {
       const cleanPath = window.location.pathname.replace(/\/+$/, "");
       window.history.replaceState(null, "", cleanPath + window.location.search);
     }
+
+    return () => window.removeEventListener("hashchange", handleHash);
   }, []);
 
   // Strip and disable ?lng= and ?lang= URL parameters, and clean lingering auto-translation
@@ -443,22 +477,23 @@ export default function App() {
       }
 
       const cleanHref = href.replace(/\/+$/, "") || "/";
-      const targetSection = SECTION_BY_PATH[cleanHref];
+      const targetSection = SECTION_BY_PATH[cleanHref] || key;
 
       if (targetSection && !isRoutedPage) {
         event.preventDefault();
         setActiveSection(targetSection);
 
-        if (window.location.pathname !== cleanHref) {
-          window.history.pushState(null, "", cleanHref);
+        const newPath = cleanHref === "/" ? "/" : `/${targetSection}`;
+        if (window.location.pathname !== newPath) {
+          window.history.pushState(null, "", newPath);
         }
 
         if (targetSection === "home") {
           window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
           const target =
-            document.getElementById(targetSection) ||
-            (targetSection === "about" ? document.getElementById("founder") : null);
+            (targetSection === "about" ? document.getElementById("founder") : null) ||
+            document.getElementById(targetSection);
           if (target) {
             const prefersReducedMotion = window.matchMedia(
               "(prefers-reduced-motion: reduce)",
@@ -495,7 +530,7 @@ export default function App() {
       scrollToHash("#services");
 
       if (window.history?.replaceState) {
-        window.history.replaceState(null, "", "#services");
+        window.history.replaceState(null, "", "/services");
       }
     },
     [focusService, isRoutedPage, scrollToHash],
@@ -573,6 +608,8 @@ export default function App() {
     if (isRoutedPage) return undefined;
 
     const handleAnchorClick = (e) => {
+      if (e.target.closest("#navbar, #mobMenu")) return;
+
       const anchor = e.target.closest(
         'a[href^="/contact"], a[href^="/about"], a[href^="/services"], a[href^="#"]',
       );
@@ -781,21 +818,8 @@ export default function App() {
       ) : (
         <>
           <Hero planetRef={planetRef} />
-          <DeferredSection
-            sectionId="services"
-            className="section wrap center services-section"
-            minHeight={560}
-            rootMargin="-1px 0px"
-          >
-            <Suspense fallback={<SectionFallback />}>
-              <Services activeServiceId={activeServiceId} />
-            </Suspense>
-          </DeferredSection>
-          <DeferredSection sectionId="founder" className="section wrap bg-tint-1" minHeight={720}>
-            <Suspense fallback={<SectionFallback />}>
-              <Founder />
-            </Suspense>
-          </DeferredSection>
+          <Services activeServiceId={activeServiceId} />
+          <Founder />
           <DeferredSection
             sectionId="why"
             anchorIds={["showcase", "pricing"]}

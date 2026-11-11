@@ -20,6 +20,35 @@
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://bitbytetech.org/" />
     <script>
+      // Strip hashes immediately on page load and convert to clean paths (e.g., #contact -> /contact)
+      (function normalizeHashRoutes() {
+        function sanitize() {
+          var hash = window.location.hash;
+          var hashMap = {
+            '#hero': '/',
+            '#services': '/services',
+            '#about': '/about',
+            '#founder': '/about',
+            '#contact': '/contact'
+          };
+          if (hashMap[hash]) {
+            window.history.replaceState(null, '', hashMap[hash] + window.location.search);
+          } else if (hash && hash.length > 1 && !hash.startsWith('#/')) {
+            var section = hash.replace('#', '').replace(/\/+$/, '');
+            if (section === 'founder') section = 'about';
+            if (section === 'hero') section = '';
+            if (section === '' || section === 'about' || section === 'contact' || section === 'services' || section === 'careers') {
+              window.history.replaceState(null, '', '/' + section + window.location.search);
+            }
+          }
+          if (window.location.pathname.length > 1 && window.location.pathname.endsWith('/')) {
+            window.history.replaceState(null, '', window.location.pathname.replace(/\/+$/, '') + window.location.search);
+          }
+        }
+        sanitize();
+        window.addEventListener('hashchange', sanitize);
+      })();
+
       // Route-specific SEO from BBT - SEO (3).xlsx, Sheet1.
       // This runs in the document head so every SPA route receives its own
       // title, description, keywords, canonical URL, and robots directive.

@@ -220,7 +220,7 @@ export default function Hero() {
                 <span className="inline-block ml-1.5 group-hover:translate-x-1 transition-transform duration-200">→</span>
               </a>
               <a
-                href="/showcase/#contact"
+                href="/contact"
                 className="px-5 py-3 text-sm bg-white/5 border border-white/15 text-white font-bold rounded-xl hover:bg-white/10 hover:border-white/30 transition-all duration-300 text-center backdrop-blur-sm"
                title="Go to showcase">
                 Get Free Quote

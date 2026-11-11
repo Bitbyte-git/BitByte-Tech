@@ -83,7 +83,7 @@ function CategoryCard({ site, index, onViewDesigns }) {
             View 7 Designs →
           </button>
           <a
-            href="/showcase/#contact"
+            href="/contact"
             title="Go to showcase contact"
             onClick={(e) => e.stopPropagation()}
             className="flex-1 py-2.5 text-center text-sm font-semibold text-gray-700 bg-gray-50 border border-gray-200 rounded-xl hover:bg-gray-100 hover:border-gray-300 transition-all duration-200"
@@ -136,7 +136,7 @@ export default function Showcase({ onViewDesigns }) {
             </p>
           </div>
           <a
-            href="/showcase/#contact"
+            href="/contact"
             className="flex-shrink-0 px-5 py-2.5 bg-gradient-to-r from-sky-300 to-emerald-300 text-navy-900 font-bold rounded-xl text-sm hover:opacity-90 transition-opacity shadow-lg shadow-cyan-950/20"
            title="Go to showcase">
             Get Free Quote →

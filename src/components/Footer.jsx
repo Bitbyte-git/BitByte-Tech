@@ -42,11 +42,10 @@ export default function Footer({ rootLinks = false }) {
 
   const hrefFor = (item) => {
     const map = {
-      "About Us": "#about",
-
+      "About Us": "/about",
       Careers: "/careers",
-
-      Contact: "#contact",
+      "Contact Us": "/contact",
+      Contact: "/contact",
       "web-app-development": "/services/web-development",
       "personal-branding": "/services/personal-branding",
       "digital-marketing":
@@ -58,7 +57,7 @@ export default function Footer({ rootLinks = false }) {
       "Privacy Policy": "/privacy-policy",
       "Terms & Conditions": "/terms-and-conditions",
     };
-    const href = map[item] || "#contact";
+    const href = map[item] || "/contact";
     if (href.startsWith("/")) return href;
     return rootLinks ? `/${href}` : href;
   };
@@ -68,7 +67,7 @@ export default function Footer({ rootLinks = false }) {
       <div className="footer-top">
         <div className="footer-brand">
           <a
-            href={hrefFor("#hero")}
+            href="/"
             className="logo-wrap"
             style={{ display: "inline-flex" }}
             aria-label="Bit Byte Technologies home"

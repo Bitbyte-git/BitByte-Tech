@@ -293,7 +293,7 @@ function ChosenModal({ design, category, accent, onClose }) {
             Back to Gallery
           </button>
           <a
-            href="/showcase/#contact"
+            href="/contact"
             onClick={onClose}
             className={`flex-1 py-3 text-center text-white font-bold rounded-xl bg-gradient-to-r ${accent} hover:opacity-90 transition-opacity text-sm shadow-lg`}
            title="Go to showcase">
@@ -352,7 +352,7 @@ export default function DesignGallery({ slug, categoryName, onBack }) {
 
           {/* CTA */}
           <a
-            href="/showcase/#contact"
+            href="/contact"
             onClick={onBack}
             className={`hidden sm:flex items-center gap-1.5 px-5 py-2 text-sm font-bold text-white rounded-xl bg-gradient-to-r ${data.accent} hover:opacity-90 transition-opacity shadow-md`}
            title="Go to showcase">

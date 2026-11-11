@@ -30,7 +30,7 @@ export default function Navbar() {
     { label: 'Showcase', href: '/showcase/website-showcase', hasDropdown: true },
     { label: 'Customization', href: '/showcase/#customization' },
     { label: 'Process', href: '/showcase/#process' },
-    { label: 'Contact', href: '/showcase/#contact' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   const showcaseLinks = [
