@@ -96,6 +96,11 @@
       "source": "/fds",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/services/web-development/e-commerce-solutions",
+      "destination": "/services/web-development/ecommerce-solutions",
+      "permanent": true
     }
   ],
   "rewrites": [

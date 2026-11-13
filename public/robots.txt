@@ -1,11 +1,11 @@
 User-agent: *
 Allow: /
 
-# Disallow non-SEO pages
-Disallow: /careers
-Disallow: /careers/apply
-Disallow: /privacy-policy
-Disallow: /terms-and-conditions
+# Block crawler access to translation query parameters
+Disallow: /*?lng=
+Disallow: /*?lang=
+Disallow: /*?*lng=
+Disallow: /*?*lang=
 
 # OpenAI / ChatGPT
 User-agent: OAI-SearchBot

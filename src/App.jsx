@@ -413,6 +413,11 @@ export default function App() {
       "/fds",
     ]);
     const rawPath = window.location.pathname.replace(/\/+$/, "") || "/";
+    if (rawPath === "/services/web-development/e-commerce-solutions") {
+      window.history.replaceState(null, "", "/services/web-development/ecommerce-solutions");
+      window.location.replace("/services/web-development/ecommerce-solutions");
+      return;
+    }
     if (disabledRoutes.has(rawPath)) {
       window.history.replaceState(null, "", "/");
       window.location.replace("/");
