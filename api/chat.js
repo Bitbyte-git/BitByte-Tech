@@ -1,4 +1,4 @@
-import { DEFAULT_MODEL, createChatReply } from "../server/chatCore.js";
+import { DEFAULT_MODEL, createChatReply, detectLanguage } from "../server/chatCore.js";
 
 async function parseRequestBody(req) {
   if (req.body) {
@@ -82,10 +82,14 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error("AI chat error:", error);
+    const lang = detectLanguage(message);
+    const fallbackReply = lang === "tanglish"
+      ? "BitByte Technologies Salem-la Custom Web Applications, Mobile Apps, AI Solutions, matrum Cloud Services provide panrom bro. Let's schedule a free discovery call—WhatsApp +91 99437 43136 or email reachus@bitbytetech.org."
+      : "BitByte Technologies delivers premier Custom Web Applications, Mobile Apps, AI Solutions, and Cloud Architecture. Schedule a free technical discovery call with our team via WhatsApp at +91 99437 43136 or email reachus@bitbytetech.org.";
+
     return res.status(200).json({
       success: true,
-      reply:
-        "BitByte Technologies Salem-la Custom Web Applications, Mobile Apps, AI Solutions, matrum Cloud Services provide panrom. Let's schedule a free discovery call—WhatsApp +91 99437 43136 or email reachus@bitbytetech.org.",
+      reply: fallbackReply,
       sources: [],
     });
   }

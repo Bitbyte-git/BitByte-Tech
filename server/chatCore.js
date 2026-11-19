@@ -14,9 +14,12 @@ export const MASTER_SYSTEM_PROMPT = `You are the official AI Technology Consulta
 • UNRELATED TOPICS REFUSAL (ZERO TOLERANCE):
   If a visitor asks any question unrelated to BitByte Technologies, our software engineering services, tech stacks, projects, careers, or company details (such as external politics, general trivia, cooking recipes, general jokes, external homework, or unrelated questions), POLITELY DECLINE with:
   "I am the dedicated AI Technology Consultant for BitByte Technologies. I can only assist with inquiries regarding our software engineering services, web & mobile app development, AI solutions, showcase projects, and career openings. How can our team help you with your next software project?"
-• ZERO TIMELINE & PAYMENT TALK WITHOUT EXPLICIT REQUEST:
-  NEVER discuss project timelines (e.g. weeks, months, sprints) or pricing/payment unless the user specifically asks "How long will it take?" or "How much does it cost?".
-  When a user asks for a website, web app, or mobile app, focus strictly on their requirements, highlight our technical capabilities for that specific service, and invite them to schedule a free technical discovery call with our architects via WhatsApp (+91 99437 43136) or email (reachus@bitbytetech.org).
+• PRICING & COST INQUIRIES (HOW MUCH / RATE / COST / TIMELINES):
+  - If a user asks about cost, rate, or pricing (e.g. "How much for website?", "cost evlo", "pricing details"):
+    NEVER invent fixed numbers or rates! Politely explain that pricing depends entirely on their specific business requirements, feature scope, and technology stack, and invite them to connect with our engineering team for a customized quote:
+    WhatsApp: +91 99437 43136 | Email: reachus@bitbytetech.org
+  - NEVER discuss project timelines (weeks/months) or costs UNLESS specifically asked!
+  - When a user asks for a service (e.g. "I need a website ?"), respond conversationally and directly to that specific request, highlight our relevant capabilities, and ask what type of website or system they wish to build!
 • MULTI-SERVICE DISTINCTION (CRITICAL - EACH SERVICE IS DISTINCT):
   BitByte Technologies provides multiple distinct digital engineering services. NEVER confuse or merge them:
   1. Website Development: High-performance business websites, marketing landing pages, corporate portals, and portfolio sites (built with React, Next.js, Tailwind CSS, WordPress). Fast, responsive, and SEO-optimized.
@@ -107,6 +110,23 @@ export function sanitizeFinalReply(text) {
   return clean;
 }
 
+/**
+ * Intelligent Language Detector:
+ * Categorizes user queries strictly into English, Tanglish, or Tamil script.
+ */
+export function detectLanguage(text) {
+  if (!text || typeof text !== "string") return "english";
+  if (/[\u0B80-\u0BFF]/.test(text)) return "tamil_script";
+
+  const TANGLISH_PATTERNS = /\b(enna|enga|engae|eppadi|evlo|kaasu|panam|vilai|velai|vela|neram|sevai|thodharbu|pesanum|pesalaama|pesalam|mudiyuma|pannalama|pannunga|panreenga|panrom|solu|sollu|solunga|kudu|kudunga|iruka|irukku|irukanga|yaaru|yaar|theriyuma|theriyum|ungalukku|ungaloda|unga|enoda|enakku|ennoda|nanga|naanga|neenga|nalla|romba|aama|illa|illai|vanakkam|nanri|kandippa|kooda|mattum|paaru|pathaya|bro|thambi|anna|akka)\b/i;
+
+  if (TANGLISH_PATTERNS.test(text)) {
+    return "tanglish";
+  }
+
+  return "english";
+}
+
 
 
 /**
@@ -121,12 +141,17 @@ export async function createChatReply(
   const history = Array.isArray(options.history) ? options.history : [];
   const trimmedMessage = String(message || "").trim();
 
+  const detectedLang = detectLanguage(trimmedMessage);
+
   // Instant zero-latency response for common greetings
   const isGreeting = /^(hi|hello|hey|vanakkam|hai|hoi|good\s*(morning|afternoon|evening)|howdy)\b/i.test(trimmedMessage);
   if (isGreeting && trimmedMessage.split(/\s+/).length <= 3) {
+    const greetingReply = detectedLang === "tanglish" || /^(vanakkam)\b/i.test(trimmedMessage)
+      ? "Vanakkam! BitByte Technologies-ku ungalai anbudan varaverkirom. Web Apps, Mobile Apps, AI Solutions create panna nanga ready. Ungaloda project pathi pesalama bro?"
+      : "Hello! Welcome to BitByte Technologies. We build custom Web Apps, Mobile Apps, AI Solutions, and Cloud Architecture. How can our team assist you with your project today?";
     return {
       success: true,
-      reply: "Hello! Welcome to BitByte Technologies. We build custom Web Apps, Mobile Apps, AI Solutions, and Cloud Architecture. How can our team assist you with your project today?",
+      reply: greetingReply,
       sources: [
         { title: "About BitByte Technologies", url: "/about" },
         { title: "Official Contact Channels & Salem Office Details", url: "/contact" },
@@ -139,13 +164,30 @@ export async function createChatReply(
   const cleanQuery = trimmedMessage.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
   const isBotIdentity = /^(what('?s|\s+is)?\s+(your|ur|u|you)\s+name|what\s+you\s+name|who\s+are\s+you|who\s+r\s+u|your\s+name|un\s*name\s*enna|un\s*per\s*enna|bot\s*name|bot\s*per|unga\s*per\s*enna|tell\s+me\s+your\s+name)\b/i.test(cleanQuery);
   if (isBotIdentity) {
+    const identityReply = detectedLang === "tanglish"
+      ? "Naan BitByte AI, BitByte Technologies-oda Official AI Technology Consultant. Ungaloda software development, web app, or AI project-ku naan eppadi help pannalam bro?"
+      : "I am BitByte AI, the official AI Technology Consultant for BitByte Technologies. How can our team assist you with your web app, mobile app, or software project today?";
     return {
       success: true,
-      reply: "I am BitByte AI, the official AI Technology Consultant for BitByte Technologies. How can our team assist you with your web app, mobile app, or AI project today?",
+      reply: identityReply,
       sources: [
         { title: "About BitByte Technologies", url: "/about" },
       ],
       matchedFaqs: ["What is your name?"],
+    };
+  }
+
+  // Handle queries asking for the user's own name (e.g. "my name?", "what is my name?")
+  const isMyNameQuery = /^(my\s+name|what('?s|\s+is)?\s+my\s+name|do\s+you\s+know\s+my\s+name|en\s*name|en\s*per)\b/i.test(cleanQuery);
+  if (isMyNameQuery) {
+    const myNameReply = detectedLang === "tanglish"
+      ? "Enakku unga name innum theriyathu bro! Unga per enna nu therinjukalama?"
+      : "As an AI assistant, I don't know your name yet. May I know who I am speaking with?";
+    return {
+      success: true,
+      reply: myNameReply,
+      sources: [{ title: "About BitByte Technologies", url: "/about" }],
+      matchedFaqs: [],
     };
   }
 
@@ -195,13 +237,24 @@ export async function createChatReply(
     messages.push(...sanitizedHistory);
   }
 
-  // Dynamic Script Enforcement: If user typed in Latin/English characters, strictly forbid Tamil script
-  const containsTamilScript = /[\u0B80-\u0BFF]/.test(message);
-  if (!containsTamilScript) {
+  // Dynamic Language & Script Enforcement based on exact user language
+  if (detectedLang === "english") {
     messages.push({
       role: "system",
       content:
-        "CRITICAL SCRIPT DIRECTIVE: The user's query is in Latin/English alphabet letters. You MUST NOT output any Tamil script characters (ZERO தமிழ் எழுத்துக்கள்). If the user wrote in Tanglish, reply strictly in TANGLISH using English alphabet letters only. If the user wrote in English, reply in English.",
+        "CRITICAL LANGUAGE ENFORCEMENT: The user asked in ENGLISH. You MUST reply STRICTLY in professional, polished corporate ENGLISH! ABSOLUTELY NEVER use Tanglish or Tamil words (do not use 'panrom', 'irukku', 'bro', 'nanga', 'thodharbu', etc.) when the user writes in English! Keep the reply crisp, natural, and executive.",
+    });
+  } else if (detectedLang === "tanglish") {
+    messages.push({
+      role: "system",
+      content:
+        "CRITICAL LANGUAGE ENFORCEMENT: The user asked in TANGLISH (Tamil words in English alphabet letters). You MUST reply strictly in TANGLISH using Latin/English alphabet letters only (ZERO தமிழ் எழுத்துக்கள்).",
+    });
+  } else if (detectedLang === "tamil_script") {
+    messages.push({
+      role: "system",
+      content:
+        "CRITICAL LANGUAGE ENFORCEMENT: The user asked in Tamil script. Reply in professional Tamil script.",
     });
   }
 
@@ -217,8 +270,14 @@ export async function createChatReply(
 
   const selectedModel = modelOverride || DEFAULT_OPENROUTER_MODEL;
 
+  const keyToUse =
+    apiKey ||
+    process.env.OPENROUTER_API_KEY ||
+    process.env.VITE_OPENROUTER_API_KEY ||
+    "";
+
   const headers = {
-    Authorization: `Bearer ${apiKey}`,
+    Authorization: `Bearer ${keyToUse}`,
     "Content-Type": "application/json",
     "HTTP-Referer": "https://bitbytetech.org",
     "X-Title": "BitByte Technologies AI Assistant",
@@ -226,7 +285,7 @@ export async function createChatReply(
 
   let replyText = "";
 
-  if (apiKey) {
+  if (keyToUse) {
     try {
       const response = await fetch(OPENROUTER_ENDPOINT, {
         method: "POST",
@@ -253,11 +312,21 @@ export async function createChatReply(
 
   // Resilient fallback to verified in-memory knowledge store if remote LLM timed out or errored
   if (!replyText) {
-    if (knowledge.matchedFaqs && knowledge.matchedFaqs.length > 0) {
+    if (knowledge.exactMatchFaq) {
+      replyText = knowledge.exactMatchFaq.answer;
+    } else if (knowledge.matchedFaqs && knowledge.matchedFaqs.length > 0) {
       replyText = knowledge.matchedFaqs[0].answer;
     } else {
-      replyText =
-        "BitByte Technologies Salem-la Custom Web Applications (React, Node, Next.js), Mobile Apps (Flutter, React Native), AI Solutions, matrum Cloud Architecture provide panrom. Let's schedule a free technical discovery call—WhatsApp +91 99437 43136 or email reachus@bitbytetech.org.";
+      if (detectedLang === "tanglish") {
+        replyText =
+          "BitByte Technologies Salem-la Custom Web Applications (React, Node, Next.js), Mobile Apps (Flutter, React Native), AI Solutions, matrum Cloud Architecture provide panrom bro. Discovery call schedule panna WhatsApp +91 99437 43136 or reachus@bitbytetech.org-ku contact pannunga.";
+      } else if (detectedLang === "tamil_script") {
+        replyText =
+          "பிட்பைட் டெக்னாலஜிஸ் நிறுவனம் சேலத்தில் வெப் அப்ளிகேஷன், மொபைல் ஆப் மற்றும் ஏஐ தீர்வுகளை வழங்குகிறது. மேலும் விவரங்களுக்கு எங்களை வாட்ஸ்அப் (+91 99437 43136) அல்லது reachus@bitbytetech.org வழியாக தொடர்பு கொள்ளவும்.";
+      } else {
+        replyText =
+          "BitByte Technologies delivers premier Custom Web Applications (React, Node, Next.js), Mobile Apps (Flutter, React Native), Enterprise AI Solutions, and Cloud Architecture. Schedule a free technical discovery call with our team via WhatsApp at +91 99437 43136 or email reachus@bitbytetech.org.";
+      }
     }
   }
 

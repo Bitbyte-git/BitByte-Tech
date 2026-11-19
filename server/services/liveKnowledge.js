@@ -1284,7 +1284,19 @@ export function findRelevantKnowledge(query) {
 
   scoredFaqs.sort((a, b) => b.score - a.score);
   const matchedFaqs = scoredFaqs.filter((item) => item.score >= 60).slice(0, 3).map((item) => item.faq);
-  const exactMatchFaq = scoredFaqs[0] && scoredFaqs[0].score >= 100 ? scoredFaqs[0].faq : null;
+
+  // Exact Match Guard: Only short-circuit for custom DB knowledge, leadership, or bot identity.
+  // Conversational questions (services, website, pricing, etc.) MUST be answered dynamically by AI!
+  const topFaq = scoredFaqs[0];
+  let exactMatchFaq = null;
+  if (topFaq && topFaq.score >= 120) {
+    const isLearnedDbFaq = Boolean(topFaq.faq.id || topFaq.faq.learnedAt || topFaq.faq.docTitle === "Learned & Verified Knowledge");
+    const isLeadershipFaq = topFaq.faq.docTitle === "Official Leadership Directory";
+    const isBotIdentity = topFaq.faq.docTitle === "BitByte AI Identity";
+    if (isLearnedDbFaq || isLeadershipFaq || isBotIdentity) {
+      exactMatchFaq = topFaq.faq;
+    }
+  }
 
   // 2. Score Documents
   const scoredDocs = COMPANY_DOCUMENTS.map((doc) => {
