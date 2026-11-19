@@ -135,6 +135,20 @@ export async function createChatReply(
     };
   }
 
+  // Instant zero-latency response for bot identity / name queries
+  const cleanQuery = trimmedMessage.toLowerCase().replace(/[^a-z0-9\s]/g, "").trim();
+  const isBotIdentity = /^(what('?s|\s+is)?\s+(your|ur|u|you)\s+name|what\s+you\s+name|who\s+are\s+you|who\s+r\s+u|your\s+name|un\s*name\s*enna|un\s*per\s*enna|bot\s*name|bot\s*per|unga\s*per\s*enna|tell\s+me\s+your\s+name)\b/i.test(cleanQuery);
+  if (isBotIdentity) {
+    return {
+      success: true,
+      reply: "I am BitByte AI, the official AI Technology Consultant for BitByte Technologies. How can our team assist you with your web app, mobile app, or AI project today?",
+      sources: [
+        { title: "About BitByte Technologies", url: "/about" },
+      ],
+      matchedFaqs: ["What is your name?"],
+    };
+  }
+
   // Background check for dynamic MongoDB Q&A updates without blocking response latency
   ensureMongoLoaded().catch(() => {});
 

@@ -556,6 +556,14 @@ Careers & Internships at BitByte Technologies (Salem, Tamil Nadu):
 
 export const FAQS = [
   {
+    question: "What is your name?",
+    answer:
+      "I am BitByte AI, the official AI Technology Consultant for BitByte Technologies. How can our team assist you with your web app, mobile app, or AI project today?",
+    docTitle: "BitByte AI Identity",
+    url: "/about",
+    tokens: ["what is your name", "what you name", "who are you", "your name", "bot name", "ai name", "un name enna", "un per enna", "what is your bot name", "what are you", "who r u"],
+  },
+  {
     question: "Who is the MD of BitByte Technologies?",
     answer:
       "The MD (Managing Director) of BitByte Technologies is Beemarao.",
@@ -1241,10 +1249,25 @@ export function findRelevantKnowledge(query) {
     const isPmQuery = /\b(pm|project\s*manager|jai\s*ramachandran)\b/i.test(queryLower);
     const isTeamQuery = /\b(team|members|employees|staff|developers|headcount|roster)\b/i.test(queryLower) && !isCeoQuery && !isEdQuery && !isMdQuery && !isPmQuery;
 
-    if (isCeoQuery && faq.tokens.some((t) => t.toLowerCase().includes("ceo"))) score += 300;
-    if (isEdQuery && faq.tokens.some((t) => t.toLowerCase().includes("ed"))) score += 300;
-    if (isMdQuery && faq.tokens.some((t) => t.toLowerCase().includes("md"))) score += 300;
-    if (isPmQuery && faq.tokens.some((t) => t.toLowerCase().includes("pm"))) score += 300;
+    // Leadership directory matching: strictly require the specific role to be queried!
+    const isLeadershipFaq = faq.docTitle === "Official Leadership Directory";
+    if (isLeadershipFaq) {
+      const isThisCeo = faq.tokens.some((t) => t.includes("ceo"));
+      const isThisEd = faq.tokens.some((t) => t.includes("ed"));
+      const isThisMd = faq.tokens.some((t) => t.includes("md"));
+      const isThisPm = faq.tokens.some((t) => t.includes("pm"));
+
+      if (isThisCeo && !isCeoQuery) score -= 500;
+      if (isThisEd && !isEdQuery) score -= 500;
+      if (isThisMd && !isMdQuery) score -= 500;
+      if (isThisPm && !isPmQuery) score -= 500;
+
+      if (isThisCeo && isCeoQuery) score += 300;
+      if (isThisEd && isEdQuery) score += 300;
+      if (isThisMd && isMdQuery) score += 300;
+      if (isThisPm && isPmQuery) score += 300;
+    }
+
     if (isTeamQuery && (faq.tokens.includes("employees") || faq.tokens.includes("team members") || faq.tokens.includes("developers"))) score += 300;
 
     // Never allow contaminated prompt instructions to match!
@@ -1260,7 +1283,7 @@ export function findRelevantKnowledge(query) {
   });
 
   scoredFaqs.sort((a, b) => b.score - a.score);
-  const matchedFaqs = scoredFaqs.filter((item) => item.score > 0).slice(0, 3).map((item) => item.faq);
+  const matchedFaqs = scoredFaqs.filter((item) => item.score >= 60).slice(0, 3).map((item) => item.faq);
   const exactMatchFaq = scoredFaqs[0] && scoredFaqs[0].score >= 100 ? scoredFaqs[0].faq : null;
 
   // 2. Score Documents
