@@ -21,8 +21,15 @@ for (const [route, modulePath] of Object.entries(routes)) {
   handlers[route] = module.default;
 }
 
+function setCorsHeaders(res) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE, PATCH");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, Accept");
+}
+
 function createResponse(req, res) {
   res.req = req;
+  setCorsHeaders(res);
 
   res.status = (code) => {
     res.statusCode = code;
@@ -45,6 +52,12 @@ const server = http.createServer((req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host || "127.0.0.1"}`);
     req.query = Object.fromEntries(url.searchParams.entries());
+
+    if (req.method === "OPTIONS") {
+      res.statusCode = 204;
+      return res.end();
+    }
+
     const handler = handlers[url.pathname];
 
     if (!handler) {
@@ -104,8 +117,8 @@ const server = http.createServer((req, res) => {
   }
 });
 
-const PORT = process.env.API_PORT || 3000;
+const PORT = process.env.PORT || process.env.API_PORT || 5000;
 
-server.listen(PORT, "127.0.0.1", () => {
-  console.log(`BitByte API running on http://127.0.0.1:${PORT}`);
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`BitByte API running on http://0.0.0.0:${PORT}`);
 });
